@@ -3,8 +3,6 @@ class HomeController < ApplicationController
   end
 
   def login
-  	puts 'ESTOU NO LOGIN !!!'
-  	puts user_params
   	user = User.find_by({login: user_params[:login]})
   	if user
 	  	if user.authenticate user_params[:password]
