@@ -19,6 +19,11 @@ class HomeController < ApplicationController
 		end
   end
 
+  def logout
+  	reset_session
+  	redirect_to root_path
+  end
+
   private 
 
   def user_params
