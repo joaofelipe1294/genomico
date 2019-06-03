@@ -1,37 +1,37 @@
 <%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <label>Nome</label>
+      <%= f.text_field :name, {class: 'form-control', required: true} %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :login %><br>
-    <%= f.text_field :login %>
-  </div>
-  <div class="field">
-    <%= f.label :password_digest %><br>
-    <%= f.text_field :password_digest %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :is_active %><br>
-    <%= f.check_box :is_active %>
-  </div>
-  <div class="field">
-    <%= f.label :user_kind_id %><br>
-    <%= f.text_field :user_kind_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+      <label>Login</label>
+      <%= f.text_field :login, {class: 'form-control', required: true} %>
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <%= f.password_field :password, {class: 'form-control', required: true} %>
+    </div>
+    <div class = 'form-group'>
+      <label>Confirme a senha</label>
+      <%= f.password_field :password_confirmation, {class: 'form-control', required: true} %>
+    </div>
+    <div class='form-group'>
+      <label>Tipo de usuário</label>
+      <%= f.select :user_kind, options_from_collection_for_select(@user_kinds, 'id', 'name'), {}, {class: 'form-control'} %>
+    </div>
+    <button class="btn btn-outline-<%= locals[:type] %> float-right">
+      Salvar
+    </button>
 <% end %>
