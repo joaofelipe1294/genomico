@@ -26,10 +26,17 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    if @user.authenticate user_params[:password_confirmation]
+      flash[:warning] = 'As senhas informadas não combinam.'
+      @user_kinds = UserKind.all.order(:name)
+      return render new_user_path(@user) 
+    end
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+      flash[:success] = 'Usuário cadastrado com sucesso.'
+      redirect_to home_admin_index_path
     else
-      render :new
+      flash[:warning] = 'Houve um erro no cadastro do usuário.'
+      redirect_to new_user_path(@user)
     end
   end
 

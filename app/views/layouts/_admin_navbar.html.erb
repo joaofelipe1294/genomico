@@ -23,3 +23,15 @@
     <%= link_to 'Logout', home_logout_path,{method: :post, class: 'btn btn-sm btn-outline-dark'} %>
   </div>
 </nav>
+
+<% if flash[:success] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:success] %>
+  </div>
+<% end %>
+
+<% if flash[:warning] %>
+  <div class="alert alert-danger" role = 'alert'>
+    <%= flash[:warning] %>
+  </div>
+<% end %>
