@@ -2,7 +2,7 @@
 	Bem vindo
 </h1>
 
-<%= form_tag method: :post do %>
+<%= form_tag(home_longin_path, method: :post) do %>
 	<div class = 'form-group'>
 		<label>Login</label>
 		<%= text_field_tag :login, {},{required: true, class: 'form-control'} %>
