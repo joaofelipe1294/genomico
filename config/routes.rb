@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'home_admin/index'
-
   root 'home#index'
   post 'home/longin', to: 'home#login'
+  get 'home_admin/index', to: 'home_admin#index'
   resources :users
 end
