@@ -1,0 +1,2 @@
+module HomeAdminHelper
+end

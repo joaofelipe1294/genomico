@@ -19,15 +19,10 @@ class HomeController < ApplicationController
 		end
   end
 
-
-
   private 
 
   def user_params
   	params.permit(:login, :password)
   end
-
-
-
 
 end
