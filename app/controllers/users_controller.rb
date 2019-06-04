@@ -29,18 +29,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     puts @user.inspect
     if user_params[:password] != user_params[:password_confirmation]
-      @user.errors[:password] = ' informadas não combinam.'
-      # flash[:warning] = 'As senhas informadas não combinam.'
+      @user.errors[:password] = ' informada não combina.'
       @user_kinds = UserKind.all.order(name: :desc)
       return render new_user_path(@user) 
     end
     if @user.save
-      puts @user.errors
       flash[:success] = 'Usuário cadastrado com sucesso.'
       redirect_to home_admin_index_path
     else
-      # flash[:warning] = 'Houve um erro no cadastro do usuário.'
-      # redirect_to new_user_path(@user)
       @user_kinds = UserKind.all.order(name: :desc)
       render new_user_path(@user)
     end
