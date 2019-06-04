@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   post 'users/:id/active', to: 'users#activate', as: :activate_user
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
   get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
-  resources :users
+  resources :users, except: [:show]
 end
