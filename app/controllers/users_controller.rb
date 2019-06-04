@@ -85,9 +85,6 @@ class UsersController < ApplicationController
 
   def change_password
     @user = User.find params[:id]
-    puts 'MALAKOS '
-    puts params[:password]
-    puts @user.inspect
     if user_params[:password] != user_params[:password_confirmation] || user_params[:password].empty?
       flash[:warning] = 'As senhas informadas não combinam.'
       render :change_password_view
@@ -95,7 +92,6 @@ class UsersController < ApplicationController
       flash[:success] = 'Senha alterada com sucesso.'
       redirect_to home_admin_index_path
     else
-      puts @user.errors.inspect
       flash[:warning] = 'Houve um problema no servidor, tente novamente mais tarde.'
       render :change_password_view
     end
