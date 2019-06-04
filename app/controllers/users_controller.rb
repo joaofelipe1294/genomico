@@ -79,6 +79,28 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_password_view
+    @user = User.find params[:id]
+  end
+
+  def change_password
+    @user = User.find params[:id]
+    puts 'MALAKOS '
+    puts params[:password]
+    puts @user.inspect
+    if user_params[:password] != user_params[:password_confirmation] || user_params[:password].empty?
+      flash[:warning] = 'As senhas informadas não combinam.'
+      render :change_password_view
+    elsif @user.update(user_params)
+      flash[:success] = 'Senha alterada com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      puts @user.errors.inspect
+      flash[:warning] = 'Houve um problema no servidor, tente novamente mais tarde.'
+      render :change_password_view
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -98,4 +120,5 @@ class UsersController < ApplicationController
         @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
       end
     end
+
 end
