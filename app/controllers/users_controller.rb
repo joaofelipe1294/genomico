@@ -4,12 +4,6 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    # if params[:kind].nil?
-    #   @users = User.all.order(:name)
-    # else
-    #   @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
-    #   @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
-    # end
     set_users
   end
 
@@ -64,23 +58,29 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    # @user.is_active = false
     if @user.update({is_active: false})
       flash[:success] = 'Usuário inativado com sucesso.'
       redirect_to home_admin_index_path
     else
-      puts @user.errors.inspect
       flash[:warning] = 'Não foi possível inativar este usuário.'
       set_users
       render :index
     end
-    # @user.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
   end
 
+  #POST /activate
+  def activate
+    user = User.find params[:id]
+    if user.update({is_active: true})
+      flash[:success] = 'Usuário reativado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      flash[:warning] = 'Não foi possível ativar o usuário, tente novamente mais tarde.'
+      set_users
+      render :index
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

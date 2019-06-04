@@ -49,10 +49,9 @@
             <button>Editar</button>
             <%= link_to 'Desabilitar', user_path(user), {method: :delete, data: {confirm: 'Tem certeza ?'}, class: 'btn btn-sm btn-outline-danger'} %> 
           <% else %>
-            <button>Habilitar</button>
+            <!-- <button>Habilitar</button> -->
+            <%= link_to 'Habilitar', activate_user_path(user), {method: :post, class: 'btn btn-sm btn-outline-info'} %>
           <% end %>
-
-          
         </td>
       </tr>
     <% end %>
