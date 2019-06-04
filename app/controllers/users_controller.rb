@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :admin_filter
+
 
   # GET /users
   # GET /users.json
@@ -114,6 +116,19 @@ class UsersController < ApplicationController
       else
         @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
         @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
+      end
+    end
+
+    def admin_filter
+      user = User.find_by({
+        id: session[:user_id],
+        login: session[:user_login],
+        user_kind: UserKind.find_by({name: 'admin'})
+      })
+      if user.nil?
+        reset_session
+        flash[:warning] = 'Credenciais inválidas.'
+        redirect_to root_path
       end
     end
 
