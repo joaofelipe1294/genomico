@@ -15,28 +15,34 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @user_kinds = UserKind.all.order(:name)
+    @user_kinds = UserKind.all.order(name: :desc)
   end
 
   # GET /users/1/edit
   def edit
+    @user_kinds = UserKind.all.order(name: :desc)
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-    if @user.authenticate user_params[:password_confirmation]
-      flash[:warning] = 'As senhas informadas não combinam.'
-      @user_kinds = UserKind.all.order(:name)
+    puts @user.inspect
+    if user_params[:password] != user_params[:password_confirmation]
+      @user.errors[:password] = ' informadas não combinam.'
+      # flash[:warning] = 'As senhas informadas não combinam.'
+      @user_kinds = UserKind.all.order(name: :desc)
       return render new_user_path(@user) 
     end
     if @user.save
+      puts @user.errors
       flash[:success] = 'Usuário cadastrado com sucesso.'
       redirect_to home_admin_index_path
     else
-      flash[:warning] = 'Houve um erro no cadastro do usuário.'
-      redirect_to new_user_path(@user)
+      # flash[:warning] = 'Houve um erro no cadastro do usuário.'
+      # redirect_to new_user_path(@user)
+      @user_kinds = UserKind.all.order(name: :desc)
+      render new_user_path(@user)
     end
   end
 

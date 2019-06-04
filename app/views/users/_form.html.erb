@@ -1,37 +1,40 @@
 <%= form_for(@user) do |f| %>
-    <!-- <% if @user.errors.any? %> -->
-      <!-- <div id="error_explanation"> -->
-        <!-- <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2> -->
-<!-- 
-        <ul>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2 class="text-danger"> 
+          Há erros no formulário, por favor verifique.
+        </h2>
+        <ul class="text-danger">
         <% @user.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
         </ul>
-      </div> -->
-    <!-- <% end %> -->
+      </div> 
+     <% end %> 
 
     <div class="form-group">
-      <label>Nome</label>
+      <%= f.label :name %>
       <%= f.text_field :name, {class: 'form-control', required: true} %>
     </div>
     <div class="form-group">
-      <label>Login</label>
+      <%= f.label :login %>
       <%= f.text_field :login, {class: 'form-control', required: true} %>
     </div>
     <div class="form-group">
-      <label>Senha</label>
+      <%= f.label :password %>
       <%= f.password_field :password, {class: 'form-control', required: true} %>
     </div>
     <div class = 'form-group'>
-      <label>Confirme a senha</label>
+      <!-- <label>Confirme a senha</label> -->
+      <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, {class: 'form-control', required: true} %>
     </div>
     <div class='form-group'>
-      <label>Tipo de usuário</label>
+      <%= f.label :user_kind %>
       <%= f.select :user_kind_id, options_from_collection_for_select(@user_kinds, 'id', 'name'), {}, {class: 'form-control'} %>
     </div>
     <button class="btn btn-outline-<%= locals[:type] %> float-right">
       Salvar
     </button>
 <% end %>
+
