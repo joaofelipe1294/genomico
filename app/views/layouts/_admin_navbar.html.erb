@@ -18,7 +18,7 @@
       </li>
     </ul>
     <label class="h4 mr-3 mb-0">
-      <%= User.find(session[:user_id]).login %>
+      <%= session[:user_login] %>
     </label>
     <%= link_to 'Logout', home_logout_path,{method: :post, class: 'btn btn-sm btn-outline-dark'} %>
   </div>
