@@ -119,17 +119,4 @@ class UsersController < ApplicationController
       end
     end
 
-    def admin_filter
-      user = User.find_by({
-        id: session[:user_id],
-        login: session[:user_login],
-        user_kind: UserKind.find_by({name: 'admin'})
-      })
-      if user.nil?
-        reset_session
-        flash[:warning] = 'Credenciais inválidas.'
-        redirect_to root_path
-      end
-    end
-
 end
