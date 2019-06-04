@@ -27,7 +27,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    puts @user.inspect
     if user_params[:password] != user_params[:password_confirmation]
       @user.errors[:password] = ' informada não combina.'
       @user_kinds = UserKind.all.order(name: :desc)
