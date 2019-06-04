@@ -4,7 +4,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all.order(:name)
+    if params[:kind].nil?
+      @users = User.all.order(:name)
+    else
+      @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
+      @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
+    end
   end
 
   # GET /users/1
