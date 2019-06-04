@@ -1,0 +1,12 @@
+"pt-BR":
+  activerecord:
+    models:
+      user: Usuários
+    attributes:
+      user:
+        login: Login
+        password: Senha
+        password_confirmation: Confirmação de senha
+        name: Nome
+        is_active: Ativo
+        user_kind: Tipo de usuário
