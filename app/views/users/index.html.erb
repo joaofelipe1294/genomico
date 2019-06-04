@@ -1,6 +1,11 @@
 <%= render 'layouts/admin_navbar' %>
 
-<table class = 'table text-center mt-5 col-md-8 offset-md-2'>
+<% if params[:kind].nil? == false && params[:kind] == 'admin'%>
+  <h3 class = 'text-center mt-2'>Admnistradores</h3>
+<% elsif params[:kind].nil? == false && params[:kind] == 'user'%>
+  <h3 class = 'text-center'>Usuários</h3>
+<% end %>
+<table class = 'table text-center mt-3 col-md-8 offset-md-2'>
   <thead class="bg-dark text-white">
     <th>
       <h3>Login</h3>
@@ -21,7 +26,6 @@
       <tr>
         <td><%= user.login %></td>
         <td><%= user.name %></td>
-
         <% if params[:kind].nil? %>
           <td> 
             <% if user.user_kind.name == 'admin' %>
@@ -31,7 +35,6 @@
             <% end %> 
           </td>
         <% end %>
-
         <% if user.is_active %>
           <td>
             <span class = 'text-success'>Ativo</span>
