@@ -4,12 +4,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    if params[:kind].nil?
-      @users = User.all.order(:name)
-    else
-      @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
-      @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
-    end
+    # if params[:kind].nil?
+    #   @users = User.all.order(:name)
+    # else
+    #   @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
+    #   @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
+    # end
+    set_users
   end
 
   # GET /users/1
@@ -63,11 +64,21 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    # @user.is_active = false
+    if @user.update({is_active: false})
+      flash[:success] = 'Usuário inativado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      puts @user.errors.inspect
+      flash[:warning] = 'Não foi possível inativar este usuário.'
+      set_users
+      render :index
     end
+    # @user.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
@@ -79,5 +90,14 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id)
+    end
+
+    def set_users
+      if params[:kind].nil?
+        @users = User.all.order(:name)
+      else
+        @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
+        @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
+      end
     end
 end
