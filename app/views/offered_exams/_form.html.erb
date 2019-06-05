@@ -11,19 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="field form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, {class: 'form-control'}%>
   </div>
-  <div class="field">
-    <%= f.label :field_id %><br>
-    <%= f.text_field :field_id %>
+  <div class="field form-group">
+    <%= f.label :field_id %>
+    <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name'), {}, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :is_active %><br>
-    <%= f.check_box :is_active %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <button class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
 <% end %>

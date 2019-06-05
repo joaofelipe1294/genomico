@@ -15,6 +15,7 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams/new
   def new
     @offered_exam = OfferedExam.new
+    @fields = Field.all.order(:name)
   end
 
   # GET /offered_exams/1/edit
