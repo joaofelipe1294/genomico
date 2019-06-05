@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :exam_kinds
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
