@@ -1,1 +1,3 @@
-<%= render 'user_card', locals: {name: 'Editar usuário', type: 'warning'} %>
+<%= render 'layouts/admin_navbar' %>
+
+<%= render 'shared/card', locals: {form: 'users/form', action: :edit, title: 'Editar usuário'}%>
