@@ -26,15 +26,12 @@ class OfferedExamsController < ApplicationController
   # POST /offered_exams.json
   def create
     @offered_exam = OfferedExam.new(offered_exam_params)
-
-    respond_to do |format|
-      if @offered_exam.save
-        format.html { redirect_to @offered_exam, notice: 'Offered exam was successfully created.' }
-        format.json { render :show, status: :created, location: @offered_exam }
-      else
-        format.html { render :new }
-        format.json { render json: @offered_exam.errors, status: :unprocessable_entity }
-      end
+    if @offered_exam.save
+      flash[:success] = 'Exame ofertado cadastrado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      @fields = Field.all.order(:name)
+      render :new
     end
   end
 
