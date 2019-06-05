@@ -3,6 +3,7 @@
     models:
       user_kind: Tipo de usuário
       user: Usuários
+      field: Área
     attributes:
       user_kind:
         name: Nome
@@ -13,3 +14,5 @@
         name: Nome
         is_active: Ativo
         user_kind: Tipo de usuário
+      field:
+        name: Nome
