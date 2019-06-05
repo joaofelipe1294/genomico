@@ -4,6 +4,7 @@
       user_kind: Tipo de usuário
       user: Usuários
       field: Área
+      exam_kind: Tipo de exame
     attributes:
       user_kind:
         name: Nome
@@ -16,3 +17,7 @@
         user_kind: Tipo de usuário
       field:
         name: Nome
+      exam_kind:
+        name: Nome
+        field_id: Área do Exame
+        is_active: Ativo
