@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Exam Kinds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Field</th>
+      <th>Is active</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @exam_kinds.each do |exam_kind| %>
+      <tr>
+        <td><%= exam_kind.name %></td>
+        <td><%= exam_kind.field %></td>
+        <td><%= exam_kind.is_active %></td>
+        <td><%= link_to 'Show', exam_kind %></td>
+        <td><%= link_to 'Edit', edit_exam_kind_path(exam_kind) %></td>
+        <td><%= link_to 'Destroy', exam_kind, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Exam kind', new_exam_kind_path %>
