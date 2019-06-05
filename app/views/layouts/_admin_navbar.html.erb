@@ -6,20 +6,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Usuário
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_user_path, {class: 'dropdown-item'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Usuários', users_path({kind: 'user'}), {class: 'dropdown-item'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Administradores', users_path({kind: 'admin'}), {class: 'dropdown-item'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Todos', users_path, {class: 'dropdown-item'} %>
-        </div>
-      </li>
+      <%= render 'layouts/admin_navbar_dropdowns/user' %>
     </ul>
     <label class="h4 mr-3 mb-0">
       <%= session[:user_login] %>
@@ -28,4 +15,4 @@
   </div>
 </nav>
 
-<% render 'shared/flash_feedback' %>
+<%= render 'shared/flash_feedback' %>
