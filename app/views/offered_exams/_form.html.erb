@@ -23,11 +23,5 @@
     <%= f.label :field_id %>
     <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name'), {}, {class: 'form-control'} %>
   </div>
-  <% if locals[:action] == :new %>
-    <button class="btn btn-outline-primary float-right">
-  <% else %>
-    <button class="btn btn-outline-warning float-right">
-  <% end %>
-    Salvar
-  </button>
+  <%= render 'shared/form_button', locals: {action: locals[:action]} %>
 <% end %>
