@@ -32,7 +32,11 @@
     <% end %>
     <div class='form-group'>
       <%= f.label :user_kind %>
-      <%= f.select :user_kind_id, options_from_collection_for_select(@user_kinds, 'id', 'name', selected: @user.user_kind.id), {}, {class: 'form-control'} %>
+      <% if @user.user_kind.nil? %>
+        <%= f.select :user_kind_id, options_from_collection_for_select(@user_kinds, 'id', 'name'), {}, {class: 'form-control'} %>
+      <% else %>
+        <%= f.select :user_kind_id, options_from_collection_for_select(@user_kinds, 'id', 'name', selected: @user.user_kind.id), {}, {class: 'form-control'} %>
+      <% end %>
     </div>
     <button class="btn btn-outline-<%= locals[:type] %> float-right">
       Salvar
