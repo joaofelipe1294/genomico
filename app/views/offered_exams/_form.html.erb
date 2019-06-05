@@ -1,11 +1,15 @@
 <%= form_for(@offered_exam) do |f| %>
   <% if @offered_exam.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@offered_exam.errors.count, "error") %> prohibited this offered_exam from being saved:</h2>
+      <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
 
       <ul>
       <% @offered_exam.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li>
+          <span class = 'text-danger'>
+            <%= message %>
+          </span>
+        </li>
       <% end %>
       </ul>
     </div>
