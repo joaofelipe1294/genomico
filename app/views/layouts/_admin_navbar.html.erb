@@ -28,14 +28,4 @@
   </div>
 </nav>
 
-<% if flash[:success] %>
-  <div class="alert alert-success" role="alert">
-    <%= flash[:success] %>
-  </div>
-<% end %>
-
-<% if flash[:warning] %>
-  <div class="alert alert-danger" role = 'alert'>
-    <%= flash[:warning] %>
-  </div>
-<% end %>
+<% render 'shared/flash_feedback' %>
