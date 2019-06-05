@@ -1,1 +1,3 @@
-<%= render 'user_card', locals: {name: 'Novo usuário', type: 'primary'} %>
+<%= render 'layouts/admin_navbar' %>
+
+<%= render 'shared/card', locals: {form: 'users/form', action: :new, title: 'Novo usuário'} %>
