@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :login, uniqueness: true
   validates :login, :name, :user_kind_id, presence: true
-	after_initialize :default_values
-	
-	def default_values
-		self.is_active = true if self.is_active.nil?
-	end
+  after_initialize :default_values
+
+  def default_values
+    self.is_active = true if self.is_active.nil?
+  end
 
 end
