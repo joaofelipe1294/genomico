@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :offered_exams
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'

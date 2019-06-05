@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @offered_exam.name %>
+</p>
+
+<p>
+  <strong>Field:</strong>
+  <%= @offered_exam.field %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @offered_exam.is_active %>
+</p>
+
+<%= link_to 'Edit', edit_offered_exam_path(@offered_exam) %> |
+<%= link_to 'Back', offered_exams_path %>

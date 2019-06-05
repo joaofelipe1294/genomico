@@ -1,0 +1,29 @@
+<%= form_for(@offered_exam) do |f| %>
+  <% if @offered_exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@offered_exam.errors.count, "error") %> prohibited this offered_exam from being saved:</h2>
+
+      <ul>
+      <% @offered_exam.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :field_id %><br>
+    <%= f.text_field :field_id %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br>
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
