@@ -7,6 +7,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <%= render 'layouts/admin_navbar_dropdowns/user' %>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Exame
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Novo', new_exam_kind_path, {class: 'dropdown-item'} %>
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+
     </ul>
     <label class="h4 mr-3 mb-0">
       <%= session[:user_login] %>
