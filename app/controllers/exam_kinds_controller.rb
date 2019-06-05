@@ -15,6 +15,7 @@ class ExamKindsController < ApplicationController
   # GET /exam_kinds/new
   def new
     @exam_kind = ExamKind.new
+    @fields = Field.all.order(:name)
   end
 
   # GET /exam_kinds/1/edit
