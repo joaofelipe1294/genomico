@@ -1,31 +1,75 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/admin_navbar' %>
 
-<h1>Listing Offered Exams</h1>
+<div class="col-md-12">
+  <div class="mt-3 col-md-5 mb-3 d-inline-block offset-md-1 border-right">
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Field</th>
-      <th>Is active</th>
-      <th colspan="3"></th>
-    </tr>
+    <%= form_tag(offered_exams_path, {method: :get}) do %>
+      <div class="form-group">
+        <label>Buscar exames por área</label>  
+        <%= select_tag :field ,options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control'} %>
+      </div>
+      <div>
+        <button class="btn btn-outline-info">
+          Buscar
+        </button>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="mt-3 col-md-5 mb-3 d-inline-block">
+
+    <%= form_tag(offered_exams_path, {method: :get}) do %>
+      <div class="form-group">
+        <label>Buscar exames por área</label>  
+        <%= select_tag :field ,options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control'} %>
+      </div>
+      <div>
+        <button class="btn btn-outline-info">
+          Buscar
+        </button>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+
+
+
+
+<table class="table text-center">
+  <thead class="bg-dark text-white">
+    <th>Nome</th>
+    <th>Status</th>
+    <th>Área</th>
+    <th></th>
   </thead>
-
   <tbody>
-    <% @offered_exams.each do |offered_exam| %>
+    <% @offered_exams.each do |exam| %>
       <tr>
-        <td><%= offered_exam.name %></td>
-        <td><%= offered_exam.field %></td>
-        <td><%= offered_exam.is_active %></td>
-        <td><%= link_to 'Show', offered_exam %></td>
-        <td><%= link_to 'Edit', edit_offered_exam_path(offered_exam) %></td>
-        <td><%= link_to 'Destroy', offered_exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= exam.name %>
+        </td>
+        <td>
+          <% if exam.is_active %>
+            <span class="text-info">
+              Ativo
+            </span>
+          <% else %>
+            <span class="text-danger">
+              Inativo
+            </span>
+          <% end %>
+        </td>
+        <td>
+          <%= exam.field.name %>
+        <td>
+          <button>
+            Yo !
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Offered exam', new_offered_exam_path %>

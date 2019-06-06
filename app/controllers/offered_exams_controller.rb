@@ -4,7 +4,12 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams
   # GET /offered_exams.json
   def index
-    @offered_exams = OfferedExam.all
+    @fields = Field.all.order(:name)
+    if params[:field].nil?
+      @offered_exams = OfferedExam.all.order(name: :asc)
+    else
+      @offered_exams = OfferedExam.where({field: Field.find(params[:field])}).order(:name)
+    end
   end
 
   # GET /offered_exams/1
