@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home_user/index'
+
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'

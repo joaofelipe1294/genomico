@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 	  		session[:user_id] = user.id
         session[:user_login] = user.login
 	  		redirect_to home_admin_index_path if user.user_kind == UserKind.find_by({name: 'admin'}) 
-	  		redirect_to root_path if user.user_kind == UserKind.find_by({name: 'user'})
+	  		redirect_to home_user_index_path if user.user_kind == UserKind.find_by({name: 'user'})
 			else
 				flash[:warning] = 'Login ou senha inválidos.'
 				redirect_to root_path
