@@ -1,5 +1,5 @@
 class OfferedExamsController < ApplicationController
-  before_action :set_offered_exam, only: [:show, :edit, :update, :destroy]
+  before_action :set_offered_exam, only: [:show, :edit, :update, :destroy, :active_exam]
 
   # GET /offered_exams
   # GET /offered_exams.json
@@ -61,6 +61,17 @@ class OfferedExamsController < ApplicationController
   def destroy
     if @offered_exam.update({is_active: false})
       flash[:success] = 'Exame desativado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
+      redirect_to offered_exams_path
+    end
+  end
+
+  #POST /offered_exams/:id/activate
+  def active_exam
+    if @offered_exam.update({is_active: true})
+      flash[:success] = 'Exame ativado com sucesso.'
       redirect_to home_admin_index_path
     else
       flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'

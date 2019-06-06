@@ -65,14 +65,12 @@
             <button>
               Editar
             </button>
-            <!-- <button>
-              Desabilitar
-            </button> -->
             <%= link_to 'Desabilitar', offered_exam_path(exam), {method: :delete, class: 'btn btn-sm btn-outline-danger', data: {confirm: 'Tem certeza ?'}} %>
           <% else %>
-            <button>
+            <!-- <button>
               Habilitar
-            </button>
+            </button> -->
+            <%= link_to 'Habilitar', activate_offered_exam_path(exam), {method: :post, class: 'btn btn-sm btn-outline-secondary'} %>
           <% end %>
         </td>
       </tr>
