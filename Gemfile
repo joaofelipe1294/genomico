@@ -24,6 +24,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Bootstrap 4 rubygem for Rails / Sprockets / Hanami / etc https://rubygems.org/gems/bootstrap
 gem 'bootstrap', '~> 4.3.1'
+#⚡ A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps https://github.com/amatsuda/kaminari/…
+gem 'kaminari'
+#Gem - Bootstrap 4 styling for Kaminari gem 
+gem 'bootstrap4-kaminari-views'
 
 
 # Use ActiveModel has_secure_password
