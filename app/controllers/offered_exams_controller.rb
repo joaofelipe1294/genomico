@@ -27,6 +27,7 @@ class OfferedExamsController < ApplicationController
 
   # GET /offered_exams/1/edit
   def edit
+    @fields = Field.all.order(:name)
   end
 
   # POST /offered_exams
@@ -45,14 +46,12 @@ class OfferedExamsController < ApplicationController
   # PATCH/PUT /offered_exams/1
   # PATCH/PUT /offered_exams/1.json
   def update
-    respond_to do |format|
-      if @offered_exam.update(offered_exam_params)
-        format.html { redirect_to @offered_exam, notice: 'Offered exam was successfully updated.' }
-        format.json { render :show, status: :ok, location: @offered_exam }
-      else
-        format.html { render :edit }
-        format.json { render json: @offered_exam.errors, status: :unprocessable_entity }
-      end
+    if @offered_exam.update(offered_exam_params)
+      flash[:success] = 'Exame ofertado editado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      @fields = Field.all.order(:name)
+      render :edit
     end
   end
 

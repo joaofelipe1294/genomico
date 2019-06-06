@@ -21,7 +21,11 @@
   </div>
   <div class="field form-group">
     <%= f.label :field_id %>
-    <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name'), {}, {class: 'form-control'} %>
+    <% if @offered_exam.field.nil? %>
+      <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name'), {}, {class: 'form-control'} %>
+    <% else %>
+      <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name', selected: @offered_exam.field.id), {}, {class: 'form-control'} %>
+    <% end %>
   </div>
   <%= render 'shared/form_button', locals: {action: locals[:action]} %>
 <% end %>
