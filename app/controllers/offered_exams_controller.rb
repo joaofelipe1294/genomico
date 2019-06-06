@@ -6,11 +6,11 @@ class OfferedExamsController < ApplicationController
   def index
     @fields = Field.all.order(:name)
     if params.has_key? :field
-      @offered_exams = OfferedExam.where({field: Field.find(params[:field])}).order(:name)
+      @offered_exams = OfferedExam.where({field: Field.find(params[:field])}).order(:name).page params[:page]
     elsif params.has_key? :name
-      @offered_exams = OfferedExam.where("name LIKE ?", "%#{params[:name]}%")
+      @offered_exams = OfferedExam.where("name LIKE ?", "%#{params[:name]}%").page params[:page]
     else
-      @offered_exams = OfferedExam.all.order(name: :asc)
+      @offered_exams = OfferedExam.all.order(name: :asc).page params[:page]
     end
   end
 
