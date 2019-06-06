@@ -28,6 +28,9 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'kaminari'
 #Gem - Bootstrap 4 styling for Kaminari gem 
 gem 'bootstrap4-kaminari-views'
+#Translations for the kaminari gem 
+gem 'kaminari-i18n'
+
 
 
 # Use ActiveModel has_secure_password
