@@ -21,8 +21,8 @@
 
     <%= form_tag(offered_exams_path, {method: :get}) do %>
       <div class="form-group">
-        <label>Buscar exames por área</label>  
-        <%= select_tag :field ,options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control'} %>
+        <label>Buscar nome</label>  
+        <%= text_field_tag :name, '', {class: 'form-control'} %>
       </div>
       <div>
         <button class="btn btn-outline-info">

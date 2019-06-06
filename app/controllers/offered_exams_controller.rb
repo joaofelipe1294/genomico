@@ -5,10 +5,12 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams.json
   def index
     @fields = Field.all.order(:name)
-    if params[:field].nil?
-      @offered_exams = OfferedExam.all.order(name: :asc)
-    else
+    if params.has_key? :field
       @offered_exams = OfferedExam.where({field: Field.find(params[:field])}).order(:name)
+    elsif params.has_key? :name
+      @offered_exams = OfferedExam.where("name LIKE ?", "%#{params[:name]}%")
+    else
+      @offered_exams = OfferedExam.all.order(name: :asc)
     end
   end
 
