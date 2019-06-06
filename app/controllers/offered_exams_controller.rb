@@ -17,6 +17,7 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams/1
   # GET /offered_exams/1.json
   def show
+    redirect_to home_admin_index_path
   end
 
   # GET /offered_exams/new

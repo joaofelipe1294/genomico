@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to home_admin_index_path
   end
 
   # GET /users/new
