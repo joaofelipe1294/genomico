@@ -59,10 +59,12 @@ class OfferedExamsController < ApplicationController
   # DELETE /offered_exams/1
   # DELETE /offered_exams/1.json
   def destroy
-    @offered_exam.destroy
-    respond_to do |format|
-      format.html { redirect_to offered_exams_url, notice: 'Offered exam was successfully destroyed.' }
-      format.json { head :no_content }
+    if @offered_exam.update({is_active: false})
+      flash[:success] = 'Exame desativado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
+      redirect_to offered_exams_path
     end
   end
 
