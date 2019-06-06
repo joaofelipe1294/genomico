@@ -1,5 +1,6 @@
 class OfferedExamsController < ApplicationController
   before_action :set_offered_exam, only: [:show, :edit, :update, :destroy, :active_exam]
+  before_action :admin_filter
 
   # GET /offered_exams
   # GET /offered_exams.json
