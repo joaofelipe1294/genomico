@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :patients
   get 'home_user/index'
 
   root 'home#index'
