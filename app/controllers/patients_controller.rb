@@ -4,7 +4,11 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    @patients = Patient.all.page params[:page]
+    if params[:name].nil? == false
+      @patients = Patient.where("name ILIKE ?", "%#{params[:name]}%").order(:name).page params[:page]
+    else
+      @patients = Patient.all.order(:name).page params[:page]
+    end
   end
 
   # GET /patients/1
