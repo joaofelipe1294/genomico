@@ -1,5 +1,36 @@
 <%= render 'layouts/user_navbar' %>
 
-<h1>
-  ESTOU NO INDIXE
-</h1>
+<table class = 'table table-bordered mt-5 text-center'>
+  <thead class="bg-dark text-white">
+    <th>
+      <h4>Nome</h4>
+    </th>
+    <th>
+      <h4>Data de nascimento</h4>
+    </th>
+    <th>
+      <h4>Nome da mãe</h4>
+    </th>
+    <th>
+      <h4>Prontuário</h4>
+    </th>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td>
+          <%= patient.name %>
+        </td>
+        <td>
+          <%= l patient.birth_date %>
+        </td>
+        <td>
+          <%= patient.mother_name %>
+        </td>
+        <td>
+          <%= patient.medical_record %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
