@@ -6,6 +6,8 @@ class PatientsController < ApplicationController
   def index
     if params[:name].nil? == false
       @patients = Patient.where("name ILIKE ?", "%#{params[:name]}%").order(:name).page params[:page]
+    elsif params[:medical_record].nil? == false
+      @patients = Patient.where({medical_record: params[:medical_record]}).page params[:page]
     else
       @patients = Patient.all.order(:name).page params[:page]
     end
