@@ -26,10 +26,7 @@
   </div>
   <div class="form-group">
     <%= f.label :medical_record %>
-    <%= f.number_field :medical_record, {class: 'form-control'} %>
+    <%= f.text_field :medical_record, {class: 'form-control',  pattern: "^(0|[1-9][0-9]*)$"} %>
   </div>
-  <!-- <div class="actions">
-    <%= f.submit %>
-  </div> -->
   <%= render 'shared/form_button', locals: {action: locals[:action]} %>
 <% end %>

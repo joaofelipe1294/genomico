@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20190606172824) do
     t.string   "name"
     t.date     "birth_date"
     t.string   "mother_name"
-    t.integer  "medical_record"
+    t.string   "medical_record"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
