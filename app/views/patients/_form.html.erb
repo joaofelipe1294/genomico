@@ -13,21 +13,23 @@
 
   <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, {class: 'form-control'}%>
+    <%= f.text_field :name, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :birth_date %><br>
-    <%= f.date_select :birth_date %>
+  <div class="form-group">
+    <%= f.label :birth_date %>
+    <br>
+    <%= f.date_select :birth_date,{order: [:day, :month, :year]}, {class: 'form-control date-select '} %>
   </div>
-  <div class="field">
-    <%= f.label :mother_name %><br>
-    <%= f.text_field :mother_name %>
+  <div class="form-group">
+    <%= f.label :mother_name %>
+    <%= f.text_field :mother_name, {class: 'form-control'} %>
   </div>
-  <div class="field">
-    <%= f.label :medical_record %><br>
-    <%= f.number_field :medical_record %>
+  <div class="form-group">
+    <%= f.label :medical_record %>
+    <%= f.number_field :medical_record, {class: 'form-control'} %>
   </div>
-  <div class="actions">
+  <!-- <div class="actions">
     <%= f.submit %>
-  </div>
+  </div> -->
+  <%= render 'shared/form_button', locals: {action: locals[:action]} %>
 <% end %>

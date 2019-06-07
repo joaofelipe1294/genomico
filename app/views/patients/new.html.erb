@@ -1,3 +1,3 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= render 'form' %>
+<%= render 'shared/card', locals: {form: 'patients/form', action: :new, title: 'Novo paciente'} %>
