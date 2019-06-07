@@ -1,7 +1,7 @@
 <%= render 'layouts/user_navbar' %>
 
-<div>
-  <div>
+<div class="col-md-12 mt-3">
+  <div class="d-inline-block col-md-5 offset-md-1 border-right">
     <%= form_tag(patients_path, method: :get) do %>
       <div class="form-group">
         <label>Parte do nome</label>
@@ -12,7 +12,7 @@
       </button>
     <% end %>
   </div>
-  <div>
+  <div class="d-inline-block col-md-5">
     <%= form_tag(patients_path, method: :get) do %>
       <div class="form-group">
         <label>Prontuário médico</label>
@@ -24,18 +24,6 @@
     <% end %>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <table class = 'table table-bordered mt-5 text-center'>
   <thead class="bg-dark text-white">
