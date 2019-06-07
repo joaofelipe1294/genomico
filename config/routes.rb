@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  resources :patients
   get 'home_user/index'
-
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
@@ -12,4 +10,5 @@ Rails.application.routes.draw do
   post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :activate_offered_exam
   resources :users
   resources :offered_exams
+  resources :patients, except: [:delete]
 end
