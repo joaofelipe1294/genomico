@@ -1,11 +1,14 @@
 <%= form_for(@patient) do |f| %>
   <% if @patient.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
-
+      <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
       <ul>
       <% @patient.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li>
+          <span class = 'text-danger'>
+            <%= message %>
+          </span>
+        </li>
       <% end %>
       </ul>
     </div>

@@ -2,7 +2,6 @@
   <% if @offered_exam.errors.any? %>
     <div id="error_explanation">
       <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
-
       <ul>
       <% @offered_exam.errors.full_messages.each do |message| %>
         <li>
