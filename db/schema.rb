@@ -16,16 +16,6 @@ ActiveRecord::Schema.define(version: 20190606172824) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "exam_kinds", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "field_id"
-    t.boolean  "is_active"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "exam_kinds", ["field_id"], name: "index_exam_kinds_on_field_id", using: :btree
-
   create_table "fields", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -69,7 +59,6 @@ ActiveRecord::Schema.define(version: 20190606172824) do
 
   add_index "users", ["user_kind_id"], name: "index_users_on_user_kind_id", using: :btree
 
-  add_foreign_key "exam_kinds", "fields"
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "users", "user_kinds"
 end
