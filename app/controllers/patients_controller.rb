@@ -31,29 +31,22 @@ class PatientsController < ApplicationController
   # POST /patients.json
   def create
     @patient = Patient.new(patient_params)
-
-    respond_to do |format|
       if @patient.save
-        format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
-        format.json { render :show, status: :created, location: @patient }
+        flash[:success] = 'Paciente cadastrado com sucesso.'
+        redirect_to home_user_index_path
       else
-        format.html { render :new }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
+        render :new
     end
   end
 
   # PATCH/PUT /patients/1
   # PATCH/PUT /patients/1.json
   def update
-    respond_to do |format|
-      if @patient.update(patient_params)
-        format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
-        format.json { render :show, status: :ok, location: @patient }
-      else
-        format.html { render :edit }
-        format.json { render json: @patient.errors, status: :unprocessable_entity }
-      end
+    if @patient.update(patient_params)
+      flash[:success] = 'Paciente atualizado com sucesso.'
+      redirect_to home_user_index_path
+    else
+      render :edit
     end
   end
 
