@@ -16,6 +16,7 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
+    redirect_to home_user_index_path
   end
 
   # GET /patients/new
