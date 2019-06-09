@@ -5,6 +5,7 @@
       user: Usuários
       field: Área
       offered_exam: Exame ofertado
+      attendance_status_kind: Situação do atendimento
     attributes:
       user_kind:
         name: Nome
@@ -21,3 +22,5 @@
         name: Nome
         field_id: Área do Exame
         is_active: Ativo
+      attendance_status_kind:
+        name: Nome
