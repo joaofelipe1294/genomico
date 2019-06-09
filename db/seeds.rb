@@ -35,3 +35,12 @@ Field.create([
 puts 'Criando Fields [OK]'
 
 ############################################################
+
+puts 'Criando AttendanceStatusKinds ...'
+
+AttendanceStatusKind.create({name: 'Em andamento'})
+AttendanceStatusKind.create({name: 'Liberado técnico'})
+AttendanceStatusKind.create({name: 'Em repetição'})
+AttendanceStatusKind.create({name: 'Assinado'})
+
+puts 'Criando AttendanceStatusKinds [OK]'
