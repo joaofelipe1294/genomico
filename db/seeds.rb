@@ -123,7 +123,13 @@ puts 'Criando HealthEnsurances [OK]'
 
 ############################################################
 
+puts 'Criando DeseaseStage ...'
 
+DeseaseStage.create({name: 'Diagnóstico'})
+DeseaseStage.create({name: 'Recaída'})
+DeseaseStage.create({name: 'DRM'})
+
+puts 'Criando DeseaseStage [OK]'
 
 
 
