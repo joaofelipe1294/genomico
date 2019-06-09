@@ -6,6 +6,7 @@
       field: Área
       offered_exam: Exame ofertado
       attendance_status_kind: Situação do atendimento
+      health_ensurance: Plano de saúde
     attributes:
       user_kind:
         name: Nome
@@ -23,4 +24,6 @@
         field_id: Área do Exame
         is_active: Ativo
       attendance_status_kind:
+        name: Nome
+      health_ensurance:
         name: Nome
