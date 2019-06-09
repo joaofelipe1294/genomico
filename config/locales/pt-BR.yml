@@ -8,6 +8,7 @@
       attendance_status_kind: Situação do atendimento
       health_ensurance: Plano de saúde
       desease_stage: Estágio da doença
+      exam_status_kind: Status do exame
     attributes:
       user_kind:
         name: Nome
@@ -29,4 +30,6 @@
       health_ensurance:
         name: Nome
       desease_stage:
+        name: Nome
+      exam_status_kind:
         name: Nome
