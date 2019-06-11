@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190611192220) do
+ActiveRecord::Schema.define(version: 20190611193852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,22 @@ ActiveRecord::Schema.define(version: 20190611192220) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "samples", force: :cascade do |t|
+    t.integer  "sample_kind_id"
+    t.boolean  "has_sub_sample"
+    t.date     "entry_date"
+    t.date     "collection_date"
+    t.string   "refference_label"
+    t.integer  "bottles_numes"
+    t.integer  "attendance_id"
+    t.string   "storage_location"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "samples", ["attendance_id"], name: "index_samples_on_attendance_id", using: :btree
+  add_index "samples", ["sample_kind_id"], name: "index_samples_on_sample_kind_id", using: :btree
+
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -127,5 +143,7 @@ ActiveRecord::Schema.define(version: 20190611192220) do
   add_foreign_key "attendances", "patients"
   add_foreign_key "exam_kinds", "fields"
   add_foreign_key "offered_exams", "fields"
+  add_foreign_key "samples", "attendances"
+  add_foreign_key "samples", "sample_kinds"
   add_foreign_key "users", "user_kinds"
 end
