@@ -140,6 +140,8 @@ ExamStatusKind.create({name: 'Assinado'})
 
 puts 'Criando ExamStatusKind [OK]'
 
+#############################################################
+
 
 
 
