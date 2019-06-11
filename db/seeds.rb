@@ -142,25 +142,16 @@ puts 'Criando ExamStatusKind [OK]'
 
 #############################################################
 
+puts "Criando Sample_Kinds ..."
 
+SampleKind.create({name: 'Sangue periférico', acronym: 'SP'})
+SampleKind.create({name: 'Medula óssea', acronym: 'MO'})
+SampleKind.create({name: 'Liquor', acronym: 'LQ'})
+SampleKind.create({name: 'Biópsia de tecidos.', acronym: 'BT'})
+SampleKind.create({name: 'Swab bucal.', acronym: 'SB'})
+SampleKind.create({name: 'Bloco de parafina.', acronym: 'BP'})
 
+puts "Criando Sample_Kinds [OK]"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#############################################################
 
