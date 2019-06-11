@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190611193852) do
+ActiveRecord::Schema.define(version: 20190611195308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,22 @@ ActiveRecord::Schema.define(version: 20190611193852) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "exams", force: :cascade do |t|
+    t.integer  "offered_exam_id"
+    t.date     "start_date"
+    t.date     "finish_date"
+    t.integer  "exam_status_kind_id"
+    t.integer  "attendance_id"
+    t.integer  "sample_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "exams", ["attendance_id"], name: "index_exams_on_attendance_id", using: :btree
+  add_index "exams", ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id", using: :btree
+  add_index "exams", ["offered_exam_id"], name: "index_exams_on_offered_exam_id", using: :btree
+  add_index "exams", ["sample_id"], name: "index_exams_on_sample_id", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -142,6 +158,10 @@ ActiveRecord::Schema.define(version: 20190611193852) do
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"
   add_foreign_key "exam_kinds", "fields"
+  add_foreign_key "exams", "attendances"
+  add_foreign_key "exams", "exam_status_kinds"
+  add_foreign_key "exams", "offered_exams"
+  add_foreign_key "exams", "samples"
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
