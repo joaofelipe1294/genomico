@@ -15,6 +15,9 @@ class AttendancesController < ApplicationController
   # GET /attendances/new
   def new
     @attendance = Attendance.new
+    @attendance.patient = Patient.find params[:id]
+    @desease_stages = DeseaseStage.all.order :name
+    @health_ensurances = HealthEnsurance.all.order :name
   end
 
   # GET /attendances/1/edit
