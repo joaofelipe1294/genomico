@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Desease stage:</strong>
+  <%= @attendance.desease_stage %>
+</p>
+
+<p>
+  <strong>Cid code:</strong>
+  <%= @attendance.cid_code %>
+</p>
+
+<p>
+  <strong>Lis code:</strong>
+  <%= @attendance.lis_code %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @attendance.start_date %>
+</p>
+
+<p>
+  <strong>Finish date:</strong>
+  <%= @attendance.finish_date %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @attendance.patient %>
+</p>
+
+<p>
+  <strong>Attendance status kind:</strong>
+  <%= @attendance.attendance_status_kind %>
+</p>
+
+<p>
+  <strong>Doctor name:</strong>
+  <%= @attendance.doctor_name %>
+</p>
+
+<p>
+  <strong>Doctor crm:</strong>
+  <%= @attendance.doctor_crm %>
+</p>
+
+<p>
+  <strong>Observations:</strong>
+  <%= @attendance.observations %>
+</p>
+
+<p>
+  <strong>Health ensurance:</strong>
+  <%= @attendance.health_ensurance %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>

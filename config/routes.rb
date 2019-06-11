@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attendances
   get 'home_user/index'
   root 'home#index'
   post 'home/longin', to: 'home#login'

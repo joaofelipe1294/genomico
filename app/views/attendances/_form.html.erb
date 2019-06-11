@@ -1,0 +1,61 @@
+<%= form_for(@attendance) do |f| %>
+  <% if @attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@attendance.errors.count, "error") %> prohibited this attendance from being saved:</h2>
+
+      <ul>
+      <% @attendance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :desease_stage_id %><br>
+    <%= f.text_field :desease_stage_id %>
+  </div>
+  <div class="field">
+    <%= f.label :cid_code %><br>
+    <%= f.text_field :cid_code %>
+  </div>
+  <div class="field">
+    <%= f.label :lis_code %><br>
+    <%= f.text_field :lis_code %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.datetime_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :finish_date %><br>
+    <%= f.datetime_select :finish_date %>
+  </div>
+  <div class="field">
+    <%= f.label :patient_id %><br>
+    <%= f.text_field :patient_id %>
+  </div>
+  <div class="field">
+    <%= f.label :attendance_status_kind_id %><br>
+    <%= f.text_field :attendance_status_kind_id %>
+  </div>
+  <div class="field">
+    <%= f.label :doctor_name %><br>
+    <%= f.text_field :doctor_name %>
+  </div>
+  <div class="field">
+    <%= f.label :doctor_crm %><br>
+    <%= f.text_field :doctor_crm %>
+  </div>
+  <div class="field">
+    <%= f.label :observations %><br>
+    <%= f.text_field :observations %>
+  </div>
+  <div class="field">
+    <%= f.label :health_ensurance_id %><br>
+    <%= f.text_field :health_ensurance_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
