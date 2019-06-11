@@ -9,6 +9,7 @@
       health_ensurance: Plano de saúde
       desease_stage: Estágio da doença
       exam_status_kind: Status do exame
+      attendance: Atendimento
     attributes:
       user_kind:
         name: Nome
@@ -33,3 +34,15 @@
         name: Nome
       exam_status_kind:
         name: Nome
+      attendance:
+        lis_code: Código LisNet
+        cid_code: CID
+        doctor_name: Nome do médico
+        doctor_crm: CRM do médico
+        observations: Observações
+        desease_stage_id: Estágio da doença
+        start_date: Data de início
+        finish_date: Data de conclusão
+        patient_id: Paciente
+        attendance_status_kind_id: Status
+        health_ensurance_id: Plano de saúde
