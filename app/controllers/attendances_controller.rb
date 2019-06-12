@@ -18,6 +18,7 @@ class AttendancesController < ApplicationController
     @attendance.patient = Patient.find params[:id]
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
+    @fields = Field.all.order :name
   end
 
   # GET /attendances/1/edit
