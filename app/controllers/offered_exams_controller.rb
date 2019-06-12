@@ -1,6 +1,6 @@
 class OfferedExamsController < ApplicationController
   before_action :set_offered_exam, only: [:show, :edit, :update, :destroy, :active_exam]
-  before_action :admin_filter
+  before_action :admin_filter, except: [:exams_per_field]
 
   # GET /offered_exams
   # GET /offered_exams.json
@@ -78,6 +78,12 @@ class OfferedExamsController < ApplicationController
       flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
       redirect_to offered_exams_path
     end
+  end
+
+  #GET /offered_exams/field/id
+  def exams_per_field
+    @exams = OfferedExam.where({field: Field.find(params[:id])})
+    render json: @exams, status: :ok, only: [:id, :name]
   end
 
   private
