@@ -6,7 +6,17 @@
   <%= render 'attendances/tabs/exams' %>
 </div>
 
-<div>
+<div class="form-group">
   <%= label_tag :sample_kind, SampleKind.model_name.human %>
+  <%= select_tag :sample_kind, options_from_collection_for_select(@sample_kinds, 'id', 'name'), {class: 'form-control'} %>
+</div>
 
+<div class = 'form-group'>
+  <%= label_tag :collection_date, Sample.human_attribute_name(:collection_date) %><br/>
+  <%= select_date Date.today, {order: [:day, :month, :year]}, {class: 'form-control date-select '} %>
+</div>
+
+<div class = 'form-group'>
+  <%= label_tag :bottles_number %>
+  <%= number_field_tag :bottles_number, '1', {class: 'form-control'} %>
 </div>
