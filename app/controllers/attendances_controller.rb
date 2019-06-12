@@ -19,6 +19,7 @@ class AttendancesController < ApplicationController
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
     @fields = Field.all.order :name
+    @sample_kinds = SampleKind.all.order :name
   end
 
   # GET /attendances/1/edit
