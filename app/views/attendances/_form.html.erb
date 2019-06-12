@@ -2,7 +2,7 @@
   <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
 </div>
 
-<div>
+<div class = 'mb-5 mt-3'>
   <div class="form-group">
     <%= label_tag :field, Field.model_name.human %>
     <%= select_tag :field, options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control', include_blank: 'Selecione uma área', id: 'field'} %>
@@ -10,7 +10,81 @@
   <div class="form-group">
     <%= label_tag :offered_exam, OfferedExam.model_name.human %>
     <%= select_tag :offered_exam, [], {class: 'form-control', id: 'exams'} %>
+  </div>
+  <button id = 'btn_add_exam' class="btn btn-outline-primary">
+    Adicionar
+  </button>
 </div>
+
+<table class = 'table mt-5 text-center'>
+  <thead class="bg-dark text-white">
+    <th>
+      <h4>Exame</h4>
+    </th>
+    <th>
+      <h4>Área</h4>
+    </th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody id = 'exams_table'>
+  </tbody>
+</table>
+
+
+
+<script>
+  $('#btn_add_exam').click((event) => {
+    let area = {
+      id: $('#field').val(),
+      name: $('#field option:selected').text(),
+    }
+    let exam = {
+      id: $('#exams').val(),
+      name: $('#exams option:selected').text().trim(),
+    }
+    console.log(area)
+    console.log(exam)
+    $('#exams_table').append(`
+        <tr>
+          <td>
+            ${exam.name}
+          </td>
+          <td>
+            ${area.name}
+          </td>
+          <td>
+            <button class = 'btn btn-sm btn-outline-danger'>
+              Remover
+            </button>
+          </td>
+          <td>
+            ${exam.id}
+          </td>
+        </tr>
+      `)
+  })
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>
@@ -34,11 +108,4 @@
           })
     }
   })
-
-
-
-
 </script>
-
-
-
