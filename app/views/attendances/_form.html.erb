@@ -32,9 +32,17 @@
 </table>
 
 
+<script>
+  function remove_line(event) {
+    let line = $(event.target).parent().parent()
+    line.remove()
+  }
+</script>
+
 
 <script>
   $('#btn_add_exam').click((event) => {
+    event.preventDefault()
     let area = {
       id: $('#field').val(),
       name: $('#field option:selected').text(),
@@ -43,8 +51,6 @@
       id: $('#exams').val(),
       name: $('#exams option:selected').text().trim(),
     }
-    console.log(area)
-    console.log(exam)
     $('#exams_table').append(`
         <tr>
           <td>
@@ -54,7 +60,7 @@
             ${area.name}
           </td>
           <td>
-            <button class = 'btn btn-sm btn-outline-danger'>
+            <button class = 'btn btn-sm btn-outline-danger' onclick=remove_line(event)>
               Remover
             </button>
           </td>
@@ -67,25 +73,6 @@
 
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
   $('#field').change(() => {
