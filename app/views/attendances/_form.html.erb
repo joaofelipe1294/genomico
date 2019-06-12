@@ -75,6 +75,13 @@
   </tbody>
 </table>
 
+<script>
+  function remove_sample_line(event){
+    let button = event.target
+    line = $(button).parent().parent()
+    line.remove()
+  }
+</script>
 
 <script>
   $('#btn_add_sample').click(() => {
@@ -109,15 +116,10 @@
             ${sample.bottles_number}
           </td>
           <td>
-            <button class = 'btn btn-sm btn-outline-danger'>
+            <button class = 'btn btn-sm btn-outline-danger' onclick=remove_sample_line(event)>
               Remover
             </button>
         </tr>
       `)
   })  
-
-
-
-
-
 </script>
