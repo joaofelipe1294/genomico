@@ -2,28 +2,67 @@
   <div class="border-bottom pb-3">
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Atendimento</a>
+        <a class="nav-link active" id = 'attendance_nav'>Atendimento</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Exames</a>
+        <a class="nav-link" id = 'exam_nav'>Exames</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Amostras</a>
+        <a class="nav-link" id = 'sample_nav'>Amostras</a>
       </li>
     </ul>
   </div>
 
   <div class="mt-2 col-md-10 offset-md-1 mt-3">
-    <div >
+    <div id = 'attendance_tab'>
       <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
     </div>
 
-    <div hidden>
+    <div id = 'exams_tab' hidden>
       <%= render 'attendances/tabs/exams' %>
     </div>
 
-    <div hidden>
+    <div id = 'samples_tab' hidden>
       <%= render 'attendances/tabs/samples' %>
     </div>
   </div>
 </div>
+
+
+<script>
+  $('#attendance_nav').click(event => {
+    event.preventDefault()
+    $('#attendance_tab').removeAttr('hidden')
+    $('#exams_tab').attr('hidden', 'hidden')
+    $('#samples_tab').attr('hidden', 'hidden')
+    $('#attendance_nav').addClass('active')
+    $('#exam_nav').removeClass('active')
+    $('#sample_nav').removeClass('active')
+
+  })
+
+  $('#exam_nav').click(event => {
+    event.preventDefault()
+    $('#exams_tab').removeAttr('hidden')
+    $('#attendance_tab').attr('hidden', 'hidden')
+    $('#samples_tab').attr('hidden', 'hidden')
+    $('#exam_nav').addClass('active')
+    $('#attendance_nav').removeClass('active')
+    $('#sample_nav').removeClass('active')
+  })
+
+  $('#sample_nav').click(event => {
+    event.preventDefault()
+    $('#samples_tab').removeAttr('hidden')
+    $('#attendance_tab').attr('hidden', 'hidden')
+    $('#exams_tab').attr('hidden', 'hidden')
+    $('#sample_nav').addClass('active')
+    $('#attendance_nav').removeClass('active')
+    $('#exam_nav').removeClass('active')
+  })
+
+
+
+
+
+</script>
