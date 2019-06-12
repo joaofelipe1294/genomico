@@ -46,3 +46,6 @@
         patient_id: Paciente
         attendance_status_kind_id: Status
         health_ensurance_id: Plano de saúde
+        patient: Paciente
+        desease_stage: Estágio da doença
+        health_ensurance: Plano de saúde

@@ -1,34 +1,34 @@
 <div class="form-group">
-  <%= label_tag :patient_id %>
+  <%= label_tag :patient_id, Attendance.human_attribute_name(:patient) %>
   <%= text_field_tag :patient_id, @attendance.patient.name, {disabled: true, class: 'form-control'}%>
 </div>
 
 <div class="form-group">
-  <%= label_tag :desease_stage_id %>
+  <%= label_tag :desease_stage_id, Attendance.human_attribute_name(:desease_stage) %>
   <%= select_tag :desease_stage_id, options_from_collection_for_select(@desease_stages, 'id', 'name'), { class: 'form-control'} %>
 </div>
 <div class="form-group">
-  <%= label_tag :cid_code %>
+  <%= label_tag :cid_code, Attendance.human_attribute_name(:cid_code) %>
   <%= text_field_tag :cid_code, '' ,{class: 'form-control'} %>
 </div>
 <div class="form-group">
-  <%= label_tag :lis_code %>
-  <%= text_field_tag :lis_code, '', {class: 'form-control'} %>
+  <%= label_tag :lis_code, Attendance.human_attribute_name(:lis_code) %>
+  <%= text_field_tag :lis_code, '', {class: 'form-control', required: true} %>
 </div>
 <div class="form-group">
-  <%= label_tag :health_ensurance_id %>
+  <%= label_tag :health_ensurance_id, Attendance.human_attribute_name(:health_ensurance) %>
   <%= select_tag :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name'), {class: 'form-control', include_blank: ''} %>
   <% text_field_tag :health_ensurance_id %>
 </div>
 <div class="form-group">
-  <%= label_tag :doctor_name %>
+  <%= label_tag :doctor_name, Attendance.human_attribute_name(:doctor_name) %>
   <%= text_field_tag :doctor_name, '', {class: 'form-control'} %>
 </div>
 <div class="form-group">
-  <%= label_tag :doctor_crm %>
+  <%= label_tag :doctor_crm, Attendance.human_attribute_name(:doctor_crm) %>
   <%= number_field_tag :doctor_crm, '', {class: 'form-control'} %>
 </div>
 <div class="form-group">
-  <%= label_tag :observations %>
+  <%= label_tag :observations, Attendance.human_attribute_name(:observations) %>
   <%= text_area_tag :observations, '', {class: 'form-control'} %>
 </div>  
