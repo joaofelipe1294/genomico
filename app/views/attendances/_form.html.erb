@@ -5,10 +5,40 @@
 <div>
   <div class="form-group">
     <%= label_tag :field, Field.model_name.human %>
-    <%= select_tag :field, options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control', include_blank: 'Selecione uma área'} %>
+    <%= select_tag :field, options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control', include_blank: 'Selecione uma área', id: 'field'} %>
   </div>
   <div class="form-group">
     <%= label_tag :offered_exam, OfferedExam.model_name.human %>
-    <%= select_tag :offered_exam, [], {class: 'form-control'} %>
+    <%= select_tag :offered_exam, [], {class: 'form-control', id: 'exams'} %>
 </div>
+
+
+<script>
+  $('#field').change(() => {
+    if ($('#field').val() !== ''){
+      $('.exam_option').remove()
+      let field_id = $('#field').val()
+      axios.get(`/offered_exams/field/${field_id}`)
+          .then(function (response) {
+            response.data.forEach(exam => {
+              $('#exams').append(`
+                  <option class = 'exam_option' value = ${exam.id}>
+                    ${exam.name}
+                  </option>
+                `)
+            })
+          })
+          .catch(function (error) {
+            console.log(error)
+            alert('Houve um erro no servidor, tente novamente mais tarde')
+          })
+    }
+  })
+
+
+
+
+</script>
+
+
 
