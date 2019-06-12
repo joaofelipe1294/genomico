@@ -49,6 +49,7 @@ GEM
     bootstrap4-kaminari-views (1.0.1)
       kaminari (>= 0.13)
       rails (>= 3.1)
+    bower-rails (0.11.0)
     builder (3.2.3)
     byebug (11.0.1)
     coffee-rails (4.1.1)
@@ -192,6 +193,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap (~> 4.3.1)
   bootstrap4-kaminari-views
+  bower-rails (~> 0.11.0)
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

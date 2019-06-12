@@ -30,7 +30,8 @@ gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 #Translations for the kaminari gem 
 gem 'kaminari-i18n'
-
+#Bundler-like DSL + rake tasks for Bower on Rails 
+gem "bower-rails", "~> 0.11.0"
 
 
 # Use ActiveModel has_secure_password
