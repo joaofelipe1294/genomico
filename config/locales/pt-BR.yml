@@ -11,6 +11,7 @@
       exam_status_kind: Status do exame
       attendance: Atendimento
       sample: Amostra
+      sample_kind: Tipo da amostra
     attributes:
       user_kind:
         name: Nome
@@ -59,3 +60,6 @@
         bottles_number: Número de frascos
         attendance_id: Atendimento
         storage_location: Local de armazenamento
+      sample_kind:
+        name: Nome
+        acronym: Acrônimo
