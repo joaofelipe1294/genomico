@@ -1,11 +1,29 @@
-<div class="col-md-10 offset-md-1" hidden>
-  <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
-</div>
+<div class="col-md-10 offset-md-1 mt-4 border p-2">
+  <div class="border-bottom pb-3">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Atendimento</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Exames</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Amostras</a>
+      </li>
+    </ul>
+  </div>
 
-<div hidden>
-  <%= render 'attendances/tabs/exams' %>
-</div>
+  <div class="mt-2 col-md-10 offset-md-1 mt-3">
+    <div >
+      <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
+    </div>
 
-<div hidden>
-  <%= render 'attendances/tabs/samples' %>
+    <div hidden>
+      <%= render 'attendances/tabs/exams' %>
+    </div>
+
+    <div hidden>
+      <%= render 'attendances/tabs/samples' %>
+    </div>
+  </div>
 </div>
