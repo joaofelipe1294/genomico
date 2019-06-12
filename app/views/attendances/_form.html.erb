@@ -26,7 +26,52 @@
       <%= render 'attendances/tabs/samples' %>
     </div>
   </div>
+  <button class="btn btn-outline-success offset-md-11" id = 'btn_save'>Salvar</button>
 </div>
+
+
+<script>
+  $('#btn_save').click(() => {
+    let attendance = {
+      patient: {
+        id: <%= @attendance.patient.id %>
+      },
+      desease_stage_id: $('#desease_stage_id').val(),
+      cid_code: $('#cid_code').val(),
+      lis_code: $('#lis_code').val(),
+      health_ensurance_id: $('#health_ensurance_id').val(),
+      doctor_name: $('#doctor_name').val(),
+      doctor_crm: $('#doctor_crm').val(),
+      observations: $('#observations').val()
+
+    }
+    console.log(attendance)
+  })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>
@@ -60,9 +105,4 @@
     $('#attendance_nav').removeClass('active')
     $('#exam_nav').removeClass('active')
   })
-
-
-
-
-
 </script>
