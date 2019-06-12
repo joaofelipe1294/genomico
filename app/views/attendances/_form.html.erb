@@ -2,6 +2,11 @@
   <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
 </div>
 
-<div>
+<div hidden>
   <%= render 'attendances/tabs/exams' %>
+</div>
+
+<div>
+  <%= label_tag :sample_kind, SampleKind.model_name.human %>
+
 </div>

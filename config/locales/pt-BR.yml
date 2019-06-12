@@ -10,6 +10,7 @@
       desease_stage: Estágio da doença
       exam_status_kind: Status do exame
       attendance: Atendimento
+      sample: Amostra
     attributes:
       user_kind:
         name: Nome
@@ -49,3 +50,12 @@
         patient: Paciente
         desease_stage: Estágio da doença
         health_ensurance: Plano de saúde
+      sample:
+        sample_kind_id: Tipo da amostra
+        has_sub_sample: Possúi subamostra
+        entry_date: Data de entrada
+        collection_date: Data da coleta
+        refference_label: Rótulo
+        bottles_number: Número de frascos
+        attendance_id: Atendimento
+        storage_location: Local de armazenamento
