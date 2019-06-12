@@ -5,7 +5,7 @@
 
 <div class="form-group">
   <%= label_tag :desease_stage_id %>
-  <%= select_tag :desease_stage_id, options_from_collection_for_select(@desease_stages, 'id', 'name'), {class: 'form-control'} %>
+  <%= select_tag :desease_stage_id, options_from_collection_for_select(@desease_stages, 'id', 'name'), { class: 'form-control'} %>
 </div>
 <div class="form-group">
   <%= label_tag :cid_code %>
@@ -17,7 +17,7 @@
 </div>
 <div class="form-group">
   <%= label_tag :health_ensurance_id %>
-  <%= select_tag :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name'), {class: 'form-control'} %>
+  <%= select_tag :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name'), {class: 'form-control', include_blank: ''} %>
   <% text_field_tag :health_ensurance_id %>
 </div>
 <div class="form-group">
