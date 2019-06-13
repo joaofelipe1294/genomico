@@ -115,8 +115,9 @@ ActiveRecord::Schema.define(version: 20190611195308) do
   create_table "sample_kinds", force: :cascade do |t|
     t.string   "name"
     t.string   "acronym"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "refference_index"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "samples", force: :cascade do |t|

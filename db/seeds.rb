@@ -147,12 +147,14 @@ puts 'Criando ExamStatusKind [OK]'
 
 puts "Criando Sample_Kinds ..."
 
-SampleKind.create({name: 'Sangue periférico', acronym: 'SP'})
-SampleKind.create({name: 'Medula óssea', acronym: 'MO'})
-SampleKind.create({name: 'Liquor', acronym: 'LQ'})
-SampleKind.create({name: 'Biópsia de tecidos.', acronym: 'BT'})
-SampleKind.create({name: 'Swab bucal.', acronym: 'SB'})
-SampleKind.create({name: 'Bloco de parafina.', acronym: 'BP'})
+SampleKind.create([
+	{name: 'Sangue periférico', acronym: 'SP', refference_index: 0},
+	{name: 'Medula óssea', acronym: 'MO', refference_index: 0},
+	{name: 'Liquor', acronym: 'LQ', refference_index: 0},
+	{name: 'Biópsia de tecidos.', acronym: 'BT', refference_index: 0},
+	{name: 'Swab bucal.', acronym: 'SB', refference_index: 0},
+	{name: 'Bloco de parafina.', acronym: 'BP', refference_index: 0},
+])
 
 puts "Criando Sample_Kinds [OK]"
 
