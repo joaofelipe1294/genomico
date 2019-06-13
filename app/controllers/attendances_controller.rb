@@ -29,17 +29,28 @@ class AttendancesController < ApplicationController
   # POST /attendances
   # POST /attendances.json
   def create
-    @attendance = Attendance.new(attendance_params)
-
-    respond_to do |format|
-      if @attendance.save
-        format.html { redirect_to @attendance, notice: 'Attendance was successfully created.' }
-        format.json { render :show, status: :created, location: @attendance }
-      else
-        format.html { render :new }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
-      end
+    @attendance = Attendance.new attendance_params
+    if @attendance.save
+      render json: 'Deu Boa !!!', status: :created
+    else
+      puts @attendance.errors.inspect
+      render json: 'Ruim', status: :unprocessable_entity
     end
+
+
+
+
+    # @attendance = Attendance.new(attendance_params)
+
+    # respond_to do |format|
+    #   if @attendance.save
+    #     format.html { redirect_to @attendance, notice: 'Attendance was successfully created.' }
+    #     format.json { render :show, status: :created, location: @attendance }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @attendance.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /attendances/1
@@ -72,8 +83,24 @@ class AttendancesController < ApplicationController
       @attendance = Attendance.find(params[:id])
     end
 
+    def create_attendance_params
+      params.require(:attendance).permit(
+        :desease_stage_id, 
+        :cid_code, 
+        :lis_code, 
+        :patient_id, 
+        :doctor_name, 
+        :doctor_crm, 
+        :observations, 
+        :health_ensurance_id,
+        samples_attributes: [:sample_kind_id, :collection_date, :bottles_number],
+        exams_attributes: [:offered_exam_id]
+      )
+    end
+
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def attendance_params
-      params.require(:attendance).permit(:desease_stage_id, :cid_code, :lis_code, :start_date, :finish_date, :patient_id, :attendance_status_kind_id, :doctor_name, :doctor_crm, :observations, :health_ensurance_id)
+      params.require(:attendance).permit(:desease_stage_id, :cid_code, :lis_code, :start_date, :finish_date, :patient_id, :attendance_status_kind_id, :doctor_name, :doctor_crm, :observations, :health_ensurance_id, samples_attributes: [:sample_kind_id, :collection_date, :bottles_number], exams_attributes: [:offered_exam_id])
     end
 end

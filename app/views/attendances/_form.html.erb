@@ -1,3 +1,7 @@
+<div id = 'error_messages' class = 'alert alert-danger'>
+
+</div>
+<%= csrf_meta_tag %>
 <div class="col-md-10 offset-md-1 mt-4 border p-2">
   <div class="border-bottom pb-3">
     <ul class="nav nav-pills nav-fill">
@@ -29,11 +33,15 @@
   <button class="btn btn-outline-success offset-md-11" id = 'btn_save'>Salvar</button>
 </div>
 
-
 <script>
-  $('#btn_save').click(() => {
+  function build_attendance(){
     let exams = []
-    document.querySelectorAll('.exam_id').forEach(span => exams.push(span.textContent))
+    document.querySelectorAll('.exam_id').forEach(span => {
+      let exam = {
+        offered_exam_id: parseInt(span.textContent)
+      }
+      exams.push(exam)
+    })
 
     let samples = []
     document.querySelectorAll('.sample').forEach(sample_line => {
@@ -54,9 +62,7 @@
     })
 
     let attendance = {
-      patient: {
-        id: <%= @attendance.patient.id %>
-      },
+      patient_id: <%= @attendance.patient.id %>,
       desease_stage_id: $('#desease_stage_id').val(),
       cid_code: $('#cid_code').val(),
       lis_code: $('#lis_code').val(),
@@ -64,12 +70,27 @@
       doctor_name: $('#doctor_name').val(),
       doctor_crm: $('#doctor_crm').val(),
       observations: $('#observations').val(),
-      exams,
-      samples
+      exams_attributes: exams,
+      samples_attributes: samples
     }
+    return attendance
+  }
+</script>
+
+
+<script>
+  $('#btn_save').click(() => {
+    let attendance = build_attendance()
     console.log(attendance)
+    const authenticity_token = $('meta[name="csrf-token"]').attr('content')
+    axios.post(
+      '/attendances',
+      {authenticity_token, attendance }
+    )
+
   })
 </script>
+
 
 
 
