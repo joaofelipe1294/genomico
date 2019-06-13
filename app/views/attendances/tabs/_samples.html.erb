@@ -34,6 +34,7 @@
       <h4>Frascos</h4>
     </th>
     <th></th>
+    <th hidden>Id</th>
   </thead>
   <tbody id = 'samples_table'>
   </tbody>
@@ -68,20 +69,30 @@
       bottles_number
     }
     $('#samples_table').append(`
-        <tr>
+        <tr class = 'sample'>
           <td>
             ${sample.sample_kind.name}
           </td>
           <td>
-            ${sample.date.day}/${sample.date.month}/${sample.date.year}
+            <span class = 'collection_date'>
+              ${sample.date.day}/${sample.date.month}/${sample.date.year}
+            </span>
           </td>
           <td>
-            ${sample.bottles_number}
+            <span class = 'bottles_number'>
+              ${sample.bottles_number}
+            </span>
           </td>
           <td>
             <button class = 'btn btn-sm btn-outline-danger' onclick=remove_sample_line(event)>
               Remover
             </button>
+          </td>
+          <td hidden>
+            <span class = 'sample_kind_id'>
+              ${sample.sample_kind.id}
+            </span>
+          </td>
         </tr>
       `)
   })  

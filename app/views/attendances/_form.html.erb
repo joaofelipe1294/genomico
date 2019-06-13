@@ -35,7 +35,23 @@
     let exams = []
     document.querySelectorAll('.exam_id').forEach(span => exams.push(span.textContent))
 
-
+    let samples = []
+    document.querySelectorAll('.sample').forEach(sample_line => {
+      let sample_kind_id = parseInt(sample_line.querySelector('.sample_kind_id').textContent)
+      let date_text = sample_line.querySelector('.collection_date').textContent.split('/')
+      let collection_date = new Date(
+        parseInt(date_text[2]), 
+        parseInt(date_text[1]) - 1, 
+        parseInt(date_text[0])
+      )
+      let bottles_number = parseInt(sample_line.querySelector('.bottles_number').textContent)
+      sample = {
+        sample_kind_id,
+        collection_date,
+        bottles_number,
+      }
+      samples.push(sample)
+    })
 
     let attendance = {
       patient: {
@@ -48,7 +64,8 @@
       doctor_name: $('#doctor_name').val(),
       doctor_crm: $('#doctor_crm').val(),
       observations: $('#observations').val(),
-      exams: exams,
+      exams,
+      samples
     }
     console.log(attendance)
   })
