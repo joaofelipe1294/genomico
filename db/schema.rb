@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20190611195308) do
     t.date     "entry_date"
     t.date     "collection_date"
     t.string   "refference_label"
-    t.integer  "bottles_numes"
+    t.integer  "bottles_number"
     t.integer  "attendance_id"
     t.string   "storage_location"
     t.datetime "created_at",       null: false

@@ -6,7 +6,7 @@ class CreateSamples < ActiveRecord::Migration
       t.date :entry_date
       t.date :collection_date
       t.string :refference_label
-      t.integer :bottles_numes
+      t.integer :bottles_number
       t.references :attendance, index: true, foreign_key: true
       t.string :storage_location
 
