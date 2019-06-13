@@ -51,6 +51,8 @@
         patient: Paciente
         desease_stage: Estágio da doença
         health_ensurance: Plano de saúde
+        exams: Exames
+        samples: Amostras
       sample:
         sample_kind_id: Tipo da amostra
         has_sub_sample: Possúi subamostra

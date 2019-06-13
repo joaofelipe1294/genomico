@@ -8,6 +8,7 @@ class Attendance < ActiveRecord::Base
   accepts_nested_attributes_for :samples
   accepts_nested_attributes_for :exams
   after_initialize :default_values
+  validates :lis_code, :patient, :exams, :samples, presence: true
 
   def default_values
     self.start_date = Date.today if self.start_date.nil?

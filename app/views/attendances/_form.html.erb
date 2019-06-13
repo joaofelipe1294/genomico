@@ -1,6 +1,7 @@
-<div id = 'error_messages' class = 'alert alert-danger'>
-
+<div id = 'error_messages' class = 'alert alert-danger' hidden>
+  <h4>Os seguintes erros foram encontrados:</h4>
 </div>
+
 <%= csrf_meta_tag %>
 <div class="col-md-10 offset-md-1 mt-4 border p-2">
   <div class="border-bottom pb-3">
@@ -81,14 +82,33 @@
 <script>
   $('#btn_save').click(() => {
     let attendance = build_attendance()
-    console.log(attendance)
     const authenticity_token = $('meta[name="csrf-token"]').attr('content')
+    $('#error_list').attr('hidden', 'hidden')
+    $('.error').remove()
     axios.post(
       '<%= attendances_url %>',
       {authenticity_token, attendance }
     ).then(response => 
       window.location.replace('<%= home_user_index_url %>')
-    ).catch(error => console.log(error));
+    ).catch(error => {
+      let error_messages = []
+      Object.keys(error.response.data).forEach(key => {
+        console.log(key)
+        let message = ''
+        if (key === 'lis_code')
+          message = `O código LisNet ${error.response.data[key]}`
+        else if (key === 'exams')
+          message = `Pelo menos um exame deve ser informado.`
+        else if (key === 'samples')
+          message = `Pelo menos uma amostra deve ser informada.`
+        error_messages.push(message)
+      })
+      $('#error_messages').append(`
+        <ul id = 'error_list' class = 'error'></ul>
+        `)
+      error_messages.forEach(message => $('#error_list').append(`<li>${message}</li>`))
+      $('#error_messages').removeAttr('hidden')
+    });
 
   })
 </script>
