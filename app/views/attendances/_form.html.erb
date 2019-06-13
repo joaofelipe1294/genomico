@@ -32,6 +32,11 @@
 
 <script>
   $('#btn_save').click(() => {
+    let exams = []
+    document.querySelectorAll('.exam_id').forEach(span => exams.push(span.textContent))
+
+
+
     let attendance = {
       patient: {
         id: <%= @attendance.patient.id %>
@@ -42,8 +47,8 @@
       health_ensurance_id: $('#health_ensurance_id').val(),
       doctor_name: $('#doctor_name').val(),
       doctor_crm: $('#doctor_crm').val(),
-      observations: $('#observations').val()
-
+      observations: $('#observations').val(),
+      exams: exams,
     }
     console.log(attendance)
   })
