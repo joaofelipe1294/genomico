@@ -7,4 +7,10 @@ class Attendance < ActiveRecord::Base
   has_many :samples
   accepts_nested_attributes_for :samples
   accepts_nested_attributes_for :exams
+  after_initialize :default_values
+
+  def default_values
+    self.start_date = Date.today if self.start_date.nil?
+    self.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Em andamento'}) if self.attendance_status_kind.nil?
+  end
 end

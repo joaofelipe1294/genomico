@@ -34,24 +34,8 @@ class AttendancesController < ApplicationController
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to json: {}, status: :created
     else
-      # puts @attendance.errors.inspect
       render json: @attendance.errors, status: :unprocessable_entity
     end
-
-
-
-
-    # @attendance = Attendance.new(attendance_params)
-
-    # respond_to do |format|
-    #   if @attendance.save
-    #     format.html { redirect_to @attendance, notice: 'Attendance was successfully created.' }
-    #     format.json { render :show, status: :created, location: @attendance }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @attendance.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /attendances/1
