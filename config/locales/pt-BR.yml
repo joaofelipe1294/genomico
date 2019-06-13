@@ -12,6 +12,7 @@
       attendance: Atendimento
       sample: Amostra
       sample_kind: Tipo da amostra
+      patient: Paciente
     attributes:
       user_kind:
         name: Nome
@@ -65,3 +66,8 @@
       sample_kind:
         name: Nome
         acronym: Acrônimo
+      patient:
+        name: Nome
+        medical_record: Prontuário médico
+        birth_date: Data de nascimento
+        mother_name: Nome da mãe
