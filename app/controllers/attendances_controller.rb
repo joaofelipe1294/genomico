@@ -31,10 +31,11 @@ class AttendancesController < ApplicationController
   def create
     @attendance = Attendance.new attendance_params
     if @attendance.save
-      render json: 'Deu Boa !!!', status: :created
+      flash[:success] = 'Atendimento cadastrado com sucesso.'
+      redirect_to json: {}, status: :created
     else
-      puts @attendance.errors.inspect
-      render json: 'Ruim', status: :unprocessable_entity
+      # puts @attendance.errors.inspect
+      render json: @attendance.errors, status: :unprocessable_entity
     end
 
 

@@ -84,9 +84,11 @@
     console.log(attendance)
     const authenticity_token = $('meta[name="csrf-token"]').attr('content')
     axios.post(
-      '/attendances',
+      '<%= attendances_url %>',
       {authenticity_token, attendance }
-    )
+    ).then(response => 
+      window.location.replace('<%= home_user_index_url %>')
+    ).catch(error => console.log(error));
 
   })
 </script>
