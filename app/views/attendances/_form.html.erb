@@ -93,7 +93,6 @@
     ).catch(error => {
       let error_messages = []
       Object.keys(error.response.data).forEach(key => {
-        console.log(key)
         let message = ''
         if (key === 'lis_code')
           message = `O código LisNet ${error.response.data[key]}`
