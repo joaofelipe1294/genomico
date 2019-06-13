@@ -133,10 +133,13 @@ puts 'Criando DeseaseStage [OK]'
 
 puts 'Criando ExamStatusKind ...'
 
-ExamStatusKind.create({name: 'Em andamento'})
-ExamStatusKind.create({name: 'Liberado técnico'})
-ExamStatusKind.create({name: 'Em repetição'})
-ExamStatusKind.create({name: 'Assinado'})
+ExamStatusKind.create([
+	{name: 'Em andamento'},
+	{name: 'Liberado técnico'},
+	{name: 'Em repetição'},
+	{name: 'Assinado'},
+	{name: 'Aguardando início'}
+])
 
 puts 'Criando ExamStatusKind [OK]'
 
