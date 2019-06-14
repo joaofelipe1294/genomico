@@ -24,5 +24,79 @@
     </ul>
   </div>
   <div class="mt-2 col-md-10 offset-md-1 mt-3">
+
+		<%= form_for(@attendance) do |f| %>
+			<div class = 'form-group'>
+				<%= f.label :patient %>
+				<%= f.text_field :patient, {class: 'form-control', disabled: true, value: @attendance.patient.name} %>
+			</div>
+		<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </div>
 </div>
+
+
+<script>
+
+  $('#attendance_nav').click(event => {
+    event.preventDefault()
+    $('#attendance_tab').removeAttr('hidden')
+    $('#exams_tab').attr('hidden', 'hidden')
+    $('#samples_tab').attr('hidden', 'hidden')
+    $('#sub_sample_tab').attr('hidden', 'hidden')
+    $('#work_map_tab').attr('hidden', 'hidden')
+    $('#report_tab').attr('hidden', 'hidden')
+    $('#attendance_nav').addClass('active')
+    $('#exam_nav').removeClass('active')
+    $('#sample_nav').removeClass('active')
+    $('#sub_sample_nav').removeClass('active')
+    $('#work_map_nav').removeClass('active')
+    $('#report_nav').removeClass('active')
+  })
+
+</script>
