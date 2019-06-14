@@ -54,10 +54,13 @@
         parseInt(date_text[0])
       )
       let bottles_number = parseInt(sample_line.querySelector('.bottles_number').textContent)
+      let storage_location = sample_line.querySelector('.storage_location').textContent
+      console.log(storage_location)
       sample = {
         sample_kind_id,
         collection_date,
         bottles_number,
+        storage_location
       }
       samples.push(sample)
     })
