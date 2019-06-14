@@ -37,6 +37,45 @@
 
 
 
+		<table class="table text-center table-bordered">
+			<thead class="bg-dark text-white">
+				<th>
+					<h4>Nome</h4>
+				</th>
+				<th>
+					<h4>Data de início</h4>
+				</th>
+				<th>
+					<h4>Status</h4>
+				</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<% @attendance.exams.each do |exam| %>
+					<tr>
+						<td>
+							<%= exam.offered_exam.name %>
+						</td>
+						<td>
+							<%= l(exam.start_date) %>
+						</td>
+						<td>
+							<%= exam.exam_status_kind.name %>
+						</td>
+						<td></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+
+
+
+
+
+
+
+
 
 
 
