@@ -30,7 +30,42 @@
 
 
 
-		
+		<% #TODO continuar após implementar aba de subamostra %>
+
+
+
+
+
+	<%= form_for :exam do |f| %>
+
+		<div class = 'form-group'>
+			<%= f.label :name %>
+			<%= f.text_field :name, {class: 'form-control', disabled: true} %>
+		</div>
+
+		<div class = 'form-group'>
+			<%= f.label :sample_id %>
+			<%= f.select :sample_id, options_from_collection_for_select(@attendance.samples, 'id', 'refference_label'), {}, {class: 'form-control'} %>
+		</div>
+
+
+	<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -96,8 +131,6 @@
 									Concluído
 								</button>
 							<% end %>
-
-
 						</td>
 					</tr>
 				<% end %>

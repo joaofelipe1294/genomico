@@ -13,6 +13,7 @@
       sample: Amostra
       sample_kind: Tipo da amostra
       patient: Paciente
+      exam: Exame
     attributes:
       user_kind:
         name: Nome
@@ -71,3 +72,13 @@
         medical_record: Prontuário médico
         birth_date: Data de nascimento
         mother_name: Nome da mãe
+      exam:
+        exam_status_kind: Status do exame
+        start_date: Data de início
+        finish_date: Data de conclusão
+        offered_exam: Exame
+        offered_exam_id: Exame
+        sample: Amostra
+        sample_id: Amostra
+        attendance: Atendimento
+        attendance_id: Atendimento
