@@ -1,5 +1,5 @@
 class AttendancesController < ApplicationController
-  before_action :set_attendance, only: [:show, :edit, :update, :destroy]
+  before_action :set_attendance, only: [:show, :edit, :update, :destroy, :workflow]
 
   # GET /attendances
   # GET /attendances.json
@@ -64,7 +64,6 @@ class AttendancesController < ApplicationController
 
   #GET attendances/1
   def workflow
-    
   end
 
   private
