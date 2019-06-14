@@ -25,7 +25,7 @@
   </div>
   <div class="mt-2 col-md-10 offset-md-1 mt-3">
 
-		<%= form_for(@attendance, {html: {style: 'overflow: auto;'}}) do |f| %>
+		<%= form_for(@attendance, {method: :patch, action: :attendance_path, html: {style: 'overflow: auto;'}}) do |f| %>
 			
 			<div class = 'form-group'>
 				<%= f.label :patient %>
@@ -44,7 +44,7 @@
 
 			<div class="form-group">
 				<%= f.label :desease_stage %>
-				<%= f.select :desease_stage, options_from_collection_for_select(@desease_stages, 'id', 'name', @attendance.desease_stage), {}, {class: 'form-control'} %>
+				<%= f.select :desease_stage_id, options_from_collection_for_select(@desease_stages, 'id', 'name', selected: @attendance.desease_stage.id), {}, {class: 'form-control'} %>
 			</div>
 
 			<div class="form-group">
@@ -59,7 +59,7 @@
 
 			<div class = 'form-group'>
 				<%= f.label :health_ensurance %>
-				<%= f.select :health_ensurance, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control'} %>
+				<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control'} %>
 			</div>
 
 			<div class = 'form-group'>
