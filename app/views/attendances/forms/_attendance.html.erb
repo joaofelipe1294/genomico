@@ -1,0 +1,70 @@
+<%= form_for(@attendance, {method: :patch, action: :attendance_path, html: {style: 'overflow: auto;'}}) do |f| %>
+
+	<% if @attendance.errors.any? %>
+		<div id="error_explanation">
+			<h2 class="text-danger"> 
+				Há erros no formulário, por favor verifique.
+			</h2>
+			<ul class="text-danger">
+				<% @attendance.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div> 
+	<% end %>
+	
+	<div class = 'form-group'>
+		<%= f.label :patient %>
+		<%= f.text_field :patient, {class: 'form-control', disabled: true, value: @attendance.patient.name} %>
+	</div>
+
+	<div class = 'form-group'>
+		<%= f.label :start_date %>
+		<%= f.text_field :start_date, {class: 'form-control', disabled: true, value: @attendance.start_date.strftime('%d/%m/%y')} %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :attendance_status_kind %>
+		<%= f.text_field :attendance_status_kind, {class: 'form-control', disabled: true, value: @attendance.attendance_status_kind.name} %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :desease_stage %>
+		<%= f.select :desease_stage_id, options_from_collection_for_select(@desease_stages, 'id', 'name', selected: @attendance.desease_stage.id), {}, {class: 'form-control'} %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :cid_code %>
+		<%= f.text_field :cid_code, {class: 'form-control'} %>
+	</div>
+
+	<div class = 'form-group'>
+		<%= f.label :lis_code %>
+		<%= f.text_field :lis_code, {class: 'form-control'} %>
+	</div>
+
+	<div class = 'form-group'>
+		<%= f.label :health_ensurance %>
+		<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control'} %>
+	</div>
+
+	<div class = 'form-group'>
+		<%= f.label :doctor_name %>
+		<%= f.text_field :doctor_name, {class: 'form-control'} %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :doctor_crm %>
+		<%= f.text_field :doctor_crm, {class: 'form-control'} %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :observations %>
+		<%= f.text_area :observations, {class: 'form-control'} %>
+	</div>
+
+	<button class = 'btn btn-outline-primary float-right'>
+		Salvar
+	</button>
+
+<% end %>
