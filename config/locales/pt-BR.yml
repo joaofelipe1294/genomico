@@ -57,6 +57,7 @@
         samples: Amostras
       sample:
         sample_kind_id: Tipo da amostra
+        sample_kind: Tipo da amostra
         has_sub_sample: Possúi subamostra
         entry_date: Data de entrada
         collection_date: Data da coleta
