@@ -23,7 +23,7 @@
       </li>
     </ul>
   </div>
-  <div class="mt-2 col-md-10 offset-md-1 mt-3">
+  <div class="mt-3">
   	<div hidden>
 			<%= render 'attendances/forms/attendance' %>
 		</div>
@@ -48,7 +48,9 @@
 				<th>
 					<h4>Status</h4>
 				</th>
-				<th></th>
+				<th>
+					<h4>Alterar status</h4>
+				</th>
 			</thead>
 			<tbody>
 				<% @attendance.exams.each do |exam| %>
@@ -57,12 +59,46 @@
 							<%= exam.offered_exam.name %>
 						</td>
 						<td>
-							<%= l(exam.start_date) %>
+							<% if exam.start_date %>
+								<%= l(exam.start_date) %>
+							<% end %>
 						</td>
 						<td>
 							<%= exam.exam_status_kind.name %>
 						</td>
-						<td></td>
+						<td>
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
+								<button>
+									Iniciar
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
+								<button>
+									Em andamento
+								</button>
+							<% end %>
+
+							<% unless  exam.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'}) %>
+								<button>
+									Liberado técnico
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'})%> 
+								<button>
+									Em repetição
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
+								<button>
+									Concluído
+								</button>
+							<% end %>
+
+
+						</td>
 					</tr>
 				<% end %>
 			</tbody>
