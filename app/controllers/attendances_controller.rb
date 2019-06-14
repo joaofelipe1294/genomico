@@ -62,6 +62,11 @@ class AttendancesController < ApplicationController
     end
   end
 
+  #GET attendances/1
+  def workflow
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance

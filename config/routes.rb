@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :activate_offered_exam
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
+  get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   resources :users
   resources :attendances, except: [:new]
   resources :offered_exams
