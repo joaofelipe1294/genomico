@@ -69,6 +69,8 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find params[:id]
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
+    @sample_kinds = SampleKind.all.order :name
+    @sample = Sample.new({attendance: @attendance})
   end
 
   private
