@@ -1,0 +1,83 @@
+<% #TODO continuar após implementar aba de subamostra %>
+
+
+
+
+
+<%= form_for :exam do |f| %>
+
+	<div class = 'form-group'>
+			<%= f.label :name %>
+			<%= f.text_field :name, {class: 'form-control', disabled: true} %>
+		</div>
+	
+		<div class = 'form-group'>
+			<%= f.label :sample_id %>
+			<%= f.select :sample_id, options_from_collection_for_select(@attendance.samples, 'id', 'refference_label'), {}, {class: 'form-control'} %>
+		</div>
+<% end %>
+
+<table class="table text-center table-bordered">
+			<thead class="bg-dark text-white">
+				<th>
+					<h4>Nome</h4>
+				</th>
+				<th>
+					<h4>Data de início</h4>
+				</th>
+				<th>
+					<h4>Status</h4>
+				</th>
+				<th>
+					<h4>Alterar status</h4>
+				</th>
+			</thead>
+			<tbody>
+				<% @attendance.exams.each do |exam| %>
+					<tr>
+						<td>
+							<%= exam.offered_exam.name %>
+						</td>
+						<td>
+							<% if exam.start_date %>
+								<%= l(exam.start_date) %>
+							<% end %>
+						</td>
+						<td>
+							<%= exam.exam_status_kind.name %>
+						</td>
+						<td>
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
+								<button>
+									Iniciar
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
+								<button>
+									Em andamento
+								</button>
+							<% end %>
+
+							<% unless  exam.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'}) %>
+								<button>
+									Liberado técnico
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'})%> 
+								<button>
+									Em repetição
+								</button>
+							<% end %>
+
+							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
+								<button>
+									Concluído
+								</button>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
