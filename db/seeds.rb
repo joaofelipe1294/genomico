@@ -137,7 +137,7 @@ ExamStatusKind.create([
 	{name: 'Em andamento'},
 	{name: 'Liberado técnico'},
 	{name: 'Em repetição'},
-	{name: 'Assinado'},
+	{name: 'Concluído'},
 	{name: 'Aguardando início'}
 ])
 
