@@ -46,7 +46,9 @@ class AttendancesController < ApplicationController
         format.html { redirect_to @attendance, notice: 'Attendance was successfully updated.' }
         format.json { render :show, status: :ok, location: @attendance }
       else
-        format.html { render :edit }
+        @desease_stages = DeseaseStage.all.order :name
+        @health_ensurances = HealthEnsurance.all.order :name
+        format.html { render :workflow }
         format.json { render json: @attendance.errors, status: :unprocessable_entity }
       end
     end

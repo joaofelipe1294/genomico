@@ -26,6 +26,19 @@
   <div class="mt-2 col-md-10 offset-md-1 mt-3">
 
 		<%= form_for(@attendance, {method: :patch, action: :attendance_path, html: {style: 'overflow: auto;'}}) do |f| %>
+
+			<% if @attendance.errors.any? %>
+      <div id="error_explanation">
+        <h2 class="text-danger"> 
+          Há erros no formulário, por favor verifique.
+        </h2>
+        <ul class="text-danger">
+        <% @attendance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div> 
+     <% end %>
 			
 			<div class = 'form-group'>
 				<%= f.label :patient %>
