@@ -301,3 +301,14 @@ OfferedExam.create({name: 'CARIÓTIPO DE SANGUE PERIFÉRICO PARA DIAGNÓSTICO DE
 puts "Criando OfferedExams [OK]"
 
 #############################################################
+
+puts 'Criando SubSampleKind ...'
+
+SubSampleKind.create({name: 'RNA'})
+SubSampleKind.create({name: 'cDNA'})
+SubSampleKind.create({name: 'DNA'})
+SubSampleKind.create({name: 'Pellet de FISH'})
+
+puts 'Criando SubSampleKind [OK]'
+
+#############################################################
