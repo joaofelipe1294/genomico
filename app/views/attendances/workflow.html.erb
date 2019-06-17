@@ -32,7 +32,8 @@
 			<%= render 'attendances/forms/exams' %>
 		</div>
 
-		<div style="overflow: auto;">
+
+		<div id = 'new_sample_form' style="overflow: auto;" hidden>
 			<%= form_for(@sample, {action: :new_sample_path}) do |f| %>
 					
 				<%= f.number_field :attendance_id, {value: params[:id], hidden: true} %>
@@ -65,7 +66,18 @@
 		</div>
 
 
+		<button id = 'btn_new_sample' class = 'btn btn-lg btn-outline-success float-right mb-4'>
+			Nova amostra
+		</button>
 
+
+		<script>
+			$('#btn_new_sample').click(() => {
+				$('#new_sample_form').removeAttr('hidden')
+				$('#btn_new_sample').attr('hidden', 'hidden')
+			})
+
+		</script>
 
 
 
