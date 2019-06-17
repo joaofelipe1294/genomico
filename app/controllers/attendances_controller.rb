@@ -72,6 +72,7 @@ class AttendancesController < ApplicationController
   end
 
   def attendances_from_patient
+    # TODO implementar a exibição dos atendimentos de um paciente.
   end
 
   private
