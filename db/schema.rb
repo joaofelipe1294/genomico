@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190611195308) do
+ActiveRecord::Schema.define(version: 20190617162444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,12 @@ ActiveRecord::Schema.define(version: 20190611195308) do
 
   add_index "samples", ["attendance_id"], name: "index_samples_on_attendance_id", using: :btree
   add_index "samples", ["sample_kind_id"], name: "index_samples_on_sample_kind_id", using: :btree
+
+  create_table "sub_sample_kinds", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
