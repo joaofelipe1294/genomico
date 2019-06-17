@@ -312,3 +312,11 @@ SubSampleKind.create({name: 'Pellet de FISH'})
 puts 'Criando SubSampleKind [OK]'
 
 #############################################################
+
+
+puts "Cirando Processing_Equipment ..."
+
+ProcessingEquipment.create({name: 'Nanodrop'})
+ProcessingEquipment.create({name: 'Qubit'})
+
+puts "Cirando Processing_Equipment [OK]"
