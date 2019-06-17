@@ -11,7 +11,7 @@ class SamplesController < ApplicationController
   end
 
   def new
-    @sample = Sample.new
+    @sample = Sample.new({attendance_id: params[:id]})
     @sample_kinds = SampleKind.all.order :name
   end
 
