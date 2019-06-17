@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
+  get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
   resources :samples, except: [:new]
   resources :users
   resources :attendances, except: [:new]

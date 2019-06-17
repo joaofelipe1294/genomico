@@ -57,8 +57,9 @@
           <%= patient.medical_record %>
         </td>
         <td>
-          <%= link_to 'Editar', edit_patient_path(patient), {class: 'btn btn-sm btn-outline-warning'} %>
           <%= link_to 'Novo atendimento', new_attendance_path(patient) , {class: 'btn btn-sm btn-outline-success'} %>
+          <%= link_to 'Atendimentos', attendances_from_patient_path(patient), {class: 'btn btn-sm btn-outline-info'} %>
+          <%= link_to 'Editar', edit_patient_path(patient), {class: 'btn btn-sm btn-outline-warning'} %>
         </td>
       </tr>
     <% end %>
