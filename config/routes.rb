@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
-  post 'samples', to: 'samples#create'
+  get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
+  resources :samples, except: [:new]
   resources :users
   resources :attendances, except: [:new]
   resources :offered_exams
