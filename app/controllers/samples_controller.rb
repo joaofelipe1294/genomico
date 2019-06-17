@@ -15,6 +15,22 @@ class SamplesController < ApplicationController
     @sample_kinds = SampleKind.all.order :name
   end
 
+  def edit
+    @sample = Sample.find params[:id]
+    @sample_kinds = SampleKind.all.order :name
+  end
+
+  def update
+    @sample = Sample.find params[:id]
+    if @sample.update sample_params
+      flash[:success] = 'Amostra editada com sucesso.'
+      redirect_to workflow_path(@sample.attendance)
+    else
+      flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'
+      render edit_sample_path(@sample)
+    end
+  end
+
   private
 
   	def sample_params
