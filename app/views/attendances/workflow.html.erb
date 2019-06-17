@@ -34,22 +34,6 @@
 
 		<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4'} %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		<table class = 'table table-bordered text-center mt-3'>
 			<thead class = 'text-white bg-dark'>
 				<th>
@@ -82,7 +66,7 @@
 						<%= Sample.human_attribute_name(:has_sub_sample) %>
 					</h4>
 				</th>
-				<th><
+				<th></th>
 			</thead>
 			<tbody>
 				<% @attendance.samples.each do |sample| %>

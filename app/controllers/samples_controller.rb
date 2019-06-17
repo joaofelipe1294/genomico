@@ -6,7 +6,7 @@ class SamplesController < ApplicationController
   		flash[:success] = 'Amostra cadastrada com sucesso.'
   		redirect_to workflow_path(@sample.attendance)
 		else
-			render workflow_path(@sample.attendance)
+			render @sample
 		end
   end
 
