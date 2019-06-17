@@ -65,6 +65,8 @@
         bottles_number: Número de frascos
         attendance_id: Atendimento
         storage_location: Local de armazenamento
+        attendance: Atendimento
+        attendance_id: Atendimento
       sample_kind:
         name: Nome
         acronym: Acrônimo
