@@ -95,6 +95,7 @@
 						</td>
 						<td>
 							<%= link_to 'Editar', edit_sample_path(sample), {class: 'btn btn-sm btn-outline-warning'} %>
+							<%= link_to 'Remover', sample_path(sample), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete} %>
 						</td>
 				<% end %>
 			</tbody>
