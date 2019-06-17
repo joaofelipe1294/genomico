@@ -94,9 +94,7 @@
 							<% end %>
 						</td>
 						<td>
-							<button>
-								Editar !
-							</button>
+							<%= link_to 'Editar', edit_sample_path(sample), {class: 'btn btn-sm btn-outline-warning'} %>
 						</td>
 				<% end %>
 			</tbody>
