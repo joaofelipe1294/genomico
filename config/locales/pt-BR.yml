@@ -14,6 +14,7 @@
       sample_kind: Tipo da amostra
       patient: Paciente
       exam: Exame
+      sub_sample_kind: Tipo de subamostra
     attributes:
       user_kind:
         name: Nome
@@ -85,3 +86,5 @@
         sample_id: Amostra
         attendance: Atendimento
         attendance_id: Atendimento
+      sub_sample_kind:
+        name: Nome
