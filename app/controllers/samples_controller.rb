@@ -31,6 +31,17 @@ class SamplesController < ApplicationController
     end
   end
 
+  def destroy
+    @sample = Sample.find params[:id]
+    if @sample.delete
+      flash[:success] = 'Amostra removida com sucesso.'
+      redirect_to workflow_path(@sample.attendance)
+    else
+      flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'
+      redirect_to workflow_path(@sample.attendance)
+    end
+  end
+
   private
 
   	def sample_params
