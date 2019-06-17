@@ -1,29 +1,3 @@
-<%= form_for(@sample, {action: :new_sample_path}) do |f| %>
-					
-	<%= f.number_field :attendance_id, {value: params[:id], hidden: true} %>
+<%= render 'layouts/user_navbar' %>
 
-	<div class = 'form-group'>
-		<%= f.label :sample_kind_id %>
-		<%= f.select :sample_kind_id, options_from_collection_for_select(@sample_kinds, 'id', 'name'), {}, {class: 'form-control'} %>
-	</div>
-
-	<div class = 'form-group'>
-		<%= f.label :collection_date %><br>
-		<%= f.date_select :collection_date, {order: [:day, :month, :year]}, {class: 'form-control date-select '} %>
-	</div>
-
-	<div class = 'form-group'>
-		<%= f.label :bottles_number %>
-		<%= f.number_field :bottles_number, {class: 'form-control', required: true} %>
-	</div>
-
-	<div class = 'form-group'>
-		<%= f.label :storage_location %>
-		<%= f.text_field :storage_location, {class: 'form-control'} %>
-	</div>
-
-	<button class = 'btn btn-outline-primary float-right'>
-		Salvar
-	</button>
-
-<% end %>
+<%= render 'form' %>
