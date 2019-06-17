@@ -10,6 +10,11 @@ class SamplesController < ApplicationController
 		end
   end
 
+  def new
+    @sample = Sample.new
+    @sample_kinds = SampleKind.all.order :name
+  end
+
   private
 
   	def sample_params
