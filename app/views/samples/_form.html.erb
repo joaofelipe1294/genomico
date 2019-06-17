@@ -3,6 +3,11 @@
 	<%= f.number_field :attendance_id, {value: params[:id], hidden: true} %>
 
 	<div class = 'form-group'>
+		<%= f.label :attendance %>
+		<%= f.text_field :attendance, {class: 'form-control', value: @sample.attendance.lis_code, disabled: true} %>
+	</div>
+
+	<div class = 'form-group'>
 		<%= f.label :sample_kind_id %>
 		<%= f.select :sample_kind_id, options_from_collection_for_select(@sample_kinds, 'id', 'name'), {}, {class: 'form-control'} %>
 	</div>
