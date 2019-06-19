@@ -71,8 +71,20 @@ class AttendancesController < ApplicationController
     @health_ensurances = HealthEnsurance.all.order :name
   end
 
+  #GET /patient/:id/attendances
   def attendances_from_patient
     @attendances = Patient.find(params[:id]).attendances.order start_date: :desc
+  end
+
+  #GET /attendances/list_code?lis_code=:lis_code
+  def find_by_lis_code
+    attendance = Attendance.find_by(lis_code: params[:lis_code])
+    if attendance
+      redirect_to workflow_path(attendance)
+    else
+      flash[:warning] = 'O código LisNet informado não esta vinculado a nenhum atendimento.'
+      redirect_to home_user_index_path
+    end
   end
 
   private

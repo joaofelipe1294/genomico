@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
   get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
+  get 'attendances/lis_code', to: 'attendances#find_by_lis_code', as: :lis_search
   resources :samples, except: [:new]
   resources :users
   resources :attendances, except: [:new]
