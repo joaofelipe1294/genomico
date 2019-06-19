@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'sub_samples/edit'
-  get 'sub_samples/sample/:id/new', to: 'sub_samples#new', as: :new_sub_sample
+  get 'subsamples/edit'
+  get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
   get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
   get 'attendances/lis_code', to: 'attendances#find_by_lis_code', as: :lis_search
-  resources :sub_samples
+  resources :subsamples
   resources :samples, except: [:new]
   resources :users
   resources :attendances, except: [:new]

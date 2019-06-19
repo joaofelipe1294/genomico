@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190619174710) do
+ActiveRecord::Schema.define(version: 20190617163526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,19 +118,6 @@ ActiveRecord::Schema.define(version: 20190619174710) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "processing_infos", force: :cascade do |t|
-    t.integer  "subsample_id"
-    t.float    "concentration"
-    t.float    "rate_260_280"
-    t.float    "rate_260_230"
-    t.integer  "processing_equipment_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
-
-  add_index "processing_infos", ["processing_equipment_id"], name: "index_processing_infos_on_processing_equipment_id", using: :btree
-  add_index "processing_infos", ["subsample_id"], name: "index_processing_infos_on_subsample_id", using: :btree
-
   create_table "sample_kinds", force: :cascade do |t|
     t.string   "name"
     t.string   "acronym"
@@ -161,19 +148,6 @@ ActiveRecord::Schema.define(version: 20190619174710) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "subsamples", force: :cascade do |t|
-    t.integer  "sample_id"
-    t.string   "refference_label"
-    t.string   "storage_location"
-    t.integer  "sub_sample_kind_id"
-    t.datetime "collection_date"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_index "subsamples", ["sample_id"], name: "index_subsamples_on_sample_id", using: :btree
-  add_index "subsamples", ["sub_sample_kind_id"], name: "index_subsamples_on_sub_sample_kind_id", using: :btree
-
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -202,11 +176,7 @@ ActiveRecord::Schema.define(version: 20190619174710) do
   add_foreign_key "exams", "offered_exams"
   add_foreign_key "exams", "samples"
   add_foreign_key "offered_exams", "fields"
-  add_foreign_key "processing_infos", "processing_equipments"
-  add_foreign_key "processing_infos", "subsamples"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
-  add_foreign_key "subsamples", "samples"
-  add_foreign_key "subsamples", "sub_sample_kinds"
   add_foreign_key "users", "user_kinds"
 end

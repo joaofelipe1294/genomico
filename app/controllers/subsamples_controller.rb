@@ -1,2 +1,0 @@
-class SubsamplesController < ApplicationController
-end
