@@ -45,7 +45,11 @@
 
 	<div class = 'form-group'>
 		<%= f.label :health_ensurance %>
-		<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control'} %>
+		<% if @attendance.health_ensurance %>
+			<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control'} %>
+		<% else %>
+			<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', include_blank: ''), {}, {class: 'form-control'} %>
+		<% end %>
 	</div>
 
 	<div class = 'form-group'>
