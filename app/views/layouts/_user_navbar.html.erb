@@ -17,9 +17,16 @@
         </div>
       </li>
     </ul>
+    
+    <%= form_tag(home_logout_path, {class: 'form-inline mr-5'}) do %>
+      <%= text_field_tag :lis_code, '', {class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar por Código Lis'} %>
+      <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    <% end %>
+
     <label class="h4 mr-3 mb-0 text-white">
       <%= session[:user_login] %>
     </label>
+
     <%= link_to 'Logout', home_logout_path,{method: :post, class: 'btn btn-sm btn-outline-light'} %>
   </div>
 </nav>
