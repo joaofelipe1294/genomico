@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'sub_samples/edit'
+
+  get 'sub_samples/new'
+
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
