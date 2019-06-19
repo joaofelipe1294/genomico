@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   get 'sub_samples/edit'
-
-  get 'sub_samples/new'
-
+  get 'sub_samples/sample/:id/new', to: 'sub_samples#new', as: :new_sub_sample
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
