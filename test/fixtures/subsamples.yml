@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sample_id: 
+  refference_label: MyString
+  storage_location: MyString
+  sub_sample_kind_id: 
+  collection_date: 2019-06-19 14:44:06
+
+two:
+  sample_id: 
+  refference_label: MyString
+  storage_location: MyString
+  sub_sample_kind_id: 
+  collection_date: 2019-06-19 14:44:06
