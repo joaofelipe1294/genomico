@@ -2,6 +2,7 @@ class SubSamplesController < ApplicationController
   
   #GET /sub_samples/sample/:id/new
   def new
+    # FIXME adaptar para novas alterações no modelo
   	sample = Sample.find params[:id]
   	@sub_sample_kinds = SubSampleKind.all.order :name
   	if sample.sample_kind == SampleKind.find_by({name: 'Swab bucal.'})
@@ -12,6 +13,7 @@ class SubSamplesController < ApplicationController
   end
 
   def create
+    # FIXME adaptar para que cadastro seja feito via ajax
   	@sub_sample = SubSample.new sub_sample_params
   	if @sub_sample.save
   		flash[:success] = 'Subamostra cadastrada com sucesso.'
@@ -27,13 +29,15 @@ class SubSamplesController < ApplicationController
   private 
 
   def sub_sample_params
+    # FIXME ajustar parametros no cadastro de atendimento !
   	params.require(:sub_sample).permit(
   		:sub_sample_kind_id, 
   		:processing_equipment_id,
   		:concentration,
   		:rate_260_280,
   		:rate_260_230,
-  		:sample_id
+  		:sample_id,
+      :storage_location
 		)
   end
 
