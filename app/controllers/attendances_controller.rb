@@ -78,7 +78,7 @@ class AttendancesController < ApplicationController
 
   #GET /attendances/list_code?lis_code=:lis_code
   def find_by_lis_code
-    attendance = Attendance.find_by(lis_code: params[:lis_code])
+    attendance = Attendance.find_by(lis_code: params[:lis_code_search])
     if attendance
       redirect_to workflow_path(attendance)
     else
