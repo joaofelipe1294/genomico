@@ -1,10 +1,43 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= form_for @sub_sample do |f| %>
 
-	<div class  = 'form-group'> 	
-		<%= f.label :sub_sample_kind %>
-		<%= f.select :sub_sample_kind, options_from_collection_for_select(@sub_sample_kinds, 'id', 'name'), {}, {class: 'form-control'}  %>
+<div class="card mt-5 col-md-10 offset-md-1 p-0">
+  <div class="card-header bg-info">
+    <h4 class = "text-white text-center">
+    	Nova subamostra
+    </h4>
+  </div>
+  <div class="card-body">
+		<%= form_for @sub_sample do |f| %>
+
+			<div class  = 'form-group'> 	
+				<%= f.label :sub_sample_kind %>
+				<%= f.select :sub_sample_kind, options_from_collection_for_select(@sub_sample_kinds, 'id', 'name'), {}, {class: 'form-control'}  %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :processing_equipment_id %>
+				<%= f.select :processing_equipment_id, options_from_collection_for_select(@processing_equipments, 'id', 'name'), {}, {class: 'form-control'} %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :concentration %>
+				<%= f.number_field :concentration, {class: 'form-control', step: :any} %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :rate_260_280 %>
+				<%= f.number_field :rate_260_280, {class: 'form-control', step: :any} %>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :rate_260_230 %>
+				<%= f.number_field :rate_260_230, {class: 'form-control', step: :any} %>
+			</div>
+
+			<button class="btn btn-outline-primary float-right">
+				Salvar
+			</button>
+		<% end %>
 	</div>
-
-<% end %>
+</div>
