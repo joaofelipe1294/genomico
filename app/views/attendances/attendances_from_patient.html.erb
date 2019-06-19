@@ -1,2 +1,49 @@
 <%= render 'layouts/user_navbar' %>
 
+<table class = 'table table-bordered text-center mt-5'>
+	<thead class = 'bg-dark text-white'>
+		<th>
+			LisNET
+		</th>
+		<th>
+			Status
+		</th>
+		<th>
+			Data de inicio
+		</th>
+		<th>
+			Data de encerramento
+		</th>
+		<th>
+			Exames em restantes
+		</th>
+		<th>
+			Exames concluídos
+		</th>
+		<th>
+		</th>
+	</thead>
+	<tbody>
+		<% @attendances.each do |attendance| %>
+			<tr>
+				<td><%= attendance.lis_code %></td>
+				<td><%= attendance.attendance_status_kind.name %></td>
+				<td><%= attendance.start_date.strftime("%d/%m/%Y") %></td>
+				<td>
+					<% if attendance.finish_date.nil? %>
+						-
+					<% else %>
+						<%= attendance.finish_date.strftime("%d/%m/%Y") %>
+					<% end %>	
+				</td>
+				<td>
+					<%= attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+				</td>
+				<td>
+					<%= attendance.exams.where(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+				</td>
+				<td>
+					<%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-info'} %>
+		<% end %>
+	</tbody>
+</table>
