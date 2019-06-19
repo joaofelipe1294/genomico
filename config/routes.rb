@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :subsamples
-  get 'subsamples/edit'
   get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
   root 'home#index'
   get 'home_user/index'
@@ -23,4 +21,5 @@ Rails.application.routes.draw do
   resources :attendances, except: [:new]
   resources :offered_exams
   resources :patients, except: [:delete]
+  resources :subsamples
 end
