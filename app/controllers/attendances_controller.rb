@@ -72,7 +72,7 @@ class AttendancesController < ApplicationController
   end
 
   def attendances_from_patient
-    # TODO implementar a exibição dos atendimentos de um paciente.
+    @attendances = Patient.find(params[:id]).attendances.order start_date: :desc
   end
 
   private
