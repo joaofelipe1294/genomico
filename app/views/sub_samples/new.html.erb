@@ -1,2 +1,10 @@
-<h1>SubSamples#new</h1>
-<p>Find me in app/views/sub_samples/new.html.erb</p>
+<%= render 'layouts/user_navbar' %>
+
+<%= form_for @sub_sample do |f| %>
+
+	<div class  = 'form-group'> 	
+		<%= f.label :sub_sample_kind %>
+		<%= f.select :sub_sample_kind, options_from_collection_for_select(@sub_sample_kinds, 'id', 'name'), {}, {class: 'form-control'}  %>
+	</div>
+
+<% end %>
