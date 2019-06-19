@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NanodropDatumTest < ActiveSupport::TestCase
+class NanodropReportTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

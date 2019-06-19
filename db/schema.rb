@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190619185034) do
+ActiveRecord::Schema.define(version: 20190619185457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,16 +93,16 @@ ActiveRecord::Schema.define(version: 20190619185034) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "nanodrop_data", force: :cascade do |t|
-    t.integer  "subsample_id"
+  create_table "nanodrop_reports", force: :cascade do |t|
     t.float    "concentration"
     t.float    "rate_260_280"
     t.float    "rate_260_230"
+    t.integer  "subsample_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
 
-  add_index "nanodrop_data", ["subsample_id"], name: "index_nanodrop_data_on_subsample_id", using: :btree
+  add_index "nanodrop_reports", ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id", using: :btree
 
   create_table "offered_exams", force: :cascade do |t|
     t.string   "name"
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(version: 20190619185034) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "qubit_reports", force: :cascade do |t|
+    t.float    "concentration"
+    t.integer  "subsample_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "qubit_reports", ["subsample_id"], name: "index_qubit_reports_on_subsample_id", using: :btree
 
   create_table "sample_kinds", force: :cascade do |t|
     t.string   "name"
@@ -199,8 +208,9 @@ ActiveRecord::Schema.define(version: 20190619185034) do
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
   add_foreign_key "exams", "samples"
-  add_foreign_key "nanodrop_data", "subsamples"
+  add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
+  add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "subsamples", "samples"
