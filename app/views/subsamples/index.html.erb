@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Subsamples</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Storage location</th>
+      <th>Refference label</th>
+      <th>Sub sample kind</th>
+      <th>Sample</th>
+      <th>Collection date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @subsamples.each do |subsample| %>
+      <tr>
+        <td><%= subsample.storage_location %></td>
+        <td><%= subsample.refference_label %></td>
+        <td><%= subsample.sub_sample_kind %></td>
+        <td><%= subsample.sample %></td>
+        <td><%= subsample.collection_date %></td>
+        <td><%= link_to 'Show', subsample %></td>
+        <td><%= link_to 'Edit', edit_subsample_path(subsample) %></td>
+        <td><%= link_to 'Destroy', subsample, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Subsample', new_subsample_path %>

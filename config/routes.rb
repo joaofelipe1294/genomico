@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subsamples
   get 'subsamples/edit'
   get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
   root 'home#index'

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Storage location:</strong>
+  <%= @subsample.storage_location %>
+</p>
+
+<p>
+  <strong>Refference label:</strong>
+  <%= @subsample.refference_label %>
+</p>
+
+<p>
+  <strong>Sub sample kind:</strong>
+  <%= @subsample.sub_sample_kind %>
+</p>
+
+<p>
+  <strong>Sample:</strong>
+  <%= @subsample.sample %>
+</p>
+
+<p>
+  <strong>Collection date:</strong>
+  <%= @subsample.collection_date %>
+</p>
+
+<%= link_to 'Edit', edit_subsample_path(@subsample) %> |
+<%= link_to 'Back', subsamples_path %>

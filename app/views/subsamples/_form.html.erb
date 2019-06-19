@@ -1,0 +1,37 @@
+<%= form_for(@subsample) do |f| %>
+  <% if @subsample.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subsample.errors.count, "error") %> prohibited this subsample from being saved:</h2>
+
+      <ul>
+      <% @subsample.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :storage_location %><br>
+    <%= f.text_field :storage_location %>
+  </div>
+  <div class="field">
+    <%= f.label :refference_label %><br>
+    <%= f.text_field :refference_label %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_sample_kind_id %><br>
+    <%= f.text_field :sub_sample_kind_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sample_id %><br>
+    <%= f.text_field :sample_id %>
+  </div>
+  <div class="field">
+    <%= f.label :collection_date %><br>
+    <%= f.datetime_select :collection_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
