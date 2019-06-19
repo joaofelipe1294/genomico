@@ -12,11 +12,29 @@ class SubSamplesController < ApplicationController
   end
 
   def create
-
+  	@sub_sample = SubSample.new sub_sample_params
+  	if @sub_sample.save
+  		flash[:success] = 'Subamostra cadastrada com sucesso.'
+  		redirect_to workflow_path(@sub_sample.sample.attendance)
+		else
+			render new_sub_sample_path(@sub_sample)
+		end
 	end
 
   def edit
   end
 
-  
+  private 
+
+  def sub_sample_params
+  	params.require(:sub_sample).permit(
+  		:sub_sample_kind_id, 
+  		:processing_equipment_id,
+  		:concentration,
+  		:rate_260_280,
+  		:rate_260_230,
+  		:sample_id
+		)
+  end
+
 end
