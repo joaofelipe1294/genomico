@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620125648) do
+ActiveRecord::Schema.define(version: 20190620130138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,15 +155,15 @@ ActiveRecord::Schema.define(version: 20190620125648) do
   create_table "subsamples", force: :cascade do |t|
     t.string   "storage_location"
     t.string   "refference_label"
-    t.integer  "sub_sample_kind_id"
+    t.integer  "subsample_kind_id"
     t.integer  "sample_id"
     t.datetime "collection_date"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   add_index "subsamples", ["sample_id"], name: "index_subsamples_on_sample_id", using: :btree
-  add_index "subsamples", ["sub_sample_kind_id"], name: "index_subsamples_on_sub_sample_kind_id", using: :btree
+  add_index "subsamples", ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id", using: :btree
 
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
@@ -197,6 +197,6 @@ ActiveRecord::Schema.define(version: 20190620125648) do
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "subsamples", "samples"
-  add_foreign_key "subsamples", "subsample_kinds", column: "sub_sample_kind_id"
+  add_foreign_key "subsamples", "subsample_kinds"
   add_foreign_key "users", "user_kinds"
 end
