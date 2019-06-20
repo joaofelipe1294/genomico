@@ -14,7 +14,7 @@ class SubsamplesController < ApplicationController
 
   # GET /subsamples/new
   def new
-    @subsample = Subsample.new
+    @subsample = Subsample.new({sample: Sample.find(params[:id])})
   end
 
   # GET /subsamples/1/edit

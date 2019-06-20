@@ -11,10 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :storage_location %><br>
-    <%= f.text_field :storage_location %>
+  <div class = 'form-group'>
+    <%= f.label :sample_label %>
+    <input value = "<%= @subsample.sample.refference_label %>" disabled class = "form-control"/>
   </div>
+
+  <div class="form-group">
+    <%= f.label :storage_location %>
+    <%= f.text_field :storage_location, {class: 'form-control'} %>
+  </div>
+
+  <div class = "form-group">
+    <%= f.label :subsample_kind_id %>
+    <%= f.select :subsample_kind_id
+
   <div class="field">
     <%= f.label :refference_label %><br>
     <%= f.text_field :refference_label %>

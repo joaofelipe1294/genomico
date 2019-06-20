@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190619185457) do
+ActiveRecord::Schema.define(version: 20190620125648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20190619185457) do
   add_index "samples", ["attendance_id"], name: "index_samples_on_attendance_id", using: :btree
   add_index "samples", ["sample_kind_id"], name: "index_samples_on_sample_kind_id", using: :btree
 
-  create_table "sub_sample_kinds", force: :cascade do |t|
+  create_table "subsample_kinds", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -197,6 +197,6 @@ ActiveRecord::Schema.define(version: 20190619185457) do
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "subsamples", "samples"
-  add_foreign_key "subsamples", "sub_sample_kinds"
+  add_foreign_key "subsamples", "subsample_kinds", column: "sub_sample_kind_id"
   add_foreign_key "users", "user_kinds"
 end
