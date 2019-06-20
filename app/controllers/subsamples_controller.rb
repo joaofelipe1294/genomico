@@ -14,7 +14,12 @@ class SubsamplesController < ApplicationController
 
   # GET /subsamples/new
   def new
-    @subsample = Subsample.new({sample: Sample.find(params[:id])})
+    @subsample = Subsample.new({
+      sample: Sample.find(params[:id]),
+      nanodrop_report: NanodropReport.new,
+      qubit_report: QubitReport.new
+    })
+    @subsample_kinds = SubsampleKind.all.order :name
   end
 
   # GET /subsamples/1/edit
