@@ -11,7 +11,16 @@ class ExamsController < ApplicationController
 	end
 
 	def initiate
-		puts 'EU ESTOU AQUI !!!!'
+		exam = Exam.find params[:id]
+		new_params = exam_params
+		new_params[:exam_status_kind] = ExamStatusKind.find_by({name: 'Em andamento'})
+		if exam.update new_params
+			flash[:success] = 'Exame iniciado.'
+			redirect_to workflow_path(exam.attendance)
+		else
+			flash[:warning] = 'Erro ao iniciar exame, tente novamente mais tarde.'
+			redirect_to workflow_path(exam.attendance)
+		end
 	end
 
   def new
