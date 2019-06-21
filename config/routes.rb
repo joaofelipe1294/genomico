@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'exams/new'
+
+  get 'exams/edit'
+
   get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
   root 'home#index'
   get 'home_user/index'
