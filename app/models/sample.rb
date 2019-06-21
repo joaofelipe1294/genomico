@@ -5,7 +5,7 @@ class Sample < ActiveRecord::Base
   before_save :set_refference_label
 
   def default_values
-		self.has_sub_sample = false if self.has_sub_sample.nil?
+		self.has_subsample = false if self.has_subsample.nil?
 		self.entry_date = Date.today if self.entry_date.nil?
 	end
 
