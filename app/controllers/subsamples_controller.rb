@@ -74,6 +74,14 @@ class SubsamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subsample_params
-      params.require(:subsample).permit(:storage_location, :refference_label, :sub_sample_kind_id, :sample_id, :collection_date)
+      params.require(:subsample).permit(
+        :storage_location, 
+        :refference_label, 
+        :subsample_kind_id, 
+        :sample_id, 
+        :collection_date,
+        qubit_report_attributes: [:concentration],
+        nanodrop_report_attributes: [:concentration, :rate_260_280, :rate_260_230]
+      )
     end
 end
