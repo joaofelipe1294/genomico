@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190621124646) do
+ActiveRecord::Schema.define(version: 20190621171933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,12 +64,14 @@ ActiveRecord::Schema.define(version: 20190621124646) do
     t.integer  "sample_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "subsample_id"
   end
 
   add_index "exams", ["attendance_id"], name: "index_exams_on_attendance_id", using: :btree
   add_index "exams", ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id", using: :btree
   add_index "exams", ["offered_exam_id"], name: "index_exams_on_offered_exam_id", using: :btree
   add_index "exams", ["sample_id"], name: "index_exams_on_sample_id", using: :btree
+  add_index "exams", ["subsample_id"], name: "index_exams_on_subsample_id", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
