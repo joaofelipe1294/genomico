@@ -16,42 +16,60 @@
     <input value = "<%= @subsample.sample.refference_label %>" disabled class = "form-control"/>
   </div>
 
-  <div class="form-group">
-    <%= f.label :storage_location %>
-    <%= f.text_field :storage_location, {class: 'form-control'} %>
-  </div>
-
   <div class = "form-group">
     <%= f.label :subsample_kind_id %>
     <%= f.select :subsample_kind_id, options_from_collection_for_select(@subsample_kinds, :id, :name), {}, {class: 'form-control'} %>
   </div>
 
-  <h1 class = 'text-center'>Nanodrop</h1>
-  <%= f.fields_for :nanodrop_report do |nanodrop_fields| %>
-    <div class = 'form-group'>
-      <%= nanodrop_fields.label :rate_260_280 %>
-      <%= nanodrop_fields.number_field :rate_260_280, {class: 'form-control', step: :any} %>
-    </div>
+  <div class="form-group">
+    <%= f.label :storage_location %>
+    <%= f.text_field :storage_location, {class: 'form-control'} %>
+  </div>
 
-    <div class = 'form-group'>
-      <%= nanodrop_fields.label :rate_260_230 %>
-      <%= nanodrop_fields.number_field :rate_260_230, {class: 'form-control', step: :any} %>
-    </div>
 
-    <div class = 'form-group'>
-      <%= nanodrop_fields.label :concentration %>
-      <%= nanodrop_fields.number_field :concentration, {class: 'form-control', step: :any} %>
+  <div class="card">
+    <div class="card-header">
+      <h3 class = "text-center">
+        Nanodrop
+      </h3>
     </div>
-  <% end %>
+    <div class="card-body">
+      <%= f.fields_for :nanodrop_report do |nanodrop_fields| %>
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :rate_260_280 %>
+          <%= nanodrop_fields.number_field :rate_260_280, {class: 'form-control', step: :any} %>
+        </div>
 
-  <h1 class = 'text-center'>Qubit</h1>
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :rate_260_230 %>
+          <%= nanodrop_fields.number_field :rate_260_230, {class: 'form-control', step: :any} %>
+        </div>
 
-  <%= f.fields_for :qubit_report do |qubit_fields| %>
-    <div class = 'form-group'>
-      <%= qubit_fields.label :concentration %>
-      <%= qubit_fields.number_field :concentration, {class: 'form-control', step: :any} %>
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :concentration %>
+          <%= nanodrop_fields.number_field :concentration, {class: 'form-control', step: :any} %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+
+  <div class="card mb-3 mt-3">
+    <div class="card-header">
+      <h3 class = "text-center">
+        Qubit
+      </h3>
+    </div>
+    <div class="card-body">
+      <%= f.fields_for :qubit_report do |qubit_fields| %>
+        <div class = 'form-group'>
+          <%= qubit_fields.label :concentration %>
+          <%= qubit_fields.number_field :concentration, {class: 'form-control', step: :any} %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  
 
   <button class="btn btn-outline-primary float-right">
     Salvar
