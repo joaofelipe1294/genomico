@@ -17,6 +17,7 @@
       subsample_kind: Tipo de subamostra
       subsample: Subamostra
       qubit_report: Dados Qubit
+      nanodrop_report: Dados Nanodrop
     attributes:
       user_kind:
         name: Nome
@@ -98,3 +99,7 @@
         subsample_kind_id: Tipo de Subamostra
       qubit_report:
         concentration: Concentração
+      nanodrop_report:
+        concentration: Concentração
+        rate_260_280: Razão 260 280
+        rate_260_230: Razão 260 230
