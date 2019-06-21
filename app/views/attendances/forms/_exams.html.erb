@@ -4,6 +4,7 @@
 
 
 
+<!-- 
 <%= form_for :exam do |f| %>
 
 	<div class = 'form-group'>
@@ -15,7 +16,7 @@
 			<%= f.label :sample_id %>
 			<%= f.select :sample_id, options_from_collection_for_select(@attendance.samples, 'id', 'refference_label'), {}, {class: 'form-control'} %>
 		</div>
-<% end %>
+<% end %> -->
 
 <table class="table text-center table-bordered">
 			<thead class="bg-dark text-white">
@@ -47,13 +48,13 @@
 							<%= exam.exam_status_kind.name %>
 						</td>
 						<td>
-							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
+							<% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
 								<button>
 									Iniciar
 								</button>
 							<% end %>
 
-							<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
+							<!--<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
 								<button>
 									Em andamento
 								</button>
@@ -76,6 +77,7 @@
 									Concluído
 								</button>
 							<% end %>
+						-->
 						</td>
 					</tr>
 				<% end %>
