@@ -3,6 +3,7 @@ class Sample < ActiveRecord::Base
   belongs_to :attendance
   after_initialize :default_values
   before_save :set_refference_label
+  has_many :subsamples
 
   def default_values
 		self.has_subsample = false if self.has_subsample.nil?
