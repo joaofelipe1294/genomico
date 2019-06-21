@@ -14,7 +14,8 @@
       sample_kind: Tipo da amostra
       patient: Paciente
       exam: Exame
-      sub_sample_kind: Tipo de subamostra
+      subsample_kind: Tipo de subamostra
+      subsample: Subamostra
     attributes:
       user_kind:
         name: Nome
@@ -62,7 +63,7 @@
         has_sub_sample: Possúi subamostra
         entry_date: Data de entrada
         collection_date: Data da coleta
-        refference_label: Rótulo
+        refference_label: Código interno
         bottles_number: Número de frascos
         attendance_id: Atendimento
         storage_location: Local de armazenamento
@@ -86,5 +87,11 @@
         sample_id: Amostra
         attendance: Atendimento
         attendance_id: Atendimento
-      sub_sample_kind:
+      subsample_kind:
         name: Nome
+      subsample:
+        storage_location: Local de armazenamento
+        refference_label: Código interno
+        collection_date: Data da coleta
+        subsample_kind: Tipo de subamostra
+        subsample_kind_id: Tipo de Subamostra
