@@ -49,7 +49,7 @@
 						</td>
 						<td>
 							<% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
-								<%= link_to 'Iniciar exame', new_exam_path, {class: 'btn btn-sm btn-outline-success'} %>
+								<%= link_to 'Iniciar exame', start_exam_path(exam), {class: 'btn btn-sm btn-outline-success'} %>
 							<% end %>
 						</td>
 					</tr>
