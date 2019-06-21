@@ -24,6 +24,7 @@ class SubsamplesController < ApplicationController
 
   # GET /subsamples/1/edit
   def edit
+    @subsample_kinds = SubsampleKind.all.order :name
   end
 
   # POST /subsamples
@@ -41,14 +42,11 @@ class SubsamplesController < ApplicationController
   # PATCH/PUT /subsamples/1
   # PATCH/PUT /subsamples/1.json
   def update
-    respond_to do |format|
-      if @subsample.update(subsample_params)
-        format.html { redirect_to @subsample, notice: 'Subsample was successfully updated.' }
-        format.json { render :show, status: :ok, location: @subsample }
-      else
-        format.html { render :edit }
-        format.json { render json: @subsample.errors, status: :unprocessable_entity }
-      end
+    if @subsample.update(subsample_params)
+      flash[:success] = 'Subamostra editada com sucesso.'
+      redirect_to workflow_path(@subsample.sample.attendance)
+    else
+      render :edit
     end
   end
 
@@ -78,4 +76,6 @@ class SubsamplesController < ApplicationController
         nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy]
       )
     end
+
+
 end
