@@ -11,16 +11,31 @@
     </div>
   <% end %>
 
-  <div class = 'form-group'>
-    <%= f.label :sample_label %>
-    <input value = "<%= @subsample.sample.refference_label %>" disabled class = "form-control"/>
-    <%= f.text_field :sample_id, {hidden: true} %>
-  </div>
+
+  <% if @subsample.refference_label.nil? %>
+    <div class = 'form-group'>
+      <%= f.label :sample_label %>
+      <input value = "<%= @subsample.sample.refference_label %>" disabled class = "form-control"/>
+      <%= f.text_field :sample_id, {hidden: true} %>
+    </div>
+  <% else %>
+   <div class = 'form-group'>
+      <%= f.label :sample_label %>
+      <input value = "<%= @subsample.refference_label %>" disabled class = "form-control"/>
+    </div>
+  <% end %>
 
   <div class = "form-group">
     <%= f.label :subsample_kind_id %>
     <%= f.select :subsample_kind_id, options_from_collection_for_select(@subsample_kinds, :id, :name), {}, {class: 'form-control'} %>
   </div>
+
+  <% if @subsample.collection_date %>
+    <div class = "form-group">
+      <%= f.label :collection_date %>
+      <input value = "<%= @subsample.collection_date.strftime("%d/%m/%Y %H:%M") %>" disabled class = "form-control"/>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= f.label :storage_location %>
