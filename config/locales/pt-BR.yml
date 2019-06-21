@@ -16,6 +16,7 @@
       exam: Exame
       subsample_kind: Tipo de subamostra
       subsample: Subamostra
+      qubit_report: Dados Qubit
     attributes:
       user_kind:
         name: Nome
@@ -95,3 +96,5 @@
         collection_date: Data da coleta
         subsample_kind: Tipo de subamostra
         subsample_kind_id: Tipo de Subamostra
+      qubit_report:
+        concentration: Concentração
