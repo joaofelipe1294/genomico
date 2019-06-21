@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620130138) do
+ActiveRecord::Schema.define(version: 20190621121632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(version: 20190620130138) do
 
   create_table "samples", force: :cascade do |t|
     t.integer  "sample_kind_id"
-    t.boolean  "has_sub_sample"
+    t.boolean  "has_subsample"
     t.date     "entry_date"
     t.date     "collection_date"
     t.string   "refference_label"
