@@ -1,4 +1,5 @@
 class Exam < ActiveRecord::Base
+  attr_accessor :refference_label
   belongs_to :offered_exam
   belongs_to :exam_status_kind
   belongs_to :attendance
