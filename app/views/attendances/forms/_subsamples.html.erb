@@ -1,0 +1,40 @@
+<table class = 'table table-bordered text-center'>
+	<thead class = 'bg-dark text-white'>
+		<th>
+			Label
+		</th>
+		<th>
+			Tipo
+		</th>
+		<th>
+			Armazenamento
+		</th>
+		<th>
+			Coletado em
+		</th>
+		<th></th>
+	</thead>
+	<tbody>
+		<% @attendance.samples.each do |sample| %>
+			<% sample.subsamples.each do |subsample| %>
+				<tr>
+					<td>
+						<%= subsample.refference_label %>
+					</td>
+					<td>
+						<%= subsample.subsample_kind.name %>
+					</td>
+					<td>
+						<%= subsample.storage_location %>
+					</td>
+					<td>
+						<%= subsample.collection_date.strftime("%d/%m/%Y %H:%M") %>
+					</td>
+					<td>
+						<button>Editar</button>
+						<button>Remover</button>
+					</td>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
