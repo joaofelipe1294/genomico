@@ -22,6 +22,20 @@ puts 'Criando Admin para teste [OK]'
 
 ############################################################
 
+puts 'Criando Usuário para teste ...'
+
+User.create({
+	login: 'user',
+	password: '1234',
+	name: 'usuário_incial',
+	user_kind: UserKind.find_by({name: 'user'})
+})
+
+puts 'Criando Usuário para teste [OK]'
+
+
+############################################################
+
 puts 'Criando Fields ...'
 
 Field.create([
