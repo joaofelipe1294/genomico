@@ -302,13 +302,13 @@ puts "Criando OfferedExams [OK]"
 
 #############################################################
 
-puts 'Criando SubSampleKind ...'
+puts 'Criando SubsampleKind ...'
 
-SubSampleKind.create({name: 'RNA'})
-SubSampleKind.create({name: 'cDNA'})
-SubSampleKind.create({name: 'DNA'})
-SubSampleKind.create({name: 'Pellet de FISH'})
+SubsampleKind.create({name: 'RNA'})
+SubsampleKind.create({name: 'cDNA'})
+SubsampleKind.create({name: 'DNA'})
+SubsampleKind.create({name: 'Pellet de FISH'})
 
-puts 'Criando SubSampleKind [OK]'
+puts 'Criando SubsampleKind [OK]'
 
 #############################################################

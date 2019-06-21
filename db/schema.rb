@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(version: 20190620130138) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "exam_kinds", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "field_id"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "exam_kinds", ["field_id"], name: "index_exam_kinds_on_field_id", using: :btree
+
   create_table "exam_status_kinds", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -111,6 +121,12 @@ ActiveRecord::Schema.define(version: 20190620130138) do
     t.string   "medical_record"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "processing_equipments", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "qubit_reports", force: :cascade do |t|
@@ -187,6 +203,7 @@ ActiveRecord::Schema.define(version: 20190620130138) do
   add_foreign_key "attendances", "desease_stages"
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"
+  add_foreign_key "exam_kinds", "fields"
   add_foreign_key "exams", "attendances"
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
