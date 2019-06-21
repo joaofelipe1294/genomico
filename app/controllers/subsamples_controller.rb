@@ -30,15 +30,11 @@ class SubsamplesController < ApplicationController
   # POST /subsamples.json
   def create
     @subsample = Subsample.new(subsample_params)
-
-    respond_to do |format|
-      if @subsample.save
-        format.html { redirect_to @subsample, notice: 'Subsample was successfully created.' }
-        format.json { render :show, status: :created, location: @subsample }
-      else
-        format.html { render :new }
-        format.json { render json: @subsample.errors, status: :unprocessable_entity }
-      end
+    if @subsample.save
+      redirect_to workflow_path(@subsample.sample.attendance)        
+    else
+      @subsample_kinds = SubsampleKind.all.order :name
+      render :new
     end
   end
 
