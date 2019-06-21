@@ -1,0 +1,14 @@
+<%= render 'layouts/user_navbar' %>
+
+<%= form_for(@exam) do |f| %>
+
+	<div class = 'form-group'>
+		<%= f.label :offered_exam %>
+		<%= f.text_field :offered_exam, {value: @exam.offered_exam.name, disabled: true, class: 'form-control'} %>
+	</div>
+
+	<div class = 'form-group'>
+		
+	</div>
+
+<% end %>
