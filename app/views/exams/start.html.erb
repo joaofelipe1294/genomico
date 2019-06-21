@@ -7,7 +7,7 @@
   	</h3>
   </div>
   <div class="card-body">
-    <%= form_for(@exam) do |f| %>
+    <%= form_for(@exam, {url:  initiate_exam_url , method: :patch}) do |f| %>
 
 			<div class = 'form-group'>
 				<%= f.label :offered_exam %>

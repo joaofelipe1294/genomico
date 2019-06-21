@@ -10,9 +10,19 @@ class ExamsController < ApplicationController
 		@samples += samples
 	end
 
+	def initiate
+		puts 'EU ESTOU AQUI !!!!'
+	end
+
   def new
   end
 
   def edit
   end
+
+  private
+
+  	def exam_params
+			params.require(:exam).permit(:offered_exam_id, :refference_label)
+  	end
 end
