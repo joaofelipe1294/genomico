@@ -304,10 +304,10 @@ puts "Criando OfferedExams [OK]"
 
 puts 'Criando SubsampleKind ...'
 
-SubsampleKind.create({name: 'RNA'})
-SubsampleKind.create({name: 'cDNA'})
-SubsampleKind.create({name: 'DNA'})
-SubsampleKind.create({name: 'Pellet de FISH'})
+SubsampleKind.create({name: 'RNA', acronym: 'RNA'})
+SubsampleKind.create({name: 'cDNA', acronym: 'cDNA'})
+SubsampleKind.create({name: 'DNA', acronym: 'DNA'})
+SubsampleKind.create({name: 'Pellet de FISH', acronym: 'FISH'})
 
 puts 'Criando SubsampleKind [OK]'
 
