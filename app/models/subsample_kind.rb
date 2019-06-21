@@ -1,4 +1,4 @@
 class SubsampleKind < ActiveRecord::Base
-	validates :name, uniqueness: true
-	validates :name, presence: true
+	validates :name, :acronym, uniqueness: true
+	validates :name, :acronym, presence: true
 end
