@@ -56,10 +56,8 @@ class SubsamplesController < ApplicationController
   # DELETE /subsamples/1.json
   def destroy
     @subsample.destroy
-    respond_to do |format|
-      format.html { redirect_to subsamples_url, notice: 'Subsample was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:success] = 'Subamostra removida com sucesso.'
+    redirect_to workflow_path(@subsample.sample.attendance)
   end
 
   private
@@ -76,8 +74,8 @@ class SubsamplesController < ApplicationController
         :subsample_kind_id, 
         :sample_id, 
         :collection_date,
-        qubit_report_attributes: [:concentration],
-        nanodrop_report_attributes: [:concentration, :rate_260_280, :rate_260_230]
+        qubit_report_attributes: [:id, :concentration, :_destroy],
+        nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy]
       )
     end
 end

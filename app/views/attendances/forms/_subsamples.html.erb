@@ -32,7 +32,7 @@
 					</td>
 					<td>
 						<button>Editar</button>
-						<button>Remover</button>
+						<%= link_to 'Remover', subsample_path(subsample),{method: :delete, class: 'btn btn-sm btn-outline-danger'} %>
 					</td>
 			<% end %>
 		<% end %>
