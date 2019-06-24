@@ -62,5 +62,7 @@ group :development do
   gem 'rspec-rails', '~> 3.8'
   # This gem implements the rspec command for Spring.
   gem 'spring-commands-rspec'
+  # Acceptance test framework for web applications http://teamcapybara.github.io/capybara/k
+  gem 'capybara'
 end
 
