@@ -7,6 +7,9 @@
 					<h4>Data de início</h4>
 				</th>
 				<th>
+					<h4>Data de conclusão</h4>
+				</th>
+				<th>
 					<h4>Status</h4>
 				</th>
 				<th>
@@ -22,6 +25,11 @@
 						<td>
 							<% if exam.start_date %>
 								<%= l(exam.start_date) %>
+							<% end %>
+						</td>
+						<td>
+							<% if exam.finish_date %>
+								<%= l exam.finish_date %>
 							<% end %>
 						</td>
 						<td>
