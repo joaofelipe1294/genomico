@@ -4,6 +4,7 @@ class Exam < ActiveRecord::Base
   belongs_to :exam_status_kind
   belongs_to :attendance
   belongs_to :sample
+  belongs_to :subsample
   after_initialize :default_values
 
   def default_values
