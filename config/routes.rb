@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
   get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
 
+  get 'exams/:id/edit', to: 'exams#edit', as: :edit_exam 
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
   patch 'exams/:id/initiate', to: 'exams#initiate', as: :initiate_exam
   patch 'exams/:id/tecnical-released', to: 'exams#tecnical_released', as: :change_to_tecnical_released
