@@ -1,7 +1,6 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start]
+  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed]
 
-  
 	def start
 		@samples = []
 		samples = @exam.attendance.samples
@@ -31,6 +30,11 @@ class ExamsController < ApplicationController
 
 	def in_repeat
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em repetição'})
+		apply_changes
+	end
+
+	def completed
+		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Concluído'})
 		apply_changes
 	end
 
