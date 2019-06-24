@@ -37,6 +37,9 @@ class ExamsController < ApplicationController
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Concluído'})
 		@exam.finish_date = DateTime.now
 		apply_changes
+		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0
+			flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
+		end
 	end
 
   private

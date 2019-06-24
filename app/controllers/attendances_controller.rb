@@ -69,6 +69,9 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find params[:id]
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
+    if @attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0
+      flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
+    end
   end
 
   #GET /patient/:id/attendances
