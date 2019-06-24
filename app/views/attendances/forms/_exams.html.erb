@@ -42,15 +42,11 @@
 								<% end %>
 
 								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %> 
-									<%= link_to 'Concluído', change_to_completed_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-success'} %>
+									<%= link_to 'Concluído', change_to_completed_path(exam), {data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success'} %>
 								<% end %>
 
 							<% else %>
-
 									<label class = 'text-success'>Exame concluído</label>
-
-									
-
 							<% end %>
 
 						</td>
