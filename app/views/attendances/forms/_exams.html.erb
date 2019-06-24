@@ -29,7 +29,7 @@
 						</td>
 						<td>
 							<% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
-								<%= link_to 'Iniciar exame', start_exam_path(exam), {class: 'btn btn-sm btn-outline-success'} %>
+								<%= link_to 'Iniciar exame', start_exam_path(exam), {class: 'btn btn-sm btn-outline-primary'} %>
 							
 								<% else %>
 
@@ -38,7 +38,7 @@
 									<% end %>
 
 									<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %> 
-										<button>Em repetição</button>
+										<%= link_to 'Em repetição', change_to_in_repeat_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-secondary'} %>
 									<% end %>
 
 									<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %> 
