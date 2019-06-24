@@ -35,6 +35,7 @@ class ExamsController < ApplicationController
 
 	def completed
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Concluído'})
+		@exam.finish_date = DateTime.now
 		apply_changes
 	end
 
