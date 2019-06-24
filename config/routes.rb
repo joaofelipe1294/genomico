@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :hospitals
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
