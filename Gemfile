@@ -51,6 +51,8 @@ gem "paperclip", "~> 5.0.0"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # RSpec for Rails-3+ http://relishapp.com/rspec/rspec-rails
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
