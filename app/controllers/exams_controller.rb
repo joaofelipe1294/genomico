@@ -11,11 +11,6 @@ class ExamsController < ApplicationController
 	end
 
 	def initiate
-		puts '=================================='
-		puts exam_params[:refference_label]
-		puts Subsample.find_by({refference_label: exam_params[:refference_label]})
-		puts Sample.find_by({refference_label: exam_params[:refference_label]})
-		puts '=================================='
 		exam = Exam.find params[:id]
 		exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
 		sample = Sample.find_by({refference_label: exam_params[:refference_label]})
@@ -34,13 +29,6 @@ class ExamsController < ApplicationController
 			redirect_to workflow_path(exam.attendance)
 		end
 	end
-
-  def new
-  	# TODO CONTNUAR DA TROCA DE ESTADOS  DE EXAE
-  end
-
-  def edit
-  end
 
   private
 
