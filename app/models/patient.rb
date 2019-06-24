@@ -4,4 +4,7 @@ class Patient < ActiveRecord::Base
 	validates :name, uniqueness: {scope: [:birth_date, :mother_name], allow_blank: false}
 	paginates_per 10
 	has_many :attendances
+
+	# TODO adicionar relacionamento com o hospital que enviou a amostra.
+
 end
