@@ -90,6 +90,21 @@ class AttendancesController < ApplicationController
     end
   end
 
+  #PATCH
+  def add_report
+    puts '======================================'
+    puts params[:report]
+    puts '======================================'
+    attendance = Attendance.find params[:id]
+    if attendance.update attendance_params
+      flash[:success] = 'Laudo cadastrado com sucesso.'
+      redirect_to workflow_path(attendance)
+    else
+      flash[:warning] = 'Erro ao adicionar laudo, tente novamente mais tarde.'
+      redirect_to workflow_path(attendance)
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance
@@ -109,7 +124,8 @@ class AttendancesController < ApplicationController
         :doctor_name, 
         :doctor_crm, 
         :observations, 
-        :health_ensurance_id, 
+        :health_ensurance_id,
+        :report,
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location], 
         exams_attributes: [:offered_exam_id],
       )
