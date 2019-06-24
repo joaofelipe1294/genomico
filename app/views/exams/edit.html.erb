@@ -1,2 +1,29 @@
-<h1>Exams#edit</h1>
-<p>Find me in app/views/exams/edit.html.erb</p>
+<%= render 'layouts/user_navbar' %>
+
+<div class="card col-md-10 offset-md-1 mt-5 p-0">
+  <div class="card-header">
+  	<h3 class="text-center">
+    	Editar exame
+  	</h3>
+  </div>
+  <div class="card-body">
+    <%= form_for(@exam, {url:  initiate_exam_url , method: :patch}) do |f| %>
+
+			<div class = 'form-group'>
+				<%= f.label :offered_exam %>
+				<%= f.text_field :offered_exam, {value: @exam.offered_exam.name, disabled: true, class: 'form-control'} %>
+			</div>
+
+			<div class = 'form-group'>
+				<%= f.label :refference_label %>
+				<%= f.select :refference_label, options_from_collection_for_select(@samples, 'refference_label', 'refference_label', selected: @exam.refference_label), {}, {class: 'form-control'} %>
+			</div>
+
+			<button class = 'btn btn-outline-primary float-right'>
+				Salvar
+			</button>
+
+		<% end %>
+  </div>
+
+</div>

@@ -1,13 +1,16 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed]
+  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit]
+  before_action :set_samples_and_subsamples, only: [:start, :edit]
 
 	def start
-		@samples = []
-		samples = @exam.attendance.samples
-		samples.each do |sample|
-			@samples += sample.subsamples if sample.has_subsample
+	end
+
+	def edit
+		if @exam.uses_subsample == false 
+			@exam.refference_label = @exam.sample.refference_label
+		else
+			@exam.refference_label = @exam.subsample.refference_label
 		end
-		@samples += samples
 	end
 
 	def initiate
@@ -60,6 +63,15 @@ class ExamsController < ApplicationController
 				flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
 				redirect_to workflow_path(@exam.attendance)
 			end
+		end
+
+		def set_samples_and_subsamples
+			@samples = []
+			samples = @exam.attendance.samples
+			samples.each do |sample|
+				@samples += sample.subsamples if sample.has_subsample
+			end
+			@samples += samples
 		end
 
 end
