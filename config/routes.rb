@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post 'users/:id/active', to: 'users#activate', as: :activate_user
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
   get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
-  post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :activate_offered_exam
+  post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :acitvate_offered_exam
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
