@@ -10,6 +10,8 @@ class Attendance < ActiveRecord::Base
   after_initialize :default_values
   validates :lis_code, :patient, :exams, :samples, presence: true
   validates :lis_code, uniqueness: true
+  has_attached_file :report
+  validates_attachment_content_type :report, :content_type => ["application/pdf"]
 
   def default_values
     self.start_date = Date.today if self.start_date.nil?
