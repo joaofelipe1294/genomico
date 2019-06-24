@@ -6,9 +6,16 @@ class Exam < ActiveRecord::Base
   belongs_to :sample
   belongs_to :subsample
   after_initialize :default_values
+  before_save :set_start_date
+
+  private
 
   def default_values
   	self.exam_status_kind = ExamStatusKind.find_by({name: 'Aguardando início'}) if self.exam_status_kind.nil?
+  end
+
+  def set_start_date
+    self.start_date = DateTime.now
   end
 
 end
