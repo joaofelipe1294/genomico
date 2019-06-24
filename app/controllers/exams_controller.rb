@@ -11,10 +11,22 @@ class ExamsController < ApplicationController
 	end
 
 	def initiate
+		puts '=================================='
+		puts exam_params[:refference_label]
+		puts Subsample.find_by({refference_label: exam_params[:refference_label]})
+		puts Sample.find_by({refference_label: exam_params[:refference_label]})
+		puts '=================================='
 		exam = Exam.find params[:id]
-		new_params = exam_params
-		new_params[:exam_status_kind] = ExamStatusKind.find_by({name: 'Em andamento'})
-		if exam.update new_params
+		exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
+		sample = Sample.find_by({refference_label: exam_params[:refference_label]})
+		if sample.nil? == false
+			exam.sample = sample
+			exam.uses_subsample = false
+		else
+			exam.subsample = Subsample.find_by({refference_label: exam_params[:refference_label]})
+			exam.uses_subsample = true
+		end
+		if exam.save
 			flash[:success] = 'Exame iniciado.'
 			redirect_to workflow_path(exam.attendance)
 		else
@@ -24,6 +36,7 @@ class ExamsController < ApplicationController
 	end
 
   def new
+  	# TODO CONTNUAR DA TROCA DE ESTADOS  DE EXAE
   end
 
   def edit
