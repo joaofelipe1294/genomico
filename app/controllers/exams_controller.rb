@@ -1,5 +1,5 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit]
+  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
 
 	def start
@@ -13,16 +13,20 @@ class ExamsController < ApplicationController
 		end
 	end
 
+	def update
+		select_label_refference
+		if @exam.save
+			flash[:success] = "Exame editado com sucesso."
+			redirect_to workflow_path(@exam.attendance)
+		else
+			flash[:warning] = 'Erro ao editar exame, tente novamente mais tarde.'
+			redirect_to workflow_path(@exam.attendance)
+		end
+	end
+
 	def initiate
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
-		sample = Sample.find_by({refference_label: exam_params[:refference_label]})
-		if sample.nil? == false
-			@exam.sample = sample
-			@exam.uses_subsample = false
-		else
-			@exam.subsample = Subsample.find_by({refference_label: exam_params[:refference_label]})
-			@exam.uses_subsample = true
-		end
+		select_label_refference
 		apply_changes
 	end
 
@@ -72,6 +76,18 @@ class ExamsController < ApplicationController
 				@samples += sample.subsamples if sample.has_subsample
 			end
 			@samples += samples
+		end
+
+		def select_label_refference
+			sample = Sample.find_by({refference_label: exam_params[:refference_label]})
+			if sample.nil? == false
+				@exam.sample = sample
+				@exam.uses_subsample = false
+			else
+				@exam.subsample = Subsample.find_by({refference_label: exam_params[:refference_label]})
+				@exam.uses_subsample = true
+			end
+			@exam
 		end
 
 end

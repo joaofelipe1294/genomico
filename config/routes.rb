@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get 'exams/:id/edit', to: 'exams#edit', as: :edit_exam 
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
+  patch 'exams/:id', to: 'exams#update', as: :update_exam
   patch 'exams/:id/initiate', to: 'exams#initiate', as: :initiate_exam
   patch 'exams/:id/tecnical-released', to: 'exams#tecnical_released', as: :change_to_tecnical_released
   patch 'exams/:id/in-repeat', to: 'exams#in_repeat', as: :change_to_in_repeat
