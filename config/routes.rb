@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   get 'attendances/lis_code', to: 'attendances#find_by_lis_code', as: :lis_search
+  patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
 
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
   post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :acitvate_offered_exam
