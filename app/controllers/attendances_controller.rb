@@ -92,9 +92,6 @@ class AttendancesController < ApplicationController
 
   #PATCH
   def add_report
-    puts '======================================'
-    puts params[:report]
-    puts '======================================'
     attendance = Attendance.find params[:id]
     if attendance.update attendance_params
       flash[:success] = 'Laudo cadastrado com sucesso.'
