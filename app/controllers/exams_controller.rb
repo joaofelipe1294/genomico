@@ -42,9 +42,26 @@ class ExamsController < ApplicationController
 		end
 	end
 
+	def in_repeat
+		exam = Exam.find params[:id]
+		exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em repetição'})
+		if exam.save
+			flash[:success] = 'Status de exame alterado para em repetição.'
+			redirect_to workflow_path(exam.attendance)
+		else
+			flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
+			redirect_to workflow_path(exam.attendance)
+		end
+	end
+
   private
 
   	def exam_params
 			params.require(:exam).permit(:offered_exam_id, :refference_label)
   	end
+
+	# TODO adicionar método que retorna o exame que será trabalahdo no método
+
+	# TODO adicionar método que exibe mensagem e redireciona após execução do método
+
 end
