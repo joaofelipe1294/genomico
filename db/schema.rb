@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190624122333) do
+ActiveRecord::Schema.define(version: 20190624173312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,10 @@ ActiveRecord::Schema.define(version: 20190624122333) do
     t.integer  "health_ensurance_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "report_file_name"
+    t.string   "report_content_type"
+    t.integer  "report_file_size"
+    t.datetime "report_updated_at"
   end
 
   add_index "attendances", ["attendance_status_kind_id"], name: "index_attendances_on_attendance_status_kind_id", using: :btree
