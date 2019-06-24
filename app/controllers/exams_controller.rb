@@ -30,6 +30,18 @@ class ExamsController < ApplicationController
 		end
 	end
 
+	def tecnical_released
+		exam = Exam.find params[:id]
+		exam.exam_status_kind = ExamStatusKind.find_by({name: 'Liberado técnico'})
+		if exam.save
+			flash[:success] = 'Status de exame alterado para liberado técnico.'
+			redirect_to workflow_path(exam.attendance)
+		else
+			flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
+			redirect_to workflow_path(exam.attendance)
+		end
+	end
+
   private
 
   	def exam_params
