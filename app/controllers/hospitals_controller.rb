@@ -4,7 +4,7 @@ class HospitalsController < ApplicationController
   # GET /hospitals
   # GET /hospitals.json
   def index
-    @hospitals = Hospital.all
+    @hospitals = Hospital.all.order :name
   end
 
   # GET /hospitals/1
@@ -31,17 +31,6 @@ class HospitalsController < ApplicationController
     else
       render :new
     end
-
-
-    # respond_to do |format|
-    #   if @hospital.save
-    #     format.html { redirect_to @hospital, notice: 'Hospital was successfully created.' }
-    #     format.json { render :show, status: :created, location: @hospital }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @hospital.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /hospitals/1
