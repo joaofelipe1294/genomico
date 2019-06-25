@@ -19,7 +19,7 @@
         <a class="nav-link" id = 'sample_nav'>Amostras</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id = 'sub_sample_nav'>Subamostras</a>
+        <a class="nav-link" id = 'subsample_nav'>Subamostras</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id = 'work_map_nav'>Mapa de trabalho</a>
@@ -30,23 +30,23 @@
     </ul>
   </div>
   <div class="mt-3">
-  	<div hidden>
+  	<div id = 'attendance_tab'>
 			<%= render 'attendances/forms/attendance' %>
 		</div>
 
-		<div hidden>
+		<div hidden id = 'exams_tab'>
 			<%= render 'attendances/forms/exams' %>
 		</div>
 
-		<div hidden>
+		<div hidden id = 'samples_tab'>
 			<%= render 'attendances/forms/samples' %>
 		</div>
 
-    <div hidden>
+    <div hidden id = 'subsample_tab'>
       <%= render 'attendances/forms/subsamples' %>
     </div>
 
-    <div hidden>
+    <div hidden id = 'report_tab'>
       <%= render 'attendances/forms/report' %>
     </div>
 
@@ -61,15 +61,79 @@
     $('#attendance_tab').removeAttr('hidden')
     $('#exams_tab').attr('hidden', 'hidden')
     $('#samples_tab').attr('hidden', 'hidden')
-    $('#sub_sample_tab').attr('hidden', 'hidden')
+    $('#subsample_tab').attr('hidden', 'hidden')
     $('#work_map_tab').attr('hidden', 'hidden')
     $('#report_tab').attr('hidden', 'hidden')
     $('#attendance_nav').addClass('active')
     $('#exam_nav').removeClass('active')
     $('#sample_nav').removeClass('active')
-    $('#sub_sample_nav').removeClass('active')
+    $('#subsample_nav').removeClass('active')
     $('#work_map_nav').removeClass('active')
     $('#report_nav').removeClass('active')
   })
+
+  $('#exam_nav').click(event => {
+    event.preventDefault()
+    $('#attendance_tab').attr('hidden', 'hidden')
+    $('#exams_tab').removeAttr('hidden')
+    $('#samples_tab').attr('hidden', 'hidden')
+    $('#subsample_tab').attr('hidden', 'hidden')
+    $('#work_map_tab').attr('hidden', 'hidden')
+    $('#report_tab').attr('hidden', 'hidden')
+    $('#attendance_nav').removeClass('active')
+    $('#exam_nav').addClass('active')
+    $('#sample_nav').removeClass('active')
+    $('#subsample_nav').removeClass('active')
+    $('#work_map_nav').removeClass('active')
+    $('#report_nav').removeClass('active')
+  })
+
+  $('#sample_nav').click(event => {
+    event.preventDefault()
+    $('#attendance_tab').attr('hidden', 'hidden')
+    $('#exams_tab').attr('hidden', 'hidden')
+    $('#samples_tab').removeAttr('hidden')
+    $('#subsample_tab').attr('hidden', 'hidden')
+    $('#work_map_tab').attr('hidden', 'hidden')
+    $('#report_tab').attr('hidden', 'hidden')
+    $('#attendance_nav').removeClass('active')
+    $('#exam_nav').removeClass('active')
+    $('#sample_nav').addClass('active')
+    $('#subsample_nav').removeClass('active')
+    $('#work_map_nav').removeClass('active')
+    $('#report_nav').removeClass('active')
+  })
+
+  $('#subsample_nav').click(event => {
+      event.preventDefault()
+      $('#attendance_tab').attr('hidden', 'hidden')
+      $('#exams_tab').attr('hidden', 'hidden')
+      $('#samples_tab').attr('hidden', 'hidden')
+      $('#subsample_tab').removeAttr('hidden')
+      $('#work_map_tab').attr('hidden', 'hidden')
+      $('#report_tab').attr('hidden', 'hidden')
+      $('#attendance_nav').removeClass('active')
+      $('#exam_nav').removeClass('active')
+      $('#sample_nav').removeClass('active')
+      $('#subsample_nav').addClass('active')
+      $('#work_map_nav').removeClass('active')
+      $('#report_nav').removeClass('active')
+    })
+
+  $('#report_nav').click(event => {
+      event.preventDefault()
+      $('#attendance_tab').attr('hidden', 'hidden')
+      $('#exams_tab').attr('hidden', 'hidden')
+      $('#samples_tab').attr('hidden', 'hidden')
+      $('#subsample_tab').attr('hidden', 'hidden')
+      $('#work_map_tab').attr('hidden', 'hidden')
+      $('#report_tab').removeAttr('hidden')
+      $('#attendance_nav').removeClass('active')
+      $('#exam_nav').removeClass('active')
+      $('#sample_nav').removeClass('active')
+      $('#subsample_nav').removeClass('active')
+      $('#work_map_nav').removeClass('active')
+      $('#report_nav').addClass('active')
+    })
 
 </script>
