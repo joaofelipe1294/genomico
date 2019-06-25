@@ -39,6 +39,9 @@
     <th>
       <h4>Prontuário</h4>
     </th>
+    <th>
+      <h4>Hospital</h4>
+    </th>
     <th></th>
   </thead>
   <tbody>
@@ -55,6 +58,9 @@
         </td>
         <td>
           <%= patient.medical_record %>
+        </td>
+        <td>
+          <%= patient.hospital.name %>
         </td>
         <td>
           <%= link_to 'Novo atendimento', new_attendance_path(patient) , {class: 'btn btn-sm btn-outline-success'} %>
