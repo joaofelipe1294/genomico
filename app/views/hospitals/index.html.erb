@@ -1,7 +1,7 @@
 <%= render 'layouts/admin_navbar' %>
 
 
-<table class = 'table table-bordered col-md-8 offset-md-2 text-center'>
+<table class = 'table table-bordered col-md-8 offset-md-2 text-center mt-5'>
   <thead class="bg-dark text-white">
     <th class = 'w-75'>
       <h4>
@@ -12,16 +12,13 @@
     </th>
   </thead>
   <tbody>
-    <%= @hospitals.each do |hospital| %>
+    <% @hospitals.each do |hospital| %>
       <tr>
         <td>
           <%= hospital.name %>
         </td>
         <td>
           <%= link_to 'Editar', edit_hospital_path(hospital), {class: 'btn btn-sm btn-outline-warning'} %>
-          <button>
-            Remover
-          </button>
         </td>
       </tr>
     <% end %> 
