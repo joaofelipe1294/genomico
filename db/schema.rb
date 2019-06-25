@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190624200547) do
+ActiveRecord::Schema.define(version: 20190625161639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20190624200547) do
     t.string   "medical_record"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "hospital_id"
   end
 
   create_table "qubit_reports", force: :cascade do |t|
@@ -208,6 +209,7 @@ ActiveRecord::Schema.define(version: 20190624200547) do
   add_foreign_key "exams", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
+  add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "sample_kinds"
