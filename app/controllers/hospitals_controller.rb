@@ -25,16 +25,23 @@ class HospitalsController < ApplicationController
   # POST /hospitals.json
   def create
     @hospital = Hospital.new(hospital_params)
-
-    respond_to do |format|
-      if @hospital.save
-        format.html { redirect_to @hospital, notice: 'Hospital was successfully created.' }
-        format.json { render :show, status: :created, location: @hospital }
-      else
-        format.html { render :new }
-        format.json { render json: @hospital.errors, status: :unprocessable_entity }
-      end
+    if @hospital.save
+      flash[:success] = 'Hospital cadastrado com sucesso.'
+      redirect_to home_admin_index_path
+    else
+      render :new
     end
+
+
+    # respond_to do |format|
+    #   if @hospital.save
+    #     format.html { redirect_to @hospital, notice: 'Hospital was successfully created.' }
+    #     format.json { render :show, status: :created, location: @hospital }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @hospital.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /hospitals/1
@@ -69,6 +76,6 @@ class HospitalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hospital_params
-      params.require(:hospital).permit(:patient_id, :name)
+      params.require(:hospital).permit(:name)
     end
 end
