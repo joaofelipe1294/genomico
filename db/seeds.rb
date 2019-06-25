@@ -326,3 +326,11 @@ SubsampleKind.create({name: 'Pellet de FISH', acronym: 'FISH', refference_index:
 puts 'Criando SubsampleKind [OK]'
 
 #############################################################
+
+puts 'Criando Hospitals ...'
+
+Hospital.create({name: 'Hospital Pequeno Príncipe'})
+
+puts 'Criando Hospitals [OK]'
+
+#############################################################
