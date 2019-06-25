@@ -74,7 +74,7 @@ class AttendancesController < ApplicationController
       flash[:info] = 'Existem exames pendentes neste atendimento.'
     elsif has_pendant_exams == true && @attendance.report? == false
       flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
-    elsif @attendance.attendance_status_kind != AttendanceStatusKind.find_by({name: 'Concluído'})
+    elsif has_pendant_exams == false && @attendance.report? && @attendance.attendance_status_kind != AttendanceStatusKind.find_by({name: 'Concluído'})
       @attendance.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Concluído'})
       @attendance.finish_date = Date.today
       if @attendance.save
@@ -84,7 +84,7 @@ class AttendancesController < ApplicationController
         flash[:warning] = 'Houve um erro ao tentar encerrar o atendimento.'
         redirect_to workflow_path(@attendance)
       end
-    else
+    elsif @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'})
       flash[:info] = 'Este atendimento já foi encerrado.'
     end
   end
