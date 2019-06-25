@@ -18,6 +18,7 @@
       subsample: Subamostra
       qubit_report: Dados Qubit
       nanodrop_report: Dados Nanodrop
+      hospital: Hospital
     attributes:
       user_kind:
         name: Nome
@@ -103,3 +104,5 @@
         concentration: Concentração
         rate_260_280: Razão 260 280
         rate_260_230: Razão 260 230
+      hospital:
+        name: Nome
