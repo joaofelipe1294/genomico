@@ -8,6 +8,9 @@
       </h4>
     </th>
     <th>
+      Pacientes
+    </th>
+    <th>
     </th>
   </thead>
   <tbody>
@@ -15,6 +18,9 @@
       <tr>
         <td>
           <%= hospital.name %>
+        </td>
+        <td>
+          <%= hospital.patients.size %>
         </td>
         <td>
           <%= link_to 'Editar', edit_hospital_path(hospital), {class: 'btn btn-sm btn-outline-warning'} %>
