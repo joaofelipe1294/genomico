@@ -57,6 +57,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   # Acceptance test framework for web applications http://teamcapybara.github.io/capybara/k
   gem 'capybara'
+  # Factory Bot ♥ Rails https://thoughtbot.com/services/ruby-…
+  gem 'factory_bot_rails'
 end
 
 group :development do
