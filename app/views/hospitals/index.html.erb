@@ -1,12 +1,12 @@
 <%= render 'layouts/admin_navbar' %>
 
 
-<table>
-  <thead>
-    <th>
-      <h3>
+<table class = 'table table-bordered col-md-8 offset-md-2 text-center'>
+  <thead class="bg-dark text-white">
+    <th class = 'w-75'>
+      <h4>
         Nome
-      </h3>
+      </h4>
     </th>
     <th>
     </th>
@@ -18,9 +18,7 @@
           <%= hospital.name %>
         </td>
         <td>
-          <button>
-            Editar
-          </button>
+          <%= link_to 'Editar', edit_hospital_path(hospital), {class: 'btn btn-sm btn-outline-warning'} %>
           <button>
             Remover
           </button>
