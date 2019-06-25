@@ -1,11 +1,12 @@
 <%= form_for(@hospital) do |f| %>
   <% if @hospital.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@hospital.errors.count, "error") %> prohibited this hospital from being saved:</h2>
-
+      <h2 class = 'text-danger'>
+        Os seguintes erros foram encontrados:
+      </h2>
       <ul>
       <% @hospital.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class = 'text-danger'><%= message %></li>
       <% end %>
       </ul>
     </div>
