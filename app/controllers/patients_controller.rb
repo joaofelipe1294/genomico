@@ -27,6 +27,7 @@ class PatientsController < ApplicationController
 
   # GET /patients/1/edit
   def edit
+    @hospitals = Hospital.all.order :name
   end
 
   # POST /patients
