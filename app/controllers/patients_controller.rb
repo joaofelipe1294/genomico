@@ -50,6 +50,7 @@ class PatientsController < ApplicationController
       flash[:success] = 'Paciente atualizado com sucesso.'
       redirect_to home_user_index_path
     else
+      @hospitals = Hospital.all.order :name
       render :edit
     end
   end
