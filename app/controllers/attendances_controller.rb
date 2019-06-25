@@ -70,7 +70,9 @@ class AttendancesController < ApplicationController
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
     has_pendant_exams = (@attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0)
-    if has_pendant_exams != @attendance.report?
+    if has_pendant_exams == false && @attendance.report? == true
+      flash[:info] = 'Existem exames pendentes neste atendimento.'
+    elsif has_pendant_exams == true && @attendance.report? == false
       flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
     end
   end
