@@ -91,13 +91,10 @@ ActiveRecord::Schema.define(version: 20190624200547) do
   end
 
   create_table "hospitals", force: :cascade do |t|
-    t.integer  "patient_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "hospitals", ["patient_id"], name: "index_hospitals_on_patient_id", using: :btree
 
   create_table "nanodrop_reports", force: :cascade do |t|
     t.float    "concentration"
@@ -209,7 +206,6 @@ ActiveRecord::Schema.define(version: 20190624200547) do
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
   add_foreign_key "exams", "samples"
-  add_foreign_key "hospitals", "patients"
   add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "qubit_reports", "subsamples"
