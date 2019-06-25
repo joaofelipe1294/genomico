@@ -84,6 +84,8 @@ class AttendancesController < ApplicationController
         flash[:warning] = 'Houve um erro ao tentar encerrar o atendimento.'
         redirect_to workflow_path(@attendance)
       end
+    else
+      flash[:info] = 'Este atendimento já foi encerrado.'
     end
   end
 
