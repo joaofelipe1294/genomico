@@ -15,9 +15,11 @@
 
     <div class="col-md-5 offset-md-1 d-inline-block border-right">
       <h3>Amostra</h3>
+      
       <div class = 'form-group'>
         <label>Tipo de amostra</label>
         <select id = 'sample_kind' class = 'form-control'>
+          <option>Selecione uma opção</option>
           <%= @sample_kinds.each do |sample_kind| %>
             <option value = "<%= sample_kind.id %>">
               <%= sample_kind.name %>
@@ -25,7 +27,74 @@
           <% end %>
         </select>
       </div>
+
+      <div class="form-group">
+        <label>Amostra</label>
+        <select id = 'sample' class="form-control"></select>
+      </div>
+
+      
+      
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="col-md-5 bg-info d-inline-block">
       <h3>Amostra</h3>
@@ -48,7 +117,22 @@
 
 <script>
   $('#sample_kind').change(() => {
-    console.log('TROCO !')
+    let sample_kind_id = $('#sample_kind').val()
+    $('.sample_option').remove()
+    axios.get(`/samples?sample_kind=${sample_kind_id}`)
+      .then(function (response) {
+        response.data.forEach(sample => {
+          $('#sample').append(`
+              <option class = 'sample_option' value = ${sample.id}>
+                ${sample.refference_label}
+              </option>
+            `)
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+        alert('Houve um erro no servidor, tente novamente mais tarde')
+      })
   })
 
 </script>
