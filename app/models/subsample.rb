@@ -6,6 +6,7 @@ class Subsample < ActiveRecord::Base
   accepts_nested_attributes_for :nanodrop_report, allow_destroy: true
   accepts_nested_attributes_for :qubit_report, allow_destroy: true
   before_save :add_default_values
+  has_and_belongs_to_many :work_maps
 
   private
 
