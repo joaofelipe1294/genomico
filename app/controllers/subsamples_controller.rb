@@ -4,7 +4,13 @@ class SubsamplesController < ApplicationController
   # GET /subsamples
   # GET /subsamples.json
   def index
-    @subsamples = Subsample.all
+    if params[:subsample_kind].nil?
+      @subsamples = Subsample.all
+    else
+      subsample_kind = SubsampleKind.find params[:subsample_kind]
+      subsamples = Subsample.where({subsample_kind: subsample_kind})
+      render json: subsamples, status: :ok, only: [:id, :refference_label]
+    end
   end
 
   # GET /subsamples/1
