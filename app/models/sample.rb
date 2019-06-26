@@ -4,7 +4,7 @@ class Sample < ActiveRecord::Base
   after_initialize :default_values
   before_save :set_refference_label
   has_many :subsamples
-  has_and_belongs_many :work_maps
+  has_and_belongs_to_many :work_maps
 
   def default_values
 		self.has_subsample = false if self.has_subsample.nil?
