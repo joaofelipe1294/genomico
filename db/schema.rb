@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190626160617) do
+ActiveRecord::Schema.define(version: 20190626161008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,14 @@ ActiveRecord::Schema.define(version: 20190626160617) do
 
   add_index "subsamples", ["sample_id"], name: "index_subsamples_on_sample_id", using: :btree
   add_index "subsamples", ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id", using: :btree
+
+  create_table "subsamples_work_maps", force: :cascade do |t|
+    t.integer "subsample_id"
+    t.integer "work_map_id"
+  end
+
+  add_index "subsamples_work_maps", ["subsample_id"], name: "index_subsamples_work_maps_on_subsample_id", using: :btree
+  add_index "subsamples_work_maps", ["work_map_id"], name: "index_subsamples_work_maps_on_work_map_id", using: :btree
 
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
