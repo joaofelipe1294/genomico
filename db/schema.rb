@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20190626161349) do
 
   create_table "work_maps", force: :cascade do |t|
     t.datetime "data"
+    t.string   "name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "map_file_name"
