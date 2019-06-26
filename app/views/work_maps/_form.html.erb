@@ -17,7 +17,7 @@
       <h3>Amostra</h3>
       <div class = 'form-group'>
         <label>Tipo de amostra</label>
-        <select class = 'form-control'>
+        <select id = 'sample_kind' class = 'form-control'>
           <%= @sample_kinds.each do |sample_kind| %>
             <option value = "<%= sample_kind.id %>">
               <%= sample_kind.name %>
@@ -45,3 +45,10 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $('#sample_kind').change(() => {
+    console.log('TROCO !')
+  })
+
+</script>
