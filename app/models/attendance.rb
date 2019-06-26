@@ -12,6 +12,7 @@ class Attendance < ActiveRecord::Base
   validates :lis_code, uniqueness: true
   has_attached_file :report
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
+  has_and_belongs_to_many :work_maps
 
   def default_values
     self.start_date = Date.today if self.start_date.nil?
