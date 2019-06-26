@@ -41,17 +41,14 @@ class AttendancesController < ApplicationController
   # PATCH/PUT /attendances/1
   # PATCH/PUT /attendances/1.json
   def update
-    respond_to do |format|
       if @attendance.update(attendance_params)
-        format.html { redirect_to @attendance, notice: 'Attendance was successfully updated.' }
-        format.json { render :show, status: :ok, location: @attendance }
+        flash[:success] = 'Atendimento atualizado com sucesso.'
+        redirect_to workflow_path(@attendance)
       else
         @desease_stages = DeseaseStage.all.order :name
         @health_ensurances = HealthEnsurance.all.order :name
-        format.html { render :workflow }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
+        render :workflow1
       end
-    end
   end
 
   # DELETE /attendances/1
