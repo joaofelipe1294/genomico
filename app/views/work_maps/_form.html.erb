@@ -37,6 +37,8 @@
         Adicionar
       </button>
 
+      <%= f.text_field :samples_ids, {id: 'samples_ids'}%>
+
     </div>
 
 
@@ -84,26 +86,43 @@
 
 
 <script>
+  function remove_line(event){
+    event.preventDefault()
+    let line = event.target.parentElement.parentElement
+    $(line).remove()
+  }
+</script>
+
+<script>
   $('#btn_add_sample').click(event => {
     event.preventDefault()
-    console.log($('#sample').val())
     if ($('#sample').val()){
-      $('#samples_table').append(`
-          <tr>
-            <td>
-              ${$('#sample_kind option:selected').text()}
-            </td>
-            <td>
-              ${$('#sample').text()}
-            </td>
-            <td>
-            </td>
-          </tr>
-        `)
+      let samples_ids_values = $('#samples_ids').val()
+      let current_ids = samples_ids_values.split(',')
+      if (current_ids.includes($('#sample').val()) == false){
+        if ($('#samples_ids').val().length === 0)
+          samples_ids_values = `${$('#sample').val()}`
+        else
+          samples_ids_values += `,${$('#sample').val()}`
+        $('#samples_ids').val(samples_ids_values)
+        $('#samples_table').append(`
+            <tr>
+              <td>
+                ${$('#sample_kind option:selected').text()}
+              </td>
+              <td>
+                ${$('#sample').text()}
+              </td>
+              <td>
+                <button class = 'btn btn-sm btn-outline-danger' onclick="remove_line(event)">
+                  Remover
+                </button>
+              </td>
+            </tr>
+          `)
+      }
     }
-    
   })
-
 </script>
 
 
