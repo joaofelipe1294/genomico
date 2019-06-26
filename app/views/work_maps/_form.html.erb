@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-12 p-0 mt-5">
+  <div class="col-md-12 p-0 mt-5" style="overflow: auto;">
 
     <div class="col-md-5 offset-md-1 d-inline-block border-right">
       <h3>Amostra</h3>
@@ -33,63 +33,11 @@
         <select id = 'sample' class="form-control"></select>
       </div>
 
-      
-      
+      <button id='btn_add_sample' class='btn btn-outline-primary float-right mb-2'>
+        Adicionar
+      </button>
+
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -106,14 +54,62 @@
 
   </div>
 
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.datetime_select :data %>
-  </div>
+  <table class="table table-bordered text-center mt-4">
+    <thead class="text-white bg-dark">
+      <th>
+        <h4>
+          Amostra
+        </h4>
+      </th>
+      <th>
+        <h4>
+          Tipo da amostra
+        </h4>
+      </th>
+      <th>
+      </th>
+    </thead>
+    <tbody id = 'samples_table'>     
+    </tbody>
+  </table>
+
+
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<script>
+  $('#btn_add_sample').click(event => {
+    event.preventDefault()
+    console.log($('#sample').val())
+    if ($('#sample').val()){
+      $('#samples_table').append(`
+          <tr>
+            <td>
+              ${$('#sample_kind option:selected').text()}
+            </td>
+            <td>
+              ${$('#sample').text()}
+            </td>
+            <td>
+            </td>
+          </tr>
+        `)
+    }
+    
+  })
+
+</script>
+
+
+
+
+
 
 <script>
   $('#sample_kind').change(() => {
@@ -134,5 +130,4 @@
         alert('Houve um erro no servidor, tente novamente mais tarde')
       })
   })
-
 </script>
