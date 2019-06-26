@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <div class="col-md-12 p-0 mt-5" style="overflow: auto;">
+  <div class="col-md-12 p-0 mt-2" style="overflow: auto;">
 
-    <div class="col-md-5 offset-md-1 d-inline-block border-right">
-      <h3>Amostra</h3>
+    <div class="col-md-5 offset-md-1 d-inline-block border-right" style="overflow: auto;">
+      <h3 class="text-center">Amostra</h3>
       
       <div class = 'form-group'>
         <label>Tipo de amostra</label>
@@ -46,12 +46,30 @@
 
 
 
-    <div class="col-md-5 bg-info d-inline-block">
-      <h3>Amostra</h3>
+    <div class="col-md-5 d-inline-block" style="overflow: auto;">
+      <h3 class="text-center">Subamostra</h3>
+      
       <div class = 'form-group'>
-        <label>Tipo de amostra</label>
-
+        <label>Tipo de subamostra</label>
+        <select id="subsample_kind" class="form-control">
+          <option>Selecione uma opção</option>
+          <%= @subsample_kinds.each do |subsample_kind| %>
+            <option value='<%= subsample_kind.id %>'>
+              <%= subsample_kind.name %>
+            </option>
+          <% end %>
+        </select>
       </div>
+
+      <div class="form-group">
+        <label>Subamostra</label>
+        <select class="form-control"></select>
+      </div>
+
+      <button class="btn btn-outline-primary float-right mb-2">
+        Adicionar
+      </button>
+
     </div>
 
   </div>
