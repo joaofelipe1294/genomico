@@ -69,24 +69,7 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.find params[:id]
     @desease_stages = DeseaseStage.all.order :name
     @health_ensurances = HealthEnsurance.all.order :name
-    has_pendant_exams = (@attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0)
-    if has_pendant_exams == false && @attendance.report? == true
-      flash[:info] = 'Existem exames pendentes neste atendimento.'
-    elsif has_pendant_exams == true && @attendance.report? == false
-      flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
-    elsif has_pendant_exams == false && @attendance.report? && @attendance.attendance_status_kind != AttendanceStatusKind.find_by({name: 'Concluído'})
-      @attendance.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Concluído'})
-      @attendance.finish_date = Date.today
-      if @attendance.save
-        flash[:success] = 'Atendimento encerrado com sucesso.'
-        redirect_to home_user_index_path
-      else
-        flash[:warning] = 'Houve um erro ao tentar encerrar o atendimento.'
-        redirect_to workflow_path(@attendance)
-      end
-    elsif @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'})
-      flash[:info] = 'Este atendimento já foi encerrado.'
-    end
+    verify_exam_status
   end
 
   #GET /patient/:id/attendances
@@ -141,6 +124,33 @@ class AttendancesController < ApplicationController
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location], 
         exams_attributes: [:offered_exam_id],
       )
+    end
+
+    def verify_exam_status
+      has_finished_all_exams = (@attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0)
+      if @attendance.report? && has_finished_all_exams && @attendance.attendance_status_kind != AttendanceStatusKind.find_by({name: 'Concluído'})
+        # irá encerrar o exame
+        new_params = {
+          attendance_status_kind: AttendanceStatusKind.find_by({name: 'Concluído'}),
+          finish_date: Date.today,  
+        }
+        if @attendance.update(new_params)
+          flash[:success] = 'Atendimento encerrado com sucesso.'
+          redirect_to home_user_index_path
+        else
+          flash[:warning] = 'Erro ao encerrar o atendimento.'
+          redirect_to workflow_path(@attendance)
+        end
+      elsif @attendance.report? == false && has_finished_all_exams
+        # falta o laudo
+        flash[:info] = 'Adicione o laudo para que o atendimento seja encerrado.'
+      elsif @attendance.report? && has_finished_all_exams == false
+        # restam exames
+        flash[:info] = 'Existem exames aguardando encerramento para que o atendimento seja encerrado.'
+      elsif @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'})
+        # atendimento já encerrado
+        flash[:info] = "Atendimento encerrado em #{@attendance.finish_date.strftime("%d/%m/%Y")}."
+      end
     end
 
 end
