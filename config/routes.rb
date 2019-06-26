@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :work_maps
   resources :hospitals
   root 'home#index'
   get 'home_user/index'

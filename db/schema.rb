@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190625161639) do
+ActiveRecord::Schema.define(version: 20190626160033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,6 +198,16 @@ ActiveRecord::Schema.define(version: 20190625161639) do
   end
 
   add_index "users", ["user_kind_id"], name: "index_users_on_user_kind_id", using: :btree
+
+  create_table "work_maps", force: :cascade do |t|
+    t.datetime "data"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "map_file_name"
+    t.string   "map_content_type"
+    t.integer  "map_file_size"
+    t.datetime "map_updated_at"
+  end
 
   add_foreign_key "attendances", "attendance_status_kinds"
   add_foreign_key "attendances", "desease_stages"

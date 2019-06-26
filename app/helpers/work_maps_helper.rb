@@ -1,0 +1,2 @@
+module WorkMapsHelper
+end
