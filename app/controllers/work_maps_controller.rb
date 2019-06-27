@@ -71,6 +71,6 @@ class WorkMapsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def work_map_params
-      params.require(:work_map).permit(:data)
+      params.require(:work_map).permit(:data, :name, :map, :sample_ids, :subsample_ids)
     end
 end
