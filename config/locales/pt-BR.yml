@@ -19,6 +19,7 @@
       qubit_report: Dados Qubit
       nanodrop_report: Dados Nanodrop
       hospital: Hospital
+      work_map: Mapa de Trabalho
     attributes:
       user_kind:
         name: Nome
@@ -107,3 +108,6 @@
         rate_260_230: Razão 260 230
       hospital:
         name: Nome
+      work_map:
+        name: Identificador
+        map: Mapa de trabalho
