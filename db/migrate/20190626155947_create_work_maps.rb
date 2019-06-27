@@ -1,7 +1,7 @@
 class CreateWorkMaps < ActiveRecord::Migration
   def change
     create_table :work_maps do |t|
-      t.datetime :data
+      t.date     :date
       t.string   :name
 
       t.timestamps null: false

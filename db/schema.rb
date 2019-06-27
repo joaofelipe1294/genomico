@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(version: 20190627163339) do
   add_index "users", ["user_kind_id"], name: "index_users_on_user_kind_id", using: :btree
 
   create_table "work_maps", force: :cascade do |t|
-    t.datetime "data"
+    t.date     "date"
     t.string   "name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
