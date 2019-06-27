@@ -11,6 +11,9 @@
     </div>
   <% end %>
 
+
+  <hr/>
+
   <div class="col-md-12 p-0 mt-2" style="overflow: auto;">
 
     <div class="col-md-5 offset-md-1 d-inline-block border-right" style="overflow: auto;">
@@ -37,7 +40,7 @@
         Adicionar
       </button>
 
-      <%= f.text_field :samples_ids, {id: 'samples_ids'}%>
+      <%= f.text_field :samples_ids, {id: 'samples_ids', hidden: true}%>
 
     </div>
 
@@ -61,7 +64,7 @@
         <select id='subsample' class="form-control"></select>
       </div>
 
-      <%= f.text_field :subsample_ids, {id: 'subsample_ids'} %>
+      <%= f.text_field :subsample_ids, {id: 'subsample_ids', hidden: true} %>
 
       <button id="btn_add_subsample" class="btn btn-outline-primary float-right mb-2">
         Adicionar
@@ -71,7 +74,7 @@
 
   </div>
 
-  <table class="table table-bordered text-center mt-4">
+  <table class="table table-bordered text-center mt-4 col-md-10 offset-md-1">
     <thead class="text-white bg-dark">
       <th>
         <h4>
