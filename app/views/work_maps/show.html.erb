@@ -1,9 +1,52 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
 
-<p>
-  <strong>Data:</strong>
-  <%= @work_map.data %>
-</p>
+<div class="card mt-5">
+  <div class="card-header bg-secondary">
+    <h3 class = 'text-center text-white'>
+    	Mapa de trabalho
+  	</h3>
+  </div>
+  <div class="card-body">
+    
+    <div class="form-group">
+    	<%= label_tag WorkMap.human_attribute_name :name %>
+    	<%= text_field_tag :name, @work_map.name, {class: 'form-control', disabled: true} %>
+  	</div>
 
-<%= link_to 'Edit', edit_work_map_path(@work_map) %> |
-<%= link_to 'Back', work_maps_path %>
+  	<table class="table table-bordered text-center">
+  		<thead class="bg-dark text-white">
+  			<th>
+  				<%= Sample.human_attribute_name :refference_label %>
+				</th>
+				<th>
+					Tipo
+				</th>
+			</thead>
+			<tbody>
+				<% @work_map.samples.each do |sample| %>
+					<tr>
+						<td class="w-50">
+							<%= sample.refference_label %>
+						</td>
+						<td class="w-50">
+							<%= sample.sample_kind.name %>
+						</td>
+					</tr>
+				<% end %>
+				<% @work_map.subsamples.each do |subsample| %>
+					<tr>
+						<td class="w-50">
+							<%= subsample.refference_label %>
+						</td>
+						<td class="w-50">
+							<%= subsample.subsample_kind.name %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<embed src = "<%= @work_map.map.url %>" height="1150" class = 'offset-md-1 col-md-10' />
+
+  </div>
+</div>
