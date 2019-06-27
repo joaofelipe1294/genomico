@@ -21,6 +21,8 @@ class WorkMapsController < ApplicationController
 
   # GET /work_maps/1/edit
   def edit
+    @sample_kinds = SampleKind.all.order :name
+    @subsample_kinds = SubsampleKind.all.order :name
   end
 
   # POST /work_maps
