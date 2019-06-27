@@ -10,6 +10,7 @@ class WorkMap < ActiveRecord::Base
   private
 
   	def set_attendances
+      self.date = Date.today if self.date.nil?
   		attendance_ids = []
   		samples.each do |sample|
   			attendance_ids.push(sample.attendance.id)
