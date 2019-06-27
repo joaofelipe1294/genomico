@@ -43,9 +43,9 @@ class SamplesController < ApplicationController
   end
 
   def index
-    sample_kind = params[:sample_kind]
+    sample_kind = SampleKind.find params[:sample_kind]
     samples = Sample.where({sample_kind: sample_kind})
-    render json: samples, status: :ok, only: [:id, :refference]
+    render json: samples, status: :ok, only: [:id, :refference_label]
   end
 
   private

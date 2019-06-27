@@ -154,6 +154,7 @@
     $('.sample_option').remove()
     axios.get(`/samples?sample_kind=${sample_kind_id}`)
       .then(function (response) {
+        console.log(response.data)
         response.data.forEach(sample => {
           $('#sample').append(`
               <option class = 'sample_option' value = ${sample.id}>
