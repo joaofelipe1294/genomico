@@ -111,7 +111,30 @@
     let line = event.target.parentElement.parentElement
     $(line).remove()
   }
+
+  function add_line(options = {}){
+    $('#samples_table').append(`
+        <tr>
+          <td>
+            ${options.refference_label}
+          </td>
+          <td>
+            ${options.kind}
+          </td>
+          <td>
+            <button class = 'btn btn-sm btn-outline-danger' onclick="remove_line(event)">
+              Remover
+            </button>
+          </td>
+        </tr>
+      `)
+  }
+
+
+
 </script>
+
+
 
 <script>
   $('#btn_add_subsample').click(event => {
@@ -119,14 +142,22 @@
     event.preventDefault()
     let new_subsample_id = $('#subsample').val()
     console.log(new_subsample_id)
-    if ($('#subsample_ids').val().length === 0)
+    if ($('#subsample_ids').val().length === 0){
       $('#subsample_ids').val(new_subsample_id)
-    else{
+      add_line({
+          refference_label: $('#subsample option:selected').text(),
+          kind: $('#subsample_kind option:selected').text()
+        })
+    }else{
       let ids_list = $('#subsample_ids').val().split(',')
       if (ids_list.includes(new_subsample_id) === false) {
         let current_ids = $('#subsample_ids').val()
         current_ids += `,${new_subsample_id}`
         $('#subsample_ids').val(current_ids)
+        add_line({
+          refference_label: $('#subsample option:selected').text(),
+          kind: $('#subsample_kind option:selected').text()
+        })
       }
     }
   })
