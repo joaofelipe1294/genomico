@@ -63,7 +63,7 @@
 
       <div class="form-group">
         <label>Subamostra</label>
-        <select class="form-control"></select>
+        <select id='subsample' class="form-control"></select>
       </div>
 
       <button class="btn btn-outline-primary float-right mb-2">
@@ -111,6 +111,40 @@
   }
 </script>
 
+
+<script>
+  $('#subsample_kind').change(() => {
+    let subsample_kind_id = $('#subsample_kind').val()
+    $('.subsample_option').remove()
+    axios.get(`/subsamples?subsample_kind=${subsample_kind_id}`)
+      .then(function (response) {
+        response.data.forEach(subsample => {
+          $('#subsample').append(`
+              <option class = 'subsample_option' value = ${subsample.id}>
+                ${subsample.refference_label}
+              </option>
+            `)
+        })
+      })
+      .catch(function (error) {
+        console.log(error)
+        alert('Houve um erro no servidor, tente novamente mais tarde')
+      })
+  })
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
   $('#btn_add_sample').click(event => {
     event.preventDefault()
@@ -143,18 +177,12 @@
   })
 </script>
 
-
-
-
-
-
 <script>
   $('#sample_kind').change(() => {
     let sample_kind_id = $('#sample_kind').val()
     $('.sample_option').remove()
     axios.get(`/samples?sample_kind=${sample_kind_id}`)
       .then(function (response) {
-        console.log(response.data)
         response.data.forEach(sample => {
           $('#sample').append(`
               <option class = 'sample_option' value = ${sample.id}>
