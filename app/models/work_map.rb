@@ -6,6 +6,8 @@ class WorkMap < ActiveRecord::Base
   has_and_belongs_to_many :attendances
   attr_accessor :samples_ids
   before_save :set_attendances
+  validates :name, uniqueness: true
+  validates :name, :map, presence: true
 
   private
 
