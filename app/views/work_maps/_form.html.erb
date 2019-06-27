@@ -66,7 +66,9 @@
         <select id='subsample' class="form-control"></select>
       </div>
 
-      <button class="btn btn-outline-primary float-right mb-2">
+      <%= f.text_field :subsample_ids, {id: 'subsample_ids'} %>
+
+      <button id="btn_add_subsample" class="btn btn-outline-primary float-right mb-2">
         Adicionar
       </button>
 
@@ -110,6 +112,28 @@
     $(line).remove()
   }
 </script>
+
+<script>
+  $('#btn_add_subsample').click(event => {
+    console.log('Add_Subsample')
+    event.preventDefault()
+    let new_subsample_id = $('#subsample').val()
+    console.log(new_subsample_id)
+    if ($('#subsample_ids').val().length === 0)
+      $('#subsample_ids').val(new_subsample_id)
+    else{
+      let ids_list = $('#subsample_ids').val().split(',')
+      if (ids_list.includes(new_subsample_id) === false) {
+        let current_ids = $('#subsample_ids').val()
+        current_ids += `,${new_subsample_id}`
+        $('#subsample_ids').val(current_ids)
+      }
+    }
+  })
+
+</script>
+
+
 
 
 <script>
