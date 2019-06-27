@@ -1,11 +1,11 @@
-<table class = 'table table-bordered text-center mt-5'>
+<table class = 'table table-bordered text-center mt-5 col-md-10 offset-md-1'>
 	<thead class="text-white bg-dark">
-		<th>
+		<th class="w-50">
 			<h4>
 				<%= WorkMap.human_attribute_name :name %>
 			</h4>
 		</th>
-		<th>
+		<th class="w-40">
 			<h4>
 				<%= WorkMap.human_attribute_name :date %>
 			</h4>
@@ -24,6 +24,7 @@
 				</td>
 				<td>
 					<%= link_to 'Abrir mapa', work_map_path(work_map), {class: 'btn btn-sm btn-outline-info'} %>
+					<%= link_to 'Editar', edit_work_map_path(work_map), {class: 'btn btn-sm btn-outline-warning'} %>
 				</td>
 			</tr>
 		<% end %>
