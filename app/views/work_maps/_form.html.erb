@@ -41,11 +41,6 @@
 
     </div>
 
-
-
-
-
-
     <div class="col-md-5 d-inline-block" style="overflow: auto;">
       <h3 class="text-center">Subamostra</h3>
       
@@ -95,10 +90,6 @@
     </tbody>
   </table>
 
-
-
-
-
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -129,43 +120,27 @@
         </tr>
       `)
   }
-
-
-
 </script>
-
-
 
 <script>
   $('#btn_add_subsample').click(event => {
-    console.log('Add_Subsample')
     event.preventDefault()
     let new_subsample_id = $('#subsample').val()
-    console.log(new_subsample_id)
-    if ($('#subsample_ids').val().length === 0){
-      $('#subsample_ids').val(new_subsample_id)
+    let ids_list = $('#subsample_ids').val().split(',')
+    if (ids_list.includes(new_subsample_id) === false){
+      if ($('#subsample_ids').val().length === 0)
+        $('#subsample_ids').val(new_subsample_id)
+      else{
+        let current_ids = $('#subsample_ids').val()
+        $('#subsample_ids').val(`${current_ids},${new_subsample_id}`)
+      }
       add_line({
           refference_label: $('#subsample option:selected').text(),
           kind: $('#subsample_kind option:selected').text()
         })
-    }else{
-      let ids_list = $('#subsample_ids').val().split(',')
-      if (ids_list.includes(new_subsample_id) === false) {
-        let current_ids = $('#subsample_ids').val()
-        current_ids += `,${new_subsample_id}`
-        $('#subsample_ids').val(current_ids)
-        add_line({
-          refference_label: $('#subsample option:selected').text(),
-          kind: $('#subsample_kind option:selected').text()
-        })
-      }
     }
   })
-
 </script>
-
-
-
 
 <script>
   $('#subsample_kind').change(() => {
@@ -186,19 +161,7 @@
         alert('Houve um erro no servidor, tente novamente mais tarde')
       })
   })
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
   $('#btn_add_sample').click(event => {
