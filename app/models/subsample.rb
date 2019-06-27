@@ -7,6 +7,7 @@ class Subsample < ActiveRecord::Base
   accepts_nested_attributes_for :qubit_report, allow_destroy: true
   before_save :add_default_values
   has_and_belongs_to_many :work_maps
+  belongs_to :attendance
 
   private
 
@@ -16,6 +17,7 @@ class Subsample < ActiveRecord::Base
 		self.refference_label = "#{Date.today.year}-#{subsample_kind.acronym}-#{subsample_kind.refference_index}"
 		self.collection_date = DateTime.now
 		self.sample.update({has_subsample: true})
+    self.attendance = sample.attendance
   end
 
 end
