@@ -30,23 +30,27 @@
     </ul>
   </div>
   <div class="mt-3">
-  	<div id = 'attendance_tab'>
-			<%= render 'attendances/forms/attendance' %>
+  	<div id='attendance_tab' style="display: none;">
+			<%= render 'attendances/forms/attendance'%>
 		</div>
 
-		<div id = 'exams_tab' style="display: none;">
+		<div id='exams_tab' style="display: none;">
 			<%= render 'attendances/forms/exams' %>
 		</div>
 
-		<div id = 'samples_tab' style="display: none;">
+		<div id='samples_tab' style="display: none;">
 			<%= render 'attendances/forms/samples' %>
 		</div>
 
-    <div id = 'subsample_tab' style="display: none;">
+    <div id='subsample_tab' style="display: none;">
       <%= render 'attendances/forms/subsamples' %>
     </div>
 
-    <div id = 'report_tab' style="display: none;">
+    <div id="work_map_tab">
+      <%= render 'attendances/forms/work_maps' %>
+    </div>
+
+    <div id='report_tab' style="display: none;">
       <%= render 'attendances/forms/report' %>
     </div>
 
