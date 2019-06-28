@@ -6,7 +6,7 @@ class WorkMapsController < ApplicationController
   def index
     if params[:name]
       @work_maps = WorkMap.where('name ILIKE ?', "%#{params[:name]}%").order :date
-    elsif params[:date][:initial] != "" && params[:date][:final] != ""
+    elsif params[:date] && params[:date][:initial] != "" && params[:date][:final] != ""
       @work_maps = WorkMap.where('date BETWEEN ? AND ?', params[:date][:initial], params[:date][:final])
     else
       @work_maps = WorkMap.all
