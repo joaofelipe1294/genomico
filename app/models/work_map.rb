@@ -8,6 +8,7 @@ class WorkMap < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, :map, presence: true
   validates_attachment_content_type :map, :content_type => ["application/pdf"]
+  paginates_per 10
 
   private
 

@@ -5,13 +5,12 @@ class WorkMapsController < ApplicationController
   # GET /work_maps.json
   def index
     if params[:name]
-      @work_maps = WorkMap.where('name ILIKE ?', "%#{params[:name]}%").order :date
+      @work_maps = WorkMap.where('name ILIKE ?', "%#{params[:name]}%").order(:date).page params[:page]
     elsif params[:date] && params[:date][:initial] != "" && params[:date][:final] != ""
-      @work_maps = WorkMap.where('date BETWEEN ? AND ?', params[:date][:initial], params[:date][:final])
+      @work_maps = WorkMap.where('date BETWEEN ? AND ?', params[:date][:initial], params[:date][:final]).page params[:page]
     else
-      @work_maps = WorkMap.all
+      @work_maps = WorkMap.all.page params[:page]
     end
-    
   end
 
   # GET /work_maps/1
