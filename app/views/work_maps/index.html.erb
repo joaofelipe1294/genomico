@@ -22,9 +22,10 @@
           <%= l work_map.date %>
         </td>
         <td>
-          <button>
+          <!-- <button>
             Visualizar
-          </button>
+          </button> -->
+          <%= link_to 'Visualizar', work_map_path(work_map), {class: 'btn btn-sm btn-outline-info'} %>
           <button>
             Editar
           </button>
