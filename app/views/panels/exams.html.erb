@@ -1,2 +1,21 @@
-<h1>Panels#exams</h1>
-<p>Find me in app/views/panels/exams.html.erb</p>
+<%= render 'layouts/user_navbar' %>
+
+<h2 class="text-center text-info mt-3">
+	Em andamento
+</h2>
+<%= render 'panels/exams_table', locals: {exams: @in_progress_exams, color: 'info'} %>
+
+<h2 class="text-center text-secondary">
+	Aguardando início
+</h2>
+<%= render 'panels/exams_table', locals: {exams: @waiting_exams, color: 'secondary'} %>
+
+<h2 class="text-center text-dark">
+	Liberado técnico
+</h2>
+<%= render 'panels/exams_table', locals: {exams: @technical_released_exams, color: 'dark'} %>
+
+<h2 class="text-center text-warning">
+	Em repetição
+</h2>
+<%= render 'panels/exams_table', locals: {exams: @in_repeat_exams, color: 'warning'} %>
