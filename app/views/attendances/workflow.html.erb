@@ -30,7 +30,7 @@
     </ul>
   </div>
   <div class="mt-3">
-  	<div id='attendance_tab' style="display: none;">
+  	<div id='attendance_tab'>
 			<%= render 'attendances/forms/attendance'%>
 		</div>
 
@@ -46,8 +46,8 @@
       <%= render 'attendances/forms/subsamples' %>
     </div>
 
-    <div id="work_map_tab">
-      <%= render 'attendances/forms/work_maps' %>
+    <div id="work_map_tab" style="display: none;">
+      <%= render 'attendances/forms/work_maps'%>
     </div>
 
     <div id='report_tab' style="display: none;">
@@ -126,6 +126,23 @@
       $('#subsample_nav').addClass('active')
       $('#work_map_nav').removeClass('active')
       $('#report_nav').removeClass('active')
+    })
+
+  $('#work_map_nav').click(event => {
+      event.preventDefault()
+      $('#attendance_tab').css('display', 'none')
+      $('#exams_tab').css('display', 'none')
+      $('#samples_tab').css('display', 'none')
+      $('#subsample_tab').css('display', 'none')
+      $('#work_map_tab').css('display', 'none')
+      $('#report_tab').css('display', 'none')
+      $('#work_map_tab').fadeToggle()
+      $('#attendance_nav').removeClass('active')
+      $('#exam_nav').removeClass('active')
+      $('#sample_nav').removeClass('active')
+      $('#subsample_nav').removeClass('active')
+      $('#work_map_nav').removeClass('active')
+      $('#work_map_nav').addClass('active')
     })
 
   $('#report_nav').click(event => {
