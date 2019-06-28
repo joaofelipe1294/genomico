@@ -12,8 +12,19 @@
       </button>
     <% end %>
   </div>
-  <div class="col-md-5 bg-primary d-inline-block">
-    KOS
+  <div class="col-md-5 d-inline-block">
+    <%= form_tag(work_maps_path, {method: :get}) do %>
+      <div class="form-group">
+        <%= label_tag 'Data inicial: ' %>
+        <%= date_field :date, 'initial', {class: 'form-control date-select mr-3'} %>
+        <%= label_tag 'Data final: ', 'Data final: ', {class: 'ml-3'}%>
+        <%= date_field :date, 'final', {class: 'form-control date-select'} %>
+      </div>
+      <button class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+
+    <% end %>
   </div>
 
 </div>
