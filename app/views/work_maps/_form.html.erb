@@ -18,7 +18,14 @@
 
   <div class="form-group">
     <%= f.label :map %><br/>
-    <%= f.file_field :map, {required: true} %>
+    <% if @work_map.map? %>
+      <%= f.file_field :map, {required: false} %>
+      <label class = 'text-info'>
+        Já possúi um PDF com o mapa de trabalho.
+      </label>
+    <% else %>
+      <%= f.file_field :map, {required: true} %>
+    <% end %>   
   </div>
 
   <hr/>
