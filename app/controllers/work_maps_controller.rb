@@ -4,7 +4,12 @@ class WorkMapsController < ApplicationController
   # GET /work_maps
   # GET /work_maps.json
   def index
-    @work_maps = WorkMap.all
+    if params[:name]
+      @work_maps = WorkMap.where('name ILIKE ?', "%#{params[:name]}%").order :date
+    else
+      @work_maps = WorkMap.all
+    end
+    
   end
 
   # GET /work_maps/1
