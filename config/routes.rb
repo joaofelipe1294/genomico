@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'panels/exams'
+
+  get 'panels/attendances'
+
   resources :work_maps
   resources :hospitals
   root 'home#index'
