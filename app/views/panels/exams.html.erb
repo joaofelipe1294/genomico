@@ -1,14 +1,16 @@
+<meta http-equiv="refresh" content="60" >
+
 <%= render 'layouts/user_navbar' %>
 
-<h2 class="text-center text-info mt-3">
-	Em andamento
-</h2>
-<%= render 'panels/exams_table', locals: {exams: @in_progress_exams, color: 'info'} %>
-
-<h2 class="text-center text-secondary">
+<h2 class="text-center text-secondary mt-3">
 	Aguardando início
 </h2>
 <%= render 'panels/exams_table', locals: {exams: @waiting_exams, color: 'secondary'} %>
+
+<h2 class="text-center text-info">
+	Em andamento
+</h2>
+<%= render 'panels/exams_table', locals: {exams: @in_progress_exams, color: 'info'} %>
 
 <h2 class="text-center text-dark">
 	Liberado técnico
