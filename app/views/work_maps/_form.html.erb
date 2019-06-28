@@ -105,8 +105,36 @@
             <td>
               <%= sample.refference_label %>
             </td>
+            <td hidden>
+              <label class = 'kind'>samples</label>
+            </td>
+            <td hidden>
+              <label class = 'id'><%= sample.id %></label>
+            </td>
             <td>
-              <%= link_to 'Remover', work_map_path, {class: 'btn btn-sm btn-outline-danger'} %>
+              <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
+                Remover
+              </button>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% if @work_map.subsamples %>
+        <% @work_map.subsamples.each do |subsample| %>
+          <tr>
+            <td>
+              <%= subsample.refference_label %>
+            </td>
+            <td hidden>
+              <label class = 'kind'>subsample</label>
+            </td>
+            <td hidden>
+              <label class = 'id'><%= subsample.id %></label>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
+                Remover
+              </button>
             </td>
           </tr>
         <% end %>
