@@ -98,7 +98,19 @@
       <th>
       </th>
     </thead>
-    <tbody id = 'samples_table'>     
+    <tbody id = 'samples_table'>
+      <% if @work_map.samples %>
+        <% @work_map.samples.each do |sample| %>
+          <tr>
+            <td>
+              <%= sample.refference_label %>
+            </td>
+            <td>
+              <%= link_to 'Remover', work_map_path, {class: 'btn btn-sm btn-outline-danger'} %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 
