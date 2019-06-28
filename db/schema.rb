@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190627163339) do
+ActiveRecord::Schema.define(version: 20190628163836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20190627163339) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "exam_status_changes", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "exam_status_kind_id"
+    t.datetime "change_date"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "exam_status_changes", ["exam_id"], name: "index_exam_status_changes_on_exam_id", using: :btree
+  add_index "exam_status_changes", ["exam_status_kind_id"], name: "index_exam_status_changes_on_exam_status_kind_id", using: :btree
 
   create_table "exam_status_kinds", force: :cascade do |t|
     t.string   "name"
@@ -240,6 +251,8 @@ ActiveRecord::Schema.define(version: 20190627163339) do
   add_foreign_key "attendances", "desease_stages"
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"
+  add_foreign_key "exam_status_changes", "exam_status_kinds"
+  add_foreign_key "exam_status_changes", "exams"
   add_foreign_key "exams", "attendances"
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
