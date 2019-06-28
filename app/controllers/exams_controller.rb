@@ -60,6 +60,11 @@ class ExamsController < ApplicationController
 		end 
 
 		def apply_changes
+			ExamStatusChange.create({
+				exam_status_kind: @exam.exam_status_kind, 
+				exam: @exam,
+				change_date: DateTime.now
+			})
 			if @exam.save
 				flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
 				redirect_to workflow_path(@exam.attendance)
