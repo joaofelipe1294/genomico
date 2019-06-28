@@ -1,27 +1,38 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
 
-<h1>Listing Work Maps</h1>
 
-<table>
-  <thead>
+<table class="table table-bordered text-center mt-5 col-md-10 offset-md-1">
+  <thead class="bg-dark text-white">
     <tr>
-      <th>Data</th>
-      <th colspan="3"></th>
+      <th>
+        <h4><%= WorkMap.human_attribute_name :name %></h4>
+      <th>
+        <h4><%= WorkMap.human_attribute_name :date %></h4>
+      </th>
+      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @work_maps.each do |work_map| %>
       <tr>
-        <td><%= work_map.data %></td>
-        <td><%= link_to 'Show', work_map %></td>
-        <td><%= link_to 'Edit', edit_work_map_path(work_map) %></td>
-        <td><%= link_to 'Destroy', work_map, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= work_map.name %>
+        </td>
+        <td>
+          <%= l work_map.date %>
+        </td>
+        <td>
+          <button>
+            Visualizar
+          </button>
+          <button>
+            Editar
+          </button>
+          <button>
+            Remover
+          </button>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Work map', new_work_map_path %>
