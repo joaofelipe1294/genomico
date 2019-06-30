@@ -60,7 +60,9 @@ group :development, :test do
   # Factory Bot ♥ Rails https://thoughtbot.com/services/ruby-…
   gem 'factory_bot_rails'
   # A library for generating fake data such as names, addresses, and phone numbers. 
-  gem 'faker'
+  gem 'faker', '~> 1.9.4'
+  # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
+  gem 'shoulda-matchers'
 end
 
 group :development do
