@@ -43,4 +43,15 @@ RSpec.describe SampleKind, type: :model do
 
 	end
 
+	context 'Before_create' do
+
+		it 'set_refference_index' do
+			sample_kind = create(:sample_kind, refference_index: nil)
+			sample_kind = SampleKind.find sample_kind.id
+			expect(sample_kind).to be_valid
+			expect(sample_kind.refference_index).to eq(0)
+		end
+
+	end
+
 end

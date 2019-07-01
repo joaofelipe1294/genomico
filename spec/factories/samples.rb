@@ -6,7 +6,6 @@ FactoryBot.define do
     collection_date { Faker::Date.between(30.days.ago, Date.today) }
     refference_label { nil }
     bottles_number { Faker::Number.number(1) }
-    # attendance { create(:attendance) }
     storage_location { Faker::Lorem.sentences(1) }
   end
 end
