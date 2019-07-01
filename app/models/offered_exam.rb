@@ -1,5 +1,6 @@
 class OfferedExam < ActiveRecord::Base
   belongs_to :field
+  has_many :exams
   validates :name, uniqueness: true
   validates :name, :field, presence: true
   after_initialize :default_params
