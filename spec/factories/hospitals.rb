@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :hospital do
-    name { Faker::TvShows::SiliconValley.company }
+    name { Faker::Company.name }
   end
 end

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :attendance_status_kind do
-    name { Faker::TvShows::SiliconValley.company }
+    name { Faker::Lorem.word }
   end
 end
