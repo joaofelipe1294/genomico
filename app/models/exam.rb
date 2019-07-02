@@ -5,9 +5,10 @@ class Exam < ActiveRecord::Base
   belongs_to :attendance
   belongs_to :sample
   belongs_to :subsample
+  has_many :exam_status_changes
   after_initialize :default_values
   before_save :set_start_date
-  has_many :exam_status_changes
+  
 
   private
 
