@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :field do
-    name { Faker::Lorem.word }
+    name { Faker::Company.name }
   end
 end
