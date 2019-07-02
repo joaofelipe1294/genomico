@@ -65,6 +65,11 @@ group :development, :test do
   gem 'shoulda-matchers'
 end
 
+group :test do
+  # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing. http://databasecleaner.github.io
+  gem 'database_cleaner'
+end 
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
