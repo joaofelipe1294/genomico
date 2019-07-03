@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       redirect_to home_admin_index_path
     else
       @user_kinds = UserKind.all.order(name: :desc)
-      render new_user_path(@user)
+      render :new
     end
   end
 
