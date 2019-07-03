@@ -33,6 +33,20 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 			expect(page).to have_current_path(users_path)
 		end
 
+		it 'OfferedExam::New' do
+			admin_do_login
+			click_link(id: 'offered-exam-dropdown')
+			click_link(id: 'new-offered-exam')
+			expect(page).to have_current_path(new_offered_exam_path)
+		end
+
+		it 'OffereExam::Find' do
+			admin_do_login
+			click_link(id: 'offered-exam-dropdown')
+			click_link(id: 'offered-exams')
+			expect(page).to have_current_path(offered_exams_path)
+		end
+
 	end
 
 	context 'Invalid Navigations' do
@@ -53,7 +67,17 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 		end
 
 		it 'Users::All' do
-			visit('/users')
+			visit(users_path)
+			expect(page).to have_current_path(root_path)
+		end
+
+		it 'OffereExam::New' do
+			visit(new_offered_exam_path)
+			expect(page).to have_current_path(root_path)
+		end
+
+		it 'OfferedExam::Find' do
+			visit(offered_exams_path)
 			expect(page).to have_current_path(root_path)
 		end
 
