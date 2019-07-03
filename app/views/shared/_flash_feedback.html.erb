@@ -1,11 +1,11 @@
 <% if flash[:success] %>
-  <div class="alert alert-success" role="alert">
+  <div class="alert alert-success" role="alert" id = 'success-warning'>
     <%= flash[:success] %>
   </div>
 <% end %>
 
 <% if flash[:warning] %>
-  <div class="alert alert-danger" role = 'alert'>
+  <div class="alert alert-danger" role = 'alert' id = 'danger-warning'>
     <%= flash[:warning] %>
   </div>
 <% end %>
