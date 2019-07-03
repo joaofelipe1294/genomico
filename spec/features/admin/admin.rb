@@ -1,27 +1,12 @@
 require 'rails_helper'
+require 'helpers/admin_helpers'
 
-def admin_do_login
-	user_kind = UserKind.create({name: 'admin'})
-	admin = User.create({
-		login: 'admin',
-		name: 'root',
-		password: '1234',
-		user_kind: user_kind 
-	})
-	visit(root_path)
-	fill_in('login', with: admin.login)
-	fill_in('password', with: admin.password)
-	click_button('btn-login')
-	expect(page).to have_current_path(home_admin_index_path)
-end
-
-
-RSpec.feature "Admin", type: :feature, js: :false do
+RSpec.feature "Admin", type: :feature, js: :true do
   
 	context 'Navigation' do 
 
 		it 'access admin home without login' do
-			# page.driver.browser.manage.window.resize_to(1920, 1080)
+			page.driver.browser.manage.window.resize_to(1920, 1080)
 			visit(home_admin_index_path)
 			expect(page).to have_current_path(root_path)
 			error_message = find(id: 'danger-warning').text
@@ -36,6 +21,13 @@ RSpec.feature "Admin", type: :feature, js: :false do
 			expect(page).to have_current_path(home_admin_index_path)
 		end
 
+		it 'navigate to users' do
+			admin_do_login
+			click_link(id: 'user-dropdow')
+			click_link(id: 'users')
+			expect(page).to have_current_path(users_path)
+		end
+
 	end
 
 	context 'Home#Functionalities' do
@@ -48,7 +40,7 @@ RSpec.feature "Admin", type: :feature, js: :false do
 
 	end
 
-	context 'User#cuntionalities' do
+	context 'User#funtionalities' do
 
 		it 'new user' do
 			admin_do_login
@@ -65,7 +57,7 @@ RSpec.feature "Admin", type: :feature, js: :false do
 		end
 
 		it 'create new user' do
-			page.driver.browser.manage.window.resize_to(1920, 1080)
+			# page.driver.browser.manage.window.resize_to(1920, 1080)
 			Rails.application.load_seed
 			user = User.new({
 				login: Faker::Internet.username,

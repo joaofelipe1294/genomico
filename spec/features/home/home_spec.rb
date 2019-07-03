@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature "Home_page", type: :feature, js: false do
+RSpec.feature "Home_page", type: :feature, js: true do
 
 	it 'visit home_page' do
-		# page.driver.browser.manage.window.resize_to(1920, 1080)
+		page.driver.browser.manage.window.resize_to(1920, 1080)
 		visit(root_path)
 		expect(page).to have_current_path(root_path)
 	end
