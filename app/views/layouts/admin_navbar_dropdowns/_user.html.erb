@@ -1,9 +1,9 @@
 <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link dropdown-toggle" href="#" id="user-dropdow" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Usuário
   </a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <%= link_to 'Novo', new_user_path, {class: 'dropdown-item'} %>
+  <div class="dropdown-menu" aria-labelledby="user-dropdow">
+    <%= link_to 'Novo', new_user_path, {class: 'dropdown-item', id: 'new-user'} %>
     <div class="dropdown-divider"></div>
     <%= link_to 'Usuários', users_path({kind: 'user'}), {class: 'dropdown-item'} %>
     <div class="dropdown-divider"></div>
