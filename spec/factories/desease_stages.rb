@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :desease_stage do
-    name { Faker::App.name }
+    name { Faker::Company.name }
   end
 end
