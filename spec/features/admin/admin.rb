@@ -5,28 +5,7 @@ RSpec.feature "Admin", type: :feature, js: :true do
   
 	context 'Navigation' do 
 
-		it 'access admin home without login' do
-			page.driver.browser.manage.window.resize_to(1920, 1080)
-			visit(home_admin_index_path)
-			expect(page).to have_current_path(root_path)
-			error_message = find(id: 'danger-warning').text
-			expect(error_message).to eq("Credenciais inválidas.")	
-		end
-
-		it 'navigate to admin home' do
-			admin_do_login
-			click_link(id: 'user-dropdow')
-			click_link(id: 'new-user')
-			click_link(id: 'home-admin')
-			expect(page).to have_current_path(home_admin_index_path)
-		end
-
-		it 'navigate to users' do
-			admin_do_login
-			click_link(id: 'user-dropdow')
-			click_link(id: 'users')
-			expect(page).to have_current_path(users_path)
-		end
+		
 
 	end
 

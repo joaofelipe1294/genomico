@@ -47,9 +47,38 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 			expect(page).to have_current_path(offered_exams_path)
 		end
 
+		it 'Hospital::New' do
+			admin_do_login
+			click_link(id: 'hospital-dropdown')
+			click_link(id: 'new-hospital')
+			expect(page).to have_current_path(new_hospital_path)
+		end
+
+		it 'Hospital::All' do
+			admin_do_login
+			click_link(id: 'hospital-dropdown')
+			click_link(id: 'hospitals')
+			expect(page).to have_current_path(hospitals_path)
+		end
+
+		it 'navigate to admin home' do
+			admin_do_login
+			click_link(id: 'user-dropdow')
+			click_link(id: 'new-user')
+			click_link(id: 'home-admin')
+			expect(page).to have_current_path(home_admin_index_path)
+		end
+
 	end
 
 	context 'Invalid Navigations' do
+
+		it 'access admin home without login' do
+			visit(home_admin_index_path)
+			expect(page).to have_current_path(root_path)
+			error_message = find(id: 'danger-warning').text
+			expect(error_message).to eq("Credenciais inválidas.")	
+		end
 
 		it 'New::User' do
 			visit(new_user_path)
@@ -78,6 +107,16 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 
 		it 'OfferedExam::Find' do
 			visit(offered_exams_path)
+			expect(page).to have_current_path(root_path)
+		end
+
+		it 'Hospital::New' do
+			visit(new_hospital_path)
+			expect(page).to have_current_path(root_path)
+		end
+
+		it 'Hospital::All' do
+			visit(hospitals_path)
 			expect(page).to have_current_path(root_path)
 		end
 
