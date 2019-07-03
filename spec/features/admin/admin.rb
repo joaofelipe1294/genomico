@@ -30,24 +30,8 @@ RSpec.feature "Admin", type: :feature, js: :true do
 
 	end
 
-	context 'Home#Functionalities' do
-
-		it 'logout' do
-			admin_do_login
-			click_link('btn-logout')
-			expect(page).to have_current_path(root_path)
-		end
-
-	end
 
 	context 'User#funtionalities' do
-
-		it 'new user' do
-			admin_do_login
-			click_link(id: 'user-dropdow')
-			click_link(id: 'new-user')
-			expect(page).to have_current_path(new_user_path)
-		end
 
 		it 'new user without login' do
 			visit(new_user_path)

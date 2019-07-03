@@ -7,8 +7,8 @@
     <div class="dropdown-divider"></div>
     <%= link_to 'Usuários', users_path({kind: 'user'}), {class: 'dropdown-item', id: 'users'} %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Administradores', users_path({kind: 'admin'}), {class: 'dropdown-item'} %>
+    <%= link_to 'Administradores', users_path({kind: 'admin'}), {class: 'dropdown-item', id: 'admins'} %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Todos', users_path, {class: 'dropdown-item'} %>
+    <%= link_to 'Todos', users_path, {class: 'dropdown-item', id: 'all-users'} %>
   </div>
 </li>
