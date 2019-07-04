@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Field, type: :model do
-  describe 'Field validations' do
+  
+  context 'Field validations' do
   	
   	it 'is expected to create a new field.' do
   		field = create(:field)
@@ -24,4 +25,12 @@ RSpec.describe Field, type: :model do
 		end
 
 	end 
+
+	context 'Relations' do
+
+		it { should have_many(:offered_exams) }
+
+	end
+
+
 end

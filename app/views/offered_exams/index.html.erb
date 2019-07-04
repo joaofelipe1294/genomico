@@ -8,7 +8,7 @@
         <%= select_tag :field ,options_from_collection_for_select(@fields, 'id', 'name'), {class: 'form-control'} %>
       </div>
       <div>
-        <button class="btn btn-outline-info">
+        <button id = "btn-search-by-field" class="btn btn-outline-info">
           Buscar
         </button>
       </div>
@@ -22,7 +22,7 @@
         <%= text_field_tag :name, '', {class: 'form-control'} %>
       </div>
       <div>
-        <button class="btn btn-outline-info">
+        <button id = "btn-search-by-name" class="btn btn-outline-info">
           Buscar
         </button>
       </div>
@@ -40,7 +40,7 @@
   <tbody>
     <% @offered_exams.each do |exam| %>
       <tr>
-        <td>
+        <td class="name">
           <%= exam.name %>
         </td>
         <td>
