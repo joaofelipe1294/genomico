@@ -21,3 +21,14 @@ def fill_user_fields
 	select(@user.user_kind.name, from: "user[user_kind_id]").select_option if @user.user_kind
 	click_button(class: 'btn')
 end
+
+def create_users
+	user_kind = UserKind.create({name: 'user'})
+	User.create([
+		{login: Faker::Internet.username, password: '1234', user_kind: user_kind, name: Faker::Name.name},
+		{login: Faker::Internet.username, password: '1234', user_kind: user_kind, name: Faker::Name.name},
+		{login: Faker::Internet.username, password: '1234', user_kind: user_kind, name: Faker::Name.name},
+		{login: Faker::Internet.username, password: '1234', user_kind: user_kind, name: Faker::Name.name},
+		{login: Faker::Internet.username, password: '1234', user_kind: user_kind, name: Faker::Name.name}
+	])
+end
