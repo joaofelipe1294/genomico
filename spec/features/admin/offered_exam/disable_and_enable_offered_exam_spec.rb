@@ -1,15 +1,11 @@
 require 'rails_helper'
 require 'helpers/user'
+require 'helpers/offered_exam'
 
 RSpec.feature "Admin::OfferedExam::DisableAndEnableOfferedExams", type: :feature do
 
 	before :each, js: true do
-		Field.create([{name: 'Biomol'}, {name: 'Imunofeno'}, {name: 'Anatomia'}])
-		OfferedExam.create([
-			{name: 'Primeiro Exame', field: Field.order(name: :desc).first},
-			{name: 'Algum exame complicado', field: Field.order(name: :desc).first},
-			{name: 'Exame bem simples', field: Field.order(name: :desc).last}
-		])
+		setup_offered_exam
 		admin_do_login
 		click_link(id: 'offered-exam-dropdown')
 		click_link(id: 'offered-exams')
@@ -30,7 +26,5 @@ RSpec.feature "Admin::OfferedExam::DisableAndEnableOfferedExams", type: :feature
 		click_link(class: 'btn-outline-secondary')
 		expect(find(id: 'success-warning').text).to eq('Exame ativado com sucesso.')
 	end
-
-
 
 end

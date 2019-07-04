@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'helpers/user'
+require 'helpers/offered_exam'
 
 def navigate_to_exams_page
 	click_link(id: 'offered-exam-dropdown')
@@ -9,12 +10,7 @@ end
 RSpec.feature "Admin::OfferedExam::FindExams", type: :feature do
   
 	before :each do
-		Field.create([{name: 'Biomol'}, {name: 'Imunofeno'}, {name: 'Anatomia'}])
-		OfferedExam.create([
-			{name: 'Primeiro Exame', field: Field.order(name: :desc).first},
-			{name: 'Algum exame complicado', field: Field.order(name: :desc).first},
-			{name: 'Exame bem simples', field: Field.order(name: :desc).last}
-		])
+		setup_offered_exam
 		admin_do_login
 		navigate_to_exams_page
 	end
