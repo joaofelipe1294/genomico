@@ -1,11 +1,12 @@
 require 'rails_helper'
-require 'helpers/admin'
+require 'helpers/user'
 
 def navigate_to_new_user
 	click_link(id: 'user-dropdow')
 	click_link(id: 'new-user')
 end
 
+# TO DO remover e utilizar do helper
 def fill_user_fields
 	fill_in('user[name]', with: @user.name) if @user.name
 	fill_in('user[login]', with: @user.login) if @user.login
