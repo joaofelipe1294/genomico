@@ -6,16 +6,6 @@ def navigate_to_new_user
 	click_link(id: 'new-user')
 end
 
-# TO DO remover e utilizar do helper
-def fill_user_fields
-	fill_in('user[name]', with: @user.name) if @user.name
-	fill_in('user[login]', with: @user.login) if @user.login
-	fill_in('user[password]', with: @user.password) if @user.password
-	fill_in('user[password_confirmation]', with: @user.password) if @user.password
-	select(@user.user_kind.name, from: "user[user_kind_id]").select_option if @user.user_kind
-	click_button(class: 'btn')
-end
-
 RSpec.feature "Admin", type: :feature do
 
 	before :each do
