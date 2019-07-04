@@ -61,7 +61,7 @@
             <%= link_to 'Editar', edit_offered_exam_path(exam), {class: 'btn btn-sm btn-outline-warning'} %>
             <%= link_to 'Desabilitar', offered_exam_path(exam), {method: :delete, class: 'btn btn-sm btn-outline-danger', data: {confirm: 'Tem certeza ?'}} %>
           <% else %>
-            <%= link_to 'Habilitar', activate_offered_exam_path(exam), {method: :post, class: 'btn btn-sm btn-outline-secondary'} %>
+            <%= link_to 'Habilitar', acitvate_offered_exam_path(exam), {method: :post, class: 'btn btn-sm btn-outline-secondary'} %>
           <% end %>
         </td>
       </tr>
