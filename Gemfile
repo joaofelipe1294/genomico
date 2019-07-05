@@ -69,7 +69,8 @@ group :test do
   # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing. http://databasecleaner.github.io
   gem 'database_cleaner'
   gem 'selenium-webdriver'
-  gem 'webdrivers'
+  # gem 'webdrivers'
+  gem 'webdrivers', '~> 4.0'
   gem 'puma'
   gem 'chromedriver-helper' #only headless
 end 
