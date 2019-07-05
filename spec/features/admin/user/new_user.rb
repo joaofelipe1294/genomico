@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 
 def navigate_to_new_user
 	click_link(id: 'user-dropdow')

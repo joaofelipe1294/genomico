@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 
 def fill_offered_exam_fields
 	fill_in("offered_exam[name]", with: @offered_exam.name) if @offered_exam.name

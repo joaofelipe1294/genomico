@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 
 RSpec.feature "Admin::DisableAndEnableUsers", type: :feature do
 

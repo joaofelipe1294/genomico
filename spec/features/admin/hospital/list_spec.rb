@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 
 RSpec.feature "Admin::Hospital::Lists", type: :feature do
 

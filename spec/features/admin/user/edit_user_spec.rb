@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 
 def navigate_to_edit_user_page
 	click_link(id: 'user-dropdown')

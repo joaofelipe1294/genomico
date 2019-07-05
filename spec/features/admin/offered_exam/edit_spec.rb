@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'helpers/user'
+require 'helpers/admin'
 require 'helpers/offered_exam'
 
 RSpec.feature "Admin::OfferedExam::Edits", type: :feature do
