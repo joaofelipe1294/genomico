@@ -5,7 +5,7 @@
       <ul>
       <% @patient.errors.full_messages.each do |message| %>
         <li>
-          <span class = 'text-danger'>
+          <span class = 'text-danger error'>
             <%= message %>
           </span>
         </li>
@@ -20,7 +20,6 @@
   </div>
   <div class="form-group">
     <%= f.label :birth_date %>
-    <!-- <%= f.date_select :birth_date,{order: [:day, :month, :year], start_year: Date.today.year - 20}, {class: 'form-control date-select '} %> -->
     <%= f.date_field :birth_date, {class: 'form-control'} %>
   </div>
   <div class="form-group">
