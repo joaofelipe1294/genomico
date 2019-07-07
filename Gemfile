@@ -26,11 +26,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap', '~> 4.3.1'
 #⚡ A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for Ruby webapps https://github.com/amatsuda/kaminari/…
 gem 'kaminari'
-#Gem - Bootstrap 4 styling for Kaminari gem 
+#Gem - Bootstrap 4 styling for Kaminari gem
 gem 'bootstrap4-kaminari-views'
-#Translations for the kaminari gem 
+#Translations for the kaminari gem
 gem 'kaminari-i18n'
-#Bundler-like DSL + rake tasks for Bower on Rails 
+#Bundler-like DSL + rake tasks for Bower on Rails
 gem "bower-rails", "~> 0.11.0"
 
 
@@ -59,7 +59,7 @@ group :development, :test do
   gem 'capybara'
   # Factory Bot ♥ Rails https://thoughtbot.com/services/ruby-…
   gem 'factory_bot_rails'
-  # A library for generating fake data such as names, addresses, and phone numbers. 
+  # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker', '~> 1.9.4'
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
@@ -72,8 +72,8 @@ group :test do
   # gem 'webdrivers'
   gem 'webdrivers', '~> 4.0'
   gem 'puma'
-  gem 'chromedriver-helper' #only headless
-end 
+  # gem 'chromedriver-helper' #only headless
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -81,4 +81,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
