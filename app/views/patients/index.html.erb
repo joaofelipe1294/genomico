@@ -5,9 +5,9 @@
     <%= form_tag(patients_path, method: :get) do %>
       <div class="form-group">
         <label>Parte do nome</label>
-        <%= text_field_tag :name, '', {class: 'form-control'} %>
+        <%= text_field_tag :name, '', {class: 'form-control', id: 'patient-name'} %>
       </div>
-      <button class="btn btn-outline-info">
+      <button class="btn btn-outline-info" id="btn-search-by-name">
         Buscar
       </button>
     <% end %>
@@ -16,9 +16,9 @@
     <%= form_tag(patients_path, method: :get) do %>
       <div class="form-group">
         <label>Prontuário médico</label>
-        <%= text_field_tag :medical_record, '', {class: 'form-control', pattern: "^(0|[1-9][0-9]*)$"} %>
+        <%= text_field_tag :medical_record, '', {class: 'form-control', pattern: "^(0|[1-9][0-9]*)$", id: 'medical-record'} %>
       </div>
-      <button class="btn btn-outline-info">
+      <button class="btn btn-outline-info" id = 'btn-search-by-medical-record'>
         Buscar
       </button>
     <% end %>
@@ -46,7 +46,7 @@
   </thead>
   <tbody>
     <% @patients.each do |patient| %>
-      <tr>
+      <tr class="patient">
         <td>
           <%= patient.name %>
         </td>
