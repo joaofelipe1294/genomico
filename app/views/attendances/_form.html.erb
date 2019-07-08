@@ -6,28 +6,28 @@
 <div class="col-md-10 offset-md-1 mt-4 border p-2">
   <div class="border-bottom pb-3">
     <ul class="nav nav-pills nav-fill">
-      <li class="nav-item">
-        <a class="nav-link active" id = 'attendance_nav'>Atendimento</a>
+      <li class="nav-item ml-5">
+        <a class="nav-link active w-75 border" id = 'attendance_nav'>Atendimento</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id = 'exam_nav'>Exames</a>
+        <a class="nav-link w-75 border" id = 'exam_nav'>Exames</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id = 'sample_nav'>Amostras</a>
+        <a class="nav-link w-75 border" id = 'sample_nav'>Amostras</a>
       </li>
     </ul>
   </div>
 
   <div class="mt-2 col-md-10 offset-md-1 mt-3">
-    <div id = 'attendance_tab'>
+    <div id = 'attendance_tab' style="display: auto;">
       <%= render 'attendances/tabs/attendance', locals: {attendance: @attendance} %>
     </div>
 
-    <div id = 'exams_tab' hidden>
+    <div id = 'exams_tab' style="display: none;">
       <%= render 'attendances/tabs/exams' %>
     </div>
 
-    <div id = 'samples_tab' hidden>
+    <div id = 'samples_tab' style="display: none;">
       <%= render 'attendances/tabs/samples' %>
     </div>
   </div>
@@ -50,8 +50,8 @@
       let sample_kind_id = parseInt(sample_line.querySelector('.sample_kind_id').textContent)
       let date_text = sample_line.querySelector('.collection_date').textContent.split('/')
       let collection_date = new Date(
-        parseInt(date_text[2]), 
-        parseInt(date_text[1]) - 1, 
+        parseInt(date_text[2]),
+        parseInt(date_text[1]) - 1,
         parseInt(date_text[0])
       )
       let bottles_number = parseInt(sample_line.querySelector('.bottles_number').textContent)
@@ -91,7 +91,7 @@
     axios.post(
       '<%= attendances_url %>',
       {authenticity_token, attendance }
-    ).then(response => 
+    ).then(response =>
       window.location.replace('<%= home_user_index_url %>')
     ).catch(error => {
       let error_messages = []
@@ -119,9 +119,10 @@
 <script>
   $('#attendance_nav').click(event => {
     event.preventDefault()
-    $('#attendance_tab').removeAttr('hidden')
-    $('#exams_tab').attr('hidden', 'hidden')
-    $('#samples_tab').attr('hidden', 'hidden')
+    $('#attendance_tab').css('display', 'none')
+    $('#exams_tab').css('display', 'none')
+    $('#samples_tab').css('display', 'none')
+    $('#attendance_tab').fadeToggle()
     $('#attendance_nav').addClass('active')
     $('#exam_nav').removeClass('active')
     $('#sample_nav').removeClass('active')
@@ -130,9 +131,10 @@
 
   $('#exam_nav').click(event => {
     event.preventDefault()
-    $('#exams_tab').removeAttr('hidden')
-    $('#attendance_tab').attr('hidden', 'hidden')
-    $('#samples_tab').attr('hidden', 'hidden')
+    $('#exams_tab').css('display', 'none')
+    $('#attendance_tab').css('display', 'none')
+    $('#samples_tab').css('display', 'none')
+    $('#exams_tab').fadeToggle()
     $('#exam_nav').addClass('active')
     $('#attendance_nav').removeClass('active')
     $('#sample_nav').removeClass('active')
@@ -140,9 +142,10 @@
 
   $('#sample_nav').click(event => {
     event.preventDefault()
-    $('#samples_tab').removeAttr('hidden')
-    $('#attendance_tab').attr('hidden', 'hidden')
-    $('#exams_tab').attr('hidden', 'hidden')
+    $('#samples_tab').css('display', 'none')
+    $('#attendance_tab').css('display', 'none')
+    $('#exams_tab').css('display', 'none')
+    $('#samples_tab').fadeToggle()
     $('#sample_nav').addClass('active')
     $('#attendance_nav').removeClass('active')
     $('#exam_nav').removeClass('active')

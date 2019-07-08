@@ -30,6 +30,7 @@
 
 <script>
   function remove_line(event) {
+    event.preventDefault()
     let line = $(event.target).parent().parent()
     line.remove()
   }
