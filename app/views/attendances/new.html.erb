@@ -1,3 +1,11 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= render 'form' %>
+<%= form_for @attendance do |f| %>
+
+  <%= render 'attendances/new_tabs/attendance', f: f %>
+
+  <button class="btn btn-outline-success">
+    Salvar
+  </button>
+
+<% end %>
