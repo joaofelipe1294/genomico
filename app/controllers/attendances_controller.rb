@@ -20,6 +20,7 @@ class AttendancesController < ApplicationController
     @health_ensurances = HealthEnsurance.all.order :name
     @fields = Field.all.order :name
     @sample_kinds = SampleKind.all.order :name
+    @exams = OfferedExam.where(field: @fields.first).order :name
   end
 
   # GET /attendances/1/edit
@@ -106,19 +107,19 @@ class AttendancesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def attendance_params
       params.require(:attendance).permit(
-        :desease_stage_id, 
-        :cid_code, 
-        :lis_code, 
-        :start_date, 
-        :finish_date, 
-        :patient_id, 
-        :attendance_status_kind_id, 
-        :doctor_name, 
-        :doctor_crm, 
-        :observations, 
+        :desease_stage_id,
+        :cid_code,
+        :lis_code,
+        :start_date,
+        :finish_date,
+        :patient_id,
+        :attendance_status_kind_id,
+        :doctor_name,
+        :doctor_crm,
+        :observations,
         :health_ensurance_id,
         :report,
-        samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location], 
+        samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location],
         exams_attributes: [:offered_exam_id],
       )
     end
@@ -129,7 +130,7 @@ class AttendancesController < ApplicationController
         # irá encerrar o exame
         new_params = {
           attendance_status_kind: AttendanceStatusKind.find_by({name: 'Concluído'}),
-          finish_date: Date.today,  
+          finish_date: Date.today,
         }
         if @attendance.update(new_params)
           flash[:success] = 'Atendimento encerrado com sucesso.'
