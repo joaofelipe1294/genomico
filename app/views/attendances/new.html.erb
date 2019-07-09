@@ -1,36 +1,53 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= form_for @attendance do |f| %>
 
-  <% if @attendance.errors.any? %>
-    <div id="error_explanation">
-      <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
-      <ul>
-      <% @attendance.errors.full_messages.each do |message| %>
-        <li>
-          <span class = 'text-danger error'>
-            <%= message %>
-          </span>
+
+  <div class="card">
+    <div class="card-header bg-white">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <button class="btn nav-link active border w-75 mx-auto">Atendimento</button>
         </li>
-      <% end %>
+        <li class="nav-item">
+          <button class="btn nav-link border w-75 mx-auto">Longer nav link</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn nav-link border w-75 mx-auto">Link</button>
+        </li>
       </ul>
     </div>
-  <% end %>
+    <div class="card-body">
 
-  <div style="display: auto;">
-    <%= render 'attendances/new_tabs/attendance', f: f %>
+      <%= form_for @attendance do |f| %>
+
+        <% if @attendance.errors.any? %>
+          <div id="error_explanation">
+            <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
+            <ul>
+            <% @attendance.errors.full_messages.each do |message| %>
+              <li>
+                <span class = 'text-danger error'>
+                  <%= message %>
+                </span>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div style="display: auto;">
+          <%= render 'attendances/new_tabs/attendance', f: f %>
+        </div>
+
+        <div style="display: none;">
+          <%= render 'attendances/new_tabs/exams', f: f %>
+        </div>
+
+        <div style="display: none;">
+          <%= render 'attendances/new_tabs/samples', f: f %>
+        </div>
+        <button class="btn btn-outline-success">
+          Salvar
+        </button>
+      <% end %>
+    </div>
   </div>
-
-  <div style="display: none;">
-    <%= render 'attendances/new_tabs/exams', f: f %>
-  </div>
-
-  <div style="display: none;">
-    <%= render 'attendances/new_tabs/samples', f: f %>
-  </div>
-
-  <button class="btn btn-outline-success">
-    Salvar
-  </button>
-
-<% end %>
