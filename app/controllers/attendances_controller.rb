@@ -34,7 +34,6 @@ class AttendancesController < ApplicationController
     @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      # redirect_to json: {}, status: :created
       redirect_to user_home_index_path
     else
       @desease_stages = DeseaseStage.all.order :name
