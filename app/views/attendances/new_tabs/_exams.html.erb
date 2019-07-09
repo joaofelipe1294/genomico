@@ -1,0 +1,74 @@
+<div class="form-group">
+  <%= label_tag Field.model_name.human %>
+  <%= select_tag :field_select, options_from_collection_for_select(@fields, "id", "name"), {class: 'form-control', id: 'fields_select'} %>
+</div>
+
+<div class="form-group">
+  <%= label_tag Exam.model_name.human %>
+  <%= select_tag :exam_select, options_from_collection_for_select(@exams, "id", "name"), {class: 'form-control', id: 'exams_select'} %>
+</div>
+
+<%= f.text_field :exam_ids, id: 'exam_ids' %>
+
+<button id="btn_add_exam" class="btn btn-outline-info float-right">
+  Adicionar
+</button>
+
+<table class="table table-bordered text-center">
+  <thead class="bg-dark text-white">
+    <th>
+      <h4>
+        Exame
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Área
+      </h4>
+    </th>
+    <th></th>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<% # TODO continuar da adicao e remoção de exames %>
+<script>
+  $('#btn_add_exam').click(event => {
+    event.preventDefault()
+    let field = $('#fields_select option:selected').text()
+    console.log(field)
+    let exam = $('#exams_select option:selected').text()
+    console.log(exam)
+    let exam_id = $('#exams_select').val()
+    let current_value = $('#exam_ids').val()
+    let new_value = '';
+    if (current_value === "")
+      new_value = `${current_value},${exam_id}`
+    else
+      new_value = `${exam_id}`
+    console.log(new_value);
+    $('#exam_ids').val(new_value)
+  })
+</script>
+
+<script>
+  $('#fields_select').change(() => {
+    let field_id = $('#fields_select').val()
+    axios.get(`/offered_exams/field/${field_id}`)
+        .then(function (response) {
+          $('#exams_select').find("option").remove()
+          console.log(response.data);
+          response.data.forEach(exam => {
+            $('#exams_select').append(`
+                <option value = ${exam.id}>
+                  ${exam.name}
+                </option>
+              `)
+          })
+        })
+        .catch(function (error) {
+          console.log(error)
+          alert('Houve um erro no servidor, tente novamente mais tarde')
+        })
+  })
+</script>

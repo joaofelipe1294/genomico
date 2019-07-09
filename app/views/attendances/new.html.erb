@@ -2,7 +2,9 @@
 
 <%= form_for @attendance do |f| %>
 
-  <%= render 'attendances/new_tabs/attendance', f: f %>
+  <% render 'attendances/new_tabs/attendance', f: f %>
+
+  <%= render 'attendances/new_tabs/exams', f: f %>
 
   <button class="btn btn-outline-success">
     Salvar
