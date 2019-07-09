@@ -2,14 +2,35 @@
 
 <%= form_for @attendance do |f| %>
 
-  <% render 'attendances/new_tabs/attendance', f: f %>
+  <% if @attendance.errors.any? %>
+    <div id="error_explanation">
+      <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
+      <ul>
+      <% @attendance.errors.full_messages.each do |message| %>
+        <li>
+          <span class = 'text-danger error'>
+            <%= message %>
+          </span>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <% render 'attendances/new_tabs/exams', f: f %>
+  <div style="display: auto;">
+    <%= render 'attendances/new_tabs/attendance', f: f %>
+  </div>
 
-  <%= render 'attendances/new_tabs/samples', f: f %>
+  <div style="display: none;">
+    <%= render 'attendances/new_tabs/exams', f: f %>
+  </div>
 
-  <!-- <button class="btn btn-outline-success">
+  <div style="display: none;">
+    <%= render 'attendances/new_tabs/samples', f: f %>
+  </div>
+
+  <button class="btn btn-outline-success">
     Salvar
-  </button> -->
+  </button>
 
 <% end %>
