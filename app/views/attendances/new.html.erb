@@ -4,10 +4,12 @@
 
   <% render 'attendances/new_tabs/attendance', f: f %>
 
-  <%= render 'attendances/new_tabs/exams', f: f %>
+  <% render 'attendances/new_tabs/exams', f: f %>
 
-  <button class="btn btn-outline-success">
+  <%= render 'attendances/new_tabs/samples', f: f %>
+
+  <!-- <button class="btn btn-outline-success">
     Salvar
-  </button>
+  </button> -->
 
 <% end %>
