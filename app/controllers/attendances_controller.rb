@@ -31,11 +31,18 @@ class AttendancesController < ApplicationController
   # POST /attendances.json
   def create
     @attendance = Attendance.new attendance_params
+    @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      redirect_to json: {}, status: :created
+      # redirect_to json: {}, status: :created
+      redirect_to user_home_index_path
     else
-      render json: @attendance.errors, status: :unprocessable_entity
+      @desease_stages = DeseaseStage.all.order :name
+      @health_ensurances = HealthEnsurance.all.order :name
+      @fields = Field.all.order :name
+      @exams = OfferedExam.where(field: @fields.first).order :name
+      @sample_kinds = SampleKind.all.order :name
+      render :new
     end
   end
 
@@ -48,7 +55,7 @@ class AttendancesController < ApplicationController
       else
         @desease_stages = DeseaseStage.all.order :name
         @health_ensurances = HealthEnsurance.all.order :name
-        render :workflow1
+        render :workflow
       end
   end
 
@@ -119,6 +126,7 @@ class AttendancesController < ApplicationController
         :observations,
         :health_ensurance_id,
         :report,
+        :exam_ids,
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location],
         exams_attributes: [:offered_exam_id],
       )

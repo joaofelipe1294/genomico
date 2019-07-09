@@ -1,6 +1,7 @@
 <div class="form-group">
   <%= f.label :patient %>
-  <%= f.text_field :patient, value: @attendance.patient.name, class: 'form-control', disabled: true %>
+  <%= text_field_tag :patient, @attendance.patient.name, class: 'form-control', disabled: true %>
+  <%= f.text_field :patient_id, value: @attendance.patient.id, hidden: true %>
 </div>
 
 <div class="form-group">
