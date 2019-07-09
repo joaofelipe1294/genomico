@@ -1,36 +1,63 @@
-<div class="form-group">
-  <%= label_tag Field.model_name.human %>
-  <%= select_tag :field_select, options_from_collection_for_select(@fields, "id", "name"), {class: 'form-control', id: 'fields_select'} %>
+<div style="overflow: auto;">
+
+  <div class="form-group">
+    <%= label_tag Field.model_name.human %>
+    <%= select_tag :field_select, options_from_collection_for_select(@fields, "id", "name"), {class: 'form-control', id: 'fields_select'} %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag Exam.model_name.human %>
+    <%= select_tag :exam_select, options_from_collection_for_select(@exams, "id", "name"), {class: 'form-control', id: 'exams_select'} %>
+  </div>
+
+  <%= f.text_field :exam_ids, {id: 'exam_ids', hidden: true} %>
+
+  <button id="btn_add_exam" class="btn btn-outline-info float-right">
+    Adicionar
+  </button>
+
 </div>
 
-<div class="form-group">
-  <%= label_tag Exam.model_name.human %>
-  <%= select_tag :exam_select, options_from_collection_for_select(@exams, "id", "name"), {class: 'form-control', id: 'exams_select'} %>
-</div>
-
-<%= f.text_field :exam_ids, id: 'exam_ids' %>
-
-<button id="btn_add_exam" class="btn btn-outline-info float-right">
-  Adicionar
-</button>
-
-<table class="table table-bordered text-center">
+<table class="table table-bordered text-center mt-5">
   <thead class="bg-dark text-white">
-    <th>
+    <th class="w-50">
       <h4>
         Exame
       </h4>
     </th>
-    <th>
+    <th class="w-25">
       <h4>
         Área
       </h4>
     </th>
-    <th></th>
+    <th hidden>Id</th>
+    <th class="w-25"></th>
   </thead>
   <tbody id="exams_table">
   </tbody>
 </table>
+
+<script>
+  let lines = $('#exams_table').find('tr')
+  if (lines.length === 0)
+    $('#exam_ids').val('')
+</script>
+
+<script>
+  function remove_line(event){
+    event.preventDefault()
+    let line_to_remove = event.target.parentNode.parentNode
+    let exam_id = $(line_to_remove).find('.id').text()
+    let current_ids = $('#exam_ids').val()
+    let ids = current_ids.split(',')
+    let remove_index = ids.indexOf(exam_id)
+    delete ids[remove_index]
+    ids = ids.filter(Boolean);
+    ids = ids.join(',')
+    $('#exam_ids').val(ids)
+    $(line_to_remove).remove()
+  }
+</script>
 
 <script>
   function add_line (offered_exam = {}) {
@@ -38,7 +65,12 @@
         <tr>
           <td>${offered_exam.name}</td>
           <td>${offered_exam.field}</td>
-          <td></td>
+          <td class="id" hidden>${offered_exam.id}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
+              Remover
+            </button>
+          </td>
         </tr>
       `)
   }
@@ -56,12 +88,12 @@
       let already_has_exam_id = current_value.split(',').includes(exam_id)
       if (already_has_exam_id === false){
         new_value = `${current_value},${exam_id}`
-        add_line({name: exam, field: field})
+        add_line({name: exam, field: field, id: exam_id})
       }else
         new_value = `${current_value}`
     }else{
       new_value = `${exam_id}`
-      add_line({name: exam, field: field})
+      add_line({name: exam, field: field, id: exam_id})
     }
     $('#exam_ids').val(new_value)
   })
