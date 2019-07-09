@@ -30,11 +30,22 @@ class AttendancesController < ApplicationController
   # POST /attendances
   # POST /attendances.json
   def create
-    @attendance = Attendance.new attendance_params
+    samples_json = JSON.parse(attendance_params[:samples])
+    samples = samples_json.map do |sample_params|
+      Sample.new sample_params
+    end
+    exams_json = JSON.parse(attendance_params[:exams])
+    exams = exams_json.map do |exam_params|
+      Exam.new exam_params
+    end
+    filtered_params = attendance_params
+    filtered_params[:samples] = samples
+    filtered_params[:exams] = exams
+    @attendance = Attendance.new filtered_params
     @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      redirect_to user_home_index_path
+      redirect_to home_user_index_path
     else
       @desease_stages = DeseaseStage.all.order :name
       @health_ensurances = HealthEnsurance.all.order :name
@@ -125,7 +136,8 @@ class AttendancesController < ApplicationController
         :observations,
         :health_ensurance_id,
         :report,
-        :exam_ids,
+        :samples,
+        :exams,
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location],
         exams_attributes: [:offered_exam_id],
       )

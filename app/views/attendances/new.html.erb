@@ -1,24 +1,22 @@
 <%= render 'layouts/user_navbar' %>
 
 
-
-  <div class="card">
+<%= form_for @attendance, html: {class: 'col-md-10 mt-4 offset-md-1'} do |f| %>
+  <div class="card" style="overflow: auto;">
     <div class="card-header bg-white">
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-          <button class="btn nav-link active border w-75 mx-auto">Atendimento</button>
+          <button id="attendance_nav" class="btn nav-link active border w-75 mx-auto">Atendimento</button>
         </li>
         <li class="nav-item">
-          <button class="btn nav-link border w-75 mx-auto">Longer nav link</button>
+          <button id="exams_nav" class="btn nav-link border w-75 mx-auto">Exames</button>
         </li>
         <li class="nav-item">
-          <button class="btn nav-link border w-75 mx-auto">Link</button>
+          <button id="samples_nav" class="btn nav-link border w-75 mx-auto">Amostras</button>
         </li>
       </ul>
     </div>
     <div class="card-body">
-
-      <%= form_for @attendance do |f| %>
 
         <% if @attendance.errors.any? %>
           <div id="error_explanation">
@@ -34,20 +32,61 @@
             </ul>
           </div>
         <% end %>
-        <div style="display: auto;">
+        <div id="attendance_tab" style="display: none;">
           <%= render 'attendances/new_tabs/attendance', f: f %>
         </div>
 
-        <div style="display: none;">
+        <div id="exams_tab" style="display: none;">
           <%= render 'attendances/new_tabs/exams', f: f %>
         </div>
 
-        <div style="display: none;">
+        <div id="samples_tab" style="display: auto;">
           <%= render 'attendances/new_tabs/samples', f: f %>
         </div>
-        <button class="btn btn-outline-success">
+
+        <button class="btn btn-outline-success mt-4 float-right">
           Salvar
         </button>
-      <% end %>
+
     </div>
   </div>
+
+<% end %>
+
+<script>
+  $('#attendance_nav').click((event) => {
+    event.preventDefault()
+    $('#attendance_nav').removeClass('active')
+    $('#exams_nav').removeClass('active')
+    $('#samples_nav').removeClass('active')
+    $('#attendance_tab').css('display', 'none')
+    $('#exams_tab').css('display', 'none')
+    $('#samples_tab').css('display', 'none')
+    $('#attendance_nav').addClass('active')
+    $('#attendance_tab').fadeToggle()
+  })
+
+  $('#exams_nav').click((event) => {
+    event.preventDefault()
+    $('#attendance_nav').removeClass('active')
+    $('#exams_nav').removeClass('active')
+    $('#samples_nav').removeClass('active')
+    $('#attendance_tab').css('display', 'none')
+    $('#exams_tab').css('display', 'none')
+    $('#samples_tab').css('display', 'none')
+    $('#exams_nav').addClass('active')
+    $('#exams_tab').fadeToggle()
+  })
+
+  $('#samples_nav').click((event) => {
+    event.preventDefault()
+    $('#attendance_nav').removeClass('active')
+    $('#exams_nav').removeClass('active')
+    $('#samples_nav').removeClass('active')
+    $('#attendance_tab').css('display', 'none')
+    $('#exams_tab').css('display', 'none')
+    $('#samples_tab').css('display', 'none')
+    $('#samples_nav').addClass('active')
+    $('#samples_tab').fadeToggle()
+  })
+</script>

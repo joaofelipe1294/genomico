@@ -10,7 +10,11 @@
     <%= select_tag :exam_select, options_from_collection_for_select(@exams, "id", "name"), {class: 'form-control', id: 'exams_select'} %>
   </div>
 
-  <%= f.text_field :exam_ids, {id: 'exam_ids', hidden: true} %>
+  <!-- <%= f.fields_for :exam do |exams_form| %>
+    <%= exams_form.text_field :exams_field, {id: 'exam_ids'} %>
+  <% end %> -->
+
+  <%= f.text_field :exams, {id: 'exam_ids'} %>
 
   <button id="btn_add_exam" class="btn btn-outline-info float-right">
     Adicionar
@@ -32,6 +36,7 @@
     </th>
     <th hidden>Id</th>
     <th class="w-25"></th>
+    <th>Index</th>
   </thead>
   <tbody id="exams_table">
   </tbody>
@@ -47,25 +52,26 @@
   function remove_line(event){
     event.preventDefault()
     let line_to_remove = event.target.parentNode.parentNode
-    let exam_id = $(line_to_remove).find('.id').text()
-    let current_ids = $('#exam_ids').val()
-    let ids = current_ids.split(',')
-    let remove_index = ids.indexOf(exam_id)
-    delete ids[remove_index]
-    ids = ids.filter(Boolean);
-    ids = ids.join(',')
-    $('#exam_ids').val(ids)
-    $(line_to_remove).remove()
+    let index_to_remove = parseInt($(line_to_remove).find('.index').text())
+    let current_exams = $('#exam_ids').val()
+    current_exams = JSON.parse(current_exams)
+    delete current_exams[index_to_remove]
+    current_exams = current_exams.filter(Boolean);
+    line_to_remove.remove()
+    $('#exam_ids').val(JSON.stringify(current_exams))
+    document.querySelectorAll('.index').forEach((element, index) => $(element).text(index))
   }
 </script>
 
 <script>
   function add_line (offered_exam = {}) {
+    let current_index = $('.id').length
     $('#exams_table').append(`
         <tr>
           <td>${offered_exam.name}</td>
           <td>${offered_exam.field}</td>
           <td class="id" hidden>${offered_exam.id}</td>
+          <td class="index">${current_index}</td>
           <td>
             <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
               Remover
@@ -80,22 +86,28 @@
   $('#btn_add_exam').click(event => {
     event.preventDefault()
     let field = $('#fields_select option:selected').text().trim()
-    let exam = $('#exams_select option:selected').text().trim()
+    let exam_name = $('#exams_select option:selected').text().trim()
     let exam_id = $('#exams_select').val()
-    let current_value = $('#exam_ids').val().trim()
-    let new_value = '';
-    if (current_value.length > 0){
-      let already_has_exam_id = current_value.split(',').includes(exam_id)
-      if (already_has_exam_id === false){
-        new_value = `${current_value},${exam_id}`
-        add_line({name: exam, field: field, id: exam_id})
-      }else
-        new_value = `${current_value}`
-    }else{
-      new_value = `${exam_id}`
-      add_line({name: exam, field: field, id: exam_id})
+    let current_value = $('#exam_ids').val()
+    let exam = {
+      offered_exam_id: exam_id
     }
-    $('#exam_ids').val(new_value)
+    if (current_value.length === 0){
+      $('#exam_ids').val(JSON.stringify([exam]))
+      add_line({name: exam_name, field: field, id: exam_id})
+    }else{
+      current_value = JSON.parse(current_value)
+      let already_has_exam_id = false
+      current_value.forEach(offered_exam => {
+        if (offered_exam.offered_exam_id === exam.offered_exam_id)
+          already_has_exam_id = true
+      })
+      if (already_has_exam_id === false){
+        current_value.push(exam)
+        $('#exam_ids').val(JSON.stringify(current_value))
+        add_line({name: exam_name, field: field, id: exam_id})
+      }
+    }
   })
 </script>
 
@@ -105,7 +117,6 @@
     axios.get(`/offered_exams/field/${field_id}`)
         .then(function (response) {
           $('#exams_select').find("option").remove()
-          console.log(response.data);
           response.data.forEach(exam => {
             $('#exams_select').append(`
                 <option value = ${exam.id}>

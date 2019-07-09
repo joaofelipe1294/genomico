@@ -23,14 +23,13 @@
     Adicionar
   </button>
 
-  <%= f.fields_for :samples do |samples_form| %>
-    <%= samples_form.text_area :samples, value: '', id: 'samples', class: 'form-control', hidden: true %>
-  <% end %>
+  <!-- <%= f.fields_for :sample do |samples_form| %>
+    <%= samples_form.text_area :samples, value: '', id: 'samples', class: 'form-control', hidden: false %>
+  <% end %> -->
 
+  <%= f.text_area :samples, value: '', id: 'samples', class: 'form-control', hidden: false %>
 
 </div>
-
-
 
 <table class="table table-bordered text-center mt-5">
   <thead class="bg-dark text-white">
@@ -99,6 +98,7 @@
         storage_location
       }
       let samples = $('#samples').val()
+      console.log(samples);
       const sample_index = $('.btn-outline-danger').length
       $('#samples_table').append(`
         <tr>
