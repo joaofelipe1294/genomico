@@ -28,25 +28,41 @@
     </th>
     <th></th>
   </thead>
-  <tbody>
+  <tbody id="exams_table">
   </tbody>
 </table>
-<% # TODO continuar da adicao e remoção de exames %>
+
+<script>
+  function add_line (offered_exam = {}) {
+    $('#exams_table').append(`
+        <tr>
+          <td>${offered_exam.name}</td>
+          <td>${offered_exam.field}</td>
+          <td></td>
+        </tr>
+      `)
+  }
+</script>
+
 <script>
   $('#btn_add_exam').click(event => {
     event.preventDefault()
-    let field = $('#fields_select option:selected').text()
-    console.log(field)
-    let exam = $('#exams_select option:selected').text()
-    console.log(exam)
+    let field = $('#fields_select option:selected').text().trim()
+    let exam = $('#exams_select option:selected').text().trim()
     let exam_id = $('#exams_select').val()
-    let current_value = $('#exam_ids').val()
+    let current_value = $('#exam_ids').val().trim()
     let new_value = '';
-    if (current_value === "")
-      new_value = `${current_value},${exam_id}`
-    else
+    if (current_value.length > 0){
+      let already_has_exam_id = current_value.split(',').includes(exam_id)
+      if (already_has_exam_id === false){
+        new_value = `${current_value},${exam_id}`
+        add_line({name: exam, field: field})
+      }else
+        new_value = `${current_value}`
+    }else{
       new_value = `${exam_id}`
-    console.log(new_value);
+      add_line({name: exam, field: field})
+    }
     $('#exam_ids').val(new_value)
   })
 </script>
