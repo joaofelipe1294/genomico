@@ -30,18 +30,7 @@ class AttendancesController < ApplicationController
   # POST /attendances
   # POST /attendances.json
   def create
-    samples_json = JSON.parse(attendance_params[:samples])
-    samples = samples_json.map do |sample_params|
-      Sample.new sample_params
-    end
-    exams_json = JSON.parse(attendance_params[:exams])
-    exams = exams_json.map do |exam_params|
-      Exam.new exam_params
-    end
-    filtered_params = attendance_params
-    filtered_params[:samples] = samples
-    filtered_params[:exams] = exams
-    @attendance = Attendance.new filtered_params
+    @attendance = Attendance.new create_attendance_params
     @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
@@ -141,6 +130,37 @@ class AttendancesController < ApplicationController
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location],
         exams_attributes: [:offered_exam_id],
       )
+    end
+
+    def create_attendance_params
+      complete_params = params.require(:attendance).permit(
+        :desease_stage_id,
+        :cid_code,
+        :lis_code,
+        :start_date,
+        :patient_id,
+        :attendance_status_kind_id,
+        :doctor_name,
+        :doctor_crm,
+        :observations,
+        :health_ensurance_id,
+        :samples,
+        :exams,
+      )
+      filtered_params = complete_params.clone
+      if complete_params[:samples] != ""
+        samples_json = JSON.parse complete_params[:samples]
+        filtered_params[:samples] = samples_json.map { |sample_params| Sample.new sample_params }
+      else
+        filtered_params[:samples] = []
+      end
+      if complete_params[:exams] != ""
+        exams_json = JSON.parse complete_params[:exams]
+        filtered_params[:exams] = exams_json.map { |exam_params| Exam.new exam_params }
+      else
+        filtered_params[:exams] = []
+      end
+      filtered_params
     end
 
     def verify_exam_status

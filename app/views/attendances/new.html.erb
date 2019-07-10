@@ -32,7 +32,7 @@
             </ul>
           </div>
         <% end %>
-        <div id="attendance_tab" style="display: none;">
+        <div id="attendance_tab" style="display: auto;">
           <%= render 'attendances/new_tabs/attendance', f: f %>
         </div>
 
@@ -40,7 +40,7 @@
           <%= render 'attendances/new_tabs/exams', f: f %>
         </div>
 
-        <div id="samples_tab" style="display: auto;">
+        <div id="samples_tab" style="display: none;">
           <%= render 'attendances/new_tabs/samples', f: f %>
         </div>
 
