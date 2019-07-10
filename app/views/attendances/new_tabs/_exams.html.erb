@@ -10,11 +10,7 @@
     <%= select_tag :exam_select, options_from_collection_for_select(@exams, "id", "name"), {class: 'form-control', id: 'exams_select'} %>
   </div>
 
-  <!-- <%= f.fields_for :exam do |exams_form| %>
-    <%= exams_form.text_field :exams_field, {id: 'exam_ids'} %>
-  <% end %> -->
-
-  <%= f.text_field :exams, {id: 'exam_ids'} %>
+  <%= f.text_field :exams, {id: 'exam_ids', hidden: true} %>
 
   <button id="btn_add_exam" class="btn btn-outline-info float-right">
     Adicionar
