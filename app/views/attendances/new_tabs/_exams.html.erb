@@ -32,7 +32,7 @@
     </th>
     <th hidden>Id</th>
     <th class="w-25"></th>
-    <th>Index</th>
+    <th hidden>Index</th>
   </thead>
   <tbody id="exams_table">
   </tbody>
@@ -67,7 +67,7 @@
           <td>${offered_exam.name}</td>
           <td>${offered_exam.field}</td>
           <td class="id" hidden>${offered_exam.id}</td>
-          <td class="index">${current_index}</td>
+          <td class="index" hidden>${current_index}</td>
           <td>
             <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
               Remover
