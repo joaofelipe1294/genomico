@@ -225,9 +225,41 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(class: 'error').text).to eq "Amostras não pode ficar em branco"
     end
 
-  end
+    it "with duplicated lis_code", js: true do
+      patient = create(:patient)
+      Attendance.create({
+          patient: Patient.first,
+          desease_stage: DeseaseStage.first,
+          cid_code: '8761238716237',
+          lis_code: '7615236751236',
+          health_ensurance: HealthEnsurance.first,
+          doctor_name: 'House',
+          doctor_crm: '789612398',
+          attendance_status_kind: AttendanceStatusKind.last,
+          observations: 'Observações... Muuuuitas Bisservações',
+          exams: [
+            Exam.new({
+              offered_exam: OfferedExam.where(field: Field.last).last
+            }),
+          ],
+          samples: [
+            Sample.new({
+              sample_kind: SampleKind.last,
+              collection_date: Date.today,
+              entry_date: Date.today,
+              storage_location: 'Geladeira 3',
+              bottles_number: 3
+            })
+          ]
+      })
+      Attendance.all.size
+      add_attendance_values
+      add_exams
+      add_samples
+      click_button id: 'btn-save-attendance'
+      expect(find(class: 'error', match: :first).text).to eq "Código LisNet já está em uso"
+    end
 
-  # TODO validar busca pelo código do lis
-  # TODO validar cadastro com lis duplicado
+  end
 
 end
