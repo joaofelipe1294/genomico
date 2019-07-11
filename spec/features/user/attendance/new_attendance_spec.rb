@@ -252,7 +252,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
             })
           ]
       })
-      Attendance.all.size
       add_attendance_values
       add_exams
       add_samples
