@@ -1,5 +1,5 @@
 <%= form_for @sample do |f| %>
-					
+
 	<% if @sample.attendance.nil? %>
 		<%= f.number_field :attendance_id, {value: params[:id], hidden: true} %>
 	<% else %>
@@ -29,7 +29,7 @@
 
 	<div class = 'form-group'>
 		<%= f.label :collection_date %><br>
-		<%= f.date_select :collection_date, {order: [:day, :month, :year]}, {class: 'form-control date-select '} %>
+		<%= f.date_field :collection_date, class: 'form-control', value: Date.today %>
 	</div>
 
 	<div class = 'form-group'>
