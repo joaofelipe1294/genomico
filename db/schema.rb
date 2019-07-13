@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190628163836) do
+ActiveRecord::Schema.define(version: 20190713184422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 20190628163836) do
 
   add_index "attendances_work_maps", ["attendance_id"], name: "index_attendances_work_maps_on_attendance_id", using: :btree
   add_index "attendances_work_maps", ["work_map_id"], name: "index_attendances_work_maps_on_work_map_id", using: :btree
+
+  create_table "backups", force: :cascade do |t|
+    t.datetime "generated_at"
+    t.boolean  "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "desease_stages", force: :cascade do |t|
     t.string   "name"
