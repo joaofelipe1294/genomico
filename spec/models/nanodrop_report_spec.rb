@@ -12,7 +12,7 @@ RSpec.describe NanodropReport, type: :model do
 		it 'without subsample' do
 			nanodrop_report = build(:nanodrop_report, subsample: nil)
 			nanodrop_report.save
-			expect(nanodrop_report).to be_invalid
+			expect(nanodrop_report).to be_valid
 		end
 
 		it 'without concentration' do
