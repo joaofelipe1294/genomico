@@ -1,7 +1,6 @@
-# every :day, at: '1:00 am' do
-#   command "backup perform --trigger app_genomico_backup"
-# end
+# ENV['RAILS_ENV'] = "development"
 
 every 1.minute do
-  # command "backup perform --trigger app_genomico_backup"
+  # every :day, at: '1:00 am' do
+  rake "backup:do"
 end

@@ -5,7 +5,7 @@ class Backup < ActiveRecord::Base
         `mkdir public/backups`
         `mkdir public/backups/temp`
       end
-      `pg_dump -U postgres -F t genomico_development > ./public/backups/temp/pgdump.tar`
+      `pg_dump -U postgres -F t genomico > ./public/backups/temp/pgdump.tar`
       `cp -r public/system/ ./public/backups/temp`
       current_date = DateTime.now.to_i
       zip_name = "genomico_backup_#{current_date}.zip"
@@ -23,12 +23,12 @@ class Backup < ActiveRecord::Base
         `rm ./public/backups/genomico_backup_#{backup_dates.min.to_i}.zip`
         Backup.order(generated_at: :asc).last.delete
       end
-      Backup.create({
+      backup = Backup.new({
         status: true,
         dump_path: "./public/backups/genomico_backup_#{current_date}.zip",
         generated_at: current_date
       })
-      true
+      backup.save
     end
 
 end

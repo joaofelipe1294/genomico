@@ -18,10 +18,10 @@ test:
 
 production:
   adapter: postgresql
-  username: deploy
-  password: 'lab_genomico_HPP_2106'
-  # username: postgres
-  # password: '1234'
+  # username: deploy
+  # password: 'lab_genomico_HPP_2106'
+  username: postgres
+  password: '1234'
   encoding: unicode
   host: localhost
   port: 5432
