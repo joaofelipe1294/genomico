@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'backups/index'
+  get 'backups/index', to: 'backups#index', as: :backups
   get 'panels/exams'
   get 'panels/attendances'
   resources :work_maps
