@@ -1,11 +1,12 @@
 namespace :backup do
-  desc "Executes backup logic"
+  desc "Executes backup and restore logic"
   task do: :environment do
-    puts "Updating news Articles…"
     Backup.perform_backup
-    puts "#{Time.now} — Success!"
+  end
 
-    # Rake::Task['universe:world:shout'].invoke
+  task restore: :environment do
+    puts "Starting restore ..."
+    Backup.restore(ARGV[2], ARGV[1])
   end
 
 end

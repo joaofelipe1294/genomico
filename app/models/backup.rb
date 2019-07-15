@@ -5,7 +5,7 @@ class Backup < ActiveRecord::Base
         `mkdir public/backups`
         `mkdir public/backups/temp`
       end
-      `pg_dump -U postgres -F t genomico > ./public/backups/temp/pgdump.tar`
+      `PGPASSWORD="lab_genomico_HPP_2106" pg_dump -Fc -U deploy -h localhost genomico > ./public/backups/temp/pgdump.dump`
       `cp -r public/system/ ./public/backups/temp`
       current_date = DateTime.now.to_i
       zip_name = "genomico_backup_#{current_date}.zip"
@@ -29,6 +29,16 @@ class Backup < ActiveRecord::Base
         generated_at: current_date
       })
       backup.save
+    end
+
+    def self.restore(database, file_path)
+      `mkdir ./public/backups/temp_restore`
+      `cp #{file_path} ./public/backups/temp_restore/`
+      `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
+      `cp -r ./public/backups/temp_restore/system/ ./public/`
+      `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
+      `rm -r ./public/backups/temp_restore`
+      true
     end
 
 end
