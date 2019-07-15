@@ -7,7 +7,8 @@ class Backup < ActiveRecord::Base
       end
       `PGPASSWORD="lab_genomico_HPP_2106" pg_dump -Fc -U deploy -h localhost genomico > ./public/backups/temp/pgdump.dump`
       `cp -r public/system/ ./public/backups/temp`
-      current_date = DateTime.now.to_i
+      date_to_save = DateTime.now
+      current_date = date_to_save.to_i
       zip_name = "genomico_backup_#{current_date}.zip"
       `cd ./public/backups/temp && zip -r ../#{zip_name} .`
       `rm -r ./public/backups/temp && mkdir ./public/backups/temp`
@@ -25,8 +26,8 @@ class Backup < ActiveRecord::Base
       end
       backup = Backup.new({
         status: true,
-        dump_path: "./public/backups/genomico_backup_#{current_date}.zip",
-        generated_at: current_date
+        dump_path: "#{Rails.root}/public/backups/genomico_backup_#{current_date}.zip",
+        generated_at: date_to_save
       })
       backup.save
     end

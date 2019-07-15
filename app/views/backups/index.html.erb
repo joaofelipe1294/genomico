@@ -1,2 +1,21 @@
-<h1>Backups#index</h1>
-<p>Find me in app/views/backups/index.html.erb</p>
+<%= render 'layouts/admin_navbar' %>
+
+<table>
+  <thead>
+    <th>Data de execução</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <%= @backups.each do |backup| %>
+      <tr>
+        <td>
+          <%= backup.generated_at %>
+        </td>
+        <td>
+          <%= link_to 'Download', backup_download_path(backup), target: :_blank %>
+          <%= backup.dump_path %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
