@@ -1,6 +1,6 @@
 class BackupsController < ApplicationController
   def index
-    @backups = Backup.all.order generated_at: :desc
+    @backups = Backup.all.order(generated_at: :desc).page params[:page]
   end
 
   def download
