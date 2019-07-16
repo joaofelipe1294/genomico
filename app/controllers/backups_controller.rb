@@ -11,4 +11,10 @@ class BackupsController < ApplicationController
     )
   end
 
+  def create
+    Backup.perform_backup
+    flash[:success] = 'Backup gerado com sucesso.'
+    redirect_to backups_path
+  end
+
 end

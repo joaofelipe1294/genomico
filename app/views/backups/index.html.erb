@@ -1,5 +1,7 @@
 <%= render 'layouts/admin_navbar' %>
 
+<%= link_to 'Gerar backup', new_backup_path, method: :post, class: 'float-right btn btn-bg btn-outline-success mt-2 mr-3'%>
+
 <table class="table table-bordered col-md-6 offset-md-3 mt-5 text-center">
   <thead class="bg-dark text-white">
     <th>Data de execução</th>

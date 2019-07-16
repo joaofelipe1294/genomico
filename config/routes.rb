@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
   get 'panels/exams'
