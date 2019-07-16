@@ -1,6 +1,6 @@
 class BackupsController < ApplicationController
   def index
-    @backups = Backup.all.where(status: true).order generated_at: :asc
+    @backups = Backup.all.order generated_at: :desc
   end
 
   def download
