@@ -12,7 +12,9 @@
           <%= l backup.generated_at %>
         </td>
         <td>
-          <%= link_to 'Download', backup_download_path(backup), target: :_blank, class: 'btn btn-sm btn-outline-primary' %>
+          <% if backup.status %>
+            <%= link_to 'Download', backup_download_path(backup), target: :_blank, class: 'btn btn-sm btn-outline-primary' %>
+          <% end %>
         </td>
       </tr>
     <% end %>
