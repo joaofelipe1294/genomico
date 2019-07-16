@@ -1,19 +1,18 @@
 <%= render 'layouts/admin_navbar' %>
 
-<table>
-  <thead>
+<table class="table table-bordered col-md-6 offset-md-3 mt-5 text-center">
+  <thead class="bg-dark text-white">
     <th>Data de execução</th>
     <th></th>
   </thead>
   <tbody>
-    <%= @backups.each do |backup| %>
+    <% @backups.each do |backup| %>
       <tr>
         <td>
-          <%= backup.generated_at %>
+          <%= l backup.generated_at %>
         </td>
         <td>
-          <%= link_to 'Download', backup_download_path(backup), target: :_blank %>
-          <%= backup.dump_path %>
+          <%= link_to 'Download', backup_download_path(backup), target: :_blank, class: 'btn btn-sm btn-outline-primary' %>
         </td>
       </tr>
     <% end %>
