@@ -21,8 +21,10 @@ class Backup < ActiveRecord::Base
           generated_at = Time.at(file_date.to_i).to_datetime
           backup_dates.append generated_at
         end
-        `rm ./public/backups/genomico_backup_#{backup_dates.min.to_i}.zip`
-        Backup.order(generated_at: :asc).last.delete
+        backup_to_remove = Backup.order(generated_at: :desc).limit(11).last
+        `rm #{backup_to_remove.dump_path}`
+        backup_to_remove.status = false
+        backup_to_remove.save
       end
       backup = Backup.new({
         status: true,
