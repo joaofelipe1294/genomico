@@ -1,0 +1,5 @@
+<% if User.find(session[:user_id]).user_kind == UserKind.find_by(name: 'user') %>
+  <%= render 'layouts/user_navbar' %>
+<% else %>
+  <%= render 'layouts/admin_navbar' %>
+<% end %>
