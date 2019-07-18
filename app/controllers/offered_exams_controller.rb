@@ -73,7 +73,7 @@ class OfferedExamsController < ApplicationController
   def active_exam
     if @offered_exam.update({is_active: true})
       flash[:success] = 'Exame ativado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
       redirect_to offered_exams_path
