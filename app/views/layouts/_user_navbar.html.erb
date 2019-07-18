@@ -26,15 +26,17 @@
 
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Painéis
+          Atendimentos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Exames', panels_exams_path, {class: 'dropdown-item'} %>
+          <%= link_to 'Painel de exames', panels_exams_path, {class: 'dropdown-item'} %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Buscar', attendances_path, class: 'dropdown-item' %>
         </div>
       </li>
-
+      
     </ul>
-    
+
     <%= form_tag(lis_search_path, {method: :get, class: 'form-inline mr-5'}) do %>
       <%= text_field_tag :lis_code_search, '', {class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar por Código Lis'} %>
       <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
