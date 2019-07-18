@@ -1,4 +1,4 @@
-<%= render 'layouts/admin_navbar' %>
+<%= render 'shared/navbar' %>
 
 <table class = 'table table-bordered col-md-8 offset-md-2 text-center mt-5'>
   <thead class="bg-dark text-white">
@@ -26,6 +26,6 @@
           <%= link_to 'Editar', edit_hospital_path(hospital), {class: 'btn btn-sm btn-outline-warning'} %>
         </td>
       </tr>
-    <% end %> 
+    <% end %>
   </tbody>
 </table>
