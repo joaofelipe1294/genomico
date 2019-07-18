@@ -38,7 +38,7 @@ class OfferedExamsController < ApplicationController
     @offered_exam = OfferedExam.new(offered_exam_params)
     if @offered_exam.save
       flash[:success] = 'Exame ofertado cadastrado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       @fields = Field.all.order(:name)
       render :new
@@ -50,7 +50,7 @@ class OfferedExamsController < ApplicationController
   def update
     if @offered_exam.update(offered_exam_params)
       flash[:success] = 'Exame ofertado editado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       @fields = Field.all.order(:name)
       render :edit
@@ -62,7 +62,7 @@ class OfferedExamsController < ApplicationController
   def destroy
     if @offered_exam.update({is_active: false})
       flash[:success] = 'Exame desativado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
       redirect_to offered_exams_path

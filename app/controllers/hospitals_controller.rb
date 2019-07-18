@@ -29,7 +29,7 @@ class HospitalsController < ApplicationController
     @hospital = Hospital.new(hospital_params)
     if @hospital.save
       flash[:success] = 'Hospital cadastrado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       render :new
     end
@@ -40,7 +40,7 @@ class HospitalsController < ApplicationController
   def update
     if @hospital.update(hospital_params)
       flash[:success] = 'Hospital editado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to_home
     else
       render :new
     end
@@ -49,11 +49,7 @@ class HospitalsController < ApplicationController
   # DELETE /hospitals/1
   # DELETE /hospitals/1.json
   def destroy
-    @hospital.destroy
-    respond_to do |format|
-      format.html { redirect_to hospitals_url, notice: 'Hospital was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to_home
   end
 
   private
