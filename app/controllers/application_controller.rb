@@ -41,4 +41,12 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def redirect_to_home
+      if User.find(session[:user_id]).user_kind == UserKind.find_by(name: 'admin')
+        redirect_to home_admin_index_path
+      else
+        redirect_to home_user_index_path
+      end
+    end
+
 end
