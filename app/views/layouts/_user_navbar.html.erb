@@ -34,7 +34,18 @@
           <%= link_to 'Buscar', attendances_path, class: 'dropdown-item' %>
         </div>
       </li>
-      
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="hospital-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Hospital
+        </a>
+        <div class="dropdown-menu" aria-labelledby="hospital-dropdown">
+          <%= link_to 'Novo', new_hospital_path, {class: 'dropdown-item', id: 'new-hospital'} %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Todos', hospitals_path, {class: 'dropdown-item', id: 'hospitals'} %>
+        </div>
+      </li>
+
     </ul>
 
     <%= form_tag(lis_search_path, {method: :get, class: 'form-inline mr-5'}) do %>
