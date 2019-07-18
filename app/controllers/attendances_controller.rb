@@ -6,7 +6,7 @@ class AttendancesController < ApplicationController
   # GET /attendances
   # GET /attendances.json
   def index
-    @attendances = Attendance.all
+    @attendances = Attendance.where("doctor_name ILIKE ?", "%#{params[:doctor_name]}%").order(start_date: :asc)
   end
 
   # GET /attendances/1
