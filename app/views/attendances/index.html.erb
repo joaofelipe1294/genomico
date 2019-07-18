@@ -1,11 +1,76 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= form_tag('/attendances', method: :get) do %>
-  <div class="form-group">
-    <%= label_tag 'Nome do médico' %>
-    <%= text_field_tag :doctor_name, '', class: 'form-control' %>
-  </div>
-  <button class="btn btn-outline-info float-right">
-    Buscar
-  </button>
+<div style="overflow: auto;" class="col-md-6 offset-md-3 mt-3">
+  <%= form_tag('/attendances', method: :get) do %>
+    <div class="form-group">
+      <%= label_tag 'Nome do médico' %>
+      <%= text_field_tag :doctor_name, '', class: 'form-control' %>
+    </div>
+    <button class="btn btn-outline-info float-right">
+      Buscar
+    </button>
+  <% end %>
+</div>
+
+<hr>
+
+<% if @attendances.size > 0 %>
+
+  <table class = 'table table-bordered text-center mt-5'>
+    <thead class = 'bg-dark text-white'>
+      <th>
+        <%= Attendance.human_attribute_name :lis_code %>
+      </th>
+      <th>
+        <%= Attendance.human_attribute_name :attendance_status_kind %>
+      </th>
+      <th>
+        <%= Attendance.human_attribute_name :start_date %>
+      </th>
+      <th>
+        <%= Attendance.human_attribute_name :finish_date %>
+      </th>
+      <th>
+        Exames em restantes
+      </th>
+      <th>
+        Exames concluídos
+      </th>
+      <th>
+      </th>
+    </thead>
+    <tbody>
+      <% @attendances.each do |attendance| %>
+        <tr>
+          <td><%= attendance.lis_code %></td>
+          <td>
+            <% if attendance.attendance_status_kind == AttendanceStatusKind.find_by(name: 'Em andamento') %>
+              <label class = "text-secondary">
+                <%= attendance.attendance_status_kind.name %>
+              </label>
+            <% else %>
+              <label class = "text-success">
+                <%= attendance.attendance_status_kind.name %>
+              </label>
+            <% end %>
+          </td>
+          <td><%= attendance.start_date.strftime("%d/%m/%Y") %></td>
+          <td>
+            <% if attendance.finish_date.nil? %>
+              -
+            <% else %>
+              <%= attendance.finish_date.strftime("%d/%m/%Y") %>
+            <% end %>
+          </td>
+          <td>
+            <%= attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+          </td>
+          <td>
+            <%= attendance.exams.where(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+          </td>
+          <td>
+            <%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-info'} %>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
