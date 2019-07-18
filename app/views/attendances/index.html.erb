@@ -1,43 +1,11 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
 
-<h1>Listing Attendances</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Desease stage</th>
-      <th>Cid code</th>
-      <th>Lis code</th>
-      <th>Start date</th>
-      <th>Finish date</th>
-      <th>Patient</th>
-      <th>Attendance status kind</th>
-      <th>Doctor name</th>
-      <th>Doctor crm</th>
-      <th>Observations</th>
-      <th>Health ensurance</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @attendances.each do |attendance| %>
-      <tr>
-        <td><%= attendance.desease_stage %></td>
-        <td><%= attendance.cid_code %></td>
-        <td><%= attendance.lis_code %></td>
-        <td><%= attendance.start_date %></td>
-        <td><%= attendance.finish_date %></td>
-        <td><%= attendance.patient %></td>
-        <td><%= attendance.attendance_status_kind %></td>
-        <td><%= attendance.doctor_name %></td>
-        <td><%= attendance.doctor_crm %></td>
-        <td><%= attendance.observations %></td>
-        <td><%= attendance.health_ensurance %></td>
-        <td><%= link_to 'Show', attendance %></td>
-        <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
-        <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= form_tag('/attendances', method: :get) do %>
+  <div class="form-group">
+    <%= label_tag 'Nome do médico' %>
+    <%= text_field_tag :doctor_name, '', class: 'form-control' %>
+  </div>
+  <button class="btn btn-outline-info float-right">
+    Buscar
+  </button>
+<% end %>
