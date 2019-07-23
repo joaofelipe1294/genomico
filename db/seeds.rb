@@ -321,6 +321,7 @@ puts 'Criando SubsampleKind ...'
 SubsampleKind.create({name: 'RNA', acronym: 'RNA', refference_index: 0})
 SubsampleKind.create({name: 'DNA', acronym: 'DNA', refference_index: 0})
 SubsampleKind.create({name: 'Pellet de FISH', acronym: 'FISH', refference_index: 0})
+SubsampleKind.create({name: 'DNA viral', acronym: 'CMV', refference_index: 0})
 
 puts 'Criando SubsampleKind [OK]'
 
