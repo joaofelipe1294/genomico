@@ -128,12 +128,12 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
     end
 
-    it 'mother_name and hospital HPP', js: true do
+    it 'mother_name and hospital HPP', js: false do
       hpp = Hospital.find_by({name: "Hospital Pequeno Príncipe"})
       select(hpp.name, from: :patient_hospital_id).select_option
       fill_in :patient_mother_name, with: "   "
       click_button class: 'btn-outline-primary'
-      expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
+      expect(find(class: 'error', match: :first).text).to eq "Nome da mãe não pode ficar em branco."
     end
 
     it 'medical_record', js: false do
