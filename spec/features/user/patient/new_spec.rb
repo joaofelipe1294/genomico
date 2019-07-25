@@ -11,16 +11,16 @@ end
 
 def patient_spec_setup
 	user_do_login
-			hospital = Hospital.create({ name: Faker::Company.name })
-			click_link(id: 'patient-dropdown')
-			click_link(id: 'new-patient')
-			@patient = Patient.new({
-				name: Faker::Name.name,
-				mother_name: Faker::Name.name,
-				birth_date: Faker::Date.between(12.years.ago, Date.today),
-				medical_record: Faker::Number.number(6).to_s,
-				hospital: hospital
-			})
+	hospital = Hospital.create({ name: Faker::Company.name })
+	click_link(id: 'patient-dropdown')
+	click_link(id: 'new-patient')
+	@patient = Patient.new({
+		name: Faker::Name.name,
+		mother_name: Faker::Name.name,
+		birth_date: Faker::Date.between(12.years.ago, Date.today),
+		medical_record: Faker::Number.number(6).to_s,
+		hospital: hospital
+	})
 end
 
 
@@ -62,14 +62,14 @@ RSpec.feature "User::Patient::News", type: :feature do
 			@patient.medical_record = nil
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
-			expect(find(class: 'error').text).to eq "Prontuário médico não pode ficar em branco"
+			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
 		end
 
 		it 'without mother_name' do
 			@patient.mother_name = nil
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
-			expect(find(class: 'error').text).to eq "Nome da mãe não pode ficar em branco"
+			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
 		end
 
 		it 'without hospital' do
@@ -103,6 +103,46 @@ RSpec.feature "User::Patient::News", type: :feature do
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
 			expect(find(class: 'error').text).to eq "Prontuário médico já está em uso"
+		end
+
+	end
+
+	context "HPP validations" do
+
+		it 'without medical_record', js: false do
+			user_do_login
+			hospital = Hospital.create({ name: "Hospital Pequeno Príncipe" })
+			click_link(id: 'patient-dropdown')
+			click_link(id: 'new-patient')
+			@patient = Patient.new({
+				name: Faker::Name.name,
+				mother_name: Faker::Name.name,
+				birth_date: Faker::Date.between(12.years.ago, Date.today),
+				medical_record: Faker::Number.number(6).to_s,
+				hospital: hospital
+			})
+			@patient.medical_record = nil
+			fill_patient_fields
+			click_button(class: 'btn-outline-primary')
+			expect(find(class: 'error', match: :first).text).to eq "Prontuário médico não pode ficar em branco."
+		end
+
+		it 'without mother_name', js: false do
+			user_do_login
+			hospital = Hospital.create({ name: "Hospital Pequeno Príncipe" })
+			click_link(id: 'patient-dropdown')
+			click_link(id: 'new-patient')
+			@patient = Patient.new({
+				name: Faker::Name.name,
+				mother_name: Faker::Name.name,
+				birth_date: Faker::Date.between(12.years.ago, Date.today),
+				medical_record: Faker::Number.number(6).to_s,
+				hospital: hospital
+			})
+			@patient.mother_name = nil
+			fill_patient_fields
+			click_button(class: 'btn-outline-primary')
+			expect(find(class: 'error', match: :first).text).to eq "Nome da mãe não pode ficar em branco."
 		end
 
 	end
