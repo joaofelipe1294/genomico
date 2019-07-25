@@ -214,6 +214,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
     it 'without exams', js: true do
       add_attendance_values
       add_samples
+
       click_button id: 'btn-save-attendance'
       expect(find(class: 'error').text).to eq "Exames não pode ficar em branco"
     end
@@ -221,6 +222,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
     it 'without exams', js: true do
       add_attendance_values
       add_exams
+      click_button id: 'samples_nav'
       click_button id: 'btn-save-attendance'
       expect(find(class: 'error').text).to eq "Amostras não pode ficar em branco"
     end
