@@ -107,7 +107,7 @@ RSpec.feature "User::Patient::Edits", type: :feature do
   context 'without values' do
 
     before :each do
-      Hospital.create([{name: 'Orzhov'}, {name: 'Rakdos'}, {name: 'Selesnya'}])
+      Hospital.create([{name: 'Orzhov'}, {name: 'Rakdos'}, {name: 'Selesnya'}, {name: 'Azorius'}, {name: 'Hospital Pequeno Príncipe'}])
       create(:patient)
       create(:patient)
       create(:patient)
@@ -121,16 +121,26 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       expect(find(class: 'error', match: :first).text).to eq "Nome não pode ficar em branco"
     end
 
-    it 'mother_name' do
+    it 'mother_name and hospital NOT HPP', js: false do
+      Hospital.create({name: 'AAA'})
       fill_in :patient_mother_name, with: "   "
       click_button class: 'btn-outline-primary'
-      expect(find(class: 'error', match: :first).text).to eq "Nome da mãe não pode ficar em branco"
+      expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
+    end
+
+    it 'mother_name and hospital HPP', js: true do
+      hpp = Hospital.find_by({name: "Hospital Pequeno Príncipe"})
+      select(hpp.name, from: :patient_hospital_id).select_option
+      fill_in :patient_mother_name, with: "   "
+      click_button class: 'btn-outline-primary'
+      expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
     end
 
     it 'medical_record', js: false do
+      Hospital.create(name: 'AAA')
       fill_in :patient_medical_record, with: "   "
       click_button class: 'btn-outline-primary'
-      expect(find(class: 'error', match: :first).text).to eq "Prontuário médico não pode ficar em branco"
+      expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
     end
 
   end
