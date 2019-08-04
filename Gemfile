@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.7'
+gem 'rails', '5.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets
@@ -52,6 +52,7 @@ gem "paperclip", "~> 5.0.0"
 # Cron jobs in Ruby
 gem 'whenever', require: false
 
+gem 'bootsnap', require: false
 # Easy full stack backup operations on UNIX-like systems. http://backup.github.io/backup/v4/
 # gem 'backup'
 
