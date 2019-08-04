@@ -75,6 +75,13 @@ GEM
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    coffee-rails (4.2.2)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     database_cleaner (1.7.0)
@@ -117,6 +124,10 @@ GEM
     kaminari-i18n (0.5.0)
       kaminari
       rails
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -142,7 +153,7 @@ GEM
     pg (0.20.0)
     popper_js (1.14.5)
     public_suffix (3.1.1)
-    puma (4.0.0)
+    puma (4.0.1)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-test (0.6.3)
@@ -196,6 +207,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
+    ruby_dep (1.5.0)
     rubyzip (1.2.3)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -274,6 +286,7 @@ DEPENDENCIES
   byebug
   capybara
   chromedriver-helper
+  coffee-rails
   database_cleaner
   factory_bot_rails
   faker (~> 2.0.0)
@@ -281,6 +294,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   kaminari-i18n
+  listen
   paperclip (~> 5.0.0)
   pg (~> 0.20.0)
   puma
