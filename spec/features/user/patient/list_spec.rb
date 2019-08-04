@@ -29,7 +29,7 @@ RSpec.feature "User::Patient::Lists", type: :feature do
     end
 
     it 'search by medical_record' do
-      patient = create(:patient, medical_record: Faker::Number.number(6).to_s)
+      patient = create(:patient, medical_record: Faker::Number.number(digits: 6).to_s)
       fill_in 'medical-record', with: patient.medical_record
       click_button 'btn-search-by-medical-record'
       expect(find_all(class: 'patient').size).to eq 1

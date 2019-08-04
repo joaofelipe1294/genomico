@@ -17,8 +17,8 @@ def patient_spec_setup
 	@patient = Patient.new({
 		name: Faker::Name.name,
 		mother_name: Faker::Name.name,
-		birth_date: Faker::Date.between(12.years.ago, Date.today),
-		medical_record: Faker::Number.number(6).to_s,
+		birth_date: Faker::Date.between(from: 12.years.ago, to: Date.today),
+		medical_record: Faker::Number.number(digits: 6).to_s,
 		hospital: hospital
 	})
 end
@@ -85,7 +85,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 				birth_date: @patient.birth_date,
 				mother_name: @patient.mother_name,
 				hospital: @patient.hospital,
-				medical_record: Faker::Number.number(8).to_s
+				medical_record: Faker::Number.number(digits: 8).to_s
 			})
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
@@ -95,7 +95,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 		it 'with duplicated medical_record and hospital' do
 			duplicated = Patient.create({
 				name: Faker::Name.name,
-				birth_date: Faker::Date.between(12.years.ago, Date.today),
+				birth_date: Faker::Date.between(from: 12.years.ago, to: Date.today),
 				mother_name: Faker::Name.name,
 				hospital: @patient.hospital,
 				medical_record: @patient.medical_record
@@ -117,8 +117,8 @@ RSpec.feature "User::Patient::News", type: :feature do
 			@patient = Patient.new({
 				name: Faker::Name.name,
 				mother_name: Faker::Name.name,
-				birth_date: Faker::Date.between(12.years.ago, Date.today),
-				medical_record: Faker::Number.number(6).to_s,
+				birth_date: Faker::Date.between(from: 12.years.ago, to: Date.today),
+				medical_record: Faker::Number.number(digits: 6).to_s,
 				hospital: hospital
 			})
 			@patient.medical_record = nil
@@ -135,8 +135,8 @@ RSpec.feature "User::Patient::News", type: :feature do
 			@patient = Patient.new({
 				name: Faker::Name.name,
 				mother_name: Faker::Name.name,
-				birth_date: Faker::Date.between(12.years.ago, Date.today),
-				medical_record: Faker::Number.number(6).to_s,
+				birth_date: Faker::Date.between(from: 12.years.ago, to: Date.today),
+				medical_record: Faker::Number.number(digits: 6).to_s,
 				hospital: hospital
 			})
 			@patient.mother_name = nil
