@@ -1,4 +1,4 @@
-class CreateQubitReports < ActiveRecord::Migration
+class CreateQubitReports < ActiveRecord::Migration[5.2]
   def change
     create_table :qubit_reports do |t|
       t.float :concentration

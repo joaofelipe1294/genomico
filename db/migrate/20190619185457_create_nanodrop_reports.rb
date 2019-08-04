@@ -1,4 +1,4 @@
-class CreateNanodropReports < ActiveRecord::Migration
+class CreateNanodropReports < ActiveRecord::Migration[5.2]
   def change
     create_table :nanodrop_reports do |t|
       t.float :concentration

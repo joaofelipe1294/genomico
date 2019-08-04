@@ -1,4 +1,4 @@
-class AddAttachmentMapToWorkMaps < ActiveRecord::Migration
+class AddAttachmentMapToWorkMaps < ActiveRecord::Migration[5.2]
   def self.up
     change_table :work_maps do |t|
       t.attachment :map

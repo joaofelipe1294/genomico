@@ -1,4 +1,4 @@
-class CreateAttendancesWorkMaps < ActiveRecord::Migration
+class CreateAttendancesWorkMaps < ActiveRecord::Migration[5.2]
   def change
     create_table :attendances_work_maps do |t|
     	t.belongs_to :attendance, index: true

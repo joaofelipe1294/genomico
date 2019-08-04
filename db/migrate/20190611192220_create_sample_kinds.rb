@@ -1,4 +1,4 @@
-class CreateSampleKinds < ActiveRecord::Migration
+class CreateSampleKinds < ActiveRecord::Migration[5.2]
   def change
     create_table :sample_kinds do |t|
       t.string :name

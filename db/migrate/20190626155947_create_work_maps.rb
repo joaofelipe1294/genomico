@@ -1,4 +1,4 @@
-class CreateWorkMaps < ActiveRecord::Migration
+class CreateWorkMaps < ActiveRecord::Migration[5.2]
   def change
     create_table :work_maps do |t|
       t.date     :date

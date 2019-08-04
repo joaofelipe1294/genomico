@@ -1,4 +1,4 @@
-class CreateSubsamples < ActiveRecord::Migration
+class CreateSubsamples < ActiveRecord::Migration[5.2]
   def change
     create_table :subsamples do |t|
       t.string :storage_location

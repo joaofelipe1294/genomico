@@ -1,4 +1,4 @@
-class CreateTableSamplesWorkMaps < ActiveRecord::Migration
+class CreateTableSamplesWorkMaps < ActiveRecord::Migration[5.2]
   def change
     create_table :samples_work_maps do |t|
     	t.belongs_to :sample, index: true

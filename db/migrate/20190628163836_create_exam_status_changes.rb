@@ -1,4 +1,4 @@
-class CreateExamStatusChanges < ActiveRecord::Migration
+class CreateExamStatusChanges < ActiveRecord::Migration[5.2]
   def change
     create_table :exam_status_changes do |t|
       t.references :exam, index: true, foreign_key: true

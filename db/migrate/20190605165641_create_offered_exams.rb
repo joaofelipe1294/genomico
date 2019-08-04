@@ -1,4 +1,4 @@
-class CreateOfferedExams < ActiveRecord::Migration
+class CreateOfferedExams < ActiveRecord::Migration[5.2]
   def change
     create_table :offered_exams do |t|
       t.string :name
