@@ -24,7 +24,7 @@ RSpec.feature "Admin::Hospital::Edits", type: :feature do
 			expect(find(id: 'success-warning').text).to eq "Hospital editado com sucesso."
 		end
 
-	end 
+	end
 
 	context 'Incorrect updates' do
 
