@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '5.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.20.0'
 # Use SCSS for stylesheets
@@ -67,7 +67,7 @@ group :development, :test do
   # Factory Bot ♥ Rails https://thoughtbot.com/services/ruby-…
   gem 'factory_bot_rails'
   # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker', '~> 1.9.4'
+  gem 'faker', '~> 2.0.0'
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
 end
