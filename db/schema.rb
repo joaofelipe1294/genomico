@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -40,20 +39,18 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.string   "report_content_type"
     t.integer  "report_file_size"
     t.datetime "report_updated_at"
+    t.index ["attendance_status_kind_id"], name: "index_attendances_on_attendance_status_kind_id", using: :btree
+    t.index ["desease_stage_id"], name: "index_attendances_on_desease_stage_id", using: :btree
+    t.index ["health_ensurance_id"], name: "index_attendances_on_health_ensurance_id", using: :btree
+    t.index ["patient_id"], name: "index_attendances_on_patient_id", using: :btree
   end
-
-  add_index "attendances", ["attendance_status_kind_id"], name: "index_attendances_on_attendance_status_kind_id", using: :btree
-  add_index "attendances", ["desease_stage_id"], name: "index_attendances_on_desease_stage_id", using: :btree
-  add_index "attendances", ["health_ensurance_id"], name: "index_attendances_on_health_ensurance_id", using: :btree
-  add_index "attendances", ["patient_id"], name: "index_attendances_on_patient_id", using: :btree
 
   create_table "attendances_work_maps", force: :cascade do |t|
     t.integer "attendance_id"
     t.integer "work_map_id"
+    t.index ["attendance_id"], name: "index_attendances_work_maps_on_attendance_id", using: :btree
+    t.index ["work_map_id"], name: "index_attendances_work_maps_on_work_map_id", using: :btree
   end
-
-  add_index "attendances_work_maps", ["attendance_id"], name: "index_attendances_work_maps_on_attendance_id", using: :btree
-  add_index "attendances_work_maps", ["work_map_id"], name: "index_attendances_work_maps_on_work_map_id", using: :btree
 
   create_table "backups", force: :cascade do |t|
     t.datetime "generated_at"
@@ -75,10 +72,9 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.datetime "change_date"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.index ["exam_id"], name: "index_exam_status_changes_on_exam_id", using: :btree
+    t.index ["exam_status_kind_id"], name: "index_exam_status_changes_on_exam_status_kind_id", using: :btree
   end
-
-  add_index "exam_status_changes", ["exam_id"], name: "index_exam_status_changes_on_exam_id", using: :btree
-  add_index "exam_status_changes", ["exam_status_kind_id"], name: "index_exam_status_changes_on_exam_status_kind_id", using: :btree
 
   create_table "exam_status_kinds", force: :cascade do |t|
     t.string   "name"
@@ -97,13 +93,12 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.datetime "updated_at",          null: false
     t.integer  "subsample_id"
     t.boolean  "uses_subsample"
+    t.index ["attendance_id"], name: "index_exams_on_attendance_id", using: :btree
+    t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id", using: :btree
+    t.index ["offered_exam_id"], name: "index_exams_on_offered_exam_id", using: :btree
+    t.index ["sample_id"], name: "index_exams_on_sample_id", using: :btree
+    t.index ["subsample_id"], name: "index_exams_on_subsample_id", using: :btree
   end
-
-  add_index "exams", ["attendance_id"], name: "index_exams_on_attendance_id", using: :btree
-  add_index "exams", ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id", using: :btree
-  add_index "exams", ["offered_exam_id"], name: "index_exams_on_offered_exam_id", using: :btree
-  add_index "exams", ["sample_id"], name: "index_exams_on_sample_id", using: :btree
-  add_index "exams", ["subsample_id"], name: "index_exams_on_subsample_id", using: :btree
 
   create_table "fields", force: :cascade do |t|
     t.string   "name"
@@ -130,9 +125,8 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.integer  "subsample_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id", using: :btree
   end
-
-  add_index "nanodrop_reports", ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id", using: :btree
 
   create_table "offered_exams", force: :cascade do |t|
     t.string   "name"
@@ -140,9 +134,8 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.boolean  "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_offered_exams_on_field_id", using: :btree
   end
-
-  add_index "offered_exams", ["field_id"], name: "index_offered_exams_on_field_id", using: :btree
 
   create_table "patients", force: :cascade do |t|
     t.string   "name"
@@ -159,9 +152,8 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.integer  "subsample_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["subsample_id"], name: "index_qubit_reports_on_subsample_id", using: :btree
   end
-
-  add_index "qubit_reports", ["subsample_id"], name: "index_qubit_reports_on_subsample_id", using: :btree
 
   create_table "sample_kinds", force: :cascade do |t|
     t.string   "name"
@@ -182,18 +174,16 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.string   "storage_location"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["attendance_id"], name: "index_samples_on_attendance_id", using: :btree
+    t.index ["sample_kind_id"], name: "index_samples_on_sample_kind_id", using: :btree
   end
-
-  add_index "samples", ["attendance_id"], name: "index_samples_on_attendance_id", using: :btree
-  add_index "samples", ["sample_kind_id"], name: "index_samples_on_sample_kind_id", using: :btree
 
   create_table "samples_work_maps", force: :cascade do |t|
     t.integer "sample_id"
     t.integer "work_map_id"
+    t.index ["sample_id"], name: "index_samples_work_maps_on_sample_id", using: :btree
+    t.index ["work_map_id"], name: "index_samples_work_maps_on_work_map_id", using: :btree
   end
-
-  add_index "samples_work_maps", ["sample_id"], name: "index_samples_work_maps_on_sample_id", using: :btree
-  add_index "samples_work_maps", ["work_map_id"], name: "index_samples_work_maps_on_work_map_id", using: :btree
 
   create_table "subsample_kinds", force: :cascade do |t|
     t.string   "name"
@@ -212,19 +202,17 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "attendance_id"
+    t.index ["attendance_id"], name: "index_subsamples_on_attendance_id", using: :btree
+    t.index ["sample_id"], name: "index_subsamples_on_sample_id", using: :btree
+    t.index ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id", using: :btree
   end
-
-  add_index "subsamples", ["attendance_id"], name: "index_subsamples_on_attendance_id", using: :btree
-  add_index "subsamples", ["sample_id"], name: "index_subsamples_on_sample_id", using: :btree
-  add_index "subsamples", ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id", using: :btree
 
   create_table "subsamples_work_maps", force: :cascade do |t|
     t.integer "subsample_id"
     t.integer "work_map_id"
+    t.index ["subsample_id"], name: "index_subsamples_work_maps_on_subsample_id", using: :btree
+    t.index ["work_map_id"], name: "index_subsamples_work_maps_on_work_map_id", using: :btree
   end
-
-  add_index "subsamples_work_maps", ["subsample_id"], name: "index_subsamples_work_maps_on_subsample_id", using: :btree
-  add_index "subsamples_work_maps", ["work_map_id"], name: "index_subsamples_work_maps_on_work_map_id", using: :btree
 
   create_table "user_kinds", force: :cascade do |t|
     t.string   "name"
@@ -240,9 +228,8 @@ ActiveRecord::Schema.define(version: 20190713184422) do
     t.integer  "user_kind_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.index ["user_kind_id"], name: "index_users_on_user_kind_id", using: :btree
   end
-
-  add_index "users", ["user_kind_id"], name: "index_users_on_user_kind_id", using: :btree
 
   create_table "work_maps", force: :cascade do |t|
     t.date     "date"
