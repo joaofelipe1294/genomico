@@ -44,7 +44,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# FriendlyId is the “Swiss Army bulldozer” of slugging and permalink plugins for ActiveRecord. 
+# FriendlyId is the “Swiss Army bulldozer” of slugging and permalink plugins for ActiveRecord.
 gem 'friendly_id', '~> 5.2.4' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
 
 # Repository for collecting Locale data for Ruby on Rails I18n as well as other interesting, Rails related I18n stuff http://rails-i18n.org
@@ -82,8 +82,9 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers', '~> 4.0'
   gem 'puma'
-  gem 'chromedriver-helper' #only headless
+  # gem 'chromedriver-helper' #only headless
   gem 'listen'
+  gem 'geckodriver-helper'
 end
 
 group :development do
