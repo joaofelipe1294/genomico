@@ -2,11 +2,16 @@ class Backup < ActiveRecord::Base
   paginates_per 10
 
   def self.perform_backup
+    puts Rails.env
     if File.directory?("./public/backups") == false
       `mkdir public/backups`
       `mkdir public/backups/temp`
     end
-    `PGPASSWORD="lab_genomico_HPP_2106" pg_dump -Fc -U deploy -h localhost genomico > ./public/backups/temp/pgdump.dump`
+    if Rails.env.production?
+      `PGPASSWORD="lab_genomico_HPP_2106" pg_dump -Fc -U deploy -h localhost genomico > ./public/backups/temp/pgdump.dump`
+    else
+      `PGPASSWORD="1234" pg_dump -Fc -U postgres -h localhost genomico_development > ./public/backups/temp/pgdump.dump`
+    end
     `cp -r public/system/ ./public/backups/temp`
     date_to_save = DateTime.now
     current_date = date_to_save.to_i
@@ -36,11 +41,16 @@ class Backup < ActiveRecord::Base
   end
 
   def self.restore(database, file_path)
+    puts Rails.env
     `mkdir ./public/backups/temp_restore`
     `cp #{file_path} ./public/backups/temp_restore/`
     `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
     `cp -r ./public/backups/temp_restore/system/ ./public/`
-    `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
+    if Rails.env.production?
+      `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
+    else
+      `PGPASSWORD="1234" pg_restore -h localhost -p 5432 -U postgres -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
+    end
     `rm -r ./public/backups/temp_restore`
     true
   end
