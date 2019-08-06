@@ -48,11 +48,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
 
   context 'navigation' do
 
-    it 'navigate to new_attendance', js: false do
-      navigate_to_new_attendance
-      expect(page).to have_current_path '/attendances/new/patient/1'
-    end
-
     it 'navigate without login', js: false do
       visit '/attendances/new/patient/1'
       expect(page).to have_current_path root_path
