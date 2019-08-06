@@ -6,7 +6,7 @@ class ExamsController < ApplicationController
 	end
 
 	def edit
-		if @exam.uses_subsample == false 
+		if @exam.uses_subsample == false
 			@exam.refference_label = @exam.sample.refference_label
 		else
 			@exam.refference_label = @exam.subsample.refference_label
@@ -57,11 +57,11 @@ class ExamsController < ApplicationController
 
   	def set_exam
   		@exam = Exam.find params[:id]
-		end 
+		end
 
 		def apply_changes
 			ExamStatusChange.create({
-				exam_status_kind: @exam.exam_status_kind, 
+				exam_status_kind: @exam.exam_status_kind,
 				exam: @exam,
 				change_date: DateTime.now
 			})

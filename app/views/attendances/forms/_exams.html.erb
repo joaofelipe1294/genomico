@@ -51,23 +51,23 @@
 								</label>
 							<% else %>
 								<%= exam.exam_status_kind.name %>
-							<% end %> 
+							<% end %>
 						</td>
 						<td>
 							<% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
 								<%= link_to 'Iniciar exame', start_exam_path(exam), {class: 'btn btn-sm btn-outline-primary'} %>
-							
+
 							<% elsif exam.exam_status_kind != ExamStatusKind.find_by({name: 'Concluído'}) %>
 
-								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'}) %> 
+								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'}) %>
 									<%= link_to 'Liberado técnico', change_to_tecnical_released_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-info'} %>
 								<% end %>
 
-								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %> 
+								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %>
 									<%= link_to 'Em repetição', change_to_in_repeat_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-secondary'} %>
 								<% end %>
 
-								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %> 
+								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
 									<%= link_to 'Concluído', change_to_completed_path(exam), {data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success'} %>
 								<% end %>
 
@@ -75,7 +75,9 @@
 									<label class = 'text-success'>Exame concluído</label>
 							<% end %>
 
-							<%= link_to 'Editar', edit_exam_path(exam), {class: 'btn btn-sm btn-outline-warning ml-2'} %>
+							<% if exam.exam_status_kind != ExamStatusKind.find_by({name: 'Aguardando início'}) %>
+								<%= link_to 'Editar', edit_exam_path(exam), {class: 'btn btn-sm btn-outline-warning ml-2'} %>
+							<% end %>
 
 						</td>
 					</tr>
