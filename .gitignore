@@ -15,3 +15,5 @@
 public/system/
 *.DS_Store
 *.zip
+
+public/assets
