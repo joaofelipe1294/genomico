@@ -2,17 +2,17 @@
 
 	<% if @attendance.errors.any? %>
 		<div id="error_explanation">
-			<h2 class="text-danger"> 
+			<h2 class="text-danger">
 				Há erros no formulário, por favor verifique.
 			</h2>
 			<ul class="text-danger">
 				<% @attendance.errors.full_messages.each do |message| %>
-					<li><%= message %></li>
+					<li class="error"><%= message %></li>
 				<% end %>
 			</ul>
-		</div> 
+		</div>
 	<% end %>
-	
+
 	<div class = 'form-group'>
 		<%= f.label :patient %>
 		<%= f.text_field :patient, {class: 'form-control', disabled: true, value: @attendance.patient.name} %>

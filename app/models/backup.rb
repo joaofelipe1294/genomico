@@ -41,7 +41,6 @@ class Backup < ActiveRecord::Base
   end
 
   def self.restore(database, file_path)
-    puts Rails.env
     `mkdir ./public/backups/temp_restore`
     `cp #{file_path} ./public/backups/temp_restore/`
     `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
