@@ -55,20 +55,20 @@
 						</td>
 						<td>
 							<% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'}) %>
-								<%= link_to 'Iniciar exame', start_exam_path(exam), {class: 'btn btn-sm btn-outline-primary'} %>
+								<%= link_to 'Iniciar exame', start_exam_path(exam), {id: 'start-exam', class: 'btn btn-sm btn-outline-primary'} %>
 
 							<% elsif exam.exam_status_kind != ExamStatusKind.find_by({name: 'Concluído'}) %>
 
 								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'}) %>
-									<%= link_to 'Liberado técnico', change_to_tecnical_released_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-info'} %>
+									<%= link_to 'Liberado técnico', change_to_tecnical_released_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-info', id: 'chnge-to-tecnical-released'} %>
 								<% end %>
 
 								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %>
-									<%= link_to 'Em repetição', change_to_in_repeat_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-secondary'} %>
+									<%= link_to 'Em repetição', change_to_in_repeat_path(exam), {method: :patch, class: 'btn btn-sm btn-outline-secondary', id: 'change-to-in-repetition'} %>
 								<% end %>
 
 								<% unless exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
-									<%= link_to 'Concluído', change_to_completed_path(exam), {data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success'} %>
+									<%= link_to 'Concluído', change_to_completed_path(exam), {data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success', id: 'change-exam-to-completed'} %>
 								<% end %>
 
 							<% else %>
@@ -76,7 +76,7 @@
 							<% end %>
 
 							<% if exam.exam_status_kind != ExamStatusKind.find_by({name: 'Aguardando início'}) %>
-								<%= link_to 'Editar', edit_exam_path(exam), {class: 'btn btn-sm btn-outline-warning ml-2'} %>
+								<%= link_to 'Editar', edit_exam_path(exam), {class: 'btn btn-sm btn-outline-warning ml-2', id: 'edit-attendance-exam'} %>
 							<% end %>
 
 						</td>
