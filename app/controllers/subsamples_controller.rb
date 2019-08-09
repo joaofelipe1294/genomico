@@ -38,8 +38,10 @@ class SubsamplesController < ApplicationController
   def create
     @subsample = Subsample.new(subsample_params)
     if @subsample.save
-      redirect_to workflow_path(@subsample.sample.attendance)        
+      flash[:success] = "Subamostra cadastrada com sucesso."
+      redirect_to workflow_path(@subsample.sample.attendance)
     else
+      flash[:danger] = "Não foi possível cadastrar a subamostra."
       @subsample_kinds = SubsampleKind.all.order :name
       render :new
     end
@@ -73,10 +75,10 @@ class SubsamplesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def subsample_params
       params.require(:subsample).permit(
-        :storage_location, 
-        :refference_label, 
-        :subsample_kind_id, 
-        :sample_id, 
+        :storage_location,
+        :refference_label,
+        :subsample_kind_id,
+        :sample_id,
         :collection_date,
         qubit_report_attributes: [:id, :concentration, :_destroy],
         nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy]
