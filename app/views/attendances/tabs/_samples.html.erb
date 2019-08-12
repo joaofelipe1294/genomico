@@ -1,116 +1,129 @@
-<div class="mb-5">
+<div style="overflow: auto;">
   <div class="form-group">
-    <%= label_tag :sample_kind, SampleKind.model_name.human %>
-    <%= select_tag :sample_kind, options_from_collection_for_select(@sample_kinds, 'id', 'name'), {class: 'form-control', id: 'sample_kind'} %>
+    <%= label_tag SampleKind.model_name.human %>
+    <%= select_tag :sample_kind, options_from_collection_for_select(@sample_kinds, "id", "name"), class: 'form-control' %>
   </div>
 
-  <div class = 'form-group'>
-    <%= label_tag :collection_date, Sample.human_attribute_name(:collection_date) %><br/>
-    <%= select_date Date.today, {order: [:day, :month, :year]}, {class: 'form-control date-select '} %>
+  <div class="form-group">
+    <%= label_tag Sample.human_attribute_name :collection_date %>
+    <%= date_field :collection_date, '', class: 'form-control', value: Date.today %>
   </div>
 
-  <div class = 'form-group'>
-    <%= label_tag Sample.human_attribute_name(:bottles_number) %>
-    <%= number_field_tag :bottles_number, '1', {class: 'form-control', id: 'bottles_number'} %>
+  <div class="form-group">
+    <%= label_tag Sample.human_attribute_name :bottles_number %>
+    <%= text_field_tag :bottles_number, '', class: 'form-control', value: '1' %>
   </div>
 
-  <div class = 'form-group'>
-    <%= label_tag Sample.human_attribute_name(:storage_location) %>
-    <%= text_field_tag :storage_location, '', {class: 'form-control'} %>
+  <div class="form-group">
+    <%= label_tag Sample.human_attribute_name :storage_location %>
+    <%= text_field_tag :storage_location, '', class: 'form-control' %>
   </div>
 
-  <button id = 'btn_add_sample'class="btn btn-outline-primary">
+  <button id="btn_add_sample" class="btn btn-outline-info float-right">
     Adicionar
   </button>
+
+  <%= f.text_area :samples, value: '', id: 'samples', class: 'form-control', hidden: true %>
+
 </div>
 
-
-
-
-<table class = 'table text-center'>
-  <thead class = 'text-white bg-dark'>
+<table class="table table-bordered text-center mt-5">
+  <thead class="bg-dark text-white">
     <th>
-      <h4>Tipo</h4>
+      <h4>
+        <%= Sample.human_attribute_name :sample_kind %>
+      </h4>
     </th>
     <th>
-      <h4>Data de coleta</h4>
+      <h4>
+        <%= Sample.human_attribute_name :collection_date %>
+      </h4>
     </th>
     <th>
-      <h4>Frascos</h4>
+      <h4>
+        <%= Sample.human_attribute_name :bottles_number %>
+      </h4>
     </th>
     <th>
-      <h4>Local de armazenamento</h4>
+      <h4>
+        <%= Sample.human_attribute_name :storage_location %>
+      </h4>
     </th>
+    <th hidden>Index</th>
     <th></th>
-    <th hidden>Id</th>
   </thead>
-  <tbody id = 'samples_table'>
+  <tbody id='samples_table'>
   </tbody>
 </table>
 
+<button class="btn btn-outline-success float-right" id="btn-save-attendance">
+  Salvar
+</button>
+
+<script>
+  $('#samples').val('')
+</script>
+
 <script>
   function remove_sample_line(event){
-    let button = event.target
-    line = $(button).parent().parent()
+    event.preventDefault()
+    let line = event.target.parentNode.parentNode
+    let remove_index = parseInt($(line).find('.index').text())
+    let samples = $('#samples').val()
+    samples = JSON.parse(samples)
+    delete samples[remove_index]
+    samples = samples.filter(Boolean);
     line.remove()
+    $('#samples').val(JSON.stringify(samples))
+    document.querySelectorAll('.index').forEach((element, index) => element.textContent = index )
   }
 </script>
 
 <script>
-  $('#btn_add_sample').click(() => {
-    let sample_kind = {
-      id: $('#sample_kind').val(),
-      name: $('#sample_kind option:selected').text()
-    }
-    let day = $('#date_day').val()
-    let month = $('#date_month').val()
-    let year = $('#date_year').val()
-    let date = {
-      day: day,
-      month: month,
-      year: year
-    }
-    let bottles_number = $('#bottles_number').val()
-    let storage_location = $('#storage_location').val()
-    let sample = {
-      sample_kind,
-      date,
-      bottles_number,
-      storage_location
-    }
-    $('#storage_location').val('')
-    $('#bottles_number').val(1)
-    $('#samples_table').append(`
-        <tr class = 'sample'>
+  $('#btn_add_sample').click(event => {
+    event.preventDefault()
+    if ($('#bottles_number').val().length === 0)
+      alert('Informe o número de frascos.')
+    else{
+      let sample_kind_id = $('#sample_kind').val()
+      let sample_kind_name = $('#sample_kind option:selected').text()
+      let collection_date = $('#collection_date_').val()
+      let bottles_number = $('#bottles_number').val()
+      let storage_location = $('#storage_location').val()
+      let sample = {
+        sample_kind_id,
+        sample_kind_name,
+        collection_date,
+        bottles_number,
+        storage_location
+      }
+      let samples = $('#samples').val()
+      console.log(samples);
+      const sample_index = $('.btn-outline-danger').length
+      $('#samples_table').append(`
+        <tr>
+          <td>${sample.sample_kind_name}</td>
+          <td>${sample.collection_date}</td>
+          <td>${sample.bottles_number}</td>
+          <td>${sample.storage_location}</td>
+          <td class="index" hidden>${sample_index}</td>
           <td>
-            ${sample.sample_kind.name}
-          </td>
-          <td>
-            <span class = 'collection_date'>
-              ${sample.date.day}/${sample.date.month}/${sample.date.year}
-            </span>
-          </td>
-          <td>
-            <span class = 'bottles_number'>
-              ${sample.bottles_number}
-            </span>
-          </td>
-          <td>
-            <span class = 'storage_location'>
-              ${sample.storage_location}
-            </span>
-          </td>
-          <td>
-            <button class = 'btn btn-sm btn-outline-danger' onclick=remove_sample_line(event)>
+            <button class="btn btn-sm btn-outline-danger" onclick="remove_sample_line(event)">
               Remover
             </button>
           </td>
-          <td hidden>
-            <span class = 'sample_kind_id'>
-              ${sample.sample_kind.id}
-            </span>
-          </td>
         </tr>
       `)
-  })  
+      delete sample.sample_kind_name
+      if (samples.length === 0){
+        $('#samples').val(JSON.stringify([sample]))
+      }else{
+        let new_value = JSON.parse(samples)
+        new_value.push(sample)
+        $('#samples').val(JSON.stringify(new_value))
+      }
+      $('#bottles_number').val('')
+      $('#storage_location').val('')
+    }
+  })
 </script>
