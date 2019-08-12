@@ -57,6 +57,8 @@ RSpec.describe Subsample, type: :model do
 
 		it { should accept_nested_attributes_for(:nanodrop_report) }
 
+		it { should have_many(:exams) }
+
 	end
 
 	context 'Before_save' do
@@ -64,8 +66,8 @@ RSpec.describe Subsample, type: :model do
 		it 'add_default_values' do
 			subsample_kind = create(:subsample_kind, name: 'DNA', acronym: 'DNA', refference_index: 5)
 			subsample = create(
-				:subsample, 
-				subsample_kind: subsample_kind, 
+				:subsample,
+				subsample_kind: subsample_kind,
 				collection_date: Date.today.year
 			)
 			subsample = Subsample.find subsample.id
