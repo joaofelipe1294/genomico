@@ -36,6 +36,7 @@
         name: Nome
         field_id: Área do Exame
         is_active: Ativo
+        refference_date: Tempo de execução (em dias)
       attendance_status_kind:
         name: Nome
       health_ensurance:

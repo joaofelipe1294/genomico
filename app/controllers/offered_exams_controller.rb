@@ -94,6 +94,6 @@ class OfferedExamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offered_exam_params
-      params.require(:offered_exam).permit(:name, :field_id, :is_active)
+      params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date)
     end
 end

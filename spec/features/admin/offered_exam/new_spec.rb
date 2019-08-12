@@ -4,11 +4,12 @@ require 'helpers/admin'
 def fill_offered_exam_fields
 	fill_in("offered_exam[name]", with: @offered_exam.name) if @offered_exam.name
 	select(@offered_exam.field.name, from: "offered_exam[field_id]").select_option if @offered_exam.field
+	fill_in "offered_exam[refference_date]", with: Faker::Number.number(digits: 2)
 	click_button(class: 'btn')
 end
 
 RSpec.feature "Admin::OfferedExam::News", type: :feature do
-  
+
 	before :each do
 		Field.create([{name: 'Biomol'}, {name: 'Anatomia'}])
 		admin_do_login
@@ -37,8 +38,8 @@ RSpec.feature "Admin::OfferedExam::News", type: :feature do
 		end
 
 		it 'duplicated_name' do
-			OfferedExam.create({name: 'duplicado', field: Field.last})
-			@offered_exam = OfferedExam.new({name: 'duplicado', field: Field.first})
+			OfferedExam.create({name: 'duplicado', field: Field.last, refference_date: 3})
+			@offered_exam = OfferedExam.new({ name: 'duplicado', field: Field.first, refference_date: 2 })
 			fill_offered_exam_fields
 			expect(find(class: 'error').text).to eq("Nome já está em uso")
 		end

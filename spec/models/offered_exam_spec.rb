@@ -36,6 +36,8 @@ RSpec.describe OfferedExam, type: :model do
 
 		it { should have_many(:exams) }
 
+		it { should validate_presence_of(:refference_date) }
+
 	end
 
 	context 'After_initialize' do

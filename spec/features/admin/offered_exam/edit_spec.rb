@@ -29,6 +29,12 @@ RSpec.feature "Admin::OfferedExam::Edits", type: :feature do
 			expect(find(id: 'success-warning').text).to eq "Exame ofertado editado com sucesso."
 		end
 
+		it "update refference_date" do
+			fill_in "offered_exam[refference_date]", with: Faker::Number.number(digits: 2)
+			click_button class: 'btn'
+			expect(find(id: 'success-warning').text).to eq "Exame ofertado editado com sucesso."
+		end
+
 	end
 
 	context 'Incorrect' do
@@ -39,14 +45,20 @@ RSpec.feature "Admin::OfferedExam::Edits", type: :feature do
 			expect(find(class: 'error', match: :first).text).to eq "Nome não pode ficar em branco"
 		end
 
+		it "without refference_date" do
+			fill_in "offered_exam[refference_date]", with: ""
+			click_button class: "btn"
+			expect(find(class: 'error', match: :first).text).to eq "Tempo de execução (em dias) não pode ficar em branco"
+		end
+
 		it 'with duplicated name', js: false do
-			OfferedExam.create({name: 'Nome', field: Field.last})
+			OfferedExam.create({name: 'Nome', field: Field.last, refference_date: Faker::Number.number(digits: 2)})
 			fill_in('offered_exam_name', with: 'Nome')
 			click_button(class: 'btn')
 			expect(find(class: 'error', match: :first).text).to eq "Nome já está em uso"
 		end
 
 
-	end	
+	end
 
 end

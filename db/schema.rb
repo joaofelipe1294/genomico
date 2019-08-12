@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_13_184422) do
+ActiveRecord::Schema.define(version: 2019_08_12_163108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 2019_07_13_184422) do
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "refference_date"
     t.index ["field_id"], name: "index_offered_exams_on_field_id"
   end
 

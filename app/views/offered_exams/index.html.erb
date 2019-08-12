@@ -35,6 +35,7 @@
     <th>Nome</th>
     <th>Status</th>
     <th>Área</th>
+    <th>Tempo de execução</th>
     <th></th>
   </thead>
   <tbody>
@@ -56,6 +57,10 @@
         </td>
         <td>
           <%= exam.field.name %>
+        </td>
+        <td>
+          <%= exam.refference_date %> dias
+        </td>
         <td>
           <% if exam.is_active %>
             <%= link_to 'Editar', edit_offered_exam_path(exam), {class: 'btn btn-sm btn-outline-warning'} %>
