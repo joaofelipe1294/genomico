@@ -69,7 +69,9 @@
             <%= attendance.exams.where(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
           </td>
           <td>
-            <%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-info'} %>
+            <%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-primary'} %>
+            <%= link_to 'Verificar andamento', attendance_path(attendance), class: 'ml-2 btn btn-sm btn-outline-info' %>
+          </td>
       <% end %>
     </tbody>
   </table>

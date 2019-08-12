@@ -1,58 +1,52 @@
 <%= render 'layouts/user_navbar' %>
 
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Desease stage:</strong>
-  <%= @attendance.desease_stage %>
-</p>
-
-<p>
-  <strong>Cid code:</strong>
-  <%= @attendance.cid_code %>
-</p>
-
-<p>
-  <strong>Lis code:</strong>
-  <%= @attendance.lis_code %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @attendance.start_date %>
-</p>
-
-<p>
-  <strong>Finish date:</strong>
-  <%= @attendance.finish_date %>
-</p>
-
-<p>
-  <strong>Patient:</strong>
-  <%= @attendance.patient %>
-</p>
-
-<p>
-  <strong>Attendance status kind:</strong>
-  <%= @attendance.attendance_status_kind %>
-</p>
-
-<p>
-  <strong>Doctor name:</strong>
-  <%= @attendance.doctor_name %>
-</p>
-
-<p>
-  <strong>Doctor crm:</strong>
-  <%= @attendance.doctor_crm %>
-</p>
-
-<p>
-  <strong>Observations:</strong>
-  <%= @attendance.observations %>
-</p>
-
-<p>
-  <strong>Health ensurance:</strong>
-  <%= @attendance.health_ensurance %>
-</p>
+<table class="table table-bordered table-striped text-center mt-5 col-md-10 offset-md-1">
+  <thead class="text-white bg-dark">
+    <th>
+      <h4>Exame</h4>
+    </th>
+    <th>
+      <h4>Novo status</h4>
+    </th>
+    <th>
+      <h4>Horário da mudança</h4>
+    </th>
+    <th>
+      <h4>Feito por</h4>
+    </th>
+  </thead>
+  <tbody>
+    <% @exams_status_changes.each do |status_change| %>
+      <tr>
+        <td>
+          <%= status_change.exam.offered_exam.name %>
+        </td>
+        <td>
+          <% if status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
+            <label class="text-success">
+              <%= status_change.exam_status_kind.name %>
+            </label>
+          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'})%>
+            <label class="text-info">
+              <%= status_change.exam_status_kind.name %>
+            </label>
+          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %>
+            <label class="text-secondary">
+              <%= status_change.exam_status_kind.name %>
+            </label>
+          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
+            <label class="">
+              <%= status_change.exam_status_kind.name %>
+            </label>
+          <% end %>
+        </td>
+        <td>
+          <%= status_change.change_date.strftime("%-d/%-m/%y: %H:%M") %>
+        </td>
+        <td>
+          <%= status_change.user.name %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
