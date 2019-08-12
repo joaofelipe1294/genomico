@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_12_163108) do
+ActiveRecord::Schema.define(version: 2019_08_12_184606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 2019_08_12_163108) do
     t.datetime "change_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["exam_id"], name: "index_exam_status_changes_on_exam_id"
     t.index ["exam_status_kind_id"], name: "index_exam_status_changes_on_exam_status_kind_id"
+    t.index ["user_id"], name: "index_exam_status_changes_on_user_id"
   end
 
   create_table "exam_status_kinds", force: :cascade do |t|

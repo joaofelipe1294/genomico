@@ -3,6 +3,7 @@ class ExamStatusChange < ActiveRecord::Base
   belongs_to :exam
   belongs_to :exam_status_kind
   before_validation :default_values
+  belongs_to :user
 
   private
 

@@ -63,7 +63,8 @@ class ExamsController < ApplicationController
 			ExamStatusChange.create({
 				exam_status_kind: @exam.exam_status_kind,
 				exam: @exam,
-				change_date: DateTime.now
+				change_date: DateTime.now,
+        user: User.find(session[:user_id])
 			})
 			if @exam.save
 				flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."

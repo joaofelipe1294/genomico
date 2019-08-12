@@ -27,6 +27,8 @@ RSpec.describe ExamStatusChange, type: :model do
 			expect(exam_status_change).to be_valid
 		end
 
+		it { should belong_to :user }
+
 	end
 
 end
