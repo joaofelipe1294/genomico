@@ -116,13 +116,20 @@ RSpec.feature "User::Attendance::SampleValidations", type: :feature do
     expect(Attendance.find(@attendance.id).samples.size).to eq 0
   end
 
-  it "remove sample with exam", js: true do
+  it "try remove sample with exam", js: true do
     expect(@attendance.samples.size).to eq 1
     click_button id: 'exam_nav'
     click_link id: 'start-exam'
     click_button id: 'btn-start-exam'
     click_button id: 'sample_nav'
     expect(page).not_to have_selector("#btn-remove-sample")
+  end
+
+  it "try remove sample wich has a subsample", js: true do
+    extract_subsample
+    click_button id: 'sample_nav'
+    expect(page).not_to have_selector("#btn-remove-sample")
+    sleep 5
   end
 
 end
