@@ -122,11 +122,7 @@ RSpec.feature "User::Attendance::SampleValidations", type: :feature do
     click_link id: 'start-exam'
     click_button id: 'btn-start-exam'
     click_button id: 'sample_nav'
-    click_link id: 'btn-remove-sample'
-    page.driver.browser.switch_to.alert.accept
-    expect(find(id: 'danger-warning').text).to eq "Esta amostra está vinculada a pelo menos um exame, por isso não pode ser remomvido."
-    expect(@attendance.samples.size).to eq 1
+    expect(page).not_to have_selector("#btn-remove-sample")
   end
-
 
 end
