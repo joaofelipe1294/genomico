@@ -1,6 +1,6 @@
 <%= render 'shared/flash_feedback' %>
 
-<div class="card col-md-8 offset-md-2 p-0 mt-5">
+<div class="card col-md-6 offset-md-3 p-0 mt-5">
   <div class="card-header bg-dark">
     <h1 class = "text-white text-center">
     	Bem vindo
@@ -17,6 +17,6 @@
 				<%= password_field_tag :password, '',{required: true, class: 'form-control'} %>
 			</div>
 			<%= submit_tag 'Entrar', {class: 'btn btn-outline-info float-right', id: 'btn-login'} %>
-		<% end %>    
+		<% end %>
   </div>
 </div>
