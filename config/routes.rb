@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
   get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
 
+  get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
+  post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
   get 'exams/:id/edit', to: 'exams#edit', as: :edit_exam
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
   patch 'exams/:id', to: 'exams#update', as: :update_exam

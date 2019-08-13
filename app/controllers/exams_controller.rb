@@ -2,6 +2,26 @@ class ExamsController < ApplicationController
   before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
 
+  def new
+    @attendance = Attendance.find(params[:id])
+    @fields = Field.all.order name: :asc
+    @offered_exams = OfferedExam.where({field: @fields.first}).order name: :asc
+  end
+
+  def create
+    @exam = Exam.new({
+      attendance: Attendance.find(params[:id]),
+      offered_exam_id: params[:offered_exam_id]
+    })
+    if @exam.save
+      flash[:success] = "Exame cadastrado com sucesso."
+      redirect_to workflow_path(Attendance.find(params[:id]))
+    else
+      flash[:warning] = 'Erro ao cadastrar exame, tente novamente mais tarde.'
+			redirect_to new_exam_path(@exam.attendance)
+    end
+  end
+
 	def start
 	end
 

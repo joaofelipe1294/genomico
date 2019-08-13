@@ -82,7 +82,7 @@ class OfferedExamsController < ApplicationController
 
   #GET /offered_exams/field/id
   def exams_per_field
-    @exams = OfferedExam.where({field: Field.find(params[:id])})
+    @exams = OfferedExam.where({field: Field.find(params[:id])}).order name: :asc
     render json: @exams, status: :ok, only: [:id, :name]
   end
 

@@ -1,1 +1,52 @@
 <%= render 'layouts/user_navbar' %>
+
+<div class="card col-md-8 offset-md-2 p-0 mt-5">
+  <div class="card-header bg-info">
+    <h3 class="text-center text-white">
+      Novo exame
+    </h3>
+  </div>
+  <div class="card-body">
+    <div>
+      <%= form_tag create_exam_path(@attendance) do %>
+        <div class="form-group">
+          <label for="">Área</label>
+          <%= select_tag "field", options_from_collection_for_select(@fields, "id", "name"), {class: 'form-control', id: 'field_select'} %>
+        </div>
+        <div class="form-group">
+          <label for="">Exame</label>
+          <select id="exam_select" class="form-control" name="offered_exam_id">
+            <% @offered_exams.each do |offered_exam| %>
+              <option value="<%= offered_exam.id %>" class="exam-option">
+                <%= offered_exam.name%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <button class="btn btn-outline-primary float-right">
+          Salvar
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#field_select').change(() => {
+    let options = $('.exam-option')
+    options.remove()
+    const field_id = $('#field_select').val()
+    axios.get(`/offered_exams/field/${field_id}`)
+      .then(response => {
+        const exams = response.data
+        exams.forEach(exam => {
+          $('#exam_select').append(`
+              <option value="${exam.id}" class="exam-option">
+                ${exam.name}
+              </option>
+            `)
+        })
+      })
+      .catch(() => alert('Houve um erro no servidor, tente novamente mais tarde.'))
+  })
+</script>
