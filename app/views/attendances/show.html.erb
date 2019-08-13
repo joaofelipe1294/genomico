@@ -1,6 +1,28 @@
 <%= render 'layouts/user_navbar' %>
 
-<table class="table table-bordered table-striped text-center mt-5 col-md-10 offset-md-1">
+<div class="col-md-6 offset-md-3 mt-2 border-bottom p-3" style="overflow: auto;">
+  <%= form_tag do %>
+    <div class="form-group">
+      <%= label_tag Exam.model_name.human %>
+      <select class="form-control" name="attendance[exam]">
+        <option value="all">Todos</option>
+        <%= @exams.each do |exam| %>
+          <option value="<%= exam.id %>">
+            <%= exam.offered_exam.name %>
+          </option>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+  <button class="btn btn-outline-info float-right">
+    Buscar
+  </button>
+</div>
+
+
+
+
+<table class="table table-bordered table-striped text-center mt-5 col-md-10 offset-md-1 mb-5">
   <thead class="text-white bg-dark">
     <th>
       <h4>Exame</h4>

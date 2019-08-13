@@ -19,6 +19,7 @@ class AttendancesController < ApplicationController
       end
     end
     @exams_status_changes = @exams_status_changes.sort_by{ |status_change| status_change.change_date }
+    @exams = @attendance.exams
   end
 
   # GET /attendances/new
