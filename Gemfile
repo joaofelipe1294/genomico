@@ -56,8 +56,9 @@ gem "paperclip", "~> 5.0.0"
 gem 'whenever', require: false
 
 gem 'bootsnap', require: false
-# Easy full stack backup operations on UNIX-like systems. http://backup.github.io/backup/v4/
-# gem 'backup'
+
+# Create beautiful JavaScript charts with one line of Ruby. No more fighting with charting libraries!
+gem "chartkick"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

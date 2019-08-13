@@ -17,4 +17,6 @@
 //= require popper
 //= require bootstrap
 //= require axios/dist/axios
+//= require chartkick
+//= require Chart.bundle
 //= require_tree .

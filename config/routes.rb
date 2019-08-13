@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'indicators/exams_per_field'
+  get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress
   post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
