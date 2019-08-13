@@ -12,13 +12,17 @@ class AttendancesController < ApplicationController
   # GET /attendances/1
   # GET /attendances/1.json
   def show
-    @exams_status_changes = []
-    @attendance.exams.each do |exam|
-      exam.exam_status_changes.each do |exam_status_change|
-        @exams_status_changes.append exam_status_change
+    if params[:exam] == 'all' || params[:exam].nil?
+      @exams_status_changes = []
+      @attendance.exams.each do |exam|
+        exam.exam_status_changes.each do |exam_status_change|
+          @exams_status_changes.append exam_status_change
+        end
       end
+      @exams_status_changes = @exams_status_changes.sort_by{ |status_change| status_change.change_date }
+    else
+      @exams_status_changes = Exam.find(params[:exam]).exam_status_changes.order change_date: :asc
     end
-    @exams_status_changes = @exams_status_changes.sort_by{ |status_change| status_change.change_date }
     @exams = @attendance.exams
   end
 

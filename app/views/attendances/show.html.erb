@@ -1,10 +1,10 @@
 <%= render 'layouts/user_navbar' %>
 
 <div class="col-md-6 offset-md-3 mt-2 border-bottom p-3" style="overflow: auto;">
-  <%= form_tag do %>
+  <%= form_tag(@attendance, method: :get) do %>
     <div class="form-group">
       <%= label_tag Exam.model_name.human %>
-      <select class="form-control" name="attendance[exam]">
+      <select class="form-control" name="exam">
         <option value="all">Todos</option>
         <%= @exams.each do |exam| %>
           <option value="<%= exam.id %>">
@@ -13,10 +13,10 @@
         <% end %>
       </select>
     </div>
+    <button class="btn btn-outline-info float-right">
+      Buscar
+    </button>
   <% end %>
-  <button class="btn btn-outline-info float-right">
-    Buscar
-  </button>
 </div>
 
 
