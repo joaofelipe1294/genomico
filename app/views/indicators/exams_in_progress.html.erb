@@ -1,3 +1,13 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= pie_chart({"Football" => 10, "Basketball" => 5}) %>
+<h1 class="text-center mt-5 mb-5 border-bottom">
+  Exames em andamento
+</h1>
+
+<%= pie_chart({
+  "Anatomia patológica" => Exam.in_progress_by_field("Anatomia Patológica") ,
+  "FISH" => Exam.in_progress_by_field("FISH"),
+  "Biologia Molecular" => Exam.in_progress_by_field("Biologia Molecular"),
+  "Citogenética" => Exam.in_progress_by_field("Biologia Molecular"),
+  "Imunofenotipagem" => Exam.in_progress_by_field("Imunofenotipagem")
+  }) %>
