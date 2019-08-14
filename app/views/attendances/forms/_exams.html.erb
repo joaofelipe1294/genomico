@@ -50,7 +50,7 @@
 									<%= exam.exam_status_kind.name %>
 								</label>
 							<% elsif exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
-								<label class="text-primary">
+								<label class="text-success">
 									<%= exam.exam_status_kind.name %>
 								</label>
 							<% else %>
