@@ -11,7 +11,8 @@ class Exam < ActiveRecord::Base
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
-    result = conn.execute "SELECT e.id,
+    result = conn.execute "
+                  SELECT e.id,
                          oe.name,
                          f.name
                   FROM exams e
