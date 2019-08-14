@@ -5,18 +5,18 @@
 </h1>
 
 <%= pie_chart({
-  "Anatomia patológica" => Exam.complete_exams_by_field("Anatomia Patológica") ,
-  "FISH" => Exam.complete_exams_by_field("FISH"),
-  "Biologia Molecular" => Exam.complete_exams_by_field("Biologia Molecular"),
-  "Citogenética" => Exam.complete_exams_by_field("Citogenética"),
-  "Imunofenotipagem" => Exam.complete_exams_by_field("Imunofenotipagem")
+  "Anatomia patológica" => Exam.complete_exams_by_field("Anatomia Patológica", @start_date, @end_date) ,
+  "FISH" => Exam.complete_exams_by_field("FISH", @start_date, @end_date),
+  "Biologia Molecular" => Exam.complete_exams_by_field("Biologia Molecular", @start_date, @end_date),
+  "Citogenética" => Exam.complete_exams_by_field("Citogenética", @start_date, @end_date),
+  "Imunofenotipagem" => Exam.complete_exams_by_field("Imunofenotipagem", @start_date, @end_date)
   }) %>
 
 
 <hr>
 
-<!-- <div class="col-md-4 offset-md-4">
-  <form class="form-inline">
+<div class="col-md-4 offset-md-4">
+  <%= form_tag concluded_exams_path, method: :get, class: "form-inline" do %>
     <div class="form-group mb-2">
       <label>Data inicial</label>
       <%= date_field_tag "start_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
@@ -26,5 +26,5 @@
       <%= date_field_tag "end_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
     </div>
     <button class="btn btn-outline-info mb-2">Buscar</button>
-  </form>
-</div> -->
+  <% end %>
+</div>
