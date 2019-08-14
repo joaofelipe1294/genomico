@@ -41,6 +41,31 @@ class Exam < ActiveRecord::Base
     result.cmd_tuples
   end
 
+  def self.health_ensurance_relation
+    conn = ActiveRecord::Base.connection
+    health_ensurance_relation = {}
+    HealthEnsurance.all.each do |health_ensurance|
+      result = conn.execute "
+        SELECT he.name,
+               a.id
+        FROM exams e
+             INNER JOIN attendances a ON a.id = e.attendance_id
+             LEFT JOIN health_ensurances he ON he.id = a.health_ensurance_id
+        WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
+              AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)});"
+      health_ensurance_relation[health_ensurance.name] = result.cmd_tuples if result.cmd_tuples > 0
+    end
+    result = conn.execute "
+      SELECT e.id
+      FROM exams e
+           INNER JOIN attendances a ON e.attendance_id = a.id
+      WHERE a.health_ensurance_id IS NULL
+            AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído');"
+    health_ensurance_relation['Sem Plano'] = result.cmd_tuples
+    health_ensurance_relation
+  end
+
+
   private
 
   def default_values

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
   get 'indicators/exams_per_field'
   get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress

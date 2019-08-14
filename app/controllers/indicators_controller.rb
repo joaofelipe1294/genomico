@@ -20,4 +20,8 @@ class IndicatorsController < ApplicationController
     end
   end
 
+  def health_ensurances_relation
+    @exams_relation = Exam.health_ensurance_relation
+  end
+
 end
