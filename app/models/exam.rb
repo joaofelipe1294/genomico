@@ -41,7 +41,7 @@ class Exam < ActiveRecord::Base
     result.cmd_tuples
   end
 
-  def self.health_ensurance_relation
+  def self.health_ensurance_relation(start_date= 3.years.ago, end_date= 1.second.ago)
     conn = ActiveRecord::Base.connection
     health_ensurance_relation = {}
     HealthEnsurance.all.each do |health_ensurance|
@@ -52,7 +52,8 @@ class Exam < ActiveRecord::Base
              INNER JOIN attendances a ON a.id = e.attendance_id
              LEFT JOIN health_ensurances he ON he.id = a.health_ensurance_id
         WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-              AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)});"
+              AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)})
+              AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
       health_ensurance_relation[health_ensurance.name] = result.cmd_tuples if result.cmd_tuples > 0
     end
     result = conn.execute "
@@ -60,8 +61,10 @@ class Exam < ActiveRecord::Base
       FROM exams e
            INNER JOIN attendances a ON e.attendance_id = a.id
       WHERE a.health_ensurance_id IS NULL
-            AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído');"
+            AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
+            AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
     health_ensurance_relation['Sem Plano'] = result.cmd_tuples
+    p health_ensurance_relation
     health_ensurance_relation
   end
 

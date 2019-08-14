@@ -21,7 +21,15 @@ class IndicatorsController < ApplicationController
   end
 
   def health_ensurances_relation
-    @exams_relation = Exam.health_ensurance_relation
+    if params[:start_date].nil? || params[:end_date].nil? || params[:start_date].empty? || params[:end_date].empty?
+      @concluded_exams_cont = Exam.where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'})).size
+      @exams_relation = Exam.health_ensurance_relation
+    else
+      @concluded_exams_cont = Exam
+                                  .where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'}))
+                                  .where("finish_date BETWEEN ? AND ?", params[:start_date], params[:end_date]).size
+      @exams_relation = Exam.health_ensurance_relation params[:start_date], params[:end_date]
+    end
   end
 
 end
