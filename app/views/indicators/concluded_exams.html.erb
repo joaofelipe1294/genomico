@@ -1,0 +1,30 @@
+<%= render 'layouts/user_navbar' %>
+
+<h1 class="text-center mt-5 mb-5 border-bottom">
+  Exames concluídos (<%= @concluded_exams_cont %>)
+</h1>
+
+<%= pie_chart({
+  "Anatomia patológica" => Exam.complete_exams_by_field("Anatomia Patológica") ,
+  "FISH" => Exam.complete_exams_by_field("FISH"),
+  "Biologia Molecular" => Exam.complete_exams_by_field("Biologia Molecular"),
+  "Citogenética" => Exam.complete_exams_by_field("Citogenética"),
+  "Imunofenotipagem" => Exam.complete_exams_by_field("Imunofenotipagem")
+  }) %>
+
+
+<hr>
+
+<div class="col-md-4 offset-md-4">
+  <form class="form-inline">
+    <div class="form-group mb-2">
+      <label>Data inicial</label>
+      <%= date_field_tag "start_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label>Data final</label>
+      <%= date_field_tag "end_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
+    </div>
+    <button class="btn btn-outline-info mb-2">Buscar</button>
+  </form>
+</div>
