@@ -1,0 +1,13 @@
+<div class="col-md-4 offset-md-4">
+  <%= form_tag locals[:search_route], method: :get, class: "form-inline" do %>
+    <div class="form-group mb-2">
+      <label>Data inicial</label>
+      <%= date_field_tag "start_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label>Data final</label>
+      <%= date_field_tag "end_date", "", { class: "ml-3 form-control", value: 2.years.ago } %>
+    </div>
+    <button class="btn btn-outline-info mb-2">Buscar</button>
+  <% end %>
+</div>
