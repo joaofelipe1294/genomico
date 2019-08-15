@@ -16,7 +16,7 @@ class Subsample < ActiveRecord::Base
     def add_default_values
   		subsample_kind.refference_index += 1
   		subsample_kind.save
-  		self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{subsample_kind.acronym}-#{subsample_kind.refference_index}"
+  		self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{subsample_kind.acronym}-#{subsample_kind.refference_index.to_s.rjust(5,  "0")}"
   		self.collection_date = DateTime.now
   		self.sample.update({has_subsample: true})
       self.attendance = sample.attendance
