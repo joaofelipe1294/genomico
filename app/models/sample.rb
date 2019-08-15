@@ -8,7 +8,7 @@ class Sample < ActiveRecord::Base
   before_save :set_refference_label
   validates :sample_kind, :collection_date, :bottles_number, presence: true
 
-	private 
+	private
 
 		def default_values
 			self.has_subsample = false if self.has_subsample.nil?
@@ -18,7 +18,7 @@ class Sample < ActiveRecord::Base
 		def set_refference_label
 			sample_kind.refference_index += 1
 			sample_kind.save
-			self.refference_label = "#{Date.today.year}-#{sample_kind.acronym}-#{sample_kind.refference_index}"
+			self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{sample_kind.acronym}-#{sample_kind.refference_index}"
 		end
 
 end
