@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_123833) do
   create_table "internal_codes", force: :cascade do |t|
     t.bigint "sample_id"
     t.bigint "field_id"
+    t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["field_id"], name: "index_internal_codes_on_field_id"
