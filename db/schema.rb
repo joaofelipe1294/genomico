@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_114710) do
+ActiveRecord::Schema.define(version: 2019_08_16_123833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,11 +121,12 @@ ActiveRecord::Schema.define(version: 2019_08_16_114710) do
   end
 
   create_table "internal_codes", force: :cascade do |t|
-    t.integer "code"
+    t.bigint "sample_id"
     t.bigint "field_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["field_id"], name: "index_internal_codes_on_field_id"
+    t.index ["sample_id"], name: "index_internal_codes_on_sample_id"
   end
 
   create_table "nanodrop_reports", force: :cascade do |t|
@@ -265,6 +266,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_114710) do
   add_foreign_key "exams", "offered_exams"
   add_foreign_key "exams", "samples"
   add_foreign_key "internal_codes", "fields"
+  add_foreign_key "internal_codes", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "patients", "hospitals"

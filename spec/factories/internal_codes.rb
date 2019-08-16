@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :internal_code do
-    code { 1 }
+    sample { nil }
     field { nil }
   end
 end
