@@ -11,9 +11,9 @@ class InternalCodesController < ApplicationController
       flash[:success] = 'Código interno salvo com sucesso.'
       redirect_to new_internal_code_path(@internal_code.sample.id)
     else
-      flash[:error] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
+      flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
       @fields = [Field.find_by({name: 'Imunofenotipagem'})]
-      render @internal_code
+      redirect_to new_internal_code_path(@internal_code.sample)
     end
   end
 
@@ -24,7 +24,7 @@ class InternalCodesController < ApplicationController
       flash[:success] = 'Código interno removido com sucesso.'
       redirect_to new_internal_code_path(sample.id)
     else
-      flash[:error] = 'Erro ao remover código interno, tente novamente mais tarde.'
+      flash[:warning] = 'Erro ao remover código interno, tente novamente mais tarde.'
       redirect_to workflow_path(internal_code.sample.attendance)
     end
   end

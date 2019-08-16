@@ -1,7 +1,8 @@
 class InternalCode < ApplicationRecord
   belongs_to :sample
   belongs_to :field
-  before_save :set_internal_code
+  before_validation :set_internal_code
+	validates :code, uniqueness: {scope: [:field_id]}
 
   private
 
