@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'internal_codes/new/:id', to: 'internal_codes#new', as: :new_internal_code
-  resources :internal_codes, only: [:create, :remove]
   get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
   get 'indicators/exams_per_field'
@@ -50,6 +49,7 @@ Rails.application.routes.draw do
   resources :users
   resources :attendances, except: [:new]
   resources :offered_exams
-  resources :patients, except: [:delete]
+  resources :patients, except: [:destroy]
   resources :subsamples
+  resources :internal_codes, only: [:create, :destroy]
 end

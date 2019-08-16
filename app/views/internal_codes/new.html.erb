@@ -44,7 +44,7 @@
           <%= internal_code.code %>
         </td>
         <td>
-          <button class="btn btn-sm btn-outline-danger ml-2">Remover</button>
+          <%= link_to 'Remover', internal_code_path(internal_code), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>
         </td>
       </tr>
     <% end %>
