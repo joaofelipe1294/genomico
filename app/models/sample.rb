@@ -7,6 +7,7 @@ class Sample < ActiveRecord::Base
   has_and_belongs_to_many :work_maps
   before_save :set_refference_label
   validates :sample_kind, :collection_date, :bottles_number, presence: true
+  has_many :internal_codes
 
 	private
 
