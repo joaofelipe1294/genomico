@@ -65,12 +65,11 @@
 					<% if sample.sample_kind != SampleKind.find_by(name: 'Liquor') %>
 						<%= link_to 'Extrair subamostra', new_sub_sample_path(sample), {class: 'btn btn-sm btn-outline-primary new-subsample'} %>
 					<% end %>
-					<%= link_to 'Novo código interno', new_internal_code_path(sample), class: 'btn btn-sm btn-outline-secondary' %>
+					<%= link_to 'Código de setor', new_internal_code_path(sample), class: 'btn btn-sm btn-outline-secondary' %>
 					<%= link_to 'Editar', edit_sample_path(sample), {class: 'btn btn-sm btn-outline-warning', id: 'btn-edit-sample'} %>
 					<% if sample.exams.size == 0 && sample.subsamples.size == 0 %>
 						<%= link_to 'Remover', sample_path(sample), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>
 					<% end %>
-
 				</td>
 		<% end %>
 	</tbody>
