@@ -20,6 +20,7 @@
       nanodrop_report: Dados Nanodrop
       hospital: Hospital
       work_map: Mapa de Trabalho
+      internal_code: Código interno
     attributes:
       user_kind:
         name: Nome
@@ -113,3 +114,9 @@
         name: Identificador
         map: PDF com o mapa de trabalho
         date: Data da realização
+      internal_code:
+        sample_id: Amostra
+        sample: Amostra
+        field_id: Área do laboratório
+        field: Área do laboratório
+        code: Código
