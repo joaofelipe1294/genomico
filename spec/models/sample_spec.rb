@@ -55,15 +55,17 @@ RSpec.describe Sample, type: :model do
 
 	context 'Relations' do
 
-		it { should belong_to(:attendance) }
+		it { should belong_to :attendance }
 
-		it { should belong_to(:sample_kind) }
+		it { should belong_to :sample_kind }
 
-		it { should have_many(:subsamples) }
+		it { should have_many :subsamples }
 
-		it { should have_many(:exams) }
+		it { should have_many :exams }
 
-		it {should have_and_belong_to_many(:work_maps) }
+		it { should have_and_belong_to_many :work_maps }
+
+		it { should have_many :internal_codes }
 
 	end
 

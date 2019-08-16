@@ -3,6 +3,7 @@ class InternalCode < ApplicationRecord
   belongs_to :field
   before_validation :set_internal_code
 	validates :code, uniqueness: {scope: [:field_id]}
+  validates :field, :sample, presence: true
 
   private
 
