@@ -9,8 +9,11 @@ class InternalCodesController < ApplicationController
     @internal_code = InternalCode.new internal_code_attributes
     if @internal_code.save
       flash[:success] = 'Código interno salvo com sucesso.'
+      redirect_to workflow_path(@internal_code.sample.attendance)
     else
       flash[:error] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
+      @fields = [Field.find_by({name: 'Imunofenotipagem'})]
+      render @internal_code
     end
   end
 
