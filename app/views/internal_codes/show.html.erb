@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @internal_code.code %>
+</p>
+
+<p>
+  <strong>Field:</strong>
+  <%= @internal_code.field %>
+</p>
+
+<%= link_to 'Edit', edit_internal_code_path(@internal_code) %> |
+<%= link_to 'Back', internal_codes_path %>

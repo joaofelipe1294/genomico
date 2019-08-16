@@ -1,0 +1,2 @@
+module InternalCodesHelper
+end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Internal Codes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Field</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @internal_codes.each do |internal_code| %>
+      <tr>
+        <td><%= internal_code.code %></td>
+        <td><%= internal_code.field %></td>
+        <td><%= link_to 'Show', internal_code %></td>
+        <td><%= link_to 'Edit', edit_internal_code_path(internal_code) %></td>
+        <td><%= link_to 'Destroy', internal_code, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Internal Code', new_internal_code_path %>
