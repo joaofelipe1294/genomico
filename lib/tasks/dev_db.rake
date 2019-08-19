@@ -15,8 +15,8 @@ namespace :dev_db do
     end
     puts "=============================="
     puts "Adicionando pacientes"
-    if Patient.all.size < 1000
-      (1..1500).step(1) do
+    if Patient.all.size < 100
+      (1..150).step(1) do
         patient = Patient.create({
           name: Faker::Name.name,
           birth_date: Faker::Date.between(from: 18.days.ago, to: Date.today),
@@ -29,8 +29,8 @@ namespace :dev_db do
     end
     puts "=============================="
     puts "Adicionando atendimentos"
-    if Attendance.all.size < 5000
-      (1..7000).step(1) do
+    if Attendance.all.size < 500
+      (1..500).step(1) do
         attendance = Attendance.new({
           patient: Patient.all.sample,
           attendance_status_kind: AttendanceStatusKind.find_by({name: 'Em andamento'}),
