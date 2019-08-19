@@ -33,7 +33,6 @@ class SamplesController < ApplicationController
 
   def destroy
     @sample = Sample.find params[:id]
-    puts @sample.exams.size
     if @sample.exams.size > 0
       flash[:warning] = 'Esta amostra está vinculada a pelo menos um exame, por isso não pode ser remomvido.'
       redirect_to workflow_path(@sample.attendance)
