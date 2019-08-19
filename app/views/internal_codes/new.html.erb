@@ -17,7 +17,7 @@
         <%= form.label :field %>
         <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, {class: 'form-control'} %>
       </div>
-      <button class="btn btn-outline-primary float-right">
+      <button id="btn-save" class="btn btn-outline-primary float-right">
         Salvar
       </button>
     <% end %>
@@ -33,7 +33,7 @@
   </thead>
   <tbody>
     <% @internal_code.sample.internal_codes.each do |internal_code| %>
-      <tr>
+      <tr class="internal-code-line">
         <td>
           <%= internal_code.field.name %>
         </td>
@@ -44,7 +44,7 @@
           <%= internal_code.code %>
         </td>
         <td>
-          <%= link_to 'Remover', internal_code_path(internal_code), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>
+          <%= link_to 'Remover', internal_code_path(internal_code), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger btn-remove-internal-code', method: :delete, id: 'btn-remove-sample'} %>
         </td>
       </tr>
     <% end %>
