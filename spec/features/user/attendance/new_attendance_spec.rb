@@ -125,7 +125,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
@@ -135,7 +134,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
@@ -145,7 +143,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
@@ -155,7 +152,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
@@ -165,7 +161,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
@@ -175,7 +170,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       add_exams
       add_samples
       click_button id: 'btn-save-attendance'
-      expect(page).to have_current_path home_user_index_path
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 

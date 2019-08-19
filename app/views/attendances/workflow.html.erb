@@ -27,22 +27,25 @@
   <div class="border-bottom pb-3">
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <button class="btn nav-link active border w-75" id = 'attendance_nav'>Atendimento</button>
+        <button class="btn nav-link active border w-75" id='attendance_nav'>Atendimento</button>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id = 'exam_nav'>Exames</button>
+        <button class="btn nav-link border w-75" id='exam_nav'>Exames</button>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id = 'sample_nav'>Amostras</button>
+        <button class="btn nav-link border w-75" id='sample_nav'>Amostras</button>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id = 'subsample_nav'>Subamostras</button>
+        <button class="btn nav-link border w-75" id='subsample_nav'>Subamostras</button>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id = 'work_map_nav'>Mapa de trabalho</button>
+        <button class="btn nav-link border w-75" id='work_map_nav'>Mapa de trabalho</button>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id = 'report_nav'>Laudo</button>
+        <button class="btn nav-link border w-75" id='report_nav'>Laudo</button>
+      </li>
+      <li class="nav-item">
+        <button class="btn nav-link border w-75" id='patient_nav'>Paciente</button>
       </li>
     </ul>
   </div>
@@ -71,6 +74,10 @@
       <%= render 'attendances/forms/report' %>
     </div>
 
+    <div id='patient_tab' style="display: none; overflow: auto;">
+      <%= render 'attendances/forms/patient' %>
+    </div>
+
   </div>
 </div>
 
@@ -85,6 +92,7 @@
     $('#subsample_tab').css('display', 'none')
     $('#work_map_tab').css('display', 'none')
     $('#report_tab').css('display', 'none')
+    $('#patient_tab').css('display', 'none')
     $('#attendance_tab').fadeToggle()
     $('#attendance_nav').addClass('active')
     $('#exam_nav').removeClass('active')
@@ -92,6 +100,7 @@
     $('#subsample_nav').removeClass('active')
     $('#work_map_nav').removeClass('active')
     $('#report_nav').removeClass('active')
+    $('#patient_nav').removeClass('active')
   })
 
   $('#exam_nav').click(event => {
@@ -102,6 +111,7 @@
     $('#subsample_tab').css('display', 'none')
     $('#work_map_tab').css('display', 'none')
     $('#report_tab').css('display', 'none')
+    $('#patient_tab').css('display', 'none')
     $('#exams_tab').fadeToggle()
     $('#attendance_nav').removeClass('active')
     $('#exam_nav').addClass('active')
@@ -109,6 +119,7 @@
     $('#subsample_nav').removeClass('active')
     $('#work_map_nav').removeClass('active')
     $('#report_nav').removeClass('active')
+    $('#patient_nav').removeClass('active')
   })
 
   $('#sample_nav').click(event => {
@@ -119,6 +130,7 @@
     $('#subsample_tab').css('display', 'none')
     $('#work_map_tab').css('display', 'none')
     $('#report_tab').css('display', 'none')
+    $('#patient_tab').css('display', 'none')
     $('#samples_tab').fadeToggle()
     $('#attendance_nav').removeClass('active')
     $('#exam_nav').removeClass('active')
@@ -126,6 +138,7 @@
     $('#subsample_nav').removeClass('active')
     $('#work_map_nav').removeClass('active')
     $('#report_nav').removeClass('active')
+    $('#patient_nav').removeClass('active')
   })
 
   $('#subsample_nav').click(event => {
@@ -136,6 +149,7 @@
       $('#subsample_tab').css('display', 'none')
       $('#work_map_tab').css('display', 'none')
       $('#report_tab').css('display', 'none')
+      $('#patient_tab').css('display', 'none')
       $('#subsample_tab').fadeToggle()
       $('#attendance_nav').removeClass('active')
       $('#exam_nav').removeClass('active')
@@ -143,6 +157,7 @@
       $('#subsample_nav').addClass('active')
       $('#work_map_nav').removeClass('active')
       $('#report_nav').removeClass('active')
+      $('#patient_nav').removeClass('active')
     })
 
   $('#work_map_nav').click(event => {
@@ -153,6 +168,7 @@
       $('#subsample_tab').css('display', 'none')
       $('#work_map_tab').css('display', 'none')
       $('#report_tab').css('display', 'none')
+      $('#patient_tab').css('display', 'none')
       $('#work_map_tab').fadeToggle()
       $('#attendance_nav').removeClass('active')
       $('#exam_nav').removeClass('active')
@@ -160,6 +176,7 @@
       $('#subsample_nav').removeClass('active')
       $('#work_map_nav').removeClass('active')
       $('#work_map_nav').addClass('active')
+      $('#patient_nav').removeClass('active')
     })
 
   $('#report_nav').click(event => {
@@ -170,6 +187,7 @@
       $('#subsample_tab').css('display', 'none')
       $('#work_map_tab').css('display', 'none')
       $('#report_tab').css('display', 'none')
+      $('#patient_tab').css('display', 'none')
       $('#report_tab').fadeToggle()
       $('#attendance_nav').removeClass('active')
       $('#exam_nav').removeClass('active')
@@ -177,6 +195,26 @@
       $('#subsample_nav').removeClass('active')
       $('#work_map_nav').removeClass('active')
       $('#report_nav').addClass('active')
+      $('#patient_nav').removeClass('active')
     })
+
+    $('#patient_nav').click(event => {
+        event.preventDefault()
+        $('#attendance_tab').css('display', 'none')
+        $('#exams_tab').css('display', 'none')
+        $('#samples_tab').css('display', 'none')
+        $('#subsample_tab').css('display', 'none')
+        $('#work_map_tab').css('display', 'none')
+        $('#report_tab').css('display', 'none')
+        $('#patient_tab').css('display', 'none')
+        $('#patient_tab').fadeToggle()
+        $('#attendance_nav').removeClass('active')
+        $('#exam_nav').removeClass('active')
+        $('#sample_nav').removeClass('active')
+        $('#subsample_nav').removeClass('active')
+        $('#work_map_nav').removeClass('active')
+        $('#report_nav').removeClass('active')
+        $('#patient_nav').addClass('active')
+      })
 
 </script>
