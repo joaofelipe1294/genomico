@@ -1,5 +1,3 @@
-
-
 <div class="mt-4">
   <%= form_for(@attendance.patient, method: :patch) do |form| %>
 
@@ -30,7 +28,7 @@
       <%= form.text_area :observations, class: 'form-control', rows: "7" %>
     </div>
 
-    <button class="btn btn-outline-primary float-right">
+    <button id="btn-save-patient" class="btn btn-outline-primary float-right">
       Salvar
     </button>
 
