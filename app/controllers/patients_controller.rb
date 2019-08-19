@@ -49,7 +49,12 @@ class PatientsController < ApplicationController
   def update
     if @patient.update(patient_params)
       flash[:success] = 'Paciente editado com sucesso.'
-      redirect_to home_user_index_path
+      if params[:attendance].nil?
+        redirect_to home_user_index_path
+      else
+        attendance = Attendance.find params[:attendance]
+        redirect_to workflow_path(attendance)
+      end
     else
       @hospitals = Hospital.all.order :name
       render :edit
@@ -70,6 +75,6 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:name, :birth_date, :mother_name, :medical_record, :hospital_id)
+      params.require(:patient).permit(:name, :birth_date, :mother_name, :medical_record, :hospital_id, :observations)
     end
 end

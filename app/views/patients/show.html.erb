@@ -29,5 +29,10 @@
       <%= text_field_tag :medical_record, @patient.medical_record, class: 'form-control', disabled: true %>
     </div>
 
+    <div class="form-group">
+      <%= label_tag :observations %>
+      <%= text_area_tag :observations, @patient.observations, class: 'form-control', rows: "7" %>
+    </div>
+
   </div>
 </div>
