@@ -94,16 +94,9 @@
       add_line({name: exam_name, field: field, id: exam_id})
     }else{
       current_value = JSON.parse(current_value)
-      let already_has_exam_id = false
-      current_value.forEach(offered_exam => {
-        if (offered_exam.offered_exam_id === exam.offered_exam_id)
-          already_has_exam_id = true
-      })
-      if (already_has_exam_id === false){
-        current_value.push(exam)
-        $('#exam_ids').val(JSON.stringify(current_value))
-        add_line({name: exam_name, field: field, id: exam_id})
-      }
+      current_value.push(exam)
+      $('#exam_ids').val(JSON.stringify(current_value))
+      add_line({name: exam_name, field: field, id: exam_id})
     }
   })
 </script>
