@@ -9,7 +9,11 @@ class InternalCode < ApplicationRecord
 
   def set_internal_code
     if self.code.nil?
-      new_code = InternalCode.where(field: self.field).size + 1
+      if self.field == Field.find_by({name: 'Imunofenotipagem'}) # FIXME: Remover esta parte quando virar o ano !!!
+        new_code = InternalCode.where(field: self.field).size + 416
+      else
+        new_code = InternalCode.where(field: self.field).size + 1
+      end
       self.code = "#{Date.today.year.to_s.slice(2, 3)}#{new_code.to_s.rjust(4,  "0")}"
     end
   end
