@@ -67,7 +67,7 @@
       sample:
         sample_kind_id: Tipo da amostra
         sample_kind: Tipo da amostra
-        has_subsample: Possúi subamostra
+        has_subsample: Possui subamostra
         entry_date: Data de entrada
         collection_date: Data da coleta
         refference_label: Código interno
