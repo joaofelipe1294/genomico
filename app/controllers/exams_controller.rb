@@ -70,13 +70,19 @@ class ExamsController < ApplicationController
 	end
 
   def exams_from_patient
-    
+    patient = Patient.find params[:id]
+    attendances = patient.attendances.order start_date: :desc
+    patient_exams = []
+    attendances.each do |attendance|
+      patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
+    end
+    @exams = patient_exams
   end
 
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :refference_label)
+			params.require(:exam).permit(:offered_exam_id, :refference_label, :attendance)
   	end
 
   	def set_exam

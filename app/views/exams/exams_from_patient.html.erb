@@ -1,1 +1,32 @@
-Exabes
+<%= render 'layouts/user_navbar' %>
+
+<table class="table table-bordered text-center mt-5 col-md-10 offset-md-1">
+  <thead class="bg-dark text-white">
+    <th>Exame</th>
+    <th>Área</th>
+    <th>Data de início</th>
+    <th>Status</th>
+    <th>Atendimento (Lis)</th>
+  </thead>
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr>
+        <td>
+          <%= exam.offered_exam.name %>
+        </td>
+        <td>
+          <%= exam.offered_exam.field.name %>
+        </td>
+        <td>
+          <%= l exam.start_date %>
+        </td>
+        <td>
+          <%= exam.exam_status_kind.name %>
+        </td>
+        <td>
+          <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
