@@ -8,6 +8,7 @@ class Exam < ActiveRecord::Base
   belongs_to :subsample
   has_many :exam_status_changes
   before_validation :default_values
+  # paginates_per 10
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection

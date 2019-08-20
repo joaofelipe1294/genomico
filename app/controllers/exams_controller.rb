@@ -76,7 +76,7 @@ class ExamsController < ApplicationController
     attendances.each do |attendance|
       patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
     end
-    @exams = patient_exams
+    @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
   end
 
   private
