@@ -59,6 +59,14 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       expect(edited_patient.medical_record).to eq new_value
     end
 
+    it "observations" do
+      new_value = 'Alguma observação bem importante ...'
+      fill_in :patient_observations, with: new_value
+      correct_expetations
+      edited_patient = Patient.find_by observations: new_value
+      expect(edited_patient.observations).to eq new_value
+    end
+
   end
 
   context 'correct with hospital created' do
