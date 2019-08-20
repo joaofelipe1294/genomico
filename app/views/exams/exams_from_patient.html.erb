@@ -1,6 +1,19 @@
 <%= render 'layouts/user_navbar' %>
+<div class="col-md-6 offset-md-3 mt-3" style="overflow: auto;">
+  <%= form_with(url: exams_from_patient_path(@patient), method: :get) do |form| %>
+    <div class="form-group">
+      <%= form.label Field.model_name.human %>
+      <%= form.select :field_id, content_tag(:option,'Todos',:value=>"0") + options_from_collection_for_select(@fields, "id", "name"), {}, class: 'form-control' %>
+    </div>
+    <button class="btn btn-outline-info float-right">
+      Buscar
+    </button>
+  <% end %>
+</div>
 
-<table class="table table-bordered text-center mt-5 col-md-10 offset-md-1">
+<hr class="mt-3 mb-3">
+
+<table class="table table-bordered text-center col-md-10 offset-md-1">
   <thead class="bg-dark text-white">
     <th>Exame</th>
     <th>Área</th>

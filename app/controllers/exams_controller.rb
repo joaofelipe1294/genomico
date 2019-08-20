@@ -70,13 +70,33 @@ class ExamsController < ApplicationController
 	end
 
   def exams_from_patient
-    patient = Patient.find params[:id]
-    attendances = patient.attendances.order start_date: :desc
+    @fields = Field.all.order name: :asc
+    @patient = Patient.find params[:id]
+    attendances = @patient.attendances.order start_date: :desc
     patient_exams = []
-    attendances.each do |attendance|
-      patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
+    puts "======================="
+    p params[:field_id] == "0"
+    puts params[:field_id].nil? == false
+    puts params[:field_id] != 0
+    puts "======================="
+    if params[:field_id].nil? || params[:field_id] == "0"
+      attendances.each do |attendance|
+        patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
+      end
+    else
+      connection = ActiveRecord::Base.connection
+      result = connection.execute("
+        SELECT e.id
+        FROM patients p
+             INNER JOIN attendances a ON a.patient_id = p.id
+             INNER JOIN exams e ON e.attendance_id = a.id
+             INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
+        WHERE p.id = #{connection.quote @patient.id} AND oe.field_id = #{connection.quote params[:field_id]};")
+      result.each do |row|
+        patient_exams.push Exam.find(row["id"])
+      end
     end
-    @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(15)
+    @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
   end
 
   private
