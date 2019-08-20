@@ -65,6 +65,7 @@
         <td>
           <%= link_to 'Novo atendimento', new_attendance_path(patient) , class: 'btn btn-sm btn-outline-success new-attendance' %>
           <%= link_to 'Atendimentos', attendances_from_patient_path(patient), {class: 'btn btn-sm btn-outline-info'} %>
+          <%= link_to 'Exames', exams_from_patient_path(patient), class: 'btn btn-sm btn-outline-primary' %>
           <%= link_to 'Editar', edit_patient_path(patient), {class: 'btn btn-sm btn-outline-warning'} %>
         </td>
       </tr>

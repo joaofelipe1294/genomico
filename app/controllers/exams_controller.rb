@@ -69,6 +69,10 @@ class ExamsController < ApplicationController
 		end
 	end
 
+  def exams_from_patient
+    
+  end
+
   private
 
   	def exam_params
