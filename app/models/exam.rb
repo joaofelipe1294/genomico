@@ -45,7 +45,7 @@ class Exam < ActiveRecord::Base
                a.id
         FROM exams e
              INNER JOIN attendances a ON a.id = e.attendance_id
-             LEFT JOIN health_ensurances he ON he.id = a.health_ensurance_id
+             INNER JOIN health_ensurances he ON he.id = a.health_ensurance_id
         WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
               AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)})
               AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"

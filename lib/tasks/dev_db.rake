@@ -15,8 +15,8 @@ namespace :dev_db do
     end
     puts "=============================="
     puts "Adicionando pacientes"
-    if Patient.all.size < 100
-      (1..150).step(1) do
+    if Patient.all.size < 50
+      (1..50).step(1) do
         patient = Patient.create({
           name: Faker::Name.name,
           birth_date: Faker::Date.between(from: 18.days.ago, to: Date.today),
@@ -29,8 +29,8 @@ namespace :dev_db do
     end
     puts "=============================="
     puts "Adicionando atendimentos"
-    if Attendance.all.size < 500
-      (1..500).step(1) do
+    if Attendance.all.size < 150
+      (1..150).step(1) do
         attendance = Attendance.new({
           patient: Patient.all.sample,
           attendance_status_kind: AttendanceStatusKind.find_by({name: 'Em andamento'}),
@@ -39,7 +39,8 @@ namespace :dev_db do
           lis_code: Faker::Number.number(digits: 13),
           health_ensurance: HealthEnsurance.all.sample,
           doctor_name: Faker::Name.name,
-          doctor_crm: Faker::Number.number(digits: 4)
+          doctor_crm: Faker::Number.number(digits: 4),
+          start_date: Faker::Date.between(from: 15.days.ago, to: Date.today)
         })
         (1..rand(2..12)).each do |value|
           exam = Exam.new({
@@ -55,26 +56,24 @@ namespace :dev_db do
           })
           attendance.samples.push(sample)
         end
-        # p attendance
-        # p attendance.valid?
-        # p attendance.errors.messages
         attendance.save
         puts attendance.id
         puts "\n============================================================\n"
       end
 
     end
-
-    concluded = ExamStatusKind.find_by({name: 'Concluído'})
-    Attendance.all.each do |attendance|
-      attendance.exams.each do |exam|
-        exam.sample = attendance.samples.first
-        exam.exam_status_kind = concluded
-      end
-      attendance.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Concluído'})
-      attendance.save
-      puts attendance.id
-    end
+    #
+    # concluded = ExamStatusKind.find_by({name: 'Concluído'})
+    # Attendance.all.each do |attendance|
+    #   attendance.exams.each do |exam|
+    #     exam.sample = attendance.samples.first
+    #     exam.exam_status_kind = concluded
+    #   end
+    #   attendance.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Concluído'})
+    #   attendance.finish_date = DateTime.now
+    #   attendance.save
+    #   puts attendance.id
+    # end
 
 
 
