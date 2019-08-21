@@ -14,17 +14,6 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Mapas de trabalho
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_work_map_path, {class: 'dropdown-item', id: 'new-work-map'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', work_maps_path, {class: 'dropdown-item'} %>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Atendimentos
         </a>
@@ -32,6 +21,17 @@
           <%= link_to 'Painel de exames', panels_exams_path, {class: 'dropdown-item'} %>
           <div class="dropdown-divider"></div>
           <%= link_to 'Buscar', attendances_path, class: 'dropdown-item' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mapas de trabalho
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Novo', new_work_map_path, {class: 'dropdown-item', id: 'new-work-map'} %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Buscar', work_maps_path, {class: 'dropdown-item'} %>
         </div>
       </li>
 
