@@ -74,11 +74,6 @@ class ExamsController < ApplicationController
     @patient = Patient.find params[:id]
     attendances = @patient.attendances.order start_date: :desc
     patient_exams = []
-    puts "======================="
-    p params[:field_id] == "0"
-    puts params[:field_id].nil? == false
-    puts params[:field_id] != 0
-    puts "======================="
     if params[:field_id].nil? || params[:field_id] == "0"
       attendances.each do |attendance|
         patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
