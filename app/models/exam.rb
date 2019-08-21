@@ -25,19 +25,6 @@ class Exam < ActiveRecord::Base
 
   def self.complete_exams_by_field(field= '', start_date= 2.year.ago, finish_date= 10.seconds.ago)
     conn = ActiveRecord::Base.connection
-    # result = conn.execute "
-    #   SELECT e.id,
-    #          oe.name,
-    #          f.name
-    #   FROM exams e
-    #        INNER JOIN exam_status_kinds esk ON esk.id = e.exam_status_kind_id
-    #        INNER JOIN exam_status_changes esc ON esc.exam_id = e.id
-    #        INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-    #        INNER JOIN fields f ON f.id = oe.field_id
-    #   WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-    #         AND esc.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-    #         AND f.name = #{conn.quote(field)}
-    #         AND esc.change_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(finish_date)};"
     result = conn.execute "
     SELECT e.id,
            oe.name
