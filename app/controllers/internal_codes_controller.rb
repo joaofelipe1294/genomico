@@ -1,5 +1,9 @@
 class InternalCodesController < ApplicationController
 
+  def index
+    @internal_codes = InternalCode.includes(:sample).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
+  end
+
   def new
     @fields = [Field.find_by({name: 'Imunofenotipagem'})]
     @internal_code = InternalCode.new(sample: Sample.find(params[:id]))

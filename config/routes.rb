@@ -52,5 +52,5 @@ Rails.application.routes.draw do
   resources :offered_exams
   resources :patients, except: [:destroy]
   resources :subsamples
-  resources :internal_codes, only: [:create, :destroy]
+  resources :internal_codes, only: [:create, :destroy, :index]
 end

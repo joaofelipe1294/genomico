@@ -4,6 +4,7 @@ class InternalCode < ApplicationRecord
   before_validation :set_internal_code
 	validates :code, uniqueness: {scope: [:field_id]}
   validates :field, :sample, presence: true
+  paginates_per 15
 
   private
 

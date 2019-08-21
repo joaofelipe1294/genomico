@@ -25,6 +25,15 @@
       </li>
 
       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Amostras
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Imunofenotipagem', internal_codes_path(field_id: Field.find_by(name: 'Imunofenotipagem')), class: 'dropdown-item' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Mapas de trabalho
         </a>
