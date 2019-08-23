@@ -13,9 +13,11 @@ class Attendance < ActiveRecord::Base
   has_attached_file :report
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_and_belongs_to_many :work_maps
+  paginates_per 10
+  has_many :internal_codes
 
   def default_values
     self.start_date = Date.today if self.start_date.nil?
-    self.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Em andamento'}) if self.attendance_status_kind.nil?  
+    self.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Em andamento'}) if self.attendance_status_kind.nil?
   end
 end

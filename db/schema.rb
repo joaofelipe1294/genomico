@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_123833) do
+ActiveRecord::Schema.define(version: 2019_08_23_180957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,16 +90,13 @@ ActiveRecord::Schema.define(version: 2019_08_16_123833) do
     t.date "finish_date"
     t.bigint "exam_status_kind_id"
     t.bigint "attendance_id"
-    t.bigint "sample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "subsample_id"
-    t.boolean "uses_subsample"
+    t.bigint "internal_code_id"
     t.index ["attendance_id"], name: "index_exams_on_attendance_id"
     t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id"
+    t.index ["internal_code_id"], name: "index_exams_on_internal_code_id"
     t.index ["offered_exam_id"], name: "index_exams_on_offered_exam_id"
-    t.index ["sample_id"], name: "index_exams_on_sample_id"
-    t.index ["subsample_id"], name: "index_exams_on_subsample_id"
   end
 
   create_table "fields", force: :cascade do |t|
@@ -126,8 +123,12 @@ ActiveRecord::Schema.define(version: 2019_08_16_123833) do
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "attendance_id"
+    t.bigint "subsample_id"
+    t.index ["attendance_id"], name: "index_internal_codes_on_attendance_id"
     t.index ["field_id"], name: "index_internal_codes_on_field_id"
     t.index ["sample_id"], name: "index_internal_codes_on_sample_id"
+    t.index ["subsample_id"], name: "index_internal_codes_on_subsample_id"
   end
 
   create_table "nanodrop_reports", force: :cascade do |t|
@@ -158,6 +159,7 @@ ActiveRecord::Schema.define(version: 2019_08_16_123833) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "hospital_id"
+    t.text "observations"
     t.index ["hospital_id"], name: "index_patients_on_hospital_id"
   end
 
@@ -265,7 +267,6 @@ ActiveRecord::Schema.define(version: 2019_08_16_123833) do
   add_foreign_key "exams", "attendances"
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
-  add_foreign_key "exams", "samples"
   add_foreign_key "internal_codes", "fields"
   add_foreign_key "internal_codes", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"

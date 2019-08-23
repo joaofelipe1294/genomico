@@ -14,17 +14,6 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Mapas de trabalho
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_work_map_path, {class: 'dropdown-item', id: 'new-work-map'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', work_maps_path, {class: 'dropdown-item'} %>
-        </div>
-      </li>
-
-      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Atendimentos
         </a>
@@ -32,6 +21,26 @@
           <%= link_to 'Painel de exames', panels_exams_path, {class: 'dropdown-item'} %>
           <div class="dropdown-divider"></div>
           <%= link_to 'Buscar', attendances_path, class: 'dropdown-item' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Amostras
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Imunofenotipagem', internal_codes_path(field_id: Field.find_by(name: 'Imunofenotipagem')), class: 'dropdown-item' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mapas de trabalho
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Novo', new_work_map_path, {class: 'dropdown-item', id: 'new-work-map'} %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Buscar', work_maps_path, {class: 'dropdown-item'} %>
         </div>
       </li>
 
@@ -72,9 +81,9 @@
 
     </ul>
 
-    <%= form_tag(lis_search_path, {method: :get, class: 'form-inline mr-5'}) do %>
-      <%= text_field_tag :lis_code_search, '', {class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar por Código Lis'} %>
-      <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    <%= form_with method: :get, url: :patients, class: 'form-inline mr-5'  do |form| %>
+      <%= form.text_field "name_search", class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar paciente', id: 'patient-name-search' %>
+      <button id="btn-search-patient" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
     <% end %>
 
     <label class="h4 mr-3 mb-0 text-white">

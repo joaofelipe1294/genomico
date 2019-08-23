@@ -7,6 +7,7 @@ def fill_patient_fields
 	fill_in(:patient_birth_date, with: @patient.birth_date) if @patient.birth_date
 	fill_in(:patient_medical_record, with: @patient.medical_record) if @patient.medical_record
 	select(@patient.hospital.name, from: "patient[hospital_id]").select_option if @patient.hospital
+	fill_in "patient[observations]", with: @patient.observations if @patient.observations
 end
 
 def patient_spec_setup
@@ -19,7 +20,8 @@ def patient_spec_setup
 		mother_name: Faker::Name.name,
 		birth_date: Faker::Date.between(from: 12.years.ago, to: Date.today),
 		medical_record: Faker::Number.number(digits: 6).to_s,
-		hospital: hospital
+		hospital: hospital,
+		observations: Faker::Lorem.paragraph
 	})
 end
 
@@ -32,7 +34,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 			patient_spec_setup
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
-			expect(page).to have_current_path home_user_index_path
+			expect(page).to have_current_path new_attendance_path(Patient.last)
 			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
 		end
 
@@ -74,6 +76,13 @@ RSpec.feature "User::Patient::News", type: :feature do
 
 		it 'without hospital' do
 			@patient.hospital = nil
+			fill_patient_fields
+			click_button(class: 'btn-outline-primary')
+			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
+		end
+
+		it "without observations" do
+			@patient.observations = nil
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
 			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."

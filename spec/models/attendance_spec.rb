@@ -5,7 +5,7 @@ RSpec.describe Attendance, type: :model do
 	context 'Validations' do
 
 		it 'correct' do
-			attendance = create(:attendance)
+			attendance = build(:attendance)
 			expect(attendance).to be_valid
 		end
 
@@ -44,7 +44,7 @@ RSpec.describe Attendance, type: :model do
 		end
 
 		it 'without finish_date' do
-			attendance = build(:attendance, finish_date: nil) 
+			attendance = build(:attendance, finish_date: nil)
 			attendance.save
 			expect(attendance).to be_valid
 			attendance = Attendance.last
@@ -100,7 +100,7 @@ RSpec.describe Attendance, type: :model do
 			attendance.save
 			expect(attendance).to be_invalid
 		end
-			
+
 	end
 
 	context 'Relations' do
@@ -120,6 +120,8 @@ RSpec.describe Attendance, type: :model do
 	 	it { should accept_nested_attributes_for(:samples) }
 
  	 	it { should accept_nested_attributes_for(:exams) }
+
+		it { should have_many :internal_codes }
 
 	end
 

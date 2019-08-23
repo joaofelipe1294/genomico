@@ -1,15 +1,15 @@
-puts 'Criando Tipos de usuário ...'
+# puts 'Criando Tipos de usuário ...'
 
 UserKind.create([
 	{name: 'user'},
 	{name: 'admin'}
 ])
 
-puts 'Criando Tipos de usuário [OK]'
+# puts 'Criando Tipos de usuário [OK]'
 
 ############################################################
 
-puts 'Criando Admin para teste ...'
+# puts 'Criando Admin para teste ...'
 
 User.create({
 	login: 'admin',
@@ -18,11 +18,11 @@ User.create({
 	user_kind: UserKind.find_by({name: 'admin'})
 })
 
-puts 'Criando Admin para teste [OK]'
+# puts 'Criando Admin para teste [OK]'
 
 ############################################################
 
-puts 'Criando Usuário para teste ...'
+# puts 'Criando Usuário para teste ...'
 
 User.create({
 	login: 'user',
@@ -31,12 +31,12 @@ User.create({
 	user_kind: UserKind.find_by({name: 'user'})
 })
 
-puts 'Criando Usuário para teste [OK]'
+# puts 'Criando Usuário para teste [OK]'
 
 
 ############################################################
 
-puts 'Criando Fields ...'
+# puts 'Criando Fields ...'
 
 Field.create([
 	{name: 'Citogenética'},
@@ -46,20 +46,20 @@ Field.create([
 	{name: 'Imunofenotipagem'},
 ])
 
-puts 'Criando Fields [OK]'
+# puts 'Criando Fields [OK]'
 
 ############################################################
 
-puts 'Criando AttendanceStatusKinds ...'
+# puts 'Criando AttendanceStatusKinds ...'
 
 AttendanceStatusKind.create({name: 'Em andamento'})
 AttendanceStatusKind.create({name: 'Concluído'})
 
-puts 'Criando AttendanceStatusKinds [OK]'
+# puts 'Criando AttendanceStatusKinds [OK]'
 
 ############################################################
 
-puts 'Criando HealthEnsurances ...'
+# puts 'Criando HealthEnsurances ...'
 
 HealthEnsurance.create({name: 'BRADESCO'})
 HealthEnsurance.create({name: 'HOSPITAL PEQUENO PRINCIPE'})
@@ -131,21 +131,21 @@ HealthEnsurance.create({name: 'HNSG'})
 HealthEnsurance.create({name: 'PORTARIA GM/MS 199'})
 HealthEnsurance.create({name: 'UOPECCAN'})
 
-puts 'Criando HealthEnsurances [OK]'
+# puts 'Criando HealthEnsurances [OK]'
 
 ############################################################
 
-puts 'Criando DeseaseStage ...'
+# puts 'Criando DeseaseStage ...'
 
 DeseaseStage.create({name: 'Diagnóstico'})
 DeseaseStage.create({name: 'Recaída'})
 DeseaseStage.create({name: 'DRM'})
 
-puts 'Criando DeseaseStage [OK]'
+# puts 'Criando DeseaseStage [OK]'
 
 #############################################################
 
-puts 'Criando ExamStatusKind ...'
+# puts 'Criando ExamStatusKind ...'
 
 ExamStatusKind.create([
 	{name: 'Em andamento'},
@@ -155,11 +155,11 @@ ExamStatusKind.create([
 	{name: 'Aguardando início'}
 ])
 
-puts 'Criando ExamStatusKind [OK]'
+# puts 'Criando ExamStatusKind [OK]'
 
 #############################################################
 
-puts "Criando Sample_Kinds ..."
+# puts "Criando Sample_Kinds ..."
 
 SampleKind.create([
 	{name: 'Sangue periférico', acronym: 'SP', refference_index: 0},
@@ -170,11 +170,11 @@ SampleKind.create([
 	{name: 'Bloco de parafina.', acronym: 'BP', refference_index: 0},
 ])
 
-puts "Criando Sample_Kinds [OK]"
+# puts "Criando Sample_Kinds [OK]"
 
 #############################################################
 
-puts "Cirando OfferedExams ..."
+# puts "Cirando OfferedExams ..."
 
 #IMUNOFENO
 OfferedExam.create({name: 'IMUNOFENOTIPAGEM DE NEOPLASIAS HEMATOLÓGICAS', is_active: true, field: Field.find_by_name('Imunofenotipagem'), refference_date: 5})
@@ -312,25 +312,25 @@ OfferedExam.create({name: 'TIPAGENS DE GENES HLA DE CLASSE 1 E 2 EM MÉDIA RESOL
 OfferedExam.create({name: 'CARIÓTIPO DE MEDULA ÓSSEA COM BANDEAMENTO G ONCO', is_active: true, field: Field.find_by_name('Citogenética'), refference_date: 20})
 OfferedExam.create({name: 'CARIÓTIPO DE SANGUE PERIFÉRICO PARA DIAGNÓSTICO DE NEOPLASIAS', is_active: true, field: Field.find_by_name('Citogenética'), refference_date: 30})
 
-puts "Criando OfferedExams [OK]"
+# puts "Criando OfferedExams [OK]"
 
 #############################################################
 
-puts 'Criando SubsampleKind ...'
+# puts 'Criando SubsampleKind ...'
 
 SubsampleKind.create({name: 'RNA', acronym: 'RNA', refference_index: 0})
 SubsampleKind.create({name: 'DNA', acronym: 'DNA', refference_index: 0})
 SubsampleKind.create({name: 'Pellet de FISH', acronym: 'FISH', refference_index: 0})
 SubsampleKind.create({name: 'DNA viral', acronym: 'CMV', refference_index: 0})
 
-puts 'Criando SubsampleKind [OK]'
+# puts 'Criando SubsampleKind [OK]'
 
 #############################################################
 
-puts 'Criando Hospitals ...'
+# puts 'Criando Hospitals ...'
 
 Hospital.create({name: 'Hospital Pequeno Príncipe'})
 
-puts 'Criando Hospitals [OK]'
+# puts 'Criando Hospitals [OK]'
 
 #############################################################

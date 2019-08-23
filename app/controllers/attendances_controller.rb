@@ -6,7 +6,7 @@ class AttendancesController < ApplicationController
   # GET /attendances
   # GET /attendances.json
   def index
-    @attendances = Attendance.where("doctor_name ILIKE ?", "%#{params[:doctor_name]}%").order(start_date: :asc)
+    @attendances = Attendance.where("doctor_name ILIKE ?", "%#{params[:doctor_name]}%").order(start_date: :desc).page params[:page]
   end
 
   # GET /attendances/1
@@ -48,7 +48,7 @@ class AttendancesController < ApplicationController
     @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      redirect_to home_user_index_path
+      redirect_to workflow_path(@attendance)
     else
       @desease_stages = DeseaseStage.all.order :name
       @health_ensurances = HealthEnsurance.all.order :name

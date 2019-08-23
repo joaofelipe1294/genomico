@@ -1,5 +1,9 @@
 class InternalCodesController < ApplicationController
 
+  def index
+    @internal_codes = InternalCode.includes(:sample).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
+  end
+
   def new
     @fields = [Field.find_by({name: 'Imunofenotipagem'})]
     @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
@@ -9,7 +13,7 @@ class InternalCodesController < ApplicationController
     @internal_code = InternalCode.new internal_code_attributes
     if @internal_code.save
       flash[:success] = 'Código interno salvo com sucesso.'
-      redirect_to new_internal_code_path(@internal_code.sample.id)
+      redirect_to workflow_path(@internal_code.attendance)
     else
       flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
       @fields = [Field.find_by({name: 'Imunofenotipagem'})]

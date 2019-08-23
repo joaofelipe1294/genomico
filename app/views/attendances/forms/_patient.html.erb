@@ -1,0 +1,37 @@
+<div class="mt-4">
+  <%= form_for(@attendance.patient, method: :patch) do |form| %>
+
+    <%= hidden_field_tag "attendance", "#{@attendance.id}" %>
+
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control', disabled: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :birth_date %>
+      <%= form.text_field :birth_date, class: 'form-control', disabled: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :mother_name %>
+      <%= form.text_field :mother_name, class: 'form-control', disabled: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :medical_record %>
+      <%= form.text_field :medical_record, class: 'form-control', disabled: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :observations %>
+      <%= form.text_area :observations, class: 'form-control', rows: "7" %>
+    </div>
+
+    <button id="btn-save-patient" class="btn btn-outline-primary float-right">
+      Salvar
+    </button>
+
+    <% end %>
+
+</div>

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "Home_page", type: :feature, js: false do
 
 	it 'visit home_page' do
-		# page.driver.browser.manage.window.resize_to(1920, 1080)
 		visit(root_path)
 		expect(page).to have_current_path(root_path)
 	end
@@ -26,7 +25,7 @@ RSpec.feature "Home_page", type: :feature, js: false do
 		fill_in('password', with: admin.password)
 		click_button('btn-login')
 		expect(page).to have_current_path(home_admin_index_path)
-	end	
+	end
 
 	it 'login with correct USER credential' do
 		Rails.application.load_seed

@@ -5,8 +5,8 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    if params[:name].nil? == false
-      @patients = Patient.where("name ILIKE ?", "%#{params[:name]}%").order(:name).page params[:page]
+    if params[:name_search].nil? == false
+      @patients = Patient.where("name ILIKE ?", "%#{params[:name_search]}%").order(:name).page params[:page]
     elsif params[:medical_record].nil? == false
       @patients = Patient.where({medical_record: params[:medical_record]}).page params[:page]
     else
@@ -17,7 +17,7 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
-    redirect_to home_user_index_path
+    @patient = Patient.find params[:id]
   end
 
   # GET /patients/new
@@ -37,7 +37,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
       if @patient.save
         flash[:success] = 'Paciente cadastrado com sucesso.'
-        redirect_to home_user_index_path
+        redirect_to new_attendance_path(@patient.id)
       else
         @hospitals = Hospital.all.order :name
         render :new
@@ -49,7 +49,12 @@ class PatientsController < ApplicationController
   def update
     if @patient.update(patient_params)
       flash[:success] = 'Paciente editado com sucesso.'
-      redirect_to home_user_index_path
+      if params[:attendance].nil?
+        redirect_to home_user_index_path
+      else
+        attendance = Attendance.find params[:attendance]
+        redirect_to workflow_path(attendance)
+      end
     else
       @hospitals = Hospital.all.order :name
       render :edit
@@ -70,6 +75,6 @@ class PatientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def patient_params
-      params.require(:patient).permit(:name, :birth_date, :mother_name, :medical_record, :hospital_id)
+      params.require(:patient).permit(:name, :birth_date, :mother_name, :medical_record, :hospital_id, :observations)
     end
 end

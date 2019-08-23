@@ -67,7 +67,7 @@
       sample:
         sample_kind_id: Tipo da amostra
         sample_kind: Tipo da amostra
-        has_subsample: Possúi subamostra
+        has_subsample: Possui subamostra
         entry_date: Data de entrada
         collection_date: Data da coleta
         refference_label: Código interno
@@ -84,6 +84,7 @@
         medical_record: Prontuário médico
         birth_date: Data de nascimento
         mother_name: Nome da mãe
+        observations: Observações
       exam:
         exam_status_kind: Status do exame
         start_date: Data de início

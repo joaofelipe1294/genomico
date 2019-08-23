@@ -1,0 +1,48 @@
+<%= render 'layouts/user_navbar' %>
+<div class="col-md-6 offset-md-3 mt-3" style="overflow: auto;">
+  <%= form_with(url: exams_from_patient_path(@patient), method: :get) do |form| %>
+    <div class="form-group">
+      <%= form.label Field.model_name.human %>
+      <%= form.select :field_id, content_tag(:option,'Todos',:value=>"0") + options_from_collection_for_select(@fields, "id", "name"), {}, class: 'form-control' %>
+    </div>
+    <button class="btn btn-outline-info float-right">
+      Buscar
+    </button>
+  <% end %>
+</div>
+
+<hr class="mt-3 mb-3">
+
+<table class="table table-bordered text-center col-md-10 offset-md-1">
+  <thead class="bg-dark text-white">
+    <th>Exame</th>
+    <th>Área</th>
+    <th>Data de início</th>
+    <th>Status</th>
+    <th>Atendimento (Lis)</th>
+  </thead>
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr>
+        <td>
+          <%= exam.offered_exam.name %>
+        </td>
+        <td>
+          <%= exam.offered_exam.field.name %>
+        </td>
+        <td>
+          <%= l exam.start_date %>
+        </td>
+        <td>
+          <%= exam.exam_status_kind.name %>
+        </td>
+        <td>
+          <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="container pagination justify-content-center" >
+  <%= paginate @exams , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+</div>

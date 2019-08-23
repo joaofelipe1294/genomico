@@ -3,7 +3,7 @@ require 'helpers/user'
 
 RSpec.feature "User::Attendance::SearchByLis", type: :feature do
 
-  it 'search by lis', js: false do
+  it 'search by patient name', js: false do
     Rails.application.load_seed
     patient = create(:patient)
     attendance = Attendance.create({
@@ -32,17 +32,18 @@ RSpec.feature "User::Attendance::SearchByLis", type: :feature do
         ]
     })
     do_login
-    fill_in id: 'lis_code_search', with: '7615236751236'
+    fill_in 'name_search', with: attendance.patient.name
     click_button class: 'btn-outline-success', match: :first
+    click_link class: 'btn-outline-info'
+    click_link class: 'btn-outline-primary'
     expect(page).to have_current_path '/attendances/1/workflow'
   end
 
   it 'with invalid lis_code' do
     user_do_login
-    fill_in id: 'lis_code_search', with: '7615236751236'
+    fill_in 'name_search', with: 'Algum nome que não existe'
     click_button class: 'btn-outline-success', match: :first
-    expect(page).to have_current_path home_user_index_path
-    expect(find(id: 'danger-warning').text).to eq "O código LisNet informado não esta vinculado a nenhum atendimento."
+    expect(page).to have_selector('#patients-list', visible: true)
   end
 
 end

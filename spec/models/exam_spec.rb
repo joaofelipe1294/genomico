@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Exam, type: :model do
-  
+
 	context 'Validations' do
 
 		it 'without attendance' do
@@ -37,15 +37,13 @@ RSpec.describe Exam, type: :model do
 
 		it { should belong_to(:attendance) }
 
-		it { should belong_to(:sample) }
-
-		it { should belong_to(:subsample) }
-
 		it { should belong_to(:exam_status_kind) }
 
 		it { should belong_to(:offered_exam) }
 
 		it { should have_many(:exam_status_changes) }
+
+    it { should belong_to :internal_code }
 
 	end
 

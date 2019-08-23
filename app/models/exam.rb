@@ -4,10 +4,9 @@ class Exam < ActiveRecord::Base
   belongs_to :offered_exam
   belongs_to :exam_status_kind
   belongs_to :attendance
-  belongs_to :sample
-  belongs_to :subsample
   has_many :exam_status_changes
   before_validation :default_values
+  belongs_to :internal_code
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
@@ -26,18 +25,13 @@ class Exam < ActiveRecord::Base
   def self.complete_exams_by_field(field= '', start_date= 2.year.ago, finish_date= 10.seconds.ago)
     conn = ActiveRecord::Base.connection
     result = conn.execute "
-      SELECT e.id,
-             oe.name,
-             f.name
-      FROM exams e
-           INNER JOIN exam_status_kinds esk ON esk.id = e.exam_status_kind_id
-           INNER JOIN exam_status_changes esc ON esc.exam_id = e.id
-           INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-           INNER JOIN fields f ON f.id = oe.field_id
-      WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-            AND esc.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-            AND f.name = #{conn.quote(field)}
-            AND esc.change_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(finish_date)};"
+    SELECT e.id,
+           oe.name
+    FROM exams e
+         INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
+    WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
+          AND oe.field_id = (SELECT id FROM fields WHERE name = #{conn.quote(field)})
+          AND e.start_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(finish_date)};"
     result.cmd_tuples
   end
 
@@ -50,7 +44,7 @@ class Exam < ActiveRecord::Base
                a.id
         FROM exams e
              INNER JOIN attendances a ON a.id = e.attendance_id
-             LEFT JOIN health_ensurances he ON he.id = a.health_ensurance_id
+             INNER JOIN health_ensurances he ON he.id = a.health_ensurance_id
         WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
               AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)})
               AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
@@ -64,7 +58,6 @@ class Exam < ActiveRecord::Base
             AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
             AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
     health_ensurance_relation['Sem Plano'] = result.cmd_tuples
-    p health_ensurance_relation
     health_ensurance_relation
   end
 

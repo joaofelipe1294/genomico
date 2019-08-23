@@ -14,14 +14,22 @@
 				<%= f.text_field :offered_exam, {value: @exam.offered_exam.name, disabled: true, class: 'form-control'} %>
 			</div>
 
-			<div class = 'form-group'>
-				<%= f.label :refference_label %>
-				<%= f.select :refference_label, options_from_collection_for_select(@samples, 'refference_label', 'refference_label'), {}, {class: 'form-control'} %>
-			</div>
+      <% if @internal_codes.size > 0 %>
 
-			<button class = 'btn btn-outline-primary float-right' id="btn-start-exam">
-				Salvar
-			</button>
+  			<div class = 'form-group'>
+  				<%= f.label :refference_label %>
+  				<%= f.select :internal_code, options_from_collection_for_select(@internal_codes, 'id', 'code'), {}, {class: 'form-control'} %>
+  			</div>
+
+  			<button class = 'btn btn-outline-primary float-right' id="btn-start-exam">
+  				Salvar
+  			</button>
+
+      <% else %>
+        <h5 class="text-center text-danger">
+          Nenhum código interno da <%= @exam.offered_exam.field.name %> encontrado para este atentimento.
+        </h5>
+      <% end %>
 
 		<% end %>
   </div>

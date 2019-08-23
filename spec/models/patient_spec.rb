@@ -87,6 +87,11 @@ RSpec.describe Patient, type: :model do
 			expect(patient).to be_invalid
 		end
 
+		it "without observations" do
+			patient = build(:patient, observations: nil)
+			expect(patient).to be_valid
+		end
+
 	end
 
 	context "validation_logics" do

@@ -57,7 +57,7 @@ RSpec.describe Subsample, type: :model do
 
 		it { should accept_nested_attributes_for(:nanodrop_report) }
 
-		it { should have_many(:exams) }
+		it { should have_many :internal_codes }
 
 	end
 

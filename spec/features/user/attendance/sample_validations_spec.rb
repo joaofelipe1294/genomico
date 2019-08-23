@@ -129,7 +129,6 @@ RSpec.feature "User::Attendance::SampleValidations", type: :feature do
     extract_subsample
     click_button id: 'sample_nav'
     expect(page).not_to have_selector("#btn-remove-sample")
-    sleep 5
   end
 
 end

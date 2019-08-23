@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'patient/:id/exams', to: 'exams#exams_from_patient', as: :exams_from_patient
   get 'internal_codes/new/:id', to: 'internal_codes#new', as: :new_internal_code
   get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
@@ -51,5 +52,5 @@ Rails.application.routes.draw do
   resources :offered_exams
   resources :patients, except: [:destroy]
   resources :subsamples
-  resources :internal_codes, only: [:create, :destroy]
+  resources :internal_codes, only: [:create, :destroy, :index]
 end

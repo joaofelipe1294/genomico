@@ -1,24 +1,38 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @patient.name %>
-</p>
+<div class="card mt-5 p-0 col-md-8 offset-md-2">
+  <div class="card-header">
+    <h4 class="text-center d-inline-block">
+      Paciente
+    </h4>
+    <%= link_to "Editar", edit_patient_path(@patient), class: 'btn btn-sm btn-outline-warning float-right ' %>
+  </div>
+  <div class="card-body">
 
-<p>
-  <strong>Birth date:</strong>
-  <%= @patient.birth_date %>
-</p>
+    <div class="form-group">
+      <%= label_tag Patient.human_attribute_name :name %>
+      <%= text_field_tag :name, @patient.name, class: 'form-control', disabled: true %>
+    </div>
 
-<p>
-  <strong>Mother name:</strong>
-  <%= @patient.mother_name %>
-</p>
+    <div class="form-group">
+      <%= label_tag Patient.human_attribute_name :birth_date %>
+      <%= text_field_tag :birth_date, @patient.birth_date, class: 'form-control', disabled: true %>
+    </div>
 
-<p>
-  <strong>Medical record:</strong>
-  <%= @patient.medical_record %>
-</p>
+    <div class="form-group">
+      <%= label_tag Patient.human_attribute_name :mother_name %>
+      <%= text_field_tag :mother_name, @patient.mother_name, class: 'form-control', disabled: true %>
+    </div>
 
-<%= link_to 'Edit', edit_patient_path(@patient) %> |
-<%= link_to 'Back', patients_path %>
+    <div class="form-group">
+      <%= label_tag Patient.human_attribute_name :medical_record %>
+      <%= text_field_tag :medical_record, @patient.medical_record, class: 'form-control', disabled: true %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :observations %>
+      <%= text_area_tag :observations, @patient.observations, class: 'form-control', rows: "7", disabled: true %>
+    </div>
+
+  </div>
+</div>

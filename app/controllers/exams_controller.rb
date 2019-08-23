@@ -26,15 +26,16 @@ class ExamsController < ApplicationController
 	end
 
 	def edit
-		if @exam.uses_subsample == false
-			@exam.refference_label = @exam.sample.refference_label
-		else
-			@exam.refference_label = @exam.subsample.refference_label
-		end
+		# if @exam.uses_subsample == false
+		# 	@exam.refference_label = @exam.sample.refference_label
+		# else
+		# 	@exam.refference_label = @exam.subsample.refference_label
+		# end
 	end
 
 	def update
-		select_label_refference
+		# select_label_refference
+    @exam.internal_code_id = exam_params[:internal_code]
 		if @exam.save
 			flash[:success] = "Exame editado com sucesso."
 			redirect_to workflow_path(@exam.attendance)
@@ -46,7 +47,7 @@ class ExamsController < ApplicationController
 
 	def initiate
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
-		select_label_refference
+    @exam.internal_code_id = exam_params[:internal_code]
 		apply_changes
 	end
 
@@ -69,10 +70,35 @@ class ExamsController < ApplicationController
 		end
 	end
 
+  def exams_from_patient
+    @fields = Field.all.order name: :asc
+    @patient = Patient.find params[:id]
+    attendances = @patient.attendances.order start_date: :desc
+    patient_exams = []
+    if params[:field_id].nil? || params[:field_id] == "0"
+      attendances.each do |attendance|
+        patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
+      end
+    else
+      connection = ActiveRecord::Base.connection
+      result = connection.execute("
+        SELECT e.id
+        FROM patients p
+             INNER JOIN attendances a ON a.patient_id = p.id
+             INNER JOIN exams e ON e.attendance_id = a.id
+             INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
+        WHERE p.id = #{connection.quote @patient.id} AND oe.field_id = #{connection.quote params[:field_id]};")
+      result.each do |row|
+        patient_exams.push Exam.find(row["id"])
+      end
+    end
+    @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
+  end
+
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :refference_label)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code)
   	end
 
   	def set_exam
@@ -96,12 +122,7 @@ class ExamsController < ApplicationController
 		end
 
 		def set_samples_and_subsamples
-			@samples = []
-			samples = @exam.attendance.samples
-			samples.each do |sample|
-				@samples += sample.subsamples if sample.has_subsample
-			end
-			@samples += samples
+			@internal_codes = InternalCode.where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
 		end
 
 		def select_label_refference
