@@ -5,8 +5,8 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
-    if params[:name].nil? == false
-      @patients = Patient.where("name ILIKE ?", "%#{params[:name]}%").order(:name).page params[:page]
+    if params[:name_search].nil? == false
+      @patients = Patient.where("name ILIKE ?", "%#{params[:name_search]}%").order(:name).page params[:page]
     elsif params[:medical_record].nil? == false
       @patients = Patient.where({medical_record: params[:medical_record]}).page params[:page]
     else
