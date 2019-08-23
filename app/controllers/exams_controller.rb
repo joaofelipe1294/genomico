@@ -1,6 +1,6 @@
 class ExamsController < ApplicationController
   before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update]
-  before_action :set_samples_and_subsamples, only: [:start, :edit]
+  before_action :set_samples_and_subsamples, only: [:edit]
 
   def new
     @attendance = Attendance.find(params[:id])
@@ -23,6 +23,7 @@ class ExamsController < ApplicationController
   end
 
 	def start
+    @internal_codes = InternalCode.where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
 	end
 
 	def edit
@@ -46,7 +47,7 @@ class ExamsController < ApplicationController
 
 	def initiate
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
-		select_label_refference
+    @exam.internal_code_id = exam_params[:internal_code]
 		apply_changes
 	end
 
@@ -97,7 +98,7 @@ class ExamsController < ApplicationController
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :refference_label, :attendance)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code)
   	end
 
   	def set_exam
