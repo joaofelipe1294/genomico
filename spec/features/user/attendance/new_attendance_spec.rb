@@ -55,9 +55,9 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
 
   end
 
-  context 'dinamic operations' do
+  context 'dinamic operations', js: true do
 
-    it 'navigate between new attendance tabs', js: true do
+    it 'navigate between new attendance tabs' do
       navigate_to_new_attendance
       expect(find(id: 'attendance_tab')).to be_visible
       click_button id: 'exams_nav'
@@ -68,7 +68,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'attendance_tab')).to be_visible
     end
 
-    it 'add exams', js: true do
+    it 'add exams' do
       navigate_to_new_attendance
       click_button id: 'exams_nav'
       expect(find_all('tr').size).to eq 1
@@ -76,7 +76,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find_all('tr').size).to eq 2
     end
 
-    it 'remove exams', js: true do
+    it 'remove exams' do
       navigate_to_new_attendance
       click_button id: 'exams_nav'
       click_button id: 'btn_add_exam'
@@ -85,7 +85,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find_all('tr').size).to eq 1
     end
 
-    it 'add sample', js: true do
+    it 'add sample' do
       navigate_to_new_attendance
       click_button id: 'samples_nav'
       expect(find_all('tr').size).to eq 1
@@ -93,7 +93,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find_all('tr').size).to eq 2
     end
 
-    it 'remove sample', js: true do
+    it 'remove sample' do
       navigate_to_new_attendance
       click_button id: 'samples_nav'
       click_button id: 'btn_add_sample'
@@ -104,7 +104,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
 
   end
 
-  context 'correct' do
+  context 'correct', js: true do
 
     before :each do
       navigate_to_new_attendance
@@ -120,7 +120,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       })
     end
 
-    it 'complete', js: true do
+    it 'complete' do
       add_attendance_values
       add_exams
       add_samples
@@ -128,7 +128,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
-    it 'without cid', js: true do
+    it 'without cid' do
       @attendance.cid_code = nil
       add_attendance_values
       add_exams
@@ -137,7 +137,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
-    it 'without health_ensurance', js: true do
+    it 'without health_ensurance' do
       @attendance.health_ensurance = nil
       add_attendance_values
       add_exams
@@ -146,7 +146,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
-    it 'without doctor_name', js: true do
+    it 'without doctor_name' do
       @attendance.doctor_name = nil
       add_attendance_values
       add_exams
@@ -155,7 +155,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
-    it 'without doctor_crm', js: true do
+    it 'without doctor_crm' do
       @attendance.doctor_crm = nil
       add_attendance_values
       add_exams
@@ -164,7 +164,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
       expect(find(id: 'success-warning').text).to eq "Atendimento cadastrado com sucesso."
     end
 
-    it 'without observations', js: true do
+    it 'without observations' do
       @attendance.observations = nil
       add_attendance_values
       add_exams
@@ -203,7 +203,6 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
     it 'without exams', js: true do
       add_attendance_values
       add_samples
-
       click_button id: 'btn-save-attendance'
       expect(find(class: 'error').text).to eq "Exames não pode ficar em branco"
     end

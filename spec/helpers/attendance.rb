@@ -36,8 +36,10 @@ def create_attendance
 end
 
 def navigate_to_workflow
-  fill_in id: 'lis_code_search', with: @attendance.lis_code
+  fill_in id: 'patient-name-search', with: @attendance.patient.name
   click_button class: 'btn-outline-success'
+  click_link class: 'btn-outline-info'
+  click_link class: 'btn-outline-primary'
 end
 
 def set_subsample_values

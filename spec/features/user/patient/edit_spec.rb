@@ -5,7 +5,7 @@ def navigate_to_edit_patient patient
   user_do_login
   click_link id: 'patient-dropdown'
   click_link id: 'patients'
-  fill_in 'name', with: patient.name
+  fill_in id: 'patient-name-search', with: patient.name
   click_button id: 'btn-search-by-name'
   click_link class: 'btn-outline-warning', match: :first
 end
@@ -153,70 +153,74 @@ RSpec.feature "User::Patient::Edits", type: :feature do
 
   end
 
-  context 'duplicated values' do
+  context 'duplicated values HPP' do
 
-    it 'name, mother_name, birth_date and hospital', js: false do
-      valid_patient = Patient.create({
-        name: 'Trostani, a voz de Vitu-gazzi',
-        mother_name: 'Vitu-gazzi a árvore primordial',
+    before :each do
+      hpp = Hospital.create({name: 'Hospital Pequeno Príncipe'})
+      @patient = Patient.create({
+        name: 'Zero',
+        mother_name: 'Zera',
         birth_date: Date.today,
-        medical_record: '98761237',
-        hospital: Hospital.create(name: 'Selesnya')
+        medical_record: '123456',
+        hospital: hpp
       })
-      duplicated = create(:patient, name: 'duplicated')
-      navigate_to_edit_patient duplicated
-      duplicated = Patient.new({
-        name: valid_patient.name,
-        mother_name: valid_patient.mother_name,
-        birth_date: valid_patient.birth_date,
-        medical_record: '98761237',
-        hospital: valid_patient.hospital
+      @duplicated = Patient.create({
+        name: 'Um',
+        mother_name: 'Uma',
+        birth_date: 2.days.ago,
+        medical_record: '654321',
+        hospital: hpp
       })
-      fill_in :patient_name, with: duplicated.name
-      fill_in :patient_mother_name, with: duplicated.mother_name
-      fill_in :patient_birth_date, with: duplicated.birth_date
-      select(duplicated.hospital.name, from: :patient_hospital_id).select_option
-      click_button class: 'btn-outline-primary'
-      expect(find(class: 'error', match: :first).text).to eq "Nome já está em uso"
+      user_do_login
+      fill_in id: 'patient-name-search', with: @duplicated.name
+      click_button id: 'btn-search-patient'
+      click_link class: 'edit-patient'
     end
 
-    it 'medical_record' do
-      valid_patient = Patient.create({
-        name: 'Trostani, a voz de Vitu-gazzi',
-        mother_name: 'Vitu-gazzi a árvore primordial',
-        birth_date: Date.today,
-        medical_record: '98761237',
-        hospital: Hospital.create(name: 'Selesnya')
-      })
-      duplicated = create(:patient, name: 'duplicated')
-      navigate_to_edit_patient duplicated
-      duplicated = Patient.new({
-        medical_record: valid_patient.medical_record,
-        hospital: valid_patient.hospital
-      })
-      fill_in :patient_medical_record, with: duplicated.medical_record
-      select(duplicated.hospital.name, from: :patient_hospital_id).select_option
+    it "name, mother_name, birth_date and HPP", js: false do
+      fill_in :patient_name, with: @patient.name
+      fill_in :patient_mother_name, with: @patient.mother_name
+      fill_in :patient_birth_date, with: @patient.birth_date
+      select(@patient.hospital.name, from: :patient_hospital_id).select_option
       click_button class: 'btn-outline-primary'
-      expect(find(class: 'error', match: :first).text).to eq "Prontuário médico já está em uso"
+      expect(find(class: 'error').text).to eq "Nome já está em uso"
+    end
+
+    it "medical record HPP", js: false do
+      fill_in :patient_medical_record, with: @patient.medical_record
+      click_button class: 'btn-outline-primary'
+      expect(find(class: 'error').text).to eq "Prontuário médico já está em uso"
     end
 
   end
 
+  context "Duplicated medical_record no HPP" do
 
+    it "medical_record" do
+      hpp = Hospital.create({name: 'Hospital DIFERENTE DO Pequeno Príncipe'})
+      @patient = Patient.create({
+        name: 'Zero',
+        mother_name: 'Zera',
+        birth_date: Date.today,
+        medical_record: '123456',
+        hospital: hpp
+      })
+      @duplicated = Patient.create({
+        name: 'Um',
+        mother_name: 'Uma',
+        birth_date: 2.days.ago,
+        medical_record: '654321',
+        hospital: hpp
+      })
+      user_do_login
+      fill_in id: 'patient-name-search', with: @duplicated.name
+      click_button id: 'btn-search-patient'
+      click_link class: 'edit-patient'
+      fill_in :patient_medical_record, with: @patient.medical_record
+      click_button class: 'btn-outline-primary'
+      expect(find(class: 'error').text).to eq "Prontuário médico já está em uso"
+    end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  end
 
 end

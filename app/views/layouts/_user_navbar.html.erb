@@ -81,9 +81,9 @@
 
     </ul>
 
-    <%= form_tag(lis_search_path, {method: :get, class: 'form-inline mr-5'}) do %>
-      <%= text_field_tag :lis_code_search, '', {class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar por Código Lis'} %>
-      <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    <%= form_with method: :get, url: :patients, class: 'form-inline mr-5'  do |form| %>
+      <%= form.text_field "name_search", class: 'form-control mr-sm-2', type: 'search', placeholder: 'Buscar paciente', id: 'patient-name-search' %>
+      <button id="btn-search-patient" class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
     <% end %>
 
     <label class="h4 mr-3 mb-0 text-white">
