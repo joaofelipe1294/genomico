@@ -3,10 +3,16 @@ class InternalCode < ApplicationRecord
   belongs_to :field
   before_validation :set_internal_code
 	validates :code, uniqueness: {scope: [:field_id]}
-  validates :field, :sample, presence: true
+  validates :field, :sample, :attendance, presence: true
   paginates_per 15
+  belongs_to :attendance
+  before_validation :set_attendance
 
   private
+
+  def set_attendance
+    self.attendance_id = self.sample.attendance_id unless self.sample.nil? && self.attendance.nil?
+  end
 
   def set_internal_code
     if self.code.nil?

@@ -16,11 +16,6 @@
 		</th>
 		<th>
 			<h4>
-				Frascos
-			</h4>
-		</th>
-		<th>
-			<h4>
 				<%= Sample.human_attribute_name(:collection_date) %>
 			</h4>
 		</th>
@@ -46,9 +41,6 @@
 					<%= sample.refference_label %>
 				</td>
 				<td>
-					<%= sample.bottles_number %>
-				</td>
-				<td>
 					<%= l sample.collection_date %>
 				</td>
 				<td>
@@ -71,6 +63,43 @@
 						<%= link_to 'Remover', sample_path(sample), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>
 					<% end %>
 				</td>
+		<% end %>
+	</tbody>
+</table>
+
+<hr>
+
+<h3 class="text-center">
+	Códigos internos
+</h3>
+
+<hr>
+
+<table class="table table-bordered col-md-8 offset-md-2 text-center">
+	<thead class="text-white bg-secondary">
+		<th>
+			Setor
+		</th>
+		<th>
+			Código
+		</th>
+		<th>
+			Amostra
+		</th>
+	</thead>
+	<tbody>
+		<% @attendance.internal_codes.each do |internal_code| %>
+			<tr class="internal-code">
+				<td>
+					<%= internal_code.field.name %>
+				</td>
+				<td>
+					<%= internal_code.code %>
+				</td>
+				<td>
+					<%= internal_code.sample.refference_label %>
+				</td>
+			</tr>
 		<% end %>
 	</tbody>
 </table>
