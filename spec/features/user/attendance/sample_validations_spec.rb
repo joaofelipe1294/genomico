@@ -118,6 +118,8 @@ RSpec.feature "User::Attendance::SampleValidations", type: :feature do
 
   it "try remove sample with exam", js: true do
     expect(@attendance.samples.size).to eq 1
+    click_link id: 'btn-internal-code'
+    click_button id: 'btn-save'
     click_button id: 'exam_nav'
     click_link id: 'start-exam'
     click_button id: 'btn-start-exam'

@@ -56,24 +56,4 @@ RSpec.feature "User::Attendance::ExamValidations", type: :feature do
     expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Concluído."
   end
 
-  it "Change Exam internal code", js: true do
-    # TODO: REFAZER teste
-    # navigate_to_exams_tab
-    # start_exam
-    # new_sample = Sample.create({
-    #   sample_kind: SampleKind.last,
-    #   attendance: @attendance,
-    #   storage_location: 'F1',
-    #   bottles_number: 3,
-    #   collection_date: Date.today
-    # })
-    # @attendance.samples.push new_sample
-    # @attendance.save
-    # click_button id: 'exam_nav'
-    # click_link id: 'edit-attendance-exam'
-    # select(@attendance.samples.last.refference_label, from: 'exam[refference_label]').select_option
-    # click_button class: 'btn-outline-primary'
-    # expect(find(id: 'success-warning').text).to eq "Exame editado com sucesso."
-  end
-
 end

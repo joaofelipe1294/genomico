@@ -31,14 +31,4 @@ RSpec.feature "User::Attendance::SubsampleValidations", type: :feature do
     expect(find(id: 'success-warning').text).to eq "Subamostra removida com sucesso."
   end
 
-  it "try to remove subsample with related exam", js: true do
-    click_button id: 'exam_nav'
-    click_link id: 'start-exam'
-    select(Subsample.last.refference_label, from: 'exam[refference_label]').select_option
-    click_button id: 'btn-start-exam'
-    page.driver.browser.navigate.refresh
-    click_button id: 'subsample_nav'
-    expect(page).not_to have_selector("#btn-remove-subsample")
-  end
-
 end
