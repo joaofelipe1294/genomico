@@ -33,7 +33,7 @@
   <div class="form-group">
     <%= f.label :hospital %>
     <% if @patient.hospital.nil? %>
-      <%= f.select :hospital_id, options_from_collection_for_select(@hospitals, 'id', 'name', selected: Hospital.find_by({name: 'Hospital Pequeno Príncipe'})), {}, {class: 'form-control'} %>
+      <%= f.select :hospital_id, options_from_collection_for_select(@hospitals, 'id', 'name', selected: Hospital.find_by({name: 'Hospital Pequeno Príncipe'}).id), {}, {class: 'form-control'} %>
     <% else %>
       <%= f.select :hospital_id, options_from_collection_for_select(@hospitals, 'id', 'name', selected: @patient.hospital.id), {}, {class: 'form-control'} %>
     <% end %>
