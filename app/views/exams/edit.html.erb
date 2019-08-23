@@ -16,7 +16,7 @@
 
 			<div class = 'form-group'>
 				<%= f.label :refference_label %>
-				<%= f.select :refference_label, options_from_collection_for_select(@samples, 'refference_label', 'refference_label', selected: @exam.refference_label), {}, {class: 'form-control'} %>
+				<%= f.select :internal_code, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @exam.refference_label), {}, {class: 'form-control'} %>
 			</div>
 
 			<button class = 'btn btn-outline-primary float-right'>
