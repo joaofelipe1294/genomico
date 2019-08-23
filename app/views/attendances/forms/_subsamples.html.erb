@@ -32,7 +32,7 @@
 					</td>
 					<td>
 						<%= link_to 'Editar', edit_subsample_path(subsample), {class: 'btn btn-sm btn-outline-warning', id: 'btn-edit-subsample'} %>
-						<% if subsample.exams.size == 0 %>
+						<% if subsample.internal_codes.size == 0 %>
 							<%= link_to 'Remover', subsample_path(subsample),{data: { confirm: "Tem certeza ?" },method: :delete, class: 'btn btn-sm btn-outline-danger', id: 'btn-remove-subsample'} %>
 						<% end %>
 					</td>

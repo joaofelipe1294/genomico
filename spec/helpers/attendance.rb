@@ -20,7 +20,7 @@ def create_attendance
     health_ensurance: HealthEnsurance.all.sample,
     exams: [
       Exam.new({
-        offered_exam: OfferedExam.where(field: Field.last).last
+        offered_exam: OfferedExam.where(field: Field.find_by(name: 'Imunofenotipagem')).last
       }),
     ],
     samples: [
