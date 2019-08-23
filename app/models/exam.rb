@@ -4,10 +4,9 @@ class Exam < ActiveRecord::Base
   belongs_to :offered_exam
   belongs_to :exam_status_kind
   belongs_to :attendance
-  belongs_to :sample
-  belongs_to :subsample
   has_many :exam_status_changes
   before_validation :default_values
+  belongs_to :internal_code
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
@@ -59,7 +58,6 @@ class Exam < ActiveRecord::Base
             AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
             AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
     health_ensurance_relation['Sem Plano'] = result.cmd_tuples
-    p health_ensurance_relation
     health_ensurance_relation
   end
 

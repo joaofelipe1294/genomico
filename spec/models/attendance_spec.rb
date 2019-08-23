@@ -5,7 +5,7 @@ RSpec.describe Attendance, type: :model do
 	context 'Validations' do
 
 		it 'correct' do
-			attendance = create(:attendance)
+			attendance = build(:attendance)
 			expect(attendance).to be_valid
 		end
 

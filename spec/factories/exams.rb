@@ -4,7 +4,6 @@ FactoryBot.define do
     exam_status_kind { create(:exam_status_kind) }
     start_date { Faker::Date.between(from: 21.days.ago, to: Date.today) }
     finish_date { Faker::Date.between(from: 21.days.ago, to: Date.today) }
-    sample { nil }
-    subsample { nil }
+    internal_code { nil }
   end
 end
