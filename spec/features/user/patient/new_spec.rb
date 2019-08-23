@@ -34,7 +34,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 			patient_spec_setup
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
-			expect(page).to have_current_path home_user_index_path
+			expect(page).to have_current_path new_attendance_path(Patient.last)
 			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
 		end
 

@@ -37,7 +37,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
       if @patient.save
         flash[:success] = 'Paciente cadastrado com sucesso.'
-        redirect_to home_user_index_path
+        redirect_to new_attendance_path(@patient.id)
       else
         @hospitals = Hospital.all.order :name
         render :new
