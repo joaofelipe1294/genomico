@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :internal_code do
-    sample { create(:sample) }
+    sample { create(:attendance).samples.first }
     field { create(:field) }
   end
 end

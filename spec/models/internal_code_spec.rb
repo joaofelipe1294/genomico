@@ -29,4 +29,6 @@ RSpec.describe InternalCode, type: :model do
 
   it { should belong_to :sample }
 
+  it { should belong_to :attendance }
+
 end
