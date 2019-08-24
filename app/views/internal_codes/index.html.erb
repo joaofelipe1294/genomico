@@ -1,6 +1,6 @@
 <%= render 'layouts/user_navbar' %>
 
-<table class="table table-bordered text-center mt-5 col-md-10 offset-md-1">
+<table class="table table-bordered text-center mt-5">
   <thead class="bg-dark text-white">
     <th>
       <h4>Código</h4>
@@ -12,7 +12,14 @@
       <h4>Data de entrada</h4>
     </th>
     <th>
-      Exame
+      <h4>
+        Exame
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Status
+      </h4>
     </th>
     <th>
       <h4>
@@ -43,6 +50,17 @@
               <%= exam.offered_exam.name %>
             </td>
             <td>
+              <% if exam.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
+                <label class="text-success">
+                  <%= exam.exam_status_kind.name %>
+                </label>
+              <% else %>
+              <label class="text-secondary">
+                <%= exam.exam_status_kind.name %>
+              </label>
+              <% end %>
+            </td>
+            <td>
               <%= exam.internal_code.sample.attendance.patient.name %>
             </td>
             <td>
@@ -60,6 +78,9 @@
         </td>
         <td>
           <%= l internal_code.sample.entry_date %>
+        </td>
+        <td>
+          -
         </td>
         <td>
           -
