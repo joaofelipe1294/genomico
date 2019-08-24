@@ -48,7 +48,9 @@ RSpec.describe User, type: :model do
 	context 'properties validations' do
 
 		 it { should have_secure_password }
-	
+
+		 it { should have_and_belong_to_many :fields }
+
 	end
 
 	context 'after_initialize' do
