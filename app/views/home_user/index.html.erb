@@ -1,27 +1,29 @@
 <%= render 'layouts/user_navbar' %>
 
-<div class="mt-3">
+<% unless @user.fields.empty? %>
+  <div class="mt-3">
 
-  <div style="width: 33%;" class="d-inline-block">
-    <h4 class="text-center text-secondary">
-      Exames aguardando início <%= @waiting_exams.size %>
-    </h4>
-    <%= pie_chart @waiting_exams, legend: false, colors: colors %>
-  </div>
+    <div style="width: 33%;" class="d-inline-block">
+      <h4 class="text-center text-secondary">
+        Exames aguardando início <%= @waiting_exams.size %>
+      </h4>
+      <%= pie_chart @waiting_exams, legend: false, colors: colors %>
+    </div>
 
-  <div style="width: 33%;" class="d-inline-block border-right border-left">
-    <h4 class="text-center text-primary">
-      Exames em andamento <%= @open_exams.size %>
-    </h4>
-    <%= pie_chart @exams_relation, legend: false, colors: colors %>
-  </div>
+    <div style="width: 33%;" class="d-inline-block border-right border-left">
+      <h4 class="text-center text-primary">
+        Exames em andamento <%= @open_exams.size %>
+      </h4>
+      <%= pie_chart @exams_relation, legend: false, colors: colors %>
+    </div>
 
-  <div style="width: 33%;" class="d-inline-block">
-    <h4 class="text-center">
-      Exames atrasados
-    </h4>
+    <div style="width: 33%;" class="d-inline-block">
+      <h4 class="text-center">
+        Exames atrasados
+      </h4>
+    </div>
   </div>
-</div>
+<% end %>
 
 <%= @open_distinct_exams %>
 
