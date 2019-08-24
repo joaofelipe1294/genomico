@@ -12,7 +12,7 @@
       <h4>Data de entrada</h4>
     </th>
     <th>
-      <h4>Data da coleta</h4>
+      Exame
     </th>
     <th>
       <h4>
@@ -27,6 +27,30 @@
   </thead>
   <tbody>
     <% @internal_codes.each do |internal_code| %>
+      <% unless internal_code.exams.empty? %>
+        <% internal_code.exams.each do |exam| %>
+          <tr>
+            <td>
+              <%= exam.internal_code.code %>
+            </td>
+            <td>
+              <%= exam.internal_code.sample.sample_kind.name %>
+            </td>
+            <td>
+              <%= l exam.internal_code.sample.entry_date %>
+            </td>
+            <td>
+              <%= exam.offered_exam.name %>
+            </td>
+            <td>
+              <%= exam.internal_code.sample.attendance.patient.name %>
+            </td>
+            <td>
+              <%= link_to exam.internal_code.sample.attendance.lis_code, workflow_path(internal_code.sample.attendance) %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
       <tr>
         <td>
           <%= internal_code.code %>
@@ -38,7 +62,7 @@
           <%= l internal_code.sample.entry_date %>
         </td>
         <td>
-          <%= l internal_code.sample.collection_date %>
+          -
         </td>
         <td>
           <%= internal_code.sample.attendance.patient.name %>
@@ -47,6 +71,7 @@
           <%= link_to internal_code.sample.attendance.lis_code, workflow_path(internal_code.sample.attendance) %>
         </td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

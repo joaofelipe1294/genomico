@@ -1,7 +1,7 @@
 class InternalCodesController < ApplicationController
 
   def index
-    @internal_codes = InternalCode.includes(:sample).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
+    @internal_codes = InternalCode.includes(:sample, :exams).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
   end
 
   def new
