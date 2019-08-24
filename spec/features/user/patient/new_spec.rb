@@ -12,6 +12,7 @@ end
 
 def patient_spec_setup
 	user_do_login
+	hpp = Hospital.create({ name: "Hospital Pequeno Príncipe" })
 	hospital = Hospital.create({ name: Faker::Company.name })
 	click_link(id: 'patient-dropdown')
 	click_link(id: 'new-patient')
@@ -166,6 +167,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 
 		it 'after login' do
 			user_do_login
+			Hospital.create({name: 'Hospital Pequeno Príncipe'})
 			visit new_patient_path
 			expect(page).to have_current_path new_patient_path
 		end

@@ -178,6 +178,7 @@ RSpec.feature "User::Attendance::NewAttendances", type: :feature do
   context 'correct' do
 
     before :each do
+      Hospital.create({name: 'Hospital Pequeno Príncipe'})
       navigate_to_new_attendance
       @attendance = Attendance.new({
           patient: Patient.first,
