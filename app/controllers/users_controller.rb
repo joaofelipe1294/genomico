@@ -19,11 +19,13 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @user_kinds = UserKind.all.order(name: :desc)
+    @fields = Field.all.order name: :asc
   end
 
   # GET /users/1/edit
   def edit
     @user_kinds = UserKind.all.order(name: :desc)
+    @fields = Field.all.order name: :asc
   end
 
   # POST /users
@@ -33,12 +35,13 @@ class UsersController < ApplicationController
     if user_params[:password] != user_params[:password_confirmation]
       @user.errors[:password] = ' informada não combina.'
       @user_kinds = UserKind.all.order(name: :desc)
-      return render new_user_path(@user) 
+      return render new_user_path(@user)
     end
     if @user.save
       flash[:success] = 'Usuário cadastrado com sucesso.'
       redirect_to home_admin_index_path
     else
+      @fields = Field.all.order name: :asc
       @user_kinds = UserKind.all.order(name: :desc)
       render :new
     end
@@ -51,6 +54,7 @@ class UsersController < ApplicationController
       flash[:success] = 'Usuário editado com sucesso.'
       redirect_to home_admin_index_path
     else
+      @fields = Field.all.order name: :asc
       @user_kinds = UserKind.all.order(name: :desc)
       render :edit
     end
@@ -108,7 +112,15 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id)
+      accepted_params = params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, fields:[])
+      unless accepted_params[:fields].nil?
+        unless accepted_params[:fields].empty?
+          accepted_params[:fields] = accepted_params[:fields].map do |field_id|
+            Field.find(field_id)
+          end
+        end
+      end
+      accepted_params
     end
 
     def set_users

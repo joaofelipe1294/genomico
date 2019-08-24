@@ -31,6 +31,7 @@
         name: Nome
         is_active: Ativo
         user_kind: Tipo de usuário
+        fields: Áreas
       field:
         name: Nome
       offered_exam:

@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
-        <h2 class="text-danger"> 
+        <h2 class="text-danger">
           Há erros no formulário, por favor verifique.
         </h2>
         <ul class="text-danger" id="error-list">
@@ -9,8 +9,8 @@
           <li class="error"><%= message %></li>
         <% end %>
         </ul>
-      </div> 
-     <% end %> 
+      </div>
+     <% end %>
 
     <div class="form-group">
       <%= f.label :name %>
@@ -38,5 +38,23 @@
         <%= f.select :user_kind_id, options_from_collection_for_select(@user_kinds, 'id', 'name', selected: @user.user_kind.id), {}, {class: 'form-control'} %>
       <% end %>
     </div>
+    <div class="form-group">
+      <%= f.label :fields %>
+      <div class="text-center">
+        <% @fields.each do |field| %>
+          <% if @user.fields.include?(field) %>
+            <%= f.check_box :fields, { multiple: true,  checked: true }, field.id, false %>
+          <% else %>
+            <%= f.check_box :fields, { multiple: true }, field.id, false %>
+          <% end%>
+          <label for="<%= "user_fields_#{field.id}"%>" class="mr-3">
+            <%= field.name %>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+
+
     <%= render 'shared/form_button', locals: {action: :edit}%>
 <% end %>
