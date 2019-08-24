@@ -1,1 +1,23 @@
 <%= render 'layouts/user_navbar' %>
+
+<div class="mt-3 border-top border-bottom">
+  <div class="col-md-6 d-inline-block">
+    <h4 class="text-center">
+      Exames em andamento <%= @open_exams.size  %>
+      <% unless @user.fields.size == 1 %>
+        (<%= @user.fields.first.name %>)
+      <% end %>
+    </h4>
+    <%= pie_chart @exams_relation, legend: false %>
+  </div>
+  <div class="col-md-5 d-inline-block">
+    <h4 class="text-center">
+      Exames atrasados
+    </h4>
+  </div>
+</div>
+
+<%= @open_distinct_exams %>
+
+
+<% @open_exams %>
