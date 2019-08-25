@@ -28,7 +28,7 @@ RSpec.describe Exam, type: :model do
 			exam = build(:exam, start_date: nil)
 			exam.save
 			expect(exam).to be_valid
-			expect(exam.start_date).to eq(Date.today)
+			expect(exam.start_date).to eq(nil)
 		end
 
 	end

@@ -26,11 +26,6 @@ class ExamsController < ApplicationController
 	end
 
 	def edit
-		# if @exam.uses_subsample == false
-		# 	@exam.refference_label = @exam.sample.refference_label
-		# else
-		# 	@exam.refference_label = @exam.subsample.refference_label
-		# end
 	end
 
 	def update

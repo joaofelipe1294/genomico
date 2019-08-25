@@ -66,7 +66,7 @@ class Exam < ActiveRecord::Base
 
   def default_values
   	self.exam_status_kind = ExamStatusKind.find_by({name: 'Aguardando início'}) if self.exam_status_kind.nil?
-    self.start_date = DateTime.now if self.start_date.nil?
+    # self.start_date = DateTime.now if self.start_date.nil?
   end
 
 end
