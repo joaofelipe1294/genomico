@@ -54,14 +54,13 @@ module HomeUserHelper
     open_exams
   end
 
-  def open_exams_objects field_id
+  def field_issues field_id
     conn = ActiveRecord::Base.connection
     result = conn.execute"
       SELECT e.id
       FROM exams e
            INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
       WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-            AND e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Aguardando início')
             AND oe.field_id = #{conn.quote(field_id)};"
     exam_ids = []
     result.each do |line|
