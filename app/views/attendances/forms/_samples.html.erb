@@ -86,6 +86,7 @@
 		<th>
 			Amostra
 		</th>
+		<th></th>
 	</thead>
 	<tbody>
 		<% @attendance.internal_codes.each do |internal_code| %>
@@ -97,7 +98,16 @@
 					<%= internal_code.code %>
 				</td>
 				<td>
-					<%= internal_code.sample.refference_label %>
+					<% unless internal_code.sample.nil? %>
+						<%= internal_code.sample.sample_kind.name %>
+					<% else %>
+						<%= internal_code.subsample.subsample_kind.name %>
+					<% end %>
+				</td>
+				<td>
+					<% if internal_code.exams.empty? %>
+						<%= link_to 'Remover', internal_code_path(internal_code), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger btn-remove-internal-code', method: :delete, id: 'btn-remove-sample'} %>
+					<% end %>
 				</td>
 			</tr>
 		<% end %>

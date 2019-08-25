@@ -22,11 +22,11 @@ class InternalCodesController < ApplicationController
   end
 
   def destroy
-    internal_code = InternalCode.find params[:id]
+    internal_code = InternalCode.includes(:attendance).find params[:id]
     sample = internal_code.sample
     if internal_code.delete
       flash[:success] = 'Código interno removido com sucesso.'
-      redirect_to new_internal_code_path(sample.id)
+      redirect_to workflow_path(internal_code.attendance)
     else
       flash[:warning] = 'Erro ao remover código interno, tente novamente mais tarde.'
       redirect_to workflow_path(internal_code.sample.attendance)

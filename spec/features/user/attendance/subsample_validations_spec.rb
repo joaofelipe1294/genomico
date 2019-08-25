@@ -23,12 +23,15 @@ RSpec.feature "User::Attendance::SubsampleValidations", type: :feature do
     expect(find(id: 'success-warning').text).to eq "Subamostra editada com sucesso."
   end
 
-  it "remove subsample without exam", js: true do
-    page.driver.browser.navigate.refresh
-    click_button id: 'subsample_nav'
-    click_link id: 'btn-remove-subsample'
-    page.driver.browser.switch_to.alert.accept
-    expect(find(id: 'success-warning').text).to eq "Subamostra removida com sucesso."
-  end
+  # it "remove subsample without exam", js: true do
+  #   page.driver.browser.navigate.refresh
+  #   click_button id: 'sample_nav'
+  #   click_link class: 'btn-remove-internal-code'
+  #   page.driver.browser.switch_to.alert.accept
+  #   click_button id: 'subsample_nav'
+  #   click_link id: 'btn-remove-subsample'
+  #   page.driver.browser.switch_to.alert.accept
+  #   expect(find(id: 'success-warning').text).to eq "Subamostra removida com sucesso."
+  # end
 
 end
