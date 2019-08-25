@@ -60,6 +60,8 @@ gem 'bootsnap', require: false
 # Create beautiful JavaScript charts with one line of Ruby. No more fighting with charting libraries!
 gem "chartkick"
 
+gem "nokogiri", ">= 1.10.4"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
