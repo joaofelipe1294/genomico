@@ -7,14 +7,18 @@
       <h4 class="text-center text-secondary">
         Exames aguardando início <%= @waiting_exams.size %>
       </h4>
-      <%= pie_chart @waiting_exams, legend: false, colors: waiting_colors %>
+      <div class="">
+        <%= pie_chart @waiting_exams, legend: false, colors: waiting_colors %>
+      </div>
     </div>
 
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
         Exames em andamento <%= @open_exams.size %>
       </h4>
-      <%= pie_chart @exams_relation, legend: false, colors: in_progress %>
+      <div class="">
+        <%= pie_chart @exams_relation, legend: false, colors: in_progress %>
+      </div>
     </div>
 
     <div style="width: 33%;" class="d-inline-block">
@@ -41,24 +45,17 @@
           Amostra
         </h4>
       </th>
-      <th>
-        <h4>
-          Iniciado em
-        </h4>
-      </th>
       <td>
         <h4>
           Status
         </h4>
       </td>
       <th>
-        <h4>
-          LINK
-        </h4>
+        <h4></h4>
       </th>
     </thead>
     <tbody>
-      <% @open_exams_objects.each do |exam| %>
+      <% @issues.each do |exam| %>
         <tr>
           <td>
             <%= exam.offered_exam.name %>
@@ -67,22 +64,22 @@
             <%= exam.attendance.patient.name %>
           </td>
           <td>
-            <%= exam.internal_code.code %>
+            <% unless exam.internal_code.nil? %>
+              <%= exam.internal_code.code %>
+            <% end %>
           </td>
           <td>
-            <%= l exam.start_date %>
-          </td>
-          <td>
-            <%= exam.exam_status_kind.name %>
+            <%= exam_status_color_helper exam.exam_status_kind %>
           </td>
           <td>
             <%= link_to "Exame", workflow_path(exam.attendance) %>
           </td>
         </tr>
       <% end %>
-      <%# TODO: Diminuir tamanho dos graficos e adicionar legendas  %>
-      <%# TODO: centralizar legendas %>
-      <%# TODO: Adicionar linhas do exames esperando inicio com linha avisando diferença %>
+
+      <%# TODO: adicionar codigo interno a subamostras %>
+      <%# TODO: adaptar para usuarios com varias areas  %>
+      <%# TODO: exibir todos os graficos no inicio %>
     </tbody>
   </table>
 
