@@ -17,14 +17,17 @@
         Exames em andamento <%= @open_exams.size %>
       </h4>
       <div class="">
-        <%= pie_chart @exams_relation, legend: false, colors: in_progress %>
+        <%= pie_chart @exams_relation, legend: false, colors: in_progress_colors %>
       </div>
     </div>
 
     <div style="width: 33%;" class="d-inline-block">
-      <h4 class="text-center">
-        Exames atrasados
+      <h4 class="text-center text-danger">
+        Exames atrasados <%= @delayed_exams[:count] %>
       </h4>
+      <div class="">
+        <%= pie_chart @delayed_exams[:relation], legend: false, colors: delayed_colors %>
+      </div>
     </div>
   </div>
 
