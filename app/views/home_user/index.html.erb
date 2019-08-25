@@ -7,14 +7,14 @@
       <h4 class="text-center text-secondary">
         Exames aguardando início <%= @waiting_exams.size %>
       </h4>
-      <%= pie_chart @waiting_exams, legend: false, colors: colors %>
+      <%= pie_chart @waiting_exams, legend: false, colors: waiting_colors %>
     </div>
 
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
         Exames em andamento <%= @open_exams.size %>
       </h4>
-      <%= pie_chart @exams_relation, legend: false, colors: colors %>
+      <%= pie_chart @exams_relation, legend: false, colors: in_progress %>
     </div>
 
     <div style="width: 33%;" class="d-inline-block">
