@@ -1,4 +1,5 @@
 class ExamsController < ApplicationController
+  # TODO: Revisar e remover todo código de lógica existente na controller !
   before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
 
@@ -43,6 +44,7 @@ class ExamsController < ApplicationController
 	def initiate
 		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
     @exam.internal_code_id = exam_params[:internal_code]
+    @exam.start_date = Date.today
 		apply_changes
 	end
 
