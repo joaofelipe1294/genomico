@@ -8,6 +8,7 @@ class HomeUserController < ApplicationController
       @open_exams = helpers.open_exams @user.fields.first.id
       @exams_relation = helpers.open_exams @user.fields.first.id
       @waiting_exams = helpers.waiting_exams @user.fields.first.id
+      @open_exams_objects = helpers.open_exams_objects @user.fields.first.id
     end
   end
 

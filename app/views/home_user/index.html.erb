@@ -23,4 +23,68 @@
       </h4>
     </div>
   </div>
+
+  <table class="table table-bordered text-center">
+    <thead class="bg-secondary text-white">
+      <th>
+        <h4>
+          Exame
+        </h4>
+      </th>
+      <th>
+        <h4>
+          Paciente
+        </h4>
+      </th>
+      <th>
+        <h4>
+          Amostra
+        </h4>
+      </th>
+      <th>
+        <h4>
+          Iniciado em
+        </h4>
+      </th>
+      <td>
+        <h4>
+          Status
+        </h4>
+      </td>
+      <th>
+        <h4>
+          LINK
+        </h4>
+      </th>
+    </thead>
+    <tbody>
+      <% @open_exams_objects.each do |exam| %>
+        <tr>
+          <td>
+            <%= exam.offered_exam.name %>
+          </td>
+          <td>
+            <%= exam.attendance.patient.name %>
+          </td>
+          <td>
+            <%= exam.internal_code.code %>
+          </td>
+          <td>
+            <%= l exam.start_date %>
+          </td>
+          <td>
+            <%= exam.exam_status_kind.name %>
+          </td>
+          <td>
+            <%= link_to "Exame", workflow_path(exam.attendance) %>
+          </td>
+        </tr>
+      <% end %>
+      <%# TODO: Diminuir tamanho dos graficos e adicionar legendas  %>
+      <%# TODO: centralizar legendas %>
+      <%# TODO: Adicionar linhas do exames esperando inicio com linha avisando diferença %>
+    </tbody>
+  </table>
+
+
 <% end %>
