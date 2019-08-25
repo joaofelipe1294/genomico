@@ -27,17 +27,4 @@ class HomeUserController < ApplicationController
     in_progress
   end
 
-  # def exams_in_progress field_id
-  #   open_exams_query = "
-  #       SELECT e.id
-  #       FROM exams e
-  #            INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-  #       WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-  #             AND e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Aguardando início')
-  #             AND oe.field_id = ?;"
-  #   status_concluded = ExamStatusKind.find_by({name: 'Concluído'})
-  #   exam_ids = Exam.find_by_sql [open_exams_query, field_id]
-  #   open_exams = Exam.where(id: exam_ids)
-  # end
-
 end
