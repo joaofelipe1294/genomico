@@ -1,5 +1,5 @@
 class HomeUserController < ApplicationController
-  helper_method :waiting_colors, :in_progress
+  helper_method :waiting_colors, :in_progress, :exam_status_color_helper
 
   def index
     @user = User.find session[:user_id]
@@ -8,7 +8,7 @@ class HomeUserController < ApplicationController
       @open_exams = helpers.open_exams @user.fields.first.id
       @exams_relation = helpers.open_exams @user.fields.first.id
       @waiting_exams = helpers.waiting_exams @user.fields.first.id
-      @open_exams_objects = helpers.open_exams_objects @user.fields.first.id
+      @issues = helpers.field_issues @user.fields.first.id
     end
   end
 
@@ -26,6 +26,22 @@ class HomeUserController < ApplicationController
       "#4dffdb", "#3385ff", "#8533ff", "#77ff33", "47d1d1", "#ff99ff", "#0099e6"
     ]
     in_progress
+  end
+
+  def exam_status_color_helper exam_status_kind
+    color = ""
+    if exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'})
+      color = "dark"
+    elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'})
+      color = "primary"
+    elsif exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'})
+      color = "info"
+    elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'})
+      color = "warning"
+    else
+      color = "success"
+    end
+    "<label class='text-#{color}'>#{exam_status_kind.name}</label>".html_safe
   end
 
 end
