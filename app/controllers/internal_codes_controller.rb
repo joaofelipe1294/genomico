@@ -5,8 +5,15 @@ class InternalCodesController < ApplicationController
   end
 
   def new
-    @fields = [Field.find_by({name: 'Imunofenotipagem'})]
-    @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
+    @fields = [
+      Field.find_by({name: 'Imunofenotipagem'}),
+      Field.find_by({name: 'Biologia Molecular'})
+    ]
+    if params[:target] == "sample"
+      @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
+    else
+      @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
+    end
   end
 
   def create
@@ -16,8 +23,15 @@ class InternalCodesController < ApplicationController
       redirect_to workflow_path(@internal_code.attendance)
     else
       flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
-      @fields = [Field.find_by({name: 'Imunofenotipagem'})]
-      redirect_to new_internal_code_path(@internal_code.sample)
+      @fields = [
+        Field.find_by({name: 'Imunofenotipagem'}),
+        Field.find_by({name: 'Biologia Molecular'})
+      ]
+      unless @internal_code.sample.nil?
+        redirect_to new_internal_code_path(@internal_code.sample, target: "sample")
+      else
+        redirect_to new_internal_code_path(@internal_code.subsample, target: "subsample")
+      end
     end
   end
 
@@ -36,7 +50,7 @@ class InternalCodesController < ApplicationController
   private
 
   def internal_code_attributes
-    params.require(:internal_code).permit(:sample_id, :field_id)
+    params.require(:internal_code).permit(:sample_id, :field_id, :subsample_id)
   end
 
 end

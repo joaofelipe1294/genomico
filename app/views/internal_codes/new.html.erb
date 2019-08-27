@@ -9,9 +9,11 @@
   <div class="card-body">
     <%= form_for @internal_code do |form| %>
       <div class="form-group">
-        <%= form.label :sample %>
-        <%= form.text_field "sample_refference", value: @internal_code.sample.refference_label, class: 'form-control', disabled: true %>
-        <%= form.text_field :sample_id, value: @internal_code.sample.id, hidden: true %>
+        <% unless @internal_code.sample.nil? %>
+          <%= form.text_field :sample_id, value: @internal_code.sample.id, hidden: true %>
+        <% else %>
+          <%= form.text_field :subsample_id, value: @internal_code.subsample.id, hidden: true %>
+        <% end %>
       </div>
       <div class="form-group">
         <%= form.label :field %>
@@ -23,30 +25,3 @@
     <% end %>
   </div>
 </div>
-
-<table class="table table-bordered col-md-10 offset-md-1 text-center mt-4">
-  <thead class="bg-dark text-white">
-    <th>Setor</th>
-    <th>Tipo de amostra</th>
-    <th>Código interno</th>
-    <th></th>
-  </thead>
-  <tbody>
-    <% @internal_code.sample.internal_codes.each do |internal_code| %>
-      <tr class="internal-code-line">
-        <td>
-          <%= internal_code.field.name %>
-        </td>
-        <td>
-          <%= internal_code.sample.sample_kind.name %>
-        </td>
-        <td>
-          <%= internal_code.code %>
-        </td>
-        <td>
-          <%= link_to 'Remover', internal_code_path(internal_code), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger btn-remove-internal-code', method: :delete, id: 'btn-remove-sample'} %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>

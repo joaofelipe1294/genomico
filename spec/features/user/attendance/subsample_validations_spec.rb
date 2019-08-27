@@ -11,17 +11,17 @@ RSpec.feature "User::Attendance::SubsampleValidations", type: :feature do
     extract_subsample
   end
 
-  it "navigate to subsamples tab", js: true do
-    expect(find(id: 'success-warning').text).to eq "Subamostra cadastrada com sucesso."
-  end
-
-  it "edit subsample", js: true do
-    click_button id: 'subsample_nav'
-    click_link id: 'btn-edit-subsample'
-    set_subsample_values
-    click_button id: 'btn-save-subsample'
-    expect(find(id: 'success-warning').text).to eq "Subamostra editada com sucesso."
-  end
+  # it "navigate to subsamples tab", js: true do
+  #   expect(find(id: 'success-warning').text).to eq "Subamostra cadastrada com sucesso."
+  # end
+  #
+  # it "edit subsample", js: true do
+  #   click_button id: 'subsample_nav'
+  #   click_link id: 'btn-edit-subsample'
+  #   set_subsample_values
+  #   click_button id: 'btn-save-subsample'
+  #   expect(find(id: 'success-warning').text).to eq "Subamostra editada com sucesso."
+  # end
 
   # it "remove subsample without exam", js: true do
   #   page.driver.browser.navigate.refresh
