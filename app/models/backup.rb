@@ -1,7 +1,7 @@
 class Backup < ActiveRecord::Base
   paginates_per 10
 
-  def self.perform_backup
+  def self.perform_backup # # FIXME: nao funciona em produção !!!
     puts Rails.env
     if File.directory?("./public/backups") == false
       `mkdir public/backups`
@@ -40,16 +40,16 @@ class Backup < ActiveRecord::Base
     backup.save
   end
 
-  def self.restore(database, file_path)
+  def self.restore(database, file_path) ## TODO: revisar metodo !!!
     `mkdir ./public/backups/temp_restore`
     `cp #{file_path} ./public/backups/temp_restore/`
     `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
     `cp -r ./public/backups/temp_restore/system/ ./public/`
-    if Rails.env.production?
-      `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
-    else
-      `PGPASSWORD="1234" pg_restore -h localhost -p 5432 -U postgres -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
-    end
+    # if Rails.env.production?
+    #   `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
+    # else
+    `PGPASSWORD="1234" pg_restore -h localhost -p 5432 -U postgres -c -d genomico_development -v ./public/backups/temp_restore/pgdump.dump`
+    # end
     `rm -r ./public/backups/temp_restore`
     true
   end
