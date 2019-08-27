@@ -98,10 +98,12 @@
 					<%= internal_code.code %>
 				</td>
 				<td>
-					<% unless internal_code.sample.nil? %>
+					<% if internal_code.sample.nil? == false %>
 						<%= internal_code.sample.sample_kind.name %>
-					<% else %>
+					<% elsif internal_code.subsample.nil? == false %>
 						<%= internal_code.subsample.subsample_kind.name %>
+					<% else %>
+						-
 					<% end %>
 				</td>
 				<td>

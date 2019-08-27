@@ -62,20 +62,20 @@ RSpec.feature "User::Attendance::SampleValidations", type: :feature do
     end
 
     it "new subsample only nanodrop", js: true do
-      fill_in 'subsample[nanodrop_report_attributes][rate_260_280]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
-      fill_in 'subsample[nanodrop_report_attributes][rate_260_230]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
-      fill_in 'subsample[nanodrop_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][rate_260_280]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][rate_260_230]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
     end
 
     it "new subsample only qubit", js: true do
-      fill_in 'subsample[qubit_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
+      fill_in 'subsample[qubit_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
     end
 
     it "new subsample with nanodrop and qubit", js: true do
-      fill_in 'subsample[nanodrop_report_attributes][rate_260_280]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
-      fill_in 'subsample[nanodrop_report_attributes][rate_260_230]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
-      fill_in 'subsample[nanodrop_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
-      fill_in 'subsample[qubit_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2).to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][rate_260_280]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][rate_260_230]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
+      fill_in 'subsample[nanodrop_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
+      fill_in 'subsample[qubit_report_attributes][concentration]', with: Faker::Number.decimal(l_digits: 2) #.to_s.gsub('.', ',')
     end
 
   end
