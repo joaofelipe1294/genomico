@@ -31,7 +31,11 @@
           <%= exam.offered_exam.field.name %>
         </td>
         <td>
-          <%= l exam.start_date %>
+          <% unless exam.start_date.nil? %>
+            <%= l exam.start_date %>
+          <% else %>
+            -
+          <% end %>
         </td>
         <td>
           <%= exam.exam_status_kind.name %>
