@@ -30,6 +30,10 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to 'Imunofenotipagem', internal_codes_path(field_id: Field.find_by(name: 'Imunofenotipagem')), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Biologia Molecular', internal_codes_path(field_id: Field.find_by(name: 'Biologia Molecular')), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'FISH', internal_codes_path(field_id: Field.find_by(name: 'FISH')), class: 'dropdown-item' %>
         </div>
       </li>
 

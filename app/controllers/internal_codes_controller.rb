@@ -7,7 +7,8 @@ class InternalCodesController < ApplicationController
   def new
     @fields = [
       Field.find_by({name: 'Imunofenotipagem'}),
-      Field.find_by({name: 'Biologia Molecular'})
+      Field.find_by({name: 'Biologia Molecular'}),
+      Field.find_by({name: 'FISH'})
     ]
     if params[:target] == "sample"
       @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
@@ -25,7 +26,8 @@ class InternalCodesController < ApplicationController
       flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
       @fields = [
         Field.find_by({name: 'Imunofenotipagem'}),
-        Field.find_by({name: 'Biologia Molecular'})
+        Field.find_by({name: 'Biologia Molecular'}),
+        Field.find_by({name: 'FISH'})
       ]
       unless @internal_code.sample.nil?
         redirect_to new_internal_code_path(@internal_code.sample, target: "sample")

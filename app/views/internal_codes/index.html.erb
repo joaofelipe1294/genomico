@@ -48,7 +48,11 @@
               <% end %>
             </td>
             <td>
-              <%= l exam.internal_code.sample.entry_date %>
+              <% unless exam.internal_code.sample.nil? %>
+                <%= l exam.internal_code.sample.entry_date %>
+              <% else %>
+                <%= l exam.internal_code.subsample.created_at.to_date %>
+              <% end %>
             </td>
             <td>
               <%= exam.offered_exam.name %>
@@ -65,13 +69,45 @@
               <% end %>
             </td>
             <td>
-              <%= exam.internal_code.sample.attendance.patient.name %>
+              <%= exam.internal_code.attendance.patient.name %>
             </td>
             <td>
-              <%= link_to exam.internal_code.sample.attendance.lis_code, workflow_path(internal_code.sample.attendance) %>
+              <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance) %>
             </td>
           </tr>
         <% end %>
+      <% else %>
+        <tr>
+          <td>
+            <%= internal_code.code %>
+          </td>
+          <td>
+            <% unless internal_code.sample.nil? %>
+              <%= internal_code.sample.sample_kind.name %>
+            <% else %>
+              <%= internal_code.subsample.subsample_kind.name %>
+            <% end %>
+          </td>
+          <td>
+            <% unless internal_code.sample.nil? %>
+              <%= l internal_code.sample.entry_date %>
+            <% else %>
+              <%= l internal_code.subsample.created_at.to_date %>
+            <% end %>
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            <%= internal_code.attendance.patient.name %>
+          </td>
+          <td>
+            <%= link_to internal_code.attendance.lis_code, workflow_path(internal_code.attendance) %>
+          </td>
+        </tr>
       <% end %>
     <% end %>
   </tbody>

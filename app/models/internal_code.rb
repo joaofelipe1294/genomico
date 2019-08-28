@@ -22,7 +22,7 @@ class InternalCode < ApplicationRecord
       if self.field == Field.find_by({name: 'Imunofenotipagem'}) # FIXME: Remover esta parte quando virar o ano !!!
         new_code = InternalCode.where(field: self.field).size + 416
         self.code = "#{Date.today.year.to_s.slice(2, 3)}#{new_code.to_s.rjust(4,  "0")}"
-      elsif self.field == Field.find_by({name: 'Biologia Molecular'})
+      elsif self.field == Field.find_by({name: 'Biologia Molecular'}) || self.field == Field.find_by(name: 'FISH')
         new_code = InternalCode.where(field: self.field).size + 1
         new_code = new_code.to_s.rjust(4,  "0")
         self.code = "#{Date.today.year.to_s.slice(2, 3)}-#{self.subsample.subsample_kind.acronym}-#{new_code}"
