@@ -5,15 +5,12 @@ class InternalCodesController < ApplicationController
   end
 
   def new
-    @fields = [
-      Field.find_by({name: 'Imunofenotipagem'}),
-      Field.find_by({name: 'Biologia Molecular'}),
-      Field.find_by({name: 'FISH'})
-    ]
     if params[:target] == "sample"
       @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
+      @fields = [Field.find_by({name: 'Imunofenotipagem'})]
     else
       @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
+      @fields = [Field.find_by({name: 'Biologia Molecular'}), Field.find_by({name: 'FISH'})]
     end
   end
 
@@ -23,16 +20,17 @@ class InternalCodesController < ApplicationController
       flash[:success] = 'Código interno salvo com sucesso.'
       redirect_to workflow_path(@internal_code.attendance)
     else
-      flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
-      @fields = [
-        Field.find_by({name: 'Imunofenotipagem'}),
-        Field.find_by({name: 'Biologia Molecular'}),
-        Field.find_by({name: 'FISH'})
-      ]
+      unless @internal_code.errors.empty?
+        flash[:warning] = @internal_code.errors.first.last
+      else
+        flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
+      end
       unless @internal_code.sample.nil?
         redirect_to new_internal_code_path(@internal_code.sample, target: "sample")
+        @fields = [Field.find_by({name: 'Imunofenotipagem'})]
       else
         redirect_to new_internal_code_path(@internal_code.subsample, target: "subsample")
+        @fields = [Field.find_by({name: 'Biologia Molecular'}),Field.find_by({name: 'FISH'})]
       end
     end
   end

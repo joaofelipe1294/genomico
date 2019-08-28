@@ -87,7 +87,7 @@ RSpec.describe Sample, type: :model do
 			sample_kind = create(:sample_kind, name: 'Liquor', acronym: 'LQ', refference_index: 0)
 			sample = create(:sample, sample_kind: sample_kind)
 			expect(sample.refference_label).to be
-			expect(sample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-LQ-00001")
+			expect(sample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-LQ-0001")
 		end
 
 	end
