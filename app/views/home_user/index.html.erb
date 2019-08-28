@@ -50,6 +50,11 @@
       </th>
       <td>
         <h4>
+          Iniciado em
+        </h4>
+      </td>
+      <td>
+        <h4>
           Status
         </h4>
       </td>
@@ -69,6 +74,13 @@
           <td>
             <% unless exam.internal_code.nil? %>
               <%= exam.internal_code.code %>
+            <% end %>
+          </td>
+          <td>
+            <% unless exam.start_date.nil? %>
+              <%= l exam.start_date %>
+            <% else %>
+              -
             <% end %>
           </td>
           <td>
