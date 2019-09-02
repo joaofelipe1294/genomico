@@ -1,1 +1,100 @@
-Abostras de bacientI
+<%= render 'layouts/user_navbar' %>
+
+<div class="text-center mt-3 border-botto">
+  <%= link_to @patient.name, patient_path(@patient), class: 'h3' %>
+</div>
+
+<table class="table table-bordered text-center mt-5">
+  <thead class="bg-dark text-white">
+    <th>
+      <h4>Tipo</h4>
+    </th>
+    <th>
+      <h4>
+        Coleta
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Inicio atendimento
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Concentração (Nanodrop)
+      </h4>
+    </th>
+    <th>
+      <h4>
+        260/280
+      </h4>
+    </th>
+    <th>
+      <h4>
+        260/230
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Concentração (Qubit)
+      </h4>
+    </th>
+  </thead>
+  <tbody>
+    <% @attendances.each do |attendance| %>
+      <% attendance.samples.each do |sample| %>
+        <tr>
+          <td>
+            <%= sample.sample_kind.name %>
+          </td>
+          <td>
+            <%= l sample.collection_date %>
+          </td>
+          <td>
+            <%= l attendance.created_at.to_date %>
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <% sample.subsamples.each do |subsample| %>
+          <tr>
+            <td>
+              <%= subsample.subsample_kind.name %>
+            </td>
+            <td>
+              <%= l subsample.collection_date.to_date %>
+            </td>
+            <td>
+              <%= l attendance.created_at.to_date %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.concentration %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.rate_260_280 %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.rate_260_230 %>
+            </td>
+            <td>
+              <%= subsample.qubit_report.concentration %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<div class="container pagination justify-content-center" >
+  <%= paginate @attendances , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+</div>

@@ -69,7 +69,8 @@ class PatientsController < ApplicationController
 
   # GET /patients/:id/samples
   def samples_from_patient
-    @patient = Patient.includes(:attendances).find params[:id]
+    @patient = Patient.includes(:attendances).find(params[:id])
+    @attendances = @patient.attendances.includes(:samples, :subsamples).order(created_at: :desc).page params[:page]
   end
 
   private
