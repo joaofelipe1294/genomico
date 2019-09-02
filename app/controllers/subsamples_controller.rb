@@ -38,6 +38,12 @@ class SubsamplesController < ApplicationController
   def create
     @subsample = Subsample.new(subsample_params)
     if @subsample.save
+      if @subsample.subsample_kind == SubsampleKind.PELLET
+        InternalCode.create({
+          field: Field.FISH,
+          subsample: @subsample,
+        })
+      end
       flash[:success] = "Subamostra cadastrada com sucesso."
       redirect_to workflow_path(@subsample.sample.attendance)
     else
