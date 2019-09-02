@@ -43,6 +43,11 @@ class SubsamplesController < ApplicationController
           field: Field.FISH,
           subsample: @subsample,
         })
+      else
+        InternalCode.create(
+          field: Field.BIOMOL,
+          subsample: @subsample
+        )
       end
       flash[:success] = "Subamostra cadastrada com sucesso."
       redirect_to workflow_path(@subsample.sample.attendance)

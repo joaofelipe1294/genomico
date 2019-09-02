@@ -42,6 +42,14 @@ RSpec.describe Field, type: :model do
       expect(Field.FISH).to eq Field.find_by name: 'FISH'
     end
 
+    it "Biomol" do
+      expect(Field.BIOMOL).to eq Field.find_by name: 'Biologia Molecular'
+    end
+
+    it "Imunofeno" do
+      expect(Field.IMUNOFENO).to eq Field.find_by name: 'Imunofenotipagem'
+    end
+
   end
 
 

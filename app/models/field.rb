@@ -9,5 +9,12 @@ class Field < ActiveRecord::Base
 		Field.find_by name: 'FISH'
 	end
 
+	def self.BIOMOL
+		Field.find_by name: 'Biologia Molecular'
+	end
+
+	def self.IMUNOFENO
+		Field.find_by name: 'Imunofenotipagem'
+	end
 
 end
