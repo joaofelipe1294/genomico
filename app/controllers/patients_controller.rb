@@ -67,6 +67,11 @@ class PatientsController < ApplicationController
     redirect_to home_user_index_path
   end
 
+  # GET /patients/:id/samples
+  def samples_from_patient
+    @patient = Patient.includes(:attendances).find params[:id]
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient

@@ -6,6 +6,7 @@
       Paciente
     </h4>
     <%= link_to "Editar", edit_patient_path(@patient), class: 'btn btn-sm btn-outline-warning float-right ml-4' %>
+    <%= link_to "Amostras", samples_from_patient_path(@patient), class: 'btn btn-sm btn-outline-primary float-right ml-4'%>
     <%= link_to "Exames", exams_from_patient_path(@patient), class: 'btn btn-sm btn-outline-info float-right' %>
   </div>
   <div class="card-body">
