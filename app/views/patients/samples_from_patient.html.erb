@@ -1,10 +1,38 @@
 <%= render 'layouts/user_navbar' %>
 
-<div class="text-center mt-3 border-botto">
-  <%= link_to @patient.name, patient_path(@patient), class: 'h3' %>
+<%# TODO: continuar fazendo a filtragem do tipo de amostra ou subamostra que será exibida ... %>
+
+<div class="mt-3">
+  <div class="col-md-5 d-inline-block border-right offset-1">
+    <%= form_with do |form| %>
+      <div class="form-group">
+        <label>Amostra</label>
+        <%= form.select :sample_kid, options_from_collection_for_select(@sample_kinds, "id", "name"), {}, class: 'form-control' %>
+      </div>
+      <button class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+
+  <div class="col-md-5 d-inline-block">
+    <%= form_with do |form| %>
+      <div class="form-group">
+        <label>Subamostra</label>
+        <%= form.select :subsample_kid, options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control' %>
+      </div>
+      <button class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
 </div>
 
-<table class="table table-bordered text-center mt-5">
+<!-- <div class="text-center mt-3 border-botto">
+  <%= link_to @patient.name, patient_path(@patient), class: 'h3' %>
+</div> -->
+
+<table class="table table-bordered text-center mt-3">
   <thead class="bg-dark text-white">
     <th>
       <h4>Tipo</h4>
