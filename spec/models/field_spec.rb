@@ -36,5 +36,13 @@ RSpec.describe Field, type: :model do
 
 	end
 
+  context 'Field constants' do
+
+    it "FISH" do
+      expect(Field.FISH).to eq Field.find_by name: 'FISH'
+    end
+
+  end
+
 
 end

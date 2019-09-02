@@ -37,4 +37,12 @@ RSpec.describe SubsampleKind, type: :model do
 
 	end
 
+  context "Constants" do
+
+    it "Pellet de FISH" do
+      expect(SubsampleKind.PELLET).to eq SubsampleKind.find_by name: 'Pellet de FISH'
+    end
+
+  end
+
 end
