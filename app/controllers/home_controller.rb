@@ -4,18 +4,18 @@ class HomeController < ApplicationController
 
   def login
   	user = User.find_by({login: user_params[:login]})
-  	if user
+  	unless user.nil?
 	  	if user.authenticate user_params[:password]
 	  		session[:user_id] = user.id
         session[:user_login] = user.login
-	  		redirect_to home_admin_index_path if user.user_kind == UserKind.find_by({name: 'admin'}) 
-	  		redirect_to home_user_index_path if user.user_kind == UserKind.find_by({name: 'user'})
+	  		redirect_to home_admin_index_path if user.user_kind == UserKind.ADMIN
+	  		redirect_to home_user_index_path if user.user_kind == UserKind.USER
 			else
-				flash[:warning] = 'Login ou senha inválidos.'
+				flash[:warning] = I18n.t :wrong_credential_message
 				redirect_to root_path
 			end
 		else
-			flash[:warning] = 'Login ou senha inválidos.'
+			flash[:warning] = I18n.t :wrong_credential_message
 			redirect_to root_path
 		end
   end
@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   	redirect_to root_path
   end
 
-  private 
+  private
 
   def user_params
   	params.permit(:login, :password)

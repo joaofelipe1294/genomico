@@ -122,3 +122,4 @@
         field_id: Área do laboratório
         field: Área do laboratório
         code: Código
+  wrong_credential_message: 'Login ou senha inválidos.'

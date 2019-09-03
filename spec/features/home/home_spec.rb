@@ -4,6 +4,7 @@ RSpec.feature "Home_page", type: :feature, js: false do
 
 	before :each do
 		visit root_path
+		Rails.application.load_seed
 	end
 
 	it 'visit home_page' do
@@ -32,13 +33,20 @@ RSpec.feature "Home_page", type: :feature, js: false do
 			expect(page).to have_current_path home_admin_index_path
 		end
 
-
 		it 'login with correct USER credential' do
 			user = create(:user, user_kind: UserKind.USER)
 			fill_in 'login', with: user.login
 			fill_in 'password', with: user.password
 			click_button 'btn-login'
 			expect(page).to have_current_path home_user_index_path
+		end
+
+		it 'login with inactive user' do
+			user = create(:user, user_kind: UserKind.USER, is_active: false)
+			fill_in 'login', with: user.login
+			fill_in 'password', with: user.password
+			click_button 'btn-login'
+			expect(page).to have_current_path root_path
 		end
 
 	end

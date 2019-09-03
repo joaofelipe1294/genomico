@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
       user = User.find_by({
         id: session[:user_id],
         login: session[:user_login],
-        user_kind: UserKind.find_by({name: 'admin'})
+        user_kind: UserKind.ADMIN,
+        is_active: true
       })
       if user.nil?
         reset_session
@@ -20,7 +21,8 @@ class ApplicationController < ActionController::Base
       user = User.find_by({
         id: session[:user_id],
         login: session[:user_login],
-        user_kind: UserKind.find_by({name: 'user'})
+        user_kind: UserKind.USER,
+        is_active: true
       })
       if user.nil?
         reset_session
@@ -42,7 +44,7 @@ class ApplicationController < ActionController::Base
     end
 
     def redirect_to_home
-      if User.find(session[:user_id]).user_kind == UserKind.find_by(name: 'admin')
+      if User.find(session[:user_id]).user_kind == UserKind.ADMIN
         redirect_to home_admin_index_path
       else
         redirect_to home_user_index_path

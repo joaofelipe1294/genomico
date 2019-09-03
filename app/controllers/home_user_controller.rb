@@ -1,5 +1,7 @@
 class HomeUserController < ApplicationController
   helper_method :waiting_colors, :in_progress_colors, :exam_status_color_helper, :delayed_colors
+  before_action :user_filter
+
 
   def index
     @user = User.find session[:user_id]
