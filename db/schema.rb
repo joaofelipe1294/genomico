@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_181858) do
+ActiveRecord::Schema.define(version: 2019_09_03_133005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,7 +195,9 @@ ActiveRecord::Schema.define(version: 2019_08_27_181858) do
     t.string "storage_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "patient_id"
     t.index ["attendance_id"], name: "index_samples_on_attendance_id"
+    t.index ["patient_id"], name: "index_samples_on_patient_id"
     t.index ["sample_kind_id"], name: "index_samples_on_sample_kind_id"
   end
 
@@ -279,6 +281,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_181858) do
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "samples", "attendances"
+  add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"

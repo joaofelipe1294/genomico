@@ -8,6 +8,7 @@ class Sample < ActiveRecord::Base
   before_save :set_refference_label
   validates :sample_kind, :collection_date, :bottles_number, presence: true
   has_many :internal_codes
+  belongs_to :patient
 
 	private
 

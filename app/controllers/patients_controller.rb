@@ -72,6 +72,10 @@ class PatientsController < ApplicationController
     @sample_kinds = SampleKind.all.order name: :asc
     @subsample_kinds = SubsampleKind.all.order name: :asc
     @patient = Patient.includes(:attendances).find(params[:id])
+
+    # TODO: continuar DAKI !!!
+
+
     @attendances = @patient.attendances.includes(:samples, :subsamples).order(created_at: :desc).page params[:page]
   end
 
