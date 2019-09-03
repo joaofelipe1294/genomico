@@ -9,7 +9,7 @@
     <%= form_with url: samples_from_patient_path(@patient), method: :get do |form| %>
       <div class="form-group">
         <label>Amostra</label>
-        <%= form.select :sample_kid, options_from_collection_for_select(@sample_kinds, "id", "name"), {}, class: 'form-control' %>
+        <%= form.select :sample_kind, options_from_collection_for_select(@sample_kinds, "id", "name"), {}, class: 'form-control' %>
       </div>
       <button class="btn btn-outline-info float-right">
         Buscar
@@ -18,10 +18,10 @@
   </div>
 
   <div class="col-md-5 d-inline-block">
-    <%= form_with do |form| %>
+    <%= form_with url: samples_from_patient_path(@patient), method: :get do |form| %>
       <div class="form-group">
         <label>Subamostra</label>
-        <%= form.select :subsample_kid, options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control' %>
+        <%= form.select :subsample_kind, options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control' %>
       </div>
       <button class="btn btn-outline-info float-right">
         Buscar
@@ -67,8 +67,8 @@
     </th>
   </thead>
   <tbody>
-    <% @attendances.each do |attendance| %>
-      <% attendance.samples.each do |sample| %>
+    <% if @display == 'ALL' %>
+      <% @samples.each do |sample| %>
         <tr>
           <td>
             <%= sample.sample_kind.name %>
@@ -77,7 +77,7 @@
             <%= l sample.collection_date %>
           </td>
           <td>
-            <%= l attendance.created_at.to_date %>
+            <%= l sample.attendance.created_at.to_date %>
           </td>
           <td>
             -
@@ -101,7 +101,7 @@
               <%= l subsample.collection_date.to_date %>
             </td>
             <td>
-              <%= l attendance.created_at.to_date %>
+              <%= l subsample.attendance.created_at.to_date %>
             </td>
             <td>
               <%= subsample.nanodrop_report.concentration %>
@@ -118,9 +118,59 @@
           </tr>
         <% end %>
       <% end %>
+    <% elsif @display == 'SAMPLE' %>
+      <% @samples.each do |sample| %>
+        <tr>
+          <td>
+            <%= sample.sample_kind.name %>
+          </td>
+          <td>
+            <%= l sample.collection_date %>
+          </td>
+          <td>
+            <%= l sample.attendance.created_at.to_date %>
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <% @subsamples.each do |subsample| %>
+        <tr>
+          <td>
+            <%= subsample.subsample_kind.name %>
+          </td>
+          <td>
+            <%= l subsample.collection_date.to_date %>
+          </td>
+          <td>
+            <%= l subsample.attendance.created_at.to_date %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.concentration %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.rate_260_280 %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.rate_260_230 %>
+          </td>
+          <td>
+            <%= subsample.qubit_report.concentration %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
+
   </tbody>
 </table>
-<div class="container pagination justify-content-center" >
-  <%= paginate @attendances , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
-</div>

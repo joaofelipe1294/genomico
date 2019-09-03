@@ -71,12 +71,17 @@ class PatientsController < ApplicationController
   def samples_from_patient
     @sample_kinds = SampleKind.all.order name: :asc
     @subsample_kinds = SubsampleKind.all.order name: :asc
-    @patient = Patient.includes(:attendances).find(params[:id])
-
-    # TODO: continuar DAKI !!!
-
-
-    @attendances = @patient.attendances.includes(:samples, :subsamples).order(created_at: :desc).page params[:page]
+    @patient = Patient.includes(:samples, :subsamples).find(params[:id])
+    if params[:sample_kind].nil? && params[:subsample_kind].nil?
+      @samples = @patient.samples.includes(:attendance, :subsamples)
+      @display = 'ALL'
+    elsif params[:sample_kind].nil? == false
+      @samples = @patient.samples.includes(:attendance).where(sample_kind_id: params[:sample_kind])
+      @display = 'SAMPLE'
+    elsif params[:subsample_kind].nil? == false
+      @subsamples = @patient.subsamples.includes(:attendance).where(subsample_kind_id: params[:subsample_kind])
+      @display = 'SUBSAMPLE'
+    end
   end
 
   private
