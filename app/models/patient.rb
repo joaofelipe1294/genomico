@@ -8,6 +8,7 @@ class Patient < ActiveRecord::Base
 	validates :medical_record, uniqueness: {scope: :hospital_id}
 	validates :name, uniqueness: {scope: [:hospital_id, :mother_name, :birth_date]}
 	has_many :samples
+	has_many :subsamples
 
 	private
 

@@ -10,6 +10,7 @@ class Subsample < ActiveRecord::Base
   accepts_nested_attributes_for :nanodrop_report, allow_destroy: true
   before_save :add_default_values
   has_many :internal_codes
+  belongs_to :patient
 
   private
 
