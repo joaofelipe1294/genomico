@@ -23,18 +23,23 @@ def do_login
 end
 
 
-def user_do_login_with_seeds
+def user_do_login_with_seeds field: nil
 	Rails.application.load_seed
+	field = Field.IMUNOFENO if field.nil?
 	user = User.create({
 		login: Faker::Internet.username,
 		password: Faker::Internet.password,
 		name: Faker::Name.name,
 		is_active: true,
-		fields: [Field.IMUNOFENO],
+		fields: [field],
 		user_kind: UserKind.USER
 	})
 	visit root_path
 	fill_in "login", with: user.login
 	fill_in "password", with: user.password
 	click_button id: 'btn-login'
+end
+
+def imunofeno_user_do_login_with_seeds
+	user_do_login_with_seeds field: Field.IMUNOFENO
 end
