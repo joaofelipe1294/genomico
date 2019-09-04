@@ -177,6 +177,60 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
   end
 
+  context "issues list validations" do
+
+    it "without issues" do
+      expect(find_all(class: 'issue').size).to eq 0
+    end
+
+    it "with one exam" do
+      exam = Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)
+      attendance = create(:attendance, exams: [exam])
+      visit current_path
+      expect(find_all(class: 'issue').size).to eq 1
+    end
+
+    it "with distinct field exam" do
+      exam = Exam.new(offered_exam: OfferedExam.where(field: Field.BIOMOL).sample)
+      attendance = create(:attendance, exams: [exam])
+      visit current_path
+      expect(find_all(class: 'issue').size).to eq 0
+    end
+
+    it "with two exams" do
+      exams = [
+        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample),
+        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)
+      ]
+      attendance = create(:attendance, exams: exams)
+      visit current_path
+      expect(find_all(class: 'issue').size).to eq 2
+    end
+
+    it "visit exam issue" do
+      exam = Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)
+      attendance = create(:attendance, exams: [exam])
+      visit current_path
+      expect(find_all(class: 'issue').size).to eq 1
+      click_link class: 'attendance-code', match: :first
+      expect(page).to have_current_path workflow_path(attendance)
+    end
+
+
+
+
+
+  end
+
+
+
+
+
+
+
+
+
+
 
 
 

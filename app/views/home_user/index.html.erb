@@ -70,7 +70,7 @@
     </thead>
     <tbody>
       <% @issues.each do |exam| %>
-        <tr>
+        <tr class="issue">
           <td>
             <%= exam.offered_exam.name %>
           </td>
@@ -93,7 +93,7 @@
             <%= exam_status_color_helper exam.exam_status_kind %>
           </td>
           <td>
-            <%= link_to "Exame", workflow_path(exam.attendance) %>
+            <%= link_to "Exame", workflow_path(exam.attendance), class: 'attendance-code' %>
           </td>
         </tr>
       <% end %>
