@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <%= link_to 'Genômico', home_user_index_path, {class: 'navbar-brand'}%>
+  <%= link_to 'Genômico', home_user_index_path, class: 'navbar-brand', id: 'home-link' %>
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
@@ -42,9 +42,9 @@
           Mapas de trabalho
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_work_map_path, {class: 'dropdown-item', id: 'new-work-map'} %>
+          <%= link_to 'Novo', new_work_map_path, class: 'dropdown-item', id: 'new-work-map' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', work_maps_path, {class: 'dropdown-item'} %>
+          <%= link_to 'Buscar', work_maps_path, class: 'dropdown-item', id: 'work-maps' %>
         </div>
       </li>
 
@@ -53,9 +53,9 @@
       		Cadastro de Exames
       	</a>
       	<div class="dropdown-menu" aria-labelledby="offered-exam-dropdown">
-      		<%= link_to 'Novo', new_offered_exam_path, {class: 'dropdown-item', id: 'new-offered-exam'} %>
+      		<%= link_to 'Novo', new_offered_exam_path, class: 'dropdown-item', id: 'new-offered-exam' %>
       		<div class="dropdown-divider"></div>
-      		<%= link_to 'Buscar', offered_exams_path, {class: 'dropdown-item', id: 'offered-exams'} %>
+      		<%= link_to 'Buscar', offered_exams_path, class: 'dropdown-item', id: 'offered-exams' %>
       	</div>
       </li>
 
@@ -71,15 +71,15 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="hospital-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="indicators-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Indicadores
         </a>
-        <div class="dropdown-menu" aria-labelledby="hospital-dropdown">
-          <%= link_to 'Exames em andamento', exams_in_progress_path, {class: 'dropdown-item'} %>
+        <div class="dropdown-menu" aria-labelledby="dropdown">
+          <%= link_to 'Exames em andamento', exams_in_progress_path, class: 'dropdown-item', id: 'exams-in-progress' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Exames concluídos', concluded_exams_path, {class: 'dropdown-item'} %>
+          <%= link_to 'Exames concluídos', concluded_exams_path, class: 'dropdown-item', id: 'concluded-exams' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Exames feitos por plano de saúde', health_ensurances_relation_path, {class: 'dropdown-item'} %>
+          <%= link_to 'Exames feitos por plano de saúde', health_ensurances_relation_path, class: 'dropdown-item', id: 'health-ensurances-relation' %>
         </div>
       </li>
 

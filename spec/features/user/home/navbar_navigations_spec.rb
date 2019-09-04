@@ -66,4 +66,89 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
 
   end
 
+  context "work-map" do
+
+    before :each do
+      click_link 'work-map-dropdown'
+    end
+
+    it "new" do
+      click_link 'new-work-map'
+      expect(page).to have_current_path new_work_map_path
+    end
+
+    it "search" do
+      click_link 'work-maps'
+      expect(page).to have_current_path work_maps_path
+    end
+
+  end
+
+  context "offered-exams" do
+
+    before :each do
+      click_link 'offered-exam-dropdown'
+    end
+
+    it "new" do
+      click_link 'new-offered-exam'
+      expect(page).to have_current_path new_offered_exam_path
+    end
+
+    it "search" do
+      click_link 'offered-exams'
+      expect(page).to have_current_path offered_exams_path
+    end
+
+  end
+
+  context "hospitals" do
+
+    before :each do
+      click_link 'hospital-dropdown'
+    end
+
+    it "new" do
+      click_link 'new-hospital'
+      expect(page).to have_current_path new_hospital_path
+    end
+
+    it "search" do
+      click_link 'hospitals'
+      expect(page).to have_current_path hospitals_path
+    end
+
+  end
+
+  context "indicators" do
+
+    before :each do
+      click_link 'indicators-dropdown'
+    end
+
+    it "exams-in-progress" do
+      click_link 'exams-in-progress'
+      expect(page).to have_current_path exams_in_progress_path
+    end
+
+    it "concluded-exams" do
+      click_link 'concluded-exams'
+      expect(page).to have_current_path concluded_exams_path
+    end
+
+    it "health-ensurances-relation" do
+      click_link 'health-ensurances-relation'
+      expect(page).to have_current_path health_ensurances_relation_path
+    end
+
+  end
+
+  it "return to home" do
+    click_link 'patient-dropdown'
+    click_link 'new-patient'
+    expect(page).to have_current_path new_patient_path
+    click_link 'home-link'
+    expect(page).to have_current_path home_user_index_path
+  end
+
 end
