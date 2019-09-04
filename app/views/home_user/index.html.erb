@@ -16,19 +16,23 @@
 
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
-        Exames em andamento <%= @open_exams.size %>
+        Exames em andamento <span id="in-progress-exams-number"><%= @exams_in_progress[:count] %></span>
       </h4>
-      <div class="">
-        <%= pie_chart @exams_relation, legend: false, colors: in_progress_colors %>
+      <div>
+        <% if @exams_in_progress[:count] > 0 %>
+          <%= pie_chart @exams_in_progress[:relation], legend: false, colors: in_progress_colors, id: 'in-progress-exams-chart' %>
+        <% end %>
       </div>
     </div>
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-danger">
-        Exames atrasados <%= @delayed_exams[:count] %>
+        Exames atrasados <span id="delayed-exams-number"><%= @delayed_exams[:count] %></span>
       </h4>
-      <div class="">
-        <%= pie_chart @delayed_exams[:relation], legend: false, colors: delayed_colors %>
+      <div>
+        <% if @delayed_exams[:count] > 0 %>
+          <%= pie_chart @delayed_exams[:relation], legend: false, colors: delayed_colors, id: 'delayed-exams-chart' %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -2,14 +2,12 @@ class HomeUserController < ApplicationController
   helper_method :waiting_colors, :in_progress_colors, :delayed_colors
   before_action :user_filter
 
-
   def index
     @user = User.find session[:user_id]
-    unless @user.fields.empty? 
+    unless @user.fields.empty?
       @user = User.includes(:fields).find(session[:user_id])
       @waiting_exams = helpers.waiting_exams @user.fields.first.id
-      @open_exams = helpers.exams_in_progress @user.fields.first.id
-      @exams_relation = helpers.open_exams @user.fields.first.id
+      @exams_in_progress = helpers.exams_in_progress @user.fields.first.id
       @issues = helpers.field_issues @user.fields.first.id
       @delayed_exams = helpers.delayed_exams @issues
     end
