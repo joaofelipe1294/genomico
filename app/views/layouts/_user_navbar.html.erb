@@ -13,27 +13,27 @@
         </div>
       </li>
 
-      <li class="nav-item dropdown"> <%# TODO: continuar testando da navegação deste ponto !!! %>
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="attendance-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Atendimentos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Painel de exames', panels_exams_path, {class: 'dropdown-item'} %>
+          <%= link_to 'Painel de exames', panels_exams_path, class: 'dropdown-item', id: 'attendance-panel' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', attendances_path, class: 'dropdown-item' %>
+          <%= link_to 'Buscar', attendances_path, class: 'dropdown-item', id: 'attendance-search' %>
         </div>
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="samples-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Amostras
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Imunofenotipagem', internal_codes_path(field_id: Field.find_by(name: 'Imunofenotipagem')), class: 'dropdown-item' %>
+          <%= link_to 'Imunofenotipagem', internal_codes_path(field_id: Field.IMUNOFENO), class: 'dropdown-item', id: 'samples-imunofeno' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Biologia Molecular', internal_codes_path(field_id: Field.find_by(name: 'Biologia Molecular')), class: 'dropdown-item' %>
+          <%= link_to 'Biologia Molecular', internal_codes_path(field_id: Field.BIOMOL), class: 'dropdown-item', id: 'samples-biomol' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'FISH', internal_codes_path(field_id: Field.find_by(name: 'FISH')), class: 'dropdown-item' %>
+          <%= link_to 'FISH', internal_codes_path(field_id: Field.FISH), class: 'dropdown-item', id: 'samples-fish' %>
         </div>
       </li>
 
