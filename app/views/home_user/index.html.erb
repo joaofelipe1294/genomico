@@ -5,10 +5,12 @@
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-secondary">
-        Exames aguardando início <%= @waiting_exams.size %>
+        Exames aguardando início <span id="waiting-exams-number"><%= @waiting_exams[:count] %></span>
       </h4>
-      <div class="">
-        <%= pie_chart @waiting_exams, legend: false, colors: waiting_colors %>
+      <div id="exams-waiting-chart">
+        <% if @waiting_exams[:count] > 0 %>
+          <%= pie_chart @waiting_exams[:relation], legend: false, colors: waiting_colors, id: 'waiting-exams-chart' %>
+        <% end %>
       </div>
     </div>
 

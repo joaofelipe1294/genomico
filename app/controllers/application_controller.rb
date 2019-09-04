@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  helper_method :exam_status_color_helper
 
   def admin_filter
       user = User.find_by({
@@ -49,6 +50,22 @@ class ApplicationController < ActionController::Base
       else
         redirect_to home_user_index_path
       end
+    end
+
+    def exam_status_color_helper exam_status_kind # TODO: mover para application controller e utilizar nas demais views
+      color = ""
+      if exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'})
+        color = "dark"
+      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'})
+        color = "primary"
+      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'})
+        color = "info"
+      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'})
+        color = "warning"
+      else
+        color = "success"
+      end
+      "<label class='text-#{color}'>#{exam_status_kind.name}</label>".html_safe
     end
 
 end
