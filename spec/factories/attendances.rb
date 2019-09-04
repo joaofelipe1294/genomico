@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :attendance do
-  	desease_stage { DeseaseStage }
+  	desease_stage { DeseaseStage.DRM }
   	cid_code { Faker::Number.number(digits: 5).to_s }
   	lis_code { Faker::Number.number(digits: 8).to_s }
   	start_date { nil }

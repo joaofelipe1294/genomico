@@ -30,4 +30,20 @@ RSpec.describe AttendanceStatusKind, type: :model do
 
 	end
 
+  context "constants" do
+
+    before :all do
+      Rails.application.load_seed
+    end
+
+    it "in_progress" do
+      expect(ExamStatusKind.IN_PROGRESS).to eq ExamStatusKind.find_by name: 'Em andamento'
+    end
+
+    it "complete" do
+      expect(ExamStatusKind.COMPLETE).to eq ExamStatusKind.find_by name: 'Concluído'
+    end
+
+  end
+
 end

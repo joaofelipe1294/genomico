@@ -4,7 +4,7 @@ RSpec.describe Hospital, type: :model do
 
 	context 'Test validations' do
 
-		it 'new valid hospital' do 
+		it 'new valid hospital' do
 			hospital = create(:hospital)
 			expect(hospital).to be_valid
 		end
@@ -22,6 +22,11 @@ RSpec.describe Hospital, type: :model do
 			expect(duplicated_hospital).to be_invalid
 		end
 
+	end
+
+	it "hpp constant" do
+		Rails.application.load_seed
+		expect(Hospital.HPP).to eq Hospital.find_by name: 'Hospital Pequeno Príncipe'
 	end
 
 end

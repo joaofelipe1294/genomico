@@ -65,7 +65,7 @@ class Exam < ActiveRecord::Base
   private
 
   def default_values
-  	self.exam_status_kind = ExamStatusKind.find_by({name: 'Aguardando início'}) if self.exam_status_kind.nil?
+  	self.exam_status_kind = ExamStatusKind.WAITING_START if self.exam_status_kind.nil?
   end
 
 end

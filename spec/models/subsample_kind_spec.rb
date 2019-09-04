@@ -39,8 +39,24 @@ RSpec.describe SubsampleKind, type: :model do
 
   context "Constants" do
 
+    before :all do
+      Rails.application.load_seed
+    end
+
     it "Pellet de FISH" do
       expect(SubsampleKind.PELLET).to eq SubsampleKind.find_by name: 'Pellet de FISH'
+    end
+
+    it "RNA" do
+      expect(SubsampleKind.RNA).to eq SubsampleKind.find_by name: 'RNA'
+    end
+
+    it "DNA" do
+      expect(SubsampleKind.DNA).to eq SubsampleKind.find_by name: 'DNA'
+    end
+
+    it "viral_dna" do
+      expect(SubsampleKind.VIRAL_DNA).to eq SubsampleKind.find_by name: 'DNA viral'
     end
 
   end

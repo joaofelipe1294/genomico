@@ -4,6 +4,10 @@ RSpec.describe Exam, type: :model do
 
 	context 'Validations' do
 
+		before :all do
+			Rails.application.load_seed
+		end
+
 		it 'without attendance' do
 			exam = build(:exam)
 			exam.save
@@ -11,11 +15,11 @@ RSpec.describe Exam, type: :model do
 		end
 
 		it 'without exam_status_kind' do
-			exam_status_kind = create(:exam_status_kind, name: 'Aguardando início')
+			# exam_status_kind = create(:exam_status_kind, name: 'Aguardando início')
 			exam = build(:exam, exam_status_kind: nil)
 			exam.save
 			expect(exam).to be_valid
-			expect(exam.exam_status_kind).to eq(exam_status_kind)
+			expect(exam.exam_status_kind).to eq(ExamStatusKind.WAITING_START)
 		end
 
 		it 'without finish_date' do

@@ -31,4 +31,32 @@ RSpec.describe ExamStatusKind, type: :model do
 
 	end
 
+	context "constants" do
+
+		before :all do
+			Rails.application.load_seed
+		end
+
+		it "waiting_start" do
+			expect(ExamStatusKind.WAITING_START).to eq ExamStatusKind.find_by name: 'Aguardando início'
+		end
+
+		it "in_progress" do
+			expect(ExamStatusKind.IN_PROGRESS).to eq ExamStatusKind.find_by name: 'Em andamento'
+		end
+
+		it "tecnical_released" do
+			expect(ExamStatusKind.TECNICAL_RELEASED).to eq ExamStatusKind.find_by name: 'Liberado técnico'
+		end
+
+		it "in_repeat" do
+			expect(ExamStatusKind.IN_REPEAT).to eq ExamStatusKind.find_by name: 'Em repetição'
+		end
+
+		it "complete" do
+			expect(ExamStatusKind.COMPLETE).to eq ExamStatusKind.find_by name: 'Concluído'
+		end
+
+	end
+
 end

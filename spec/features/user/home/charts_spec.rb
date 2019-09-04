@@ -10,7 +10,7 @@ RSpec.feature "User::Home::Charts", type: :feature do
   end
 
   it "with one exam" do
-    create(:attendance, )
+    # create(:attendance, ) # TODO: continuar daki 4
   end
 
 end

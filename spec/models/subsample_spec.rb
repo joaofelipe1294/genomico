@@ -64,15 +64,15 @@ RSpec.describe Subsample, type: :model do
 	context 'Before_save' do
 
 		it 'add_default_values' do
-			subsample_kind = create(:subsample_kind, name: 'DNA', acronym: 'DNA', refference_index: 5)
+			Rails.application.load_seed
 			subsample = create(
 				:subsample,
-				subsample_kind: subsample_kind,
+				subsample_kind: SubsampleKind.DNA,
 				collection_date: Date.today.year
 			)
 			subsample = Subsample.find subsample.id
 			expect(subsample).to be_valid
-			expect(subsample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-DNA-0006")
+			expect(subsample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-DNA-0001")
 		end
 
 	end

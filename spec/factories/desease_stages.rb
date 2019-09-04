@@ -1,5 +1,7 @@
 FactoryBot.define do
+
   factory :desease_stage do
-    name { Faker::Company.name }
+    name { ['DRM','Diagnóstico' ,'Recaída'].sample }
   end
+
 end

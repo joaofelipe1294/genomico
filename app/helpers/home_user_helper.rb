@@ -1,7 +1,7 @@
 module HomeUserHelper
 
   def waiting_exams field_id
-    conn = ActiveRecord::Base.connection
+    conn = ActiveRecord::Base.connection # TODO: continuar daki 3
     result = conn.execute "
           SELECT DISTINCT oe.name AS exam_name,
                  COUNT(oe.id) AS total

@@ -54,4 +54,36 @@ RSpec.describe SampleKind, type: :model do
 
 	end
 
+	context "constants" do
+
+		before :all do
+			Rails.application.load_seed
+		end
+
+		it "biopsy" do
+			expect(SampleKind.BIOPSY).to eq SampleKind.find_by name: 'Biópsia de tecidos.'
+		end
+
+		it "swab" do
+			expect(SampleKind.SWAB).to eq SampleKind.find_by name: 'Swab bucal.'
+		end
+
+		it "paraffin_block" do
+			expect(SampleKind.PARAFFIN_BLOCK).to eq SampleKind.find_by name: 'Bloco de parafina.'
+		end
+
+		it "liquor" do
+			expect(SampleKind.LIQUOR).to eq SampleKind.find_by name: 'Liquor'
+		end
+
+		it "peripherical_blood" do
+			expect(SampleKind.PERIPHERAL_BLOOD).to eq SampleKind.find_by name: 'Sangue periférico'
+		end
+
+		it "bone_merrow" do
+			expect(SampleKind.BONE_MARROW).to eq SampleKind.find_by name: 'Medula óssea'
+		end
+
+	end
+
 end

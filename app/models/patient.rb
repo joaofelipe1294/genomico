@@ -13,15 +13,13 @@ class Patient < ActiveRecord::Base
 	private
 
 		def mother_name_validation
-			hpp = Hospital.find_by name: "Hospital Pequeno Príncipe"
-			if (self.mother_name.nil? && self.hospital == hpp) || (self.mother_name.strip.empty? && self.hospital == hpp)
+			if (self.mother_name.nil? && self.hospital == Hospital.HPP) || (self.mother_name.strip.empty? && self.hospital == Hospital.HPP)
 				self.errors.add(:mother_name, "não pode ficar em branco.")
 			end
 		end
 
 		def medical_record_presence_validation
-			hpp = Hospital.find_by name: "Hospital Pequeno Príncipe"
-			if (self.medical_record.nil? && self.hospital == hpp) || (self.medical_record.strip.empty? && self.hospital == hpp)
+			if (self.medical_record.nil? && self.hospital == Hospital.HPP) || (self.medical_record.strip.empty? && self.hospital == Hospital.HPP)
 				self.errors.add(:medical_record, "não pode ficar em branco.")
 			end
 		end

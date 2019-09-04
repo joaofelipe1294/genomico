@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe InternalCode, type: :model do
 
+  before :all do
+    Rails.application.load_seed
+  end
+
   it "complete" do
     create(:internal_code)
   end
@@ -17,11 +21,10 @@ RSpec.describe InternalCode, type: :model do
   end
 
   it "with duplicated code" do
-    field = Field.create(name: 'Imunofenotipagem')
-    internal_code = create(:internal_code, field: field)
-    new_internal_code = create(:internal_code, field: field)
+    internal_code = create(:internal_code, field: Field.IMUNOFENO)
+    new_internal_code = create(:internal_code, field: Field.IMUNOFENO)
     internal_code.delete
-    duplicated = build(:internal_code, field: field)
+    duplicated = build(:internal_code, field: Field.IMUNOFENO)
     expect(duplicated).to be_invalid
   end
 

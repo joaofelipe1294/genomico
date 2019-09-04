@@ -84,8 +84,8 @@ RSpec.describe Sample, type: :model do
 	context 'Before_save' do
 
 		it 'set_refference_label' do
-			sample_kind = create(:sample_kind, name: 'Liquor', acronym: 'LQ', refference_index: 0)
-			sample = create(:sample, sample_kind: sample_kind)
+			Rails.application.load_seed
+			sample = create(:sample, sample_kind: SampleKind.LIQUOR)
 			expect(sample.refference_label).to be
 			expect(sample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-LQ-0001")
 		end

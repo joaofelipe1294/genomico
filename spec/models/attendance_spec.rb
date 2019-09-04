@@ -4,6 +4,10 @@ RSpec.describe Attendance, type: :model do
 
 	context 'Validations' do
 
+		before :all do
+			Rails.application.load_seed
+		end
+
 		it 'correct' do
 			attendance = build(:attendance)
 			expect(attendance).to be_valid
@@ -58,11 +62,10 @@ RSpec.describe Attendance, type: :model do
 		end
 
 		it 'without attendance_status_kind' do
-			attendance_status_kind = create(:attendance_status_kind, name: 'Em andamento')
 			attendance = build(:attendance, attendance_status_kind: nil)
 			attendance.save
 			expect(attendance).to be_valid
-			expect(attendance.attendance_status_kind).to eq(attendance_status_kind)
+			expect(attendance.attendance_status_kind).to eq(AttendanceStatusKind.IN_PROGRESS)
 		end
 
 		it 'without doctor_name' do

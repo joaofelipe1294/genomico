@@ -5,7 +5,7 @@ class HomeUserController < ApplicationController
 
   def index
     @user = User.find session[:user_id]
-    unless @user.fields.empty?
+    unless @user.fields.empty? # TODO: continuar daqui 2
       @user = User.includes(:fields).find(session[:user_id])
       @waiting_exams = helpers.waiting_exams @user.fields.first.id
       @open_exams = helpers.exams_in_progress @user.fields.first.id
