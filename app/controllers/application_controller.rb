@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       })
       if user.nil?
         reset_session
-        flash[:warning] = 'Credenciais inválidas.'
+        flash[:warning] = I18n.t :wrong_credentials_message
         redirect_to root_path
       end
     end
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       })
       if user.nil?
         reset_session
-        flash[:warning] = 'Credenciais inválidas.'
+        flash[:warning] = I18n.t :wrong_credentials_message
         redirect_to root_path
       end
     end
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
       })
       if user.nil?
         reset_session
-        flash[:warning] = 'Credenciais inválidas.'
+        flash[:warning] = I18n.t :wrong_credentials_message
         redirect_to root_path
       end
     end
@@ -52,15 +52,15 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def exam_status_color_helper exam_status_kind # TODO: mover para application controller e utilizar nas demais views
+    def exam_status_color_helper exam_status_kind
       color = ""
-      if exam_status_kind == ExamStatusKind.find_by({name: 'Aguardando início'})
+      if exam_status_kind == ExamStatusKind.WAITING_START
         color = "dark"
-      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'})
+      elsif exam_status_kind == ExamStatusKind.IN_PROGRESS
         color = "primary"
-      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'})
+      elsif exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
         color = "info"
-      elsif exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'})
+      elsif exam_status_kind == ExamStatusKind.IN_REPEAT
         color = "warning"
       else
         color = "success"

@@ -15,7 +15,7 @@ RSpec.feature "Home_page", type: :feature, js: false do
 		fill_in 'login', with: 'John'
 		fill_in 'password', with: 'Doe'
 		click_button 'btn-login'
-		expect(find(id: 'danger-warning').text).to eq "Login ou senha inválidos."
+		expect(find(id: 'danger-warning').text).to eq I18n.t :wrong_login_message
 		expect(page).to have_current_path root_path
 	end
 

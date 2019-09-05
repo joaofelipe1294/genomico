@@ -15,4 +15,5 @@ FactoryBot.define do
   	samples_attributes { [attributes_for(:sample)] }
   	exams_attributes { [attributes_for(:exam), attributes_for(:exam) ]}
   end
+
 end

@@ -11,11 +11,11 @@ class HomeController < ApplicationController
 	  		redirect_to home_admin_index_path if user.user_kind == UserKind.ADMIN
 	  		redirect_to home_user_index_path if user.user_kind == UserKind.USER
 			else
-				flash[:warning] = I18n.t :wrong_credential_message
+				flash[:warning] = I18n.t :wrong_login_message
 				redirect_to root_path
 			end
 		else
-			flash[:warning] = I18n.t :wrong_credential_message
+			flash[:warning] = I18n.t :wrong_login_message
 			redirect_to root_path
 		end
   end

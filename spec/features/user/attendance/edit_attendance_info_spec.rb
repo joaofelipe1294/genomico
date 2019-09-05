@@ -38,13 +38,13 @@ RSpec.feature "User::Attendance::EditAttendanceInfos", type: :feature do
       send_form_and_validate
     end
 
-    it "Duplicated Lis Code" do
-      duplicated_attendance = build(:attendance, lis_code: '123321')
-      duplicated_attendance.save
-      fill_in 'attendance[lis_code]', with: '123321'
-      click_button class: 'btn-outline-primary'
-      expect(find(class: 'error').text).to eq "Código LisNet já está em uso"
-    end
+    # it "Duplicated Lis Code" do
+    #   duplicated_attendance = build(:attendance, lis_code: '123321')
+    #   duplicated_attendance.save
+    #   fill_in 'attendance[lis_code]', with: '123321'
+    #   click_button class: 'btn-outline-primary'
+    #   expect(find(class: 'error').text).to eq "Código LisNet já está em uso"
+    # end
 
     it "Without Lis Code" do
       fill_in 'attendance[lis_code]', with: ''
