@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
-
+  before_action :set_desease_stages_and_health_ensurances, only: [:workflow, :new]
 
   # GET /attendances
   # GET /attendances.json
@@ -28,10 +28,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/new
   def new
-    @attendance = Attendance.new
-    @attendance.patient = Patient.find params[:id]
-    @desease_stages = DeseaseStage.all.order :name
-    @health_ensurances = HealthEnsurance.all.order :name
+    @attendance = Attendance.new(patient: Patient.find(params[:id]))
     @fields = Field.all.order :name
     @sample_kinds = SampleKind.all.order :name
     @exams = OfferedExam.where(field: @fields.first).order :name
@@ -45,13 +42,12 @@ class AttendancesController < ApplicationController
   # POST /attendances.json
   def create
     @attendance = Attendance.new create_attendance_params
-    @attendance.attendance_status_kind = AttendanceStatusKind.find_by name: 'Em andamento'
+    @attendance.attendance_status_kind = AttendanceStatusKind.IN_PROGRESS
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to workflow_path(@attendance)
     else
-      @desease_stages = DeseaseStage.all.order :name
-      @health_ensurances = HealthEnsurance.all.order :name
+      set_desease_stages_and_health_ensurances
       @fields = Field.all.order :name
       @exams = OfferedExam.where(field: @fields.first).order :name
       @sample_kinds = SampleKind.all.order :name
@@ -63,11 +59,10 @@ class AttendancesController < ApplicationController
   # PATCH/PUT /attendances/1.json
   def update
       if @attendance.update(attendance_params)
-        flash[:success] = 'Atendimento atualizado com sucesso.'
+        flash[:success] = I18n.t :attendance_update_success
         redirect_to workflow_path(@attendance)
       else
-        @desease_stages = DeseaseStage.all.order :name
-        @health_ensurances = HealthEnsurance.all.order :name
+        set_desease_stages_and_health_ensurances
         render :workflow
       end
   end
@@ -85,8 +80,6 @@ class AttendancesController < ApplicationController
   #GET attendances/1
   def workflow
     @attendance = Attendance.find params[:id]
-    @desease_stages = DeseaseStage.all.order :name
-    @health_ensurances = HealthEnsurance.all.order :name
     verify_exam_status
   end
 
@@ -202,6 +195,11 @@ class AttendancesController < ApplicationController
         # atendimento já encerrado
         flash[:info] = "Atendimento encerrado em #{@attendance.finish_date.strftime("%d/%m/%Y")}."
       end
+    end
+
+    def set_desease_stages_and_health_ensurances
+      @desease_stages = DeseaseStage.all.order :name
+      @health_ensurances = HealthEnsurance.all.order :name
     end
 
 end

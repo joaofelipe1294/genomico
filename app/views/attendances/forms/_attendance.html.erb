@@ -2,10 +2,7 @@
 
 	<% if @attendance.errors.any? %>
 		<div id="error_explanation">
-			<h2 class="text-danger">
-				Há erros no formulário, por favor verifique.
-			</h2>
-			<ul class="text-danger">
+			<ul>
 				<% @attendance.errors.full_messages.each do |message| %>
 					<li class="error"><%= message %></li>
 				<% end %>
@@ -67,7 +64,7 @@
 		<%= f.text_area :observations, {class: 'form-control'} %>
 	</div>
 
-	<button class = 'btn btn-outline-primary float-right'>
+	<button id="btn-save" class = 'btn btn-outline-primary float-right'>
 		Salvar
 	</button>
 
