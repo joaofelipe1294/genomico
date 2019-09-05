@@ -11,7 +11,7 @@
 
 			<div class = 'form-group'>
 				<%= f.label :offered_exam %>
-				<%= f.text_field :offered_exam, {value: @exam.offered_exam.name, disabled: true, class: 'form-control'} %>
+				<%= f.text_field :offered_exam, value: @exam.offered_exam.name, disabled: true, class: 'form-control', id: 'exam-name' %>
 			</div>
 
       <% if @internal_codes.size > 0 %>
@@ -21,12 +21,12 @@
   				<%= f.select :internal_code, options_from_collection_for_select(@internal_codes, 'id', 'code'), {}, {class: 'form-control'} %>
   			</div>
 
-  			<button class = 'btn btn-outline-primary float-right' id="btn-start-exam">
+  			<button class='btn btn-outline-primary float-right' id="btn-save">
   				Salvar
   			</button>
 
       <% else %>
-        <h5 class="text-center text-danger">
+        <h5 id="without-sample" class="text-center text-danger">
           Nenhum código interno da <%= @exam.offered_exam.field.name %> encontrado para este atentimento.
         </h5>
       <% end %>

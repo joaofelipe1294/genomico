@@ -9,11 +9,6 @@
 				<%= Sample.human_attribute_name(:sample_kind) %>
 			</h4>
 		</th>
-		<!-- <th>
-			<h4>
-				Código lab
-			</h4>
-		</th> -->
 		<th>
 			<h4>
 				<%= Sample.human_attribute_name(:collection_date) %>
@@ -37,9 +32,6 @@
 				<td>
 					<%= sample.sample_kind.name %>
 				</td>
-				<!-- <td>
-					<%= sample.refference_label %>
-				</td> -->
 				<td>
 					<%= l sample.collection_date %>
 				</td>
@@ -57,7 +49,7 @@
 					<% if sample.sample_kind != SampleKind.find_by(name: 'Liquor') %>
 						<%= link_to 'Extrair subamostra', new_sub_sample_path(sample), {class: 'btn btn-sm btn-outline-primary new-subsample'} %>
 					<% end %>
-					<%= link_to 'Código de setor', new_internal_code_path(sample, target: "sample"), class: 'btn btn-sm btn-outline-secondary', id: 'btn-internal-code' %>
+					<%= link_to 'Código de setor', new_internal_code_path(sample, target: "sample"), class: 'btn btn-sm btn-outline-secondary new-internal-code', id: 'btn-internal-code' %>
 					<%= link_to 'Editar', edit_sample_path(sample), {class: 'btn btn-sm btn-outline-warning', id: 'btn-edit-sample'} %>
 					<% if sample.internal_codes.size == 0 && sample.subsamples.size == 0 %>
 						<%= link_to 'Remover', sample_path(sample), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>

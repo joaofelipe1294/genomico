@@ -42,7 +42,7 @@ class ExamsController < ApplicationController
 	end
 
 	def initiate
-		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em andamento'})
+		@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
     @exam.internal_code_id = exam_params[:internal_code]
     @exam.start_date = Date.today
 		apply_changes
