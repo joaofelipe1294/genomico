@@ -14,7 +14,7 @@ def generate_internal_code
   click_link class: 'new-internal-code', match: :first
 end
 
-RSpec.feature "User::Workflow::Exmas", type: :feature do
+RSpec.feature "User::Workflow::Exams", type: :feature do
 
   before :each do
     Rails.application.load_seed
@@ -86,6 +86,39 @@ RSpec.feature "User::Workflow::Exmas", type: :feature do
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE.name}."
       end
 
+    end
+
+    it "add exam to attendance" do
+      click_link id: 'new-exam'
+      select(Field.IMUNOFENO.name, from: "field").select_option
+      select(OfferedExam.where(is_active: true).where(field: Field.IMUNOFENO).sample.name, from: "offered_exam_id").select_option
+      click_button id: 'btn-save'
+      expect(page).to have_current_path workflow_path(@attendance)
+      expect(find(id: 'success-warning').text).to eq I18n.t :new_exam_success
+    end
+
+    it "edit offered_exam" do
+      new_offered_exam = OfferedExam.where(is_active: true).where(field: Field.IMUNOFENO).last
+      click_link class: 'edit-exam', match: :first
+      select(new_offered_exam.name, from: 'exam[offered_exam_id]').select_option
+      click_button id: 'btn-save'
+      click_button id: 'exam_nav'
+      expect(new_offered_exam).not_to eq @first_exam
+      expect(find(id: 'success-warning').text).to eq I18n.t :edit_exam_success
+    end
+
+    it "edit internal_code from exam" do
+      generate_internal_code
+      click_button id: 'sample_nav'
+      generate_internal_code
+      click_button id: 'exam_nav'
+      click_link class: 'start-exam', match: :first
+      click_button id: 'btn-save'
+      click_button id: 'exam_nav'
+      click_link class: 'edit-exam', match: :first
+      select(@attendance.internal_codes.order(id: :desc).first.code, from: 'exam[internal_code]').select_option
+      click_button id: 'btn-save'
+      expect(find(id: 'success-warning').text).to eq I18n.t :edit_exam_success
     end
 
   end

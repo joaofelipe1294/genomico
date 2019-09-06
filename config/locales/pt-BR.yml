@@ -126,3 +126,5 @@
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
   internal_code_create_success: 'Código interno gerado com sucesso.'
+  new_exam_success: 'Exame cadastrado com sucesso.'
+  edit_exam_success: 'Exame editado com sucesso.'

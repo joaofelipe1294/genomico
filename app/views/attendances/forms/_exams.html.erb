@@ -1,5 +1,5 @@
-<% unless @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'}) %>
-	<%= link_to "Novo exame", new_exam_path(@attendance), class: "btn btn-lg btn-outline-success float-right mb-2 mr-3" %>
+<% unless @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE %>
+	<%= link_to "Novo exame", new_exam_path(@attendance), class: "btn btn-lg btn-outline-success float-right mb-2 mr-3", id: 'new-exam'  %>
 <% end %>
 
 <table class="table text-center table-bordered">

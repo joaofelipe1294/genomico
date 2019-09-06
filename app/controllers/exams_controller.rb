@@ -27,12 +27,14 @@ class ExamsController < ApplicationController
 	end
 
 	def edit
+    @offered_exams = OfferedExam.where(is_active: true).where(field: User.find(session[:user_id]).fields.first)
 	end
 
 	def update
     @exam.internal_code_id = exam_params[:internal_code]
+    @exam.offered_exam_id = exam_params[:offered_exam_id]
 		if @exam.save
-			flash[:success] = "Exame editado com sucesso."
+			flash[:success] = I18n.t :edit_exam_success
 			redirect_to workflow_path(@exam.attendance)
 		else
 			flash[:warning] = 'Erro ao editar exame, tente novamente mais tarde.'

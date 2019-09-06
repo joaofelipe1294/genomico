@@ -17,9 +17,7 @@ module AttendancesHelper
     else
       options << "<label class = 'text-success'>Exame concluído</label>".html_safe
     end
-    if exam.exam_status_kind != ExamStatusKind.WAITING_START
-     options << link_to('Editar', edit_exam_path(exam), class: 'btn btn-sm btn-outline-warning ml-2', id: 'edit-attendance-exam')
-    end
+    options << link_to('Editar', edit_exam_path(exam), class: 'btn btn-sm btn-outline-warning ml-2 edit-exam')
     options.html_safe
   end
 end
