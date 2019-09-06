@@ -4,7 +4,7 @@ class InternalCodesController < ApplicationController
     @internal_codes = InternalCode.includes(:sample, :exams).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
   end
 
-  def new
+  def new  # TODO: melhorar código deste método !!1
     user = User.includes(:fields).find(session[:user_id])
     if user.fields.size == 1
       if params[:target] == "sample"

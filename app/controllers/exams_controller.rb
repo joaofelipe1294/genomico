@@ -119,7 +119,7 @@ class ExamsController < ApplicationController
 		end
 
 		def set_samples_and_subsamples
-			@internal_codes = InternalCode.where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
+			@internal_codes = InternalCode.includes(:sample, :subsample).where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
 		end
 
 		def select_label_refference
