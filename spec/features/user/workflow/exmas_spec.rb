@@ -52,7 +52,6 @@ RSpec.feature "User::Workflow::Exmas", type: :feature do
         click_button id: 'exam_nav'
         click_link class: 'start-exam', match: :first
         click_button id: 'btn-save'
-        expect(Exam.where(exam_status_kind: ExamStatusKind.IN_PROGRESS).size).to eq 1
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Em andamento."
       end
 
@@ -72,20 +71,19 @@ RSpec.feature "User::Workflow::Exmas", type: :feature do
       it "tecnical released" do
         click_link class: 'change-to-tecnical-released'
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.TECNICAL_RELEASED.name}."
-        expect(Exam.where(exam_status_kind: ExamStatusKind.TECNICAL_RELEASED).size).to eq 1
       end
 
       it "in repeat" do
-        click_link class: 'change-to-in-repeat'
+        click_link class: 'change-to-in-repeat', match: :first
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.IN_REPEAT.name}."
-        expect(Exam.where(exam_status_kind: ExamStatusKind.IN_REPEAT).size).to eq 1
       end
 
       it "complete exam" do
-        click_link class: 'change-to-complete'
+        visit current_path
+        click_button 'exam_nav'
+        click_link class: 'change-to-complete', match: :first
         page.driver.browser.switch_to.alert.accept
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE.name}."
-        expect(Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).size).to eq 1
       end
 
     end

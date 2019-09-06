@@ -6,7 +6,7 @@ class ExamsController < ApplicationController
   def new
     @attendance = Attendance.find(params[:id])
     @fields = Field.all.order name: :asc
-    @offered_exams = OfferedExam.where({field: @fields.first}).order name: :asc
+    @offered_exams = OfferedExam.where(field: @fields.first).order name: :asc
   end
 
   def create
@@ -61,7 +61,7 @@ class ExamsController < ApplicationController
 		@exam.exam_status_kind = ExamStatusKind.COMPLETE
 		@exam.finish_date = DateTime.now
 		apply_changes
-		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0
+		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE).size == 0
 			flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
 		end
 	end
@@ -109,7 +109,7 @@ class ExamsController < ApplicationController
         user: User.find(session[:user_id])
 			})
 			if @exam.save
-				flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
+        flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
 				redirect_to workflow_path(@exam.attendance)
 			else
 				flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
