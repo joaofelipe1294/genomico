@@ -30,7 +30,6 @@ class ExamsController < ApplicationController
 	end
 
 	def update
-		# select_label_refference
     @exam.internal_code_id = exam_params[:internal_code]
 		if @exam.save
 			flash[:success] = "Exame editado com sucesso."
@@ -49,17 +48,17 @@ class ExamsController < ApplicationController
 	end
 
 	def tecnical_released
-		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Liberado técnico'})
+		@exam.exam_status_kind = ExamStatusKind.TECNICAL_RELEASED
 		apply_changes
 	end
 
 	def in_repeat
-		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Em repetição'})
+		@exam.exam_status_kind = ExamStatusKind.IN_REPEAT
 		apply_changes
 	end
 
 	def completed
-		@exam.exam_status_kind = ExamStatusKind.find_by({name: 'Concluído'})
+		@exam.exam_status_kind = ExamStatusKind.COMPLETE
 		@exam.finish_date = DateTime.now
 		apply_changes
 		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size == 0
