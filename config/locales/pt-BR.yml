@@ -125,3 +125,4 @@
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
+  internal_code_create_success: 'Código interno gerado com sucesso.'

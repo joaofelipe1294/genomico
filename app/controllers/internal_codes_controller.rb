@@ -5,12 +5,28 @@ class InternalCodesController < ApplicationController
   end
 
   def new
-    if params[:target] == "sample"
-      @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
-      @fields = [Field.find_by({name: 'Imunofenotipagem'})]
+    user = User.includes(:fields).find(session[:user_id])
+    if user.fields.size == 1
+      if params[:target] == "sample"
+        @internal_code = InternalCode.create({
+          field: user.fields.first,
+          sample: Sample.find(params[:id])
+        })
+      else
+        @internal_code = InternalCode.create({
+          field: user.fields.first,
+          subsample: Subsample.find(params[:id])
+        })
+      end
+      flash[:success] = I18n.t :internal_code_create_success
+      redirect_to workflow_path(@internal_code.attendance)
     else
-      @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
-      @fields = [Field.find_by({name: 'Biologia Molecular'}), Field.find_by({name: 'FISH'})]
+      if params[:target] == "sample"
+        @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
+      else
+        @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
+      end
+      @fields = [Field.IMUNOFENO, Field.BIOMOL, Field.FISH]
     end
   end
 
