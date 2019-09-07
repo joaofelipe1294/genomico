@@ -92,4 +92,18 @@ RSpec.describe Sample, type: :model do
 
 	end
 
+	context "view exibitions " do
+
+		it "without subsample" do
+			sample = build(:sample, has_subsample: false)
+			expect(sample.has_subsample?).to eq "Não".html_safe
+		end
+
+		it "with subsample" do
+			sample = build(:sample, has_subsample: true)
+			expect(sample.has_subsample?).to eq "Sim".html_safe
+		end
+
+	end
+
 end

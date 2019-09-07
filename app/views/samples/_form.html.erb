@@ -34,7 +34,11 @@
 
 	<div class = 'form-group'>
 		<%= f.label :bottles_number %>
-		<%= f.number_field :bottles_number, {class: 'form-control', required: true} %>
+		<% if @sample.bottles_number.nil? %>
+			<%= f.number_field :bottles_number, class: 'form-control', required: true, value: "1" %>
+		<% else %>
+			<%= f.number_field :bottles_number, class: 'form-control', required: true %>
+		<% end %>
 	</div>
 
 	<div class = 'form-group'>
@@ -42,7 +46,7 @@
 		<%= f.text_field :storage_location, {class: 'form-control'} %>
 	</div>
 
-	<button class = 'btn btn-outline-primary float-right' id="btn-save-sample">
+	<button class = 'btn btn-outline-primary float-right' id="btn-save">
 		Salvar
 	</button>
 

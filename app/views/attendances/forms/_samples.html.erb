@@ -1,5 +1,5 @@
 <% unless @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'}) %>
-	<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'btn-new-sample'} %>
+	<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'new-sample'} %>
 <% end %>
 
 <table class = 'table table-bordered text-center mt-3'>
@@ -28,7 +28,7 @@
 	</thead>
 	<tbody>
 		<% @attendance.samples.each do |sample| %>
-			<tr>
+			<tr class="sample">
 				<td>
 					<%= sample.sample_kind.name %>
 				</td>
@@ -39,26 +39,15 @@
 					<%= sample.storage_location %>
 				</td>
 				<td>
-					<% if sample.has_subsample %>
-						Sim
-					<% else %>
-						Não
-					<% end %>
+					<%= sample.has_subsample? %>
 				</td>
 				<td>
-					<% if sample.sample_kind != SampleKind.find_by(name: 'Liquor') %>
-						<%= link_to 'Extrair subamostra', new_sub_sample_path(sample), {class: 'btn btn-sm btn-outline-primary new-subsample'} %>
-					<% end %>
-					<%= link_to 'Código de setor', new_internal_code_path(sample, target: "sample"), class: 'btn btn-sm btn-outline-secondary new-internal-code', id: 'btn-internal-code' %>
-					<%= link_to 'Editar', edit_sample_path(sample), {class: 'btn btn-sm btn-outline-warning', id: 'btn-edit-sample'} %>
-					<% if sample.internal_codes.size == 0 && sample.subsamples.size == 0 %>
-						<%= link_to 'Remover', sample_path(sample), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger', method: :delete, id: 'btn-remove-sample'} %>
-					<% end %>
+					<%= sample_options_helper sample %>
 				</td>
 		<% end %>
 
 		<% @attendance.subsamples.each do |subsample| %>
-			<tr>
+			<tr class="sample subsample">
 				<td>
 					<%= subsample.subsample_kind.name %>
 				</td>
@@ -72,11 +61,7 @@
 					-
 				</td>
 				<td>
-					<%= link_to "Código interno", new_internal_code_path(subsample, target: "subsample"), class: 'btn btn-sm btn-outline-secondary', id: 'btn-internal-code'%>
-					<%= link_to 'Editar', edit_subsample_path(subsample), {class: 'btn btn-sm btn-outline-warning', id: 'btn-edit-subsample'} %>
-					<% if subsample.internal_codes.empty? %>
-						<%= link_to 'Remover', subsample_path(subsample),{data: { confirm: "Tem certeza ?" },method: :delete, class: 'btn btn-sm btn-outline-danger', id: 'btn-remove-subsample'} %>
-					<% end %>
+					<%= subsamples_options_helper subsample %>
 				</td>
 			</tr>
 		<% end %>
@@ -126,7 +111,7 @@
 				</td>
 				<td>
 					<% if internal_code.exams.empty? %>
-						<%= link_to 'Remover', internal_code_path(internal_code, target: "subsample"), {data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger btn-remove-internal-code', method: :delete, id: 'btn-remove-sample'} %>
+						<%= link_to 'Remover', internal_code_path(internal_code, target: "subsample"), data: { confirm: "Tem certeza ?" }, class: 'btn btn-sm btn-outline-danger remove-internal-code', method: :delete %>
 					<% end %>
 				</td>
 			</tr>

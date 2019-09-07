@@ -18,7 +18,7 @@ class InternalCodesController < ApplicationController
           subsample: Subsample.find(params[:id])
         })
       end
-      flash[:success] = I18n.t :internal_code_create_success
+      flash[:success] = I18n.t :new_internal_code_success
       redirect_to workflow_path(@internal_code.attendance)
     else
       if params[:target] == "sample"
@@ -55,7 +55,7 @@ class InternalCodesController < ApplicationController
     internal_code = InternalCode.includes(:attendance).find params[:id]
     sample = internal_code.sample
     if internal_code.delete
-      flash[:success] = 'Código interno removido com sucesso.'
+      flash[:success] = I18n.t :remove_internal_code_success
       redirect_to workflow_path(internal_code.attendance)
     else
       flash[:warning] = 'Erro ao remover código interno, tente novamente mais tarde.'

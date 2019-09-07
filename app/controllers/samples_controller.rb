@@ -23,7 +23,7 @@ class SamplesController < ApplicationController
   def update
     @sample = Sample.find params[:id]
     if @sample.update sample_params
-      flash[:success] = 'Amostra editada com sucesso.'
+      flash[:success] = I18n.t :edit_sample_success
       redirect_to workflow_path(@sample.attendance)
     else
       flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'
@@ -37,7 +37,7 @@ class SamplesController < ApplicationController
       flash[:warning] = 'Esta amostra está vinculada a pelo menos um exame, por isso não pode ser remomvido.'
       redirect_to workflow_path(@sample.attendance)
     elsif @sample.internal_codes.size == 0 && @sample.delete
-      flash[:success] = 'Amostra removida com sucesso.'
+      flash[:success] = I18n.t :remove_sample_success
       redirect_to workflow_path(@sample.attendance)
     else
       flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'

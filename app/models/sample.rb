@@ -10,6 +10,11 @@ class Sample < ActiveRecord::Base
   has_many :internal_codes
   belongs_to :patient
 
+  def has_subsample?
+    return "Sim".html_safe if self.has_subsample
+    "Não".html_safe
+  end
+
 	private
 
 		def default_values
@@ -22,5 +27,7 @@ class Sample < ActiveRecord::Base
 			sample_kind.save
 			self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{sample_kind.acronym}-#{sample_kind.refference_index.to_s.rjust(4,  "0")}"
 		end
+
+
 
 end

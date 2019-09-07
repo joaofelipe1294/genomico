@@ -49,7 +49,7 @@ class SubsamplesController < ApplicationController
           subsample: @subsample
         )
       end
-      flash[:success] = "Subamostra cadastrada com sucesso."
+      flash[:success] = I18n.t :new_subsample_success
       redirect_to workflow_path(@subsample.sample.attendance)
     else
       flash[:danger] = "Não foi possível cadastrar a subamostra."
@@ -62,7 +62,7 @@ class SubsamplesController < ApplicationController
   # PATCH/PUT /subsamples/1.json
   def update
     if @subsample.update(subsample_params)
-      flash[:success] = 'Subamostra editada com sucesso.'
+      flash[:success] = I18n.t :edit_subsample_success
       redirect_to workflow_path(@subsample.sample.attendance)
     else
       render :edit
