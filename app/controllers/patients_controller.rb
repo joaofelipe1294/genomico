@@ -48,7 +48,7 @@ class PatientsController < ApplicationController
   # PATCH/PUT /patients/1.json
   def update
     if @patient.update(patient_params)
-      flash[:success] = 'Paciente editado com sucesso.'
+      flash[:success] = I18n.t :edit_patient_success
       if params[:attendance].nil?
         redirect_to home_user_index_path
       else

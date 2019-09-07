@@ -135,3 +135,4 @@
   remove_subsample_success: 'Subamostra removida com sucesso.'
   remove_internal_code_success: 'Código interno removido com sucesso.'
   new_sample_success: 'Amostra cadastrada com sucesso.'
+  edit_patient_success: 'Paciente editado com sucesso.'
