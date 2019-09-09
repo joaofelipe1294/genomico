@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'internal_codes/imunofeno_internal_codes', to: 'internal_codes#imunofeno_internal_codes', as: :imunofeno_internal_codes
   get 'patients/:id/samples', to: 'patients#samples_from_patient', as: :samples_from_patient
   get 'patient/:id/exams', to: 'exams#exams_from_patient', as: :exams_from_patient
   get 'internal_codes/new/:id', to: 'internal_codes#new', as: :new_internal_code
