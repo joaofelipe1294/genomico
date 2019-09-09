@@ -32,8 +32,4 @@ class IndicatorsController < ApplicationController
     end
   end
 
-  def imunofeno_internal_codes
-    @internal_codes = InternalCode.where(field: Field.IMUNOFENO)
-  end
-
 end
