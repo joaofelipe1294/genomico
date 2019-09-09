@@ -51,7 +51,7 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
 
     it "imunofeno" do
       click_link 'samples-imunofeno'
-      expect(page).to have_current_path internal_codes_path field_id: Field.IMUNOFENO
+      expect(page).to have_current_path imunofeno_internal_codes_path
     end
 
     it "biomol" do
