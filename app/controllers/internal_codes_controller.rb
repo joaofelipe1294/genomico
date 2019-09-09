@@ -1,4 +1,5 @@
 class InternalCodesController < ApplicationController
+  before_action :user_filter
 
   def index
     @internal_codes = InternalCode.includes(:sample, :exams).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
