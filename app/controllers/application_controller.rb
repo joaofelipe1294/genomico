@@ -52,20 +52,4 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def exam_status_color_helper exam_status_kind
-      color = ""
-      if exam_status_kind == ExamStatusKind.WAITING_START
-        color = "dark"
-      elsif exam_status_kind == ExamStatusKind.IN_PROGRESS
-        color = "primary"
-      elsif exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
-        color = "info"
-      elsif exam_status_kind == ExamStatusKind.IN_REPEAT
-        color = "warning"
-      else
-        color = "success"
-      end
-      "<label class='text-#{color}'>#{exam_status_kind.name}</label>".html_safe
-    end
-
 end
