@@ -21,4 +21,18 @@ module ExamsHelper
     options.html_safe
   end
 
+  def exam_status_helper exam_status_kind
+    text_style = ""
+    if exam_status_kind == ExamStatusKind.IN_PROGRESS
+      text_style = "text-primary"
+    elsif exam_status_kind == ExamStatusKind.COMPLETE
+      text_style = "text-success"
+    elsif exam_status_kind == ExamStatusKind.IN_REPEAT
+      text_style = "text-secondary"
+    elsif exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
+      text_style = "text-info"
+    end
+    "<label class='#{text_style}'>#{exam_status_kind.name}</label>".html_safe
+  end
+
 end
