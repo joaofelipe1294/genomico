@@ -65,7 +65,18 @@ class InternalCodesController < ApplicationController
   end
 
   def imunofeno_internal_codes
-    @internal_codes = InternalCode.includes(:sample, :exams, :attendance).where(field: Field.IMUNOFENO).order(created_at: :desc).page params[:page]
+    if params[:internal_code].nil?
+      @internal_codes = InternalCode
+                                    .includes(:sample, :exams, :attendance)
+                                    .where(field: Field.IMUNOFENO)
+                                    .order(created_at: :desc)
+                                    .page params[:page]
+    else
+      @internal_codes = InternalCode
+                                    .includes(:sample, :exams, :attendance)
+                                    .where(code: params[:internal_code][:code])
+                                    .page params[:page]
+    end
   end
 
   private
