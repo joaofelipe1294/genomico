@@ -45,13 +45,9 @@ class Backup < ActiveRecord::Base
     `cp #{file_path} ./public/backups/temp_restore/`
     `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
     `cp -r ./public/backups/temp_restore/system/ ./public/`
-    # if Rails.env.production?
-    #   `PGPASSWORD="lab_genomico_HPP_2106" pg_restore -h localhost -p 5432 -U deploy -c -d #{database} -v ./public/backups/temp_restore/pgdump.dump`
-    # else
     `PGPASSWORD="1234" pg_restore -h localhost -p 5432 -U postgres -c -d genomico_development -v ./public/backups/temp_restore/pgdump.dump`
-    # end
     `rm -r ./public/backups/temp_restore`
-    # REASSIGN OWNED BY deploy TO postgres
+    # REASSIGN OWNED BY deploy TO postgres;
     true
   end
 
