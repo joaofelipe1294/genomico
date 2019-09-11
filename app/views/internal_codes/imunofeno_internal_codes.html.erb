@@ -2,14 +2,14 @@
 
 <div class="col-md-6 offset-md-3 mt-3" style="overflow: auto;">
 
-  <%= form_with url: imunofeno_internal_codes_path, model: InternalCode.new, method: :get do |form| %>
+  <%= form_with url: imunofeno_internal_codes_path, method: :get do |form| %>
 
     <div class="form-group">
-      <%= form.label :code %>
+      <%= form.label InternalCode.human_attribute_name :code %>
       <%= form.text_field :code, class: 'form-control' %>
     </div>
 
-    <button class="btn btn-outline-info float-right">
+    <button id="btn-search" class="btn btn-outline-info float-right">
       Buscar
     </button>
 
@@ -45,7 +45,33 @@
   </thead>
   <tbody>
     <% @internal_codes.each do |internal_code| %>
-      <% internal_code.exams.each do |exam| %>
+      <% unless internal_code.exams.empty? %>
+        <% internal_code.exams.each do |exam| %>
+          <tr class="internal-code">
+            <td>
+              <%= internal_code.code %>
+            </td>
+            <td>
+              <%= internal_code.sample.sample_kind.name %>
+            </td>
+            <td>
+              <%= l internal_code.sample.entry_date %>
+            </td>
+            <td>
+              <%= exam.offered_exam.name %>
+            </td>
+            <td>
+              <%= exam_status_helper exam.exam_status_kind %>
+            </td>
+            <td>
+              <%= internal_code.attendance.patient.name %>
+            </td>
+            <td>
+              <%= link_to internal_code.attendance.lis_code, workflow_path(internal_code.attendance) %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
         <tr class="internal-code">
           <td>
             <%= internal_code.code %>
@@ -57,10 +83,10 @@
             <%= l internal_code.sample.entry_date %>
           </td>
           <td>
-            <%= exam.offered_exam.name %>
+            -
           </td>
           <td>
-            <%= exam_status_helper exam.exam_status_kind %>
+            -
           </td>
           <td>
             <%= internal_code.attendance.patient.name %>
