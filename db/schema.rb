@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_140754) do
+ActiveRecord::Schema.define(version: 2019_09_11_185856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,10 @@ ActiveRecord::Schema.define(version: 2019_09_03_140754) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "internal_code_id"
+    t.string "report_file_name"
+    t.string "report_content_type"
+    t.integer "report_file_size"
+    t.datetime "report_updated_at"
     t.index ["attendance_id"], name: "index_exams_on_attendance_id"
     t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id"
     t.index ["internal_code_id"], name: "index_exams_on_internal_code_id"

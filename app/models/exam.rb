@@ -7,6 +7,8 @@ class Exam < ActiveRecord::Base
   has_many :exam_status_changes
   before_validation :default_values
   belongs_to :internal_code
+  has_attached_file :report
+  validates_attachment_content_type :report, :content_type => ["application/pdf"]
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
