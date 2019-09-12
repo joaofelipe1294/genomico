@@ -9,10 +9,10 @@
   <div class="card-body">
 
     <%= form_with(model: @exam, url: save_exam_report_path(@exam), method: :patch, multipart: true, class: 'form-inline') do |f| %>
-      <div class = 'form-group'>
-        <label class = 'h3'>Selecione um arquivo: </label>
+      <div class='form-group'>
+        <label class='h3'>Selecione um arquivo: </label>
         <%= f.file_field :report, class: '', required: true %>
-        <button class = 'btn btn-outline-primary'>
+        <button id="btn-save" class='btn btn-outline-primary'>
           Salvar
         </button>
       </div>
@@ -23,7 +23,7 @@
         Nenhum laudo adicionado.
       </h3>
     <% else %>
-      <embed src = "<%= @exam.report.url %>" height="1150" class = 'offset-md-1 col-md-10' />
+      <embed src="<%= @exam.report.url %>" height="1150" class = 'offset-md-1 col-md-10 mt-5' />
     <% end %>
   </div>
 </div>
