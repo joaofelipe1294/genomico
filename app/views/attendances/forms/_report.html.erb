@@ -1,23 +1,28 @@
 <div class="card col-md-10 p-0 offset-md-1">
   <div class="card-header">
-    <%= form_for(@attendance, {url: add_report_path, method: :patch, multipart: true, class: 'form-inline'}) do |f| %>
-      <div class = 'form-group'>
-        <label class = 'h3'>Selecione um arquivo: </label>
-        <%= f.file_field :report, {class: '', required: true} %>
-        <button class = 'btn btn-outline-primary'>
-          Salvar
-        </button>
-      </div>
-
-    <% end %>
+    <h4 class="text-center">
+      Laudos
+    </h4>
   </div>
   <div class="card-body">
-    <% if @attendance.report? %>
-      <embed src = "<%= @attendance.report.url %>" height="1150" class = 'offset-md-1 col-md-10' />
-    <% else %>
-      <h3 class="text-center text-secondary">
-        Nenhum laudo adicionado.
-      </h3>
-    <% end %>
+    <table class="table table-striped text-center">
+      <tbody>
+        <% @attendance.exams.each do |exam| %>
+          <% if exam.report? %>
+            <tr class="report">
+              <td class="w-50">
+                <%= exam.offered_exam.name %>
+              </td>
+              <td class="w-25">
+                <%= l exam.finish_date %>
+              </td>
+              <td class="w-25">
+                <%= link_to "Visualizar", add_report_to_exam_path(exam), class: 'btn btn-outline-info' %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

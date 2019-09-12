@@ -63,9 +63,6 @@ class ExamsController < ApplicationController
 		@exam.exam_status_kind = ExamStatusKind.COMPLETE
 		@exam.finish_date = DateTime.now
 		apply_changes
-		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE).size == 0
-			flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
-		end
 	end
 
   def exams_from_patient
@@ -93,10 +90,27 @@ class ExamsController < ApplicationController
     @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
   end
 
+  # GET exams/1/add_report
+  def add_report
+    @exam = Exam.includes(:offered_exam).find(params[:id])
+  end
+
+  # PATCH exams/1/save_exam_report
+  def save_exam_report
+    @exam = Exam.includes(:attendance).find params[:id]
+    if @exam.update exam_params
+      flash[:success] = I18n.t :add_report_to_exam_success
+      redirect_to workflow_path(@exam.attendance)
+    else
+      flash[:error] = I18n.t :add_report_to_exam_success
+      redirect_to add_report_path(@exam)
+    end
+  end
+
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report)
   	end
 
   	def set_exam
@@ -112,8 +126,12 @@ class ExamsController < ApplicationController
 			})
 			if @exam.save
         flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
-				redirect_to workflow_path(@exam.attendance)
-			else
+        if @exam.exam_status_kind == ExamStatusKind.COMPLETE
+          redirect_to add_report_to_exam_path(@exam) 
+        else
+          redirect_to workflow_path(@exam.attendance)
+        end
+      else
 				flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
 				redirect_to workflow_path(@exam.attendance)
 			end

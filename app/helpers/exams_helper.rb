@@ -15,7 +15,12 @@ module ExamsHelper
         options << link_to('Concluído', change_to_completed_path(exam), data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success ml-3 change-to-complete')
       end
     else
-      options << "<label class = 'text-success'>Exame concluído</label>".html_safe
+      options << "<label class = 'text-success ml-3'>Exame concluído</label>".html_safe
+      unless exam.report?
+        options << link_to('Adicionar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-secondary add-report ml-3')
+      else
+        options << link_to('Visualizar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-info see-report ml-3')
+      end
     end
     options << link_to('Editar', edit_exam_path(exam), class: 'btn btn-sm btn-outline-warning ml-2 edit-exam')
     options.html_safe
