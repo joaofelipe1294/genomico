@@ -93,14 +93,27 @@ class ExamsController < ApplicationController
     @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
   end
 
+  # GET exams/1/add_report
   def add_report
     @exam = Exam.includes(:offered_exam).find(params[:id])
+  end
+
+  # PATCH exams/1/save_exam_report
+  def save_exam_report
+    @exam = Exam.includes(:attendance).find params[:id]
+    if @exam.update exam_params
+      flash[:success] = I18n.t :add_report_to_exam_success
+      redirect_to workflow_path(@exam.attendance)
+    else
+      flash[:error] = I18n.t :add_report_to_exam_success
+      redirect_to add_report_path(@exam)
+    end
   end
 
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report)
   	end
 
   	def set_exam

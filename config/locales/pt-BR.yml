@@ -136,3 +136,5 @@
   remove_internal_code_success: 'Código interno removido com sucesso.'
   new_sample_success: 'Amostra cadastrada com sucesso.'
   edit_patient_success: 'Paciente editado com sucesso.'
+  add_report_to_exam_success: 'Laudo cadastrado com sucesso.'
+  server_error_message: 'Houve um erro no servidor, tente novamente mais tarde.'

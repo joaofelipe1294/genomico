@@ -8,7 +8,7 @@
   </div>
   <div class="card-body">
 
-    <%= form_with(multipart: true, class: 'form-inline') do |f| %>
+    <%= form_with(model: @exam, url: save_exam_report_path(@exam), method: :patch, multipart: true, class: 'form-inline') do |f| %>
       <div class = 'form-group'>
         <label class = 'h3'>Selecione um arquivo: </label>
         <%= f.file_field :report, class: '', required: true %>
