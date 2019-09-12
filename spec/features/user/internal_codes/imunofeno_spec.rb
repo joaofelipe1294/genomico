@@ -68,22 +68,6 @@ RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
       expect(find_all(class: 'internal-code').size).to eq InternalCode.where(field: Field.IMUNOFENO).size
     end
 
-    it "two exams in one internal_code" do
-      attendance = create_attendance
-      internal_code = InternalCode.create({
-        field: Field.IMUNOFENO,
-        sample: Sample.all.sample,
-        exams: [Exam.all.sample, Exam.all.sample]
-      })
-      visit current_path
-      Exam.all.each do |exam|
-        exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
-        exam.internal_code = internal_code
-        exam.save
-      end
-      expect(find_all(class: 'internal-code').size).to eq 2
-    end
-
   end
 
   context "searches" do

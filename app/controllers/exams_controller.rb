@@ -93,6 +93,9 @@ class ExamsController < ApplicationController
     @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
   end
 
+  def add_report
+  end
+
   private
 
   	def exam_params
