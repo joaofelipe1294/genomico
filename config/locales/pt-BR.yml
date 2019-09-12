@@ -138,3 +138,5 @@
   edit_patient_success: 'Paciente editado com sucesso.'
   add_report_to_exam_success: 'Laudo cadastrado com sucesso.'
   server_error_message: 'Houve um erro no servidor, tente novamente mais tarde.'
+  complete_attendance_success: 'Atendimento encerrado com sucesso.'
+  pending_reports_message: 'Adicione os laudos pendentes para concluir o atendimento.'
