@@ -63,9 +63,6 @@ class ExamsController < ApplicationController
 		@exam.exam_status_kind = ExamStatusKind.COMPLETE
 		@exam.finish_date = DateTime.now
 		apply_changes
-		if @exam.attendance.exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE).size == 0
-			flash[:info] = 'Adicione o laudo para encerrar o atendimento.'
-		end
 	end
 
   def exams_from_patient
@@ -129,8 +126,12 @@ class ExamsController < ApplicationController
 			})
 			if @exam.save
         flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
-				redirect_to workflow_path(@exam.attendance)
-			else
+        if @exam.exam_status_kind == ExamStatusKind.COMPLETE
+          redirect_to add_report_to_exam_path(@exam) 
+        else
+          redirect_to workflow_path(@exam.attendance)
+        end
+      else
 				flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
 				redirect_to workflow_path(@exam.attendance)
 			end
