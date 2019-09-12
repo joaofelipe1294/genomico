@@ -1,1 +1,29 @@
-Um laudo será adicionado ...
+<%= render 'layouts/user_navbar' %>
+
+<div class="card mt-5 col-md-8 offset-md-2 p-0">
+  <div class="card-header bg-info">
+    <h4 class="text-center text-white">
+      Adicionar laudo a <%= @exam.offered_exam.name %>
+    </h4>
+  </div>
+  <div class="card-body">
+
+    <%= form_with(multipart: true, class: 'form-inline') do |f| %>
+      <div class = 'form-group'>
+        <label class = 'h3'>Selecione um arquivo: </label>
+        <%= f.file_field :report, class: '', required: true %>
+        <button class = 'btn btn-outline-primary'>
+          Salvar
+        </button>
+      </div>
+    <% end %>
+
+    <% unless @exam.report? %>
+      <h3 class="text-center text-secondary mt-5">
+        Nenhum laudo adicionado.
+      </h3>
+    <% else %>
+      <embed src = "<%= @exam.report.url %>" height="1150" class = 'offset-md-1 col-md-10' />
+    <% end %>
+  </div>
+</div>

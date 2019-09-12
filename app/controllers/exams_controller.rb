@@ -94,6 +94,7 @@ class ExamsController < ApplicationController
   end
 
   def add_report
+    @exam = Exam.includes(:offered_exam).find(params[:id])
   end
 
   private
