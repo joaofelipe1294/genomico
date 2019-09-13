@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_11_185856) do
+ActiveRecord::Schema.define(version: 2019_09_13_134232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -203,13 +203,6 @@ ActiveRecord::Schema.define(version: 2019_09_11_185856) do
     t.index ["attendance_id"], name: "index_samples_on_attendance_id"
     t.index ["patient_id"], name: "index_samples_on_patient_id"
     t.index ["sample_kind_id"], name: "index_samples_on_sample_kind_id"
-  end
-
-  create_table "samples_work_maps", id: :serial, force: :cascade do |t|
-    t.integer "sample_id"
-    t.integer "work_map_id"
-    t.index ["sample_id"], name: "index_samples_work_maps_on_sample_id"
-    t.index ["work_map_id"], name: "index_samples_work_maps_on_work_map_id"
   end
 
   create_table "subsample_kinds", id: :serial, force: :cascade do |t|

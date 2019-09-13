@@ -61,8 +61,6 @@ RSpec.describe Sample, type: :model do
 
 		it { should have_many :subsamples }
 
-		it { should have_and_belong_to_many :work_maps }
-
 		it { should have_many :internal_codes }
 
 	end

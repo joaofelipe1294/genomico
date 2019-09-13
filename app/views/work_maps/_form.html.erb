@@ -25,44 +25,16 @@
       </label>
     <% else %>
       <%= f.file_field :map, {required: true} %>
-    <% end %>   
+    <% end %>
   </div>
 
   <hr/>
 
   <div class="col-md-12 p-0 mt-2" style="overflow: auto;">
 
-    <div class="col-md-5 offset-md-1 d-inline-block border-right" style="overflow: auto;">
-      <h3 class="text-center">Amostra</h3>
-      
-      <div class = 'form-group'>
-        <label>Tipo de amostra</label>
-        <select id = 'sample_kind' class = 'form-control'>
-          <option>Selecione uma opção</option>
-          <%= @sample_kinds.each do |sample_kind| %>
-            <option value = "<%= sample_kind.id %>">
-              <%= sample_kind.name %>
-            </option>
-          <% end %>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Amostra</label>
-        <select id = 'sample' class="form-control"></select>
-      </div>
-
-      <button id='btn_add_sample' class='btn btn-outline-primary float-right mb-2'>
-        Adicionar
-      </button>
-
-      <%= f.text_field :sample_ids, {id: 'samples_ids', hidden: true}%>
-
-    </div>
-
     <div class="col-md-5 d-inline-block" style="overflow: auto;">
       <h3 class="text-center">Subamostra</h3>
-      
+
       <div class = 'form-group'>
         <label>Tipo de subamostra</label>
         <select id="subsample_kind" class="form-control">
@@ -106,26 +78,6 @@
       </th>
     </thead>
     <tbody id = 'samples_table'>
-      <% if @work_map.samples %>
-        <% @work_map.samples.each do |sample| %>
-          <tr>
-            <td>
-              <%= sample.refference_label %>
-            </td>
-            <td hidden>
-              <label class = 'kind'>samples</label>
-            </td>
-            <td hidden>
-              <label class = 'id'><%= sample.id %></label>
-            </td>
-            <td>
-              <button class="btn btn-sm btn-outline-danger" onclick="remove_line(event)">
-                Remover
-              </button>
-            </td>
-          </tr>
-        <% end %>
-      <% end %>
       <% if @work_map.subsamples %>
         <% @work_map.subsamples.each do |subsample| %>
           <tr>
@@ -242,28 +194,6 @@
         console.log(error)
         alert('Houve um erro no servidor, tente novamente mais tarde')
       })
-  })
-</script>
-
-<script>
-  $('#btn_add_sample').click(event => {
-    event.preventDefault()
-    if ($('#sample').val()){
-      let samples_ids_values = $('#samples_ids').val()
-      let current_ids = samples_ids_values.split(',')
-      if (current_ids.includes($('#sample').val()) == false){
-        if ($('#samples_ids').val().length === 0)
-          samples_ids_values = `${$('#sample').val()}`
-        else
-          samples_ids_values += `,${$('#sample').val()}`
-        $('#samples_ids').val(samples_ids_values)
-        add_line({
-          refference_label: $('#sample option:selected').text(),
-          kind: 'samples',
-          id: $('#sample').val()
-        })
-      }
-    }
   })
 </script>
 

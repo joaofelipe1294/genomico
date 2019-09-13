@@ -28,7 +28,7 @@ RSpec.describe WorkMap, type: :model do
 			expect(work_map).to be_invalid
 		end
 
-	end 
+	end
 
 	context 'Relations' do
 
@@ -36,8 +36,6 @@ RSpec.describe WorkMap, type: :model do
 
 		it { should have_and_belong_to_many(:subsamples) }
 
-		it { should have_and_belong_to_many(:samples) }
- 
 	end
 
 end
