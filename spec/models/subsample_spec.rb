@@ -51,8 +51,6 @@ RSpec.describe Subsample, type: :model do
 
 		it { should have_one(:nanodrop_report) }
 
-		it { should have_and_belong_to_many(:work_maps) }
-
 		it { should accept_nested_attributes_for(:qubit_report) }
 
 		it { should accept_nested_attributes_for(:nanodrop_report) }

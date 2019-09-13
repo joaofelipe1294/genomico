@@ -3,7 +3,6 @@ class Subsample < ActiveRecord::Base
   belongs_to :sample
   belongs_to :attendance
   belongs_to :subsample_kind
-  has_and_belongs_to_many :work_maps
   has_one :qubit_report, dependent: :destroy
   has_one :nanodrop_report, dependent: :destroy
   accepts_nested_attributes_for :qubit_report, allow_destroy: true
