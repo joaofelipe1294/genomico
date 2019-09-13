@@ -36,4 +36,6 @@ RSpec.describe InternalCode, type: :model do
 
   it { should have_many :exams }
 
+  it { should have_and_belong_to_many :work_maps }
+
 end

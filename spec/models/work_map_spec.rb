@@ -32,7 +32,9 @@ RSpec.describe WorkMap, type: :model do
 
 	context 'Relations' do
 
-		it { should have_and_belong_to_many(:attendances) }
+		it { should have_and_belong_to_many :attendances }
+
+		it { should have_and_belong_to_many :internal_codes }
 
 	end
 

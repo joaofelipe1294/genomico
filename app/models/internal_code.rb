@@ -11,6 +11,7 @@ class InternalCode < ApplicationRecord
   before_validation :set_attendance
   has_many :exams
   belongs_to :subsample
+  has_and_belongs_to_many :work_maps
 
   private
 
