@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
   patch 'exams/:id/save_report', to: 'exams#save_exam_report', as: :save_exam_report
   get 'exams/:id/add_report', to: 'exams#add_report', as: :add_report_to_exam
   get 'internal_codes/imunofeno_internal_codes', to: 'internal_codes#imunofeno_internal_codes', as: :imunofeno_internal_codes

@@ -5,7 +5,7 @@ class InternalCodesController < ApplicationController
     @internal_codes = InternalCode.includes(:sample, :exams).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
   end
 
-  def new  # TODO: melhorar código deste método !!1
+  def new
     user = User.includes(:fields).find(session[:user_id])
     if user.fields.size == 1
       if params[:target] == "sample"
@@ -76,6 +76,18 @@ class InternalCodesController < ApplicationController
                                     .includes(:sample, :attendance)
                                     .where(code: params[:code])
                                     .page params[:page]
+    end
+  end
+
+  # GET internal_codes/1
+  def show
+    @internal_code = InternalCode.includes(:sample, :subsample, :field).find_by(code: params[:code])
+    if @internal_code
+      render json: @internal_code, status: :ok, include: [:field, :sample, :subsample]
+    elsif @internal_code.nil?
+      render json: {}, status: :not_found
+    else
+      render json: {}, status: :internal_server_error
     end
   end
 

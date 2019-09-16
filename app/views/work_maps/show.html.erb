@@ -28,26 +28,20 @@
 				</th>
 			</thead>
 			<tbody>
-				<% @work_map.samples.each do |sample| %>
-					<tr>
-						<td class="w-50">
-							<%= sample.refference_label %>
-						</td>
-						<td class="w-50">
-							<%= sample.sample_kind.name %>
-						</td>
-					</tr>
-				<% end %>
-				<% @work_map.subsamples.each do |subsample| %>
-					<tr>
-						<td class="w-50">
-							<%= subsample.refference_label %>
-						</td>
-						<td class="w-50">
-							<%= subsample.subsample_kind.name %>
-						</td>
-					</tr>
-				<% end %>
+				<% @work_map.internal_codes.each do |internal_code| %>
+          <tr>
+            <td>
+              <%= internal_code.code %>
+            </td>
+            <td>
+              <% unless internal_code.sample.nil? %>
+                <%= internal_code.sample.sample_kind.name %>
+              <% else %>
+                <%= internal_code.subsample.subsample_kind.name %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
 			</tbody>
 		</table>
 

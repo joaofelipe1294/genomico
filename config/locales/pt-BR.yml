@@ -140,3 +140,4 @@
   server_error_message: 'Houve um erro no servidor, tente novamente mais tarde.'
   complete_attendance_success: 'Atendimento encerrado com sucesso.'
   pending_reports_message: 'Adicione os laudos pendentes para concluir o atendimento.'
+  create_work_map_success: 'Mapa de trabalho cadastrado com sucesso.'
