@@ -93,7 +93,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       select(Field.IMUNOFENO.name, from: "field").select_option
       select(OfferedExam.where(is_active: true).where(field: Field.IMUNOFENO).sample.name, from: "offered_exam_id").select_option
       click_button id: 'btn-save'
-      expect(page).to have_current_path workflow_path(@attendance)
+      expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :new_exam_success
     end
 

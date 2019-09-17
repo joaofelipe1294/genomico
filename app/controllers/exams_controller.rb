@@ -16,7 +16,7 @@ class ExamsController < ApplicationController
     })
     if @exam.save
       flash[:success] = "Exame cadastrado com sucesso."
-      redirect_to workflow_path(Attendance.find(params[:id]))
+      redirect_to workflow_path(Attendance.find(params[:id]), {tab: "exams"})
     else
       flash[:warning] = 'Erro ao cadastrar exame, tente novamente mais tarde.'
 			redirect_to new_exam_path(@exam.attendance)
@@ -127,7 +127,7 @@ class ExamsController < ApplicationController
 			if @exam.save
         flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
         if @exam.exam_status_kind == ExamStatusKind.COMPLETE
-          redirect_to add_report_to_exam_path(@exam) 
+          redirect_to add_report_to_exam_path(@exam)
         else
           redirect_to workflow_path(@exam.attendance)
         end
