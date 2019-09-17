@@ -7,7 +7,7 @@
     <label for="">
       Código interno
     </label>
-    <input id="internal-code" class="form-control">
+    <input id="internal-code" name="internla-code" class="form-control">
   </div>
   <button id="btn-search" class="btn btn-outline-info float-right">
     Buscar
@@ -67,7 +67,7 @@
             let new_value = ids.join(',')
             $('#internal-code-ids').val(new_value)
             $('#samples').append(`
-              <tr id="internal-code-${response.data.id}">
+              <tr id="internal-code-${response.data.id}" class="internal-code">
                 <td>
                   ${response.data.code}
                 </td>

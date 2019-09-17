@@ -1,5 +1,6 @@
 class WorkMapsController < ApplicationController
   before_action :set_work_map, only: [:edit, :update, :destroy]
+  before_action :user_filter
 
   # GET /work_maps
   # GET /work_maps.json
@@ -17,7 +18,6 @@ class WorkMapsController < ApplicationController
   # GET /work_maps/1.json
   def show
     @work_map = WorkMap.includes(:internal_codes).find(params[:id])
-    p @work_map.internal_codes
   end
 
   # GET /work_maps/new
@@ -39,7 +39,7 @@ class WorkMapsController < ApplicationController
       flash[:success] = I18n.t :create_work_map_success
       redirect_to home_user_index_path
     else
-      flash[:error] = @work_map.errors.full_messages.first
+      flash[:warning] = @work_map.errors.full_messages.first
       redirect_to new_work_map_path
     end
   end

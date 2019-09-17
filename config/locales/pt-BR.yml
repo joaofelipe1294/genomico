@@ -116,6 +116,7 @@
         name: Identificador
         map: PDF com o mapa de trabalho
         date: Data da realização
+        internal_code_ids: Amostras
       internal_code:
         sample_id: Amostra
         sample: Amostra
