@@ -57,6 +57,10 @@ RSpec.describe ExamStatusKind, type: :model do
 			expect(ExamStatusKind.COMPLETE).to eq ExamStatusKind.find_by name: 'Concluído'
 		end
 
+		it "partial_released" do
+			expect(ExamStatusKind.PARTIAL_RELEASED).to eq ExamStatusKind.find_by name: 'Liberado parcial'
+		end
+
 	end
 
 end
