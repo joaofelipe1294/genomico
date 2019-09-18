@@ -189,10 +189,13 @@
     console.log(tab)
     if (tab === 'exams'){
       $('#exam_nav').addClass('active')
-      $('#exams_tab').fadeToggle()
+      $('#exams_tab').removeAttr('style')
+    }else if (tab == 'samples'){
+      $('#sample_nav').addClass('active')
+      $('#samples_tab').removeAttr('style')
     }
   }else{
     $('#attendance_nav').addClass('active')
-    $('#attendance_tab').fadeToggle()
+    $('#attendance_tab').removeAttr('style')
   }
 </script>

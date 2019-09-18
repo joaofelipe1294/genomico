@@ -35,7 +35,7 @@ class ExamsController < ApplicationController
     @exam.offered_exam_id = exam_params[:offered_exam_id]
 		if @exam.save
 			flash[:success] = I18n.t :edit_exam_success
-			redirect_to workflow_path(@exam.attendance)
+			redirect_to workflow_path(@exam.attendance, {tab: "exams"})
 		else
 			flash[:warning] = 'Erro ao editar exame, tente novamente mais tarde.'
 			redirect_to workflow_path(@exam.attendance)
@@ -100,7 +100,7 @@ class ExamsController < ApplicationController
     @exam = Exam.includes(:attendance).find params[:id]
     if @exam.update exam_params
       flash[:success] = I18n.t :add_report_to_exam_success
-      redirect_to workflow_path(@exam.attendance)
+      redirect_to workflow_path(@exam.attendance, {tab: "exams"})
     else
       flash[:error] = I18n.t :add_report_to_exam_success
       redirect_to add_report_path(@exam)
@@ -129,11 +129,11 @@ class ExamsController < ApplicationController
         if @exam.exam_status_kind == ExamStatusKind.COMPLETE
           redirect_to add_report_to_exam_path(@exam)
         else
-          redirect_to workflow_path(@exam.attendance)
+          redirect_to workflow_path(@exam.attendance, {tab: "exams"})
         end
       else
 				flash[:warning] = 'Erro ao alterar status de exame, tente novamente mais tarde.'
-				redirect_to workflow_path(@exam.attendance)
+				redirect_to workflow_path(@exam.attendance, {tab: "exams"})
 			end
 		end
 

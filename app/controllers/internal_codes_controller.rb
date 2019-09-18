@@ -20,7 +20,7 @@ class InternalCodesController < ApplicationController
         })
       end
       flash[:success] = I18n.t :new_internal_code_success
-      redirect_to workflow_path(@internal_code.attendance)
+      redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
     else
       if params[:target] == "sample"
         @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
@@ -35,7 +35,7 @@ class InternalCodesController < ApplicationController
     @internal_code = InternalCode.new internal_code_attributes
     if @internal_code.save
       flash[:success] = 'Código interno salvo com sucesso.'
-      redirect_to workflow_path(@internal_code.attendance)
+      redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
     else
       unless @internal_code.errors.empty?
         flash[:warning] = @internal_code.errors.first.last
@@ -57,7 +57,7 @@ class InternalCodesController < ApplicationController
     sample = internal_code.sample
     if internal_code.delete
       flash[:success] = I18n.t :remove_internal_code_success
-      redirect_to workflow_path(internal_code.attendance)
+      redirect_to workflow_path(internal_code.attendance, {tab: "samples"})
     else
       flash[:warning] = 'Erro ao remover código interno, tente novamente mais tarde.'
       redirect_to workflow_path(internal_code.sample.attendance)
