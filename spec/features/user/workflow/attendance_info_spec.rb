@@ -8,7 +8,7 @@ def visit_workflow
   click_link class: 'attendance-code', match: :first
 end
 
-RSpec.feature "User::Workflow::AttendanceInfos", type: :feature do
+RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do
 
   before :each do
     Rails.application.load_seed
