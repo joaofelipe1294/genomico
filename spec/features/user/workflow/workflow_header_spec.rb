@@ -17,7 +17,7 @@ RSpec.feature "User::Workflow::WorkflowHeaders", type: :feature do
     end
 
     it "access workflow" do
-      expect(page).to have_current_path workflow_path(@attendance)
+      expect(page).to have_current_path workflow_path(@attendance, {tab: 'exams'})
     end
 
     it "patient name" do
