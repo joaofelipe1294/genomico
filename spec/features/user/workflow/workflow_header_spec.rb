@@ -81,11 +81,4 @@ RSpec.feature "User::Workflow::WorkflowHeaders", type: :feature do
     expect(find(id: 'danger-warning').text).to eq I18n.t :wrong_credentials_message
   end
 
-
-
-
-
-
-
-
 end

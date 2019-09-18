@@ -50,7 +50,7 @@ class SubsamplesController < ApplicationController
         )
       end
       flash[:success] = I18n.t :new_subsample_success
-      redirect_to workflow_path(@subsample.sample.attendance)
+      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
     else
       flash[:danger] = "Não foi possível cadastrar a subamostra."
       @subsample_kinds = SubsampleKind.all.order :name
@@ -63,7 +63,7 @@ class SubsamplesController < ApplicationController
   def update
     if @subsample.update(subsample_params)
       flash[:success] = I18n.t :edit_subsample_success
-      redirect_to workflow_path(@subsample.sample.attendance)
+      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
     else
       render :edit
     end
@@ -74,7 +74,7 @@ class SubsamplesController < ApplicationController
   def destroy
     @subsample.destroy
     flash[:success] = 'Subamostra removida com sucesso.'
-    redirect_to workflow_path(@subsample.sample.attendance)
+    redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
   end
 
   private

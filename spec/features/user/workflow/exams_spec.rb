@@ -60,7 +60,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
     context "change exam status" do
 
       before :each do
-        select_first_exam
+        # select_first_exam
         generate_internal_code
         click_button id: 'exam_nav'
         click_link class: 'start-exam', match: :first
@@ -93,7 +93,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       select(Field.IMUNOFENO.name, from: "field").select_option
       select(OfferedExam.where(is_active: true).where(field: Field.IMUNOFENO).sample.name, from: "offered_exam_id").select_option
       click_button id: 'btn-save'
-      expect(page).to have_current_path workflow_path(@attendance)
+      expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :new_exam_success
     end
 
@@ -155,7 +155,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       click_link class: 'add-report', match: :first
       attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
       click_button id: 'btn-save'
-      expect(page).to have_current_path workflow_path(@attendance)
+      expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
     end
 
@@ -174,7 +174,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       click_link class: 'see-report', match: :first
       attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF_2.pdf"
       click_button id: 'btn-save'
-      expect(page).to have_current_path workflow_path(@attendance)
+      expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
       exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).first
       expect(exam.report_file_name).to eq "PDF_2.pdf"
