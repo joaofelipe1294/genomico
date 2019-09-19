@@ -1,6 +1,5 @@
 class ExamsController < ApplicationController
-  # TODO: Revisar e remover todo código de lógica existente na controller !
-  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update]
+  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update, :partial_released]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
 
   def new
@@ -107,10 +106,22 @@ class ExamsController < ApplicationController
     end
   end
 
+  # GET exams/1/partial_released
+  def partial_released
+  end
+
+  # PATCH exams/1/partial_released
+  def change_to_partial_released
+    @exam = Exam.find params[:id]
+    @exam.exam_status_kind = ExamStatusKind.PARTIAL_RELEASED
+    @exam.partial_released_report = exam_params[:partial_released_report]
+    apply_changes
+  end
+
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report, :partial_released_report)
   	end
 
   	def set_exam

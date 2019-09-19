@@ -11,6 +11,7 @@ module ExamsHelper
       unless exam.exam_status_kind == ExamStatusKind.IN_REPEAT
         options << link_to('Em repetição', change_to_in_repeat_path(exam), method: :patch, class: 'btn btn-sm btn-outline-secondary ml-3 change-to-in-repeat')
       end
+      options << link_to('Liberado parcial', change_to_partial_released_path(exam), class: 'btn btn-sm btn-outline-dark ml-3 change-topartial-released')
       unless exam.exam_status_kind == ExamStatusKind.COMPLETE
         options << link_to('Concluído', change_to_completed_path(exam), data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success ml-3 change-to-complete')
       end

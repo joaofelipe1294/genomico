@@ -13,11 +13,29 @@
               <td class="w-50">
                 <%= exam.offered_exam.name %>
               </td>
+              <td>
+                <%= exam_status_helper exam.exam_status_kind %>
+              </td>
               <td class="w-25">
                 <%= l exam.finish_date %>
               </td>
               <td class="w-25">
                 <%= link_to "Visualizar", add_report_to_exam_path(exam), class: 'btn btn-outline-info' %>
+              </td>
+            </tr>
+          <% elsif exam.partial_released_report? %>
+            <tr class="report">
+              <td class="w-50">
+                <%= exam.offered_exam.name %>
+              </td>
+              <td>
+                <%= exam_status_helper exam.exam_status_kind %>
+              </td>
+              <td class="w-25">
+                -
+              </td>
+              <td class="w-25">
+                <%= link_to "Visualizar", change_to_partial_released_path(exam), class: 'btn btn-outline-info' %>
               </td>
             </tr>
           <% end %>
