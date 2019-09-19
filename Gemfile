@@ -50,7 +50,7 @@ gem 'friendly_id', '~> 5.2.4' # Note: You MUST use 5.0.0 or greater for Rails 4.
 # Repository for collecting Locale data for Ruby on Rails I18n as well as other interesting, Rails related I18n stuff http://rails-i18n.org
 gem 'rails-i18n', '~> 4.0'
 
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 5.3.0"
 
 # Cron jobs in Ruby
 gem 'whenever', require: false
