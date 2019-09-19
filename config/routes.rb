@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  patch 'exams/:id/partial_released', to: 'exams#change_to_partial_released', as: :partial_released
+  get 'exams/:id/partial_released', to: 'exams#partial_released', as: :change_to_partial_released
   get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
   patch 'exams/:id/save_report', to: 'exams#save_exam_report', as: :save_exam_report
   get 'exams/:id/add_report', to: 'exams#add_report', as: :add_report_to_exam

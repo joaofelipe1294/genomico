@@ -24,4 +24,8 @@ class ExamStatusKind < ActiveRecord::Base
 		ExamStatusKind.find_by name: 'Aguardando início'
 	end
 
+	def self.PARTIAL_RELEASED
+		ExamStatusKind.find_by name: 'Liberado parcial'
+	end
+
 end
