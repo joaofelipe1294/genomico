@@ -7,7 +7,8 @@ def navigate_to_edit_patient patient
   click_link id: 'patients'
   fill_in id: 'patient-name-search', with: patient.name
   click_button id: 'btn-search-by-name'
-  click_link class: 'btn-outline-warning', match: :first
+  click_link class: 'patient-info', match: :first
+  click_link class: 'btn-outline-warning'
 end
 
 def correct_expetations
@@ -174,7 +175,8 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       user_do_login
       fill_in id: 'patient-name-search', with: @duplicated.name
       click_button id: 'btn-search-patient'
-      click_link class: 'edit-patient'
+      click_link class: 'patient-info', match: :first
+      click_link class: 'edit-patient', match: :first
     end
 
     it "name, mother_name, birth_date and HPP", js: false do
@@ -215,6 +217,7 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       user_do_login
       fill_in id: 'patient-name-search', with: @duplicated.name
       click_button id: 'btn-search-patient'
+      click_link class: 'patient-info', match: :first
       click_link class: 'edit-patient'
       fill_in :patient_medical_record, with: @patient.medical_record
       click_button class: 'btn-outline-primary'
