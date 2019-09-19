@@ -9,7 +9,7 @@
       <tbody>
         <% @attendance.exams.each do |exam| %>
           <% if exam.report? %>
-            <tr class="report">
+            <tr class="report complete-report">
               <td class="w-50">
                 <%= exam.offered_exam.name %>
               </td>
@@ -24,7 +24,7 @@
               </td>
             </tr>
           <% elsif exam.partial_released_report? %>
-            <tr class="report">
+            <tr class="report partial-released-report">
               <td class="w-50">
                 <%= exam.offered_exam.name %>
               </td>
