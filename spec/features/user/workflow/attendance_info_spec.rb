@@ -6,6 +6,7 @@ def visit_workflow
   create_attendance
   imunofeno_user_do_login
   click_link class: 'attendance-code', match: :first
+  click_button id: 'attendance_nav'
 end
 
 RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do

@@ -152,7 +152,7 @@ RSpec.feature "User::Patient::News", type: :feature do
 			@patient.mother_name = nil
 			fill_patient_fields
 			click_button(class: 'btn-outline-primary')
-			expect(find(class: 'error', match: :first).text).to eq "Nome da mãe não pode ficar em branco."
+			expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
 		end
 
 	end

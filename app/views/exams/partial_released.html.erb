@@ -1,0 +1,36 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="card mt-5 col-md-8 offset-md-2 p-0">
+  <div class="card-header bg-info">
+    <h3 class="text-center text-white">
+      Liberado parcial
+    </h3>
+  </div>
+  <div class="card-body">
+    <div style="overflow: auto;">
+      <%= form_with model: @exam, url: partial_released_path(@exam) do |form| %>
+
+        <div class="form-group">
+          <label class='h3'>Selecione um arquivo com o laudo: </label><br>
+          <%= form.file_field :partial_released_report, required: true %>
+        </div>
+        <button id="btn-save" class='btn btn-outline-primary float-right'>
+          Salvar
+        </button>
+
+      <% end %>
+    </div>
+
+    <hr>
+
+    <% unless @exam.partial_released_report? %>
+      <h3 class="text-center text-secondary mt-5">
+        Nenhum laudo adicionado.
+      </h3>
+    <% else %>
+      <embed src="<%= @exam.partial_released_report.url %>" height="1150" class = 'offset-md-1 col-md-10 mt-5' />
+    <% end %>
+
+  </div>
+
+</div>
