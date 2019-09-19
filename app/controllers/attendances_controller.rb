@@ -45,7 +45,7 @@ class AttendancesController < ApplicationController
     @attendance.attendance_status_kind = AttendanceStatusKind.IN_PROGRESS
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      redirect_to workflow_path(@attendance)
+      redirect_to workflow_path(@attendance, {tab: 'samples'})
     else
       set_desease_stages_and_health_ensurances
       @fields = Field.all.order :name
