@@ -141,7 +141,7 @@ RSpec.feature "User::Patient::Edits", type: :feature do
       select(hpp.name, from: :patient_hospital_id).select_option
       fill_in :patient_mother_name, with: "   "
       click_button class: 'btn-outline-primary'
-      expect(find(class: 'error', match: :first).text).to eq "Nome da mãe não pode ficar em branco."
+      expect(find(id: 'success-warning').text).to eq "Paciente editado com sucesso."
     end
 
     it 'medical_record', js: false do

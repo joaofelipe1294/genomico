@@ -47,7 +47,7 @@ RSpec.describe Patient, type: :model do
 		it "without mother_name in HPP" do
 			patient = build(:patient, hospital: Hospital.HPP, mother_name: "    ")
 			patient.save
-			expect(patient).to be_invalid
+			expect(patient).to be_valid
 		end
 
 		it "without medical_record" do
@@ -116,10 +116,16 @@ RSpec.describe Patient, type: :model do
 			expect(duplicated).to be_invalid
 		end
 
-		it "with name, birth_date, mother_name duplicated" do
+		it "with name, birth_date, hospital duplicated" do
 			patient = create(:patient)
 			duplicated = build(:patient, name: patient.name, birth_date: patient.birth_date, hospital: patient.hospital)
 			duplicated.save
+			expect(duplicated).to be_invalid
+		end
+
+		it "with name, birth_date and mother_name duplicated but distinct hospital" do
+			patient = create(:patient)
+			duplicated = build(:patient, name: patient, mother_name: patient.mother_name, birth_date: patient.birth_date)
 			expect(duplicated).to be_valid
 		end
 
