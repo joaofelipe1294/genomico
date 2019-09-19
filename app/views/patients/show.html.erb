@@ -5,9 +5,10 @@
     <h4 class="text-center d-inline-block text-center">
       Paciente
     </h4>
-    <%= link_to "Editar", edit_patient_path(@patient), class: 'btn btn-sm btn-outline-warning float-right ml-4' %>
-    <%= link_to "Amostras", samples_from_patient_path(@patient), class: 'btn btn-sm btn-outline-primary float-right ml-4'%>
-    <%= link_to "Exames", exams_from_patient_path(@patient), class: 'btn btn-sm btn-outline-info float-right' %>
+    <%= link_to "Editar", edit_patient_path(@patient), class: 'btn btn-sm btn-warning float-right ml-4 edit-patient' %>
+    <%= link_to "Amostras", samples_from_patient_path(@patient), class: 'btn btn-sm btn-primary float-right ml-4 samples-from-patient'%>
+    <%= link_to "Exames", exams_from_patient_path(@patient), class: 'btn btn-sm btn-success float-right ml-4 exams-from-patient' %>
+    <%= link_to 'Atendimentos', attendances_from_patient_path(@patient), {class: 'btn btn-sm btn-info float-right ml-4 attendances-from-patient'} %>
   </div>
   <div class="card-body">
 
