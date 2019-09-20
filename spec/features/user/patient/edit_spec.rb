@@ -8,7 +8,7 @@ def navigate_to_edit_patient patient
   fill_in id: 'patient-name-search', with: patient.name
   click_button id: 'btn-search-by-name'
   click_link class: 'patient-info', match: :first
-  click_link class: 'btn-outline-warning'
+  click_link class: 'edit-patient'
 end
 
 def correct_expetations

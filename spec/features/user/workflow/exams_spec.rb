@@ -74,9 +74,9 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
     context "change exam status" do
 
       before :each do
-          @attendance.exams.includes(:offered_exam).each do |exam|
-            exam.delete if exam.offered_exam.field != Field.IMUNOFENO
-          end
+        @attendance.exams.includes(:offered_exam).each do |exam|
+          exam.delete if exam.offered_exam.field != Field.IMUNOFENO
+        end
         generate_internal_code
         click_button id: 'exam_nav'
         click_link class: 'start-exam', match: :first
