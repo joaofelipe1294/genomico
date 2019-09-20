@@ -20,6 +20,7 @@ class Subsample < ActiveRecord::Base
   		self.collection_date = DateTime.now
   		self.sample.update({has_subsample: true})
       self.attendance = sample.attendance
+      self.patient = self.attendance.patient if self.patient.nil?
     end
 
 end

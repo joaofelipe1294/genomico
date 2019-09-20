@@ -5,49 +5,42 @@ RSpec.describe Sample, type: :model do
 	context 'Validations' do
 
 		it 'Complete' do
-			sample = create(:sample)
+			sample = build(:sample)
 			expect(sample).to be_valid
 		end
 
 		it 'without sample_kind' do
 			sample = build(:sample, sample_kind: nil)
-			sample.save
 			expect(sample).to be_invalid
 		end
 
 		it 'without has_subsample' do
 			sample = build(:sample, has_subsample: nil)
-			sample.save
 			expect(sample).to be_valid
 		end
 
 		it 'without entry_date' do
 			sample = build(:sample, entry_date: nil)
-			sample.save
 			expect(sample).to be_valid
 		end
 
 		it 'without collection_date' do
 			sample = build(:sample, collection_date: nil)
-			sample.save
 			expect(sample).to be_invalid
 		end
 
 		it 'without refference_label' do
 			sample = build(:sample, refference_label: nil)
-			sample.save
 			expect(sample).to be_valid
 		end
 
 		it 'without bottles_number' do
 			sample = build(:sample, bottles_number: nil)
-			sample.save
 			expect(sample).to be_invalid
 		end
 
 		it 'without storage_location' do
 			sample = build(:sample, storage_location: nil)
-			sample.save
 			expect(sample).to be_valid
 		end
 
@@ -83,7 +76,10 @@ RSpec.describe Sample, type: :model do
 
 		it 'set_refference_label' do
 			Rails.application.load_seed
-			sample = create(:sample, sample_kind: SampleKind.LIQUOR)
+			patient = create(:patient)
+			attendance = Attendance.new({id: 1, patient: patient})
+			attendance.save!(validate: false)
+			sample = create(:sample, sample_kind: SampleKind.LIQUOR, attendance: attendance)
 			expect(sample.refference_label).to be
 			expect(sample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-LQ-0001")
 		end
