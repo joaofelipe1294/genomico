@@ -177,6 +177,8 @@ class AttendancesController < ApplicationController
 
     def check_attendance_status
       complete_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE).size
+      complete_without_report_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
+      complete_exams = complete_exams + complete_without_report_exams
       if @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
         flash[:info] = "Atendimento encerrado em #{I18n.l @attendance.finish_date.to_date}."
       elsif complete_exams == @attendance.exams.size

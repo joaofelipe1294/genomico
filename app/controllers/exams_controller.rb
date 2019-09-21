@@ -59,7 +59,7 @@ class ExamsController < ApplicationController
 	end
 
 	def completed
-		@exam.exam_status_kind = ExamStatusKind.COMPLETE
+		@exam.exam_status_kind = ExamStatusKind.COMPLETE_WITHOUT_REPORT
 		@exam.finish_date = DateTime.now
 		apply_changes
 	end
@@ -97,6 +97,7 @@ class ExamsController < ApplicationController
   # PATCH exams/1/save_exam_report
   def save_exam_report
     @exam = Exam.includes(:attendance).find params[:id]
+    @exam.exam_status_kind = ExamStatusKind.COMPLETE
     if @exam.update exam_params
       flash[:success] = I18n.t :add_report_to_exam_success
       redirect_to workflow_path(@exam.attendance, {tab: "exams"})
@@ -137,7 +138,7 @@ class ExamsController < ApplicationController
 			})
 			if @exam.save
         flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
-        if @exam.exam_status_kind == ExamStatusKind.COMPLETE
+        if @exam.exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
           redirect_to add_report_to_exam_path(@exam)
         else
           redirect_to workflow_path(@exam.attendance, {tab: "exams"})

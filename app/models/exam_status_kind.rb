@@ -28,4 +28,8 @@ class ExamStatusKind < ActiveRecord::Base
 		ExamStatusKind.find_by name: 'Liberado parcial'
 	end
 
+	def self.COMPLETE_WITHOUT_REPORT
+		ExamStatusKind.find_by name: 'Concluído (sem laudo)'
+	end
+
 end
