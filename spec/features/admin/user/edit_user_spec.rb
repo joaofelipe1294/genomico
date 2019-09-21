@@ -8,7 +8,6 @@ def navigate_to_edit_user_page
 end
 
 def setup
-	Rails.application.load_seed
 	create_users
 	admin_do_login
 	navigate_to_edit_user_page
