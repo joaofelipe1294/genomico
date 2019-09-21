@@ -8,7 +8,10 @@ class HomeUserController < ApplicationController
       @user = User.includes(:fields).find(session[:user_id])
       @waiting_exams = helpers.waiting_exams @user.fields.first.id
       @exams_in_progress = helpers.exams_in_progress @user.fields.first.id
-      @issues = helpers.field_issues @user.fields.first.id
+      @issues = Exam
+                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                    .joins(:offered_exam)
+                    .where("offered_exams.field_id = ?", @user.fields.first)
       @delayed_exams = helpers.delayed_exams @issues
     end
   end

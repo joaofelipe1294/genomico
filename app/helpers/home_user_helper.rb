@@ -45,22 +45,6 @@ module HomeUserHelper
     { relation: exams_relation, count: exams_count }
   end
 
-  def field_issues field_id
-    conn = ActiveRecord::Base.connection
-    result = conn.execute"
-      SELECT e.id
-      FROM exams e
-           INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-      WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-            AND oe.field_id = #{conn.quote(field_id)};"
-    exam_ids = []
-    result.each do |line|
-      exam_ids.push line["id"]
-    end
-    exams = Exam.includes(:offered_exam, :internal_code, :attendance, :exam_status_kind).where(id: exam_ids)
-    exams
-  end
-
   def delayed_exams exams
     late_exams = []
     exams.each do |exam|
