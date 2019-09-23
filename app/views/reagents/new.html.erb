@@ -1,5 +1,13 @@
-<h1>New Reagent</h1>
+<%= render 'layouts/user_navbar' %>
 
-<%= render 'form', reagent: @reagent %>
+<div class="card mt-5 col-md-10 offset-md-1 p-0">
+  <div class="card-header bg-info">
+    <h3 class="text-center text-white">
+      Novo reagente
+    </h3>
 
-<%= link_to 'Back', reagents_path %>
+  </div>
+  <div class="card-body">
+    <%= render 'form', reagent: @reagent %>
+  </div>
+</div>
