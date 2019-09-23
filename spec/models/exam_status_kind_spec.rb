@@ -61,6 +61,10 @@ RSpec.describe ExamStatusKind, type: :model do
 			expect(ExamStatusKind.PARTIAL_RELEASED).to eq ExamStatusKind.find_by name: 'Liberado parcial'
 		end
 
+		it "complete without report" do
+			expect(ExamStatusKind.COMPLETE_WITHOUT_REPORT).to eq ExamStatusKind.find_by name: 'Concluído (sem laudo)'
+		end
+
 	end
 
 end

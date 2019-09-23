@@ -1,40 +1,55 @@
 require 'rails_helper'
 
+def setup
+	Rails.application.load_seed
+	patient = Patient.new(id: 8)
+	patient.save!(validate: false)
+	sample = Sample.new({
+		sample_kind: SampleKind.all.sample,
+		collection_date: Date.today,
+		bottles_number: 1,
+	})
+	@attendance = Attendance.new({
+		id: 1,
+		patient: patient,
+		samples: [ sample ]
+	})
+	@attendance.save!(validate: false)
+end
+
 RSpec.describe Subsample, type: :model do
 
 	context 'Validations' do
 
+		before :each do
+			setup
+		end
+
 		it 'Correct' do
-			subsample = create(:subsample)
+			subsample = build(:subsample, sample: @attendance.samples.first)
 			expect(subsample).to be_valid
 		end
 
 		it 'without storage_location' do
-			subsample = build(:subsample)
+			subsample = build(:subsample, sample: @attendance.samples.first)
 			subsample.save
 			expect(subsample).to be_valid
 		end
 
-		it 'without sample' do
-			subsample = build(:subsample, sample: nil)
-			subsample.save
-			expect(subsample).to be_invalid
-		end
-
 		it 'without collection_date' do
-			subsample = build(:subsample, collection_date: nil)
+			subsample = build(:subsample, collection_date: nil, sample: @attendance.samples.first)
 			subsample.save
 			expect(subsample).to be_valid
 		end
 
 		it 'without subsample_kind' do
-			subsample = build(:subsample, subsample_kind: nil)
+			subsample = build(:subsample, subsample_kind: nil, sample: @attendance.samples.first)
 			subsample.save
 			expect(subsample).to be_invalid
 		end
 
 		it 'without refference_label' do
-			subsample = build(:subsample, refference_label: nil)
+			subsample = build(:subsample, refference_label: nil, sample: @attendance.samples.first)
 			subsample.save
 			expect(subsample).to be_valid
 		end
@@ -62,11 +77,13 @@ RSpec.describe Subsample, type: :model do
 	context 'Before_save' do
 
 		it 'add_default_values' do
+			setup
 			Rails.application.load_seed
 			subsample = create(
 				:subsample,
 				subsample_kind: SubsampleKind.DNA,
-				collection_date: Date.today.year
+				collection_date: Date.today.year,
+				sample: @attendance.samples.first
 			)
 			subsample = Subsample.find subsample.id
 			expect(subsample).to be_valid

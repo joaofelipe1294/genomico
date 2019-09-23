@@ -74,9 +74,9 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
     context "change exam status" do
 
       before :each do
-          @attendance.exams.includes(:offered_exam).each do |exam|
-            exam.delete if exam.offered_exam.field != Field.IMUNOFENO
-          end
+        @attendance.exams.includes(:offered_exam).each do |exam|
+          exam.delete if exam.offered_exam.field != Field.IMUNOFENO
+        end
         generate_internal_code
         click_button id: 'exam_nav'
         click_link class: 'start-exam', match: :first
@@ -99,7 +99,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
         click_button 'exam_nav'
         click_link class: 'change-to-complete', match: :first
         page.driver.browser.switch_to.alert.accept
-        expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE.name}."
+        expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE_WITHOUT_REPORT.name}."
       end
 
     end
@@ -161,9 +161,9 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
     end
 
     it "navigate to add report to exam" do
-      expect(find_all(class: 'add-report').size).to eq Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).size
+      expect(find_all(class: 'add-report').size).to eq Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
       click_link class: 'add-report', match: :first
-      exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).first
+      exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).first
       expect(page).to have_current_path add_report_to_exam_path(exam)
     end
 
@@ -178,7 +178,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
     it "send without file" do
       click_link class: 'add-report', match: :first
       click_button id: 'btn-save'
-      exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).first
+      exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).first
       expect(page).to have_current_path add_report_to_exam_path(exam)
     end
 
@@ -216,7 +216,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
         attach_file "exam[partial_released_report]", "#{Rails.root}/spec/support_files/PDF.pdf"
         click_button id: 'btn-save'
         expect(page).to have_current_path workflow_path(@attendance, {tab: 'exams'})
-        expect(find_all('change-to-partial-released').size).to eq Exam.where(exam_status_kind: ExamStatusKind.PARTIAL_RELEASED).size
+        expect(find_all(class: 'change-to-partial-released').size).to eq Exam.where(exam_status_kind: ExamStatusKind.PARTIAL_RELEASED).size
       end
 
       it "without pdf" do

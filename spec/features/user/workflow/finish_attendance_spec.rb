@@ -25,6 +25,9 @@ RSpec.feature "User::Workflow::FinishAttendances", type: :feature, js: true do
   before :each do
     Rails.application.load_seed
     create_attendance
+    @attendance.exams.includes(:offered_exam).each do |exam|
+      exam.delete if exam.offered_exam.field != Field.IMUNOFENO
+    end
     @attendance.exams = Exam.joins(:offered_exam).where("offered_exams.field_id = ?", Field.IMUNOFENO.id)
     @attendance.save
     imunofeno_user_do_login
