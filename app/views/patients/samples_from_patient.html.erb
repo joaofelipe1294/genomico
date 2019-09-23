@@ -37,6 +37,11 @@
     </th>
     <th>
       <h4>
+        Códigos internos
+      </h4>
+    </th>
+    <th>
+      <h4>
         Coleta
       </h4>
     </th>
@@ -74,6 +79,19 @@
             <%= sample.sample_kind.name %>
           </td>
           <td>
+            <% unless sample.internal_codes.empty? %>
+              <% if sample.internal_codes.size == 1 %>
+                <%= sample.internal_codes.first.code %>
+              <% else %>
+                <% sample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  "%>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
             <%= l sample.collection_date %>
           </td>
           <td>
@@ -96,6 +114,21 @@
           <tr>
             <td>
               <%= subsample.subsample_kind.name %>
+            </td>
+            <td>
+
+              <% unless subsample.internal_codes.empty? %>
+                <% if subsample.internal_codes.size == 1 %>
+                  <%= subsample.internal_codes.first.code %>
+                <% else %>
+                  <% subsample.internal_codes.each do |internal_code| %>
+                    <%= "  #{internal_code.code}  " %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                -
+              <% end %>
+
             </td>
             <td>
               <%= l subsample.collection_date.to_date %>
@@ -125,6 +158,19 @@
             <%= sample.sample_kind.name %>
           </td>
           <td>
+            <% unless sample.internal_codes.empty? %>
+              <% if sample.internal_codes.size == 1 %>
+                <%= sample.internal_codes.first.code %>
+              <% else %>
+                <% sample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  "%>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
             <%= l sample.collection_date %>
           </td>
           <td>
@@ -149,6 +195,19 @@
         <tr>
           <td>
             <%= subsample.subsample_kind.name %>
+          </td>
+          <td>
+            <% unless subsample.internal_codes.empty? %>
+              <% if subsample.internal_codes.size == 1 %>
+                <%= subsample.internal_codes.first.code %>
+              <% else %>
+                <% subsample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  " %>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
           </td>
           <td>
             <%= l subsample.collection_date.to_date %>
