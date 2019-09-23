@@ -336,3 +336,9 @@ Hospital.create({name: 'Hospital Pequeno Príncipe'})
 # puts 'Criando Hospitals [OK]'
 
 #############################################################
+
+BottleStatusKind.create([
+	{name: "Em estoque"},
+	{name: "Em uso"},
+	{name: "Em quarentena"},
+])
