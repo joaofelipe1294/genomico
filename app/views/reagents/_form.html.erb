@@ -11,52 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :product_description %>
-    <%= form.text_field :product_description %>
+    <%= form.text_field :product_description, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :stock_itens %>
-    <%= form.number_field :stock_itens %>
+    <%= form.number_field :stock_itens, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :usage_per_test %>
-    <%= form.number_field :usage_per_test %>
+    <%= form.number_field :usage_per_test, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :brand %>
-    <%= form.text_field :brand %>
+    <%= form.text_field :brand, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= form.label :total_aviable %>
-    <%= form.number_field :total_aviable %>
-  </div>
-
-  <div class="field">
-    <%= form.label :field_id %>
-    <%= form.text_field :field_id %>
-  </div>
-
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :first_warn_at %>
-    <%= form.number_field :first_warn_at %>
+    <%= form.number_field :first_warn_at, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :danger_warn_at %>
-    <%= form.number_field :danger_warn_at %>
+    <%= form.number_field :danger_warn_at, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
 <% end %>

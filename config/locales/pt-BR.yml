@@ -21,6 +21,7 @@
       hospital: Hospital
       work_map: Mapa de Trabalho
       internal_code: Código interno
+      reagent: Reagente
     attributes:
       user_kind:
         name: Nome
@@ -123,6 +124,16 @@
         field_id: Área do laboratório
         field: Área do laboratório
         code: Código
+      reagent:
+        product_description: Descrição do produto
+        name: Nome
+        stock_itens: Itens em estoque
+        usage_per_test: Titulação
+        brand: Marca
+        total_aviable: Quantidade disponível
+        field: Área
+        first_warn_at: Primeiro aviso
+        danger_warn_at: Segundo aviso
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
