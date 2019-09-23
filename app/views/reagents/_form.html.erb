@@ -1,0 +1,62 @@
+<%= form_with(model: reagent, local: true) do |form| %>
+  <% if reagent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reagent.errors.count, "error") %> prohibited this reagent from being saved:</h2>
+
+      <ul>
+      <% reagent.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :product_description %>
+    <%= form.text_field :product_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stock_itens %>
+    <%= form.number_field :stock_itens %>
+  </div>
+
+  <div class="field">
+    <%= form.label :usage_per_test %>
+    <%= form.number_field :usage_per_test %>
+  </div>
+
+  <div class="field">
+    <%= form.label :brand %>
+    <%= form.text_field :brand %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_aviable %>
+    <%= form.number_field :total_aviable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :field_id %>
+    <%= form.text_field :field_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_warn_at %>
+    <%= form.number_field :first_warn_at %>
+  </div>
+
+  <div class="field">
+    <%= form.label :danger_warn_at %>
+    <%= form.number_field :danger_warn_at %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_180751) do
+ActiveRecord::Schema.define(version: 2019_09_23_184043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,21 @@ ActiveRecord::Schema.define(version: 2019_09_23_180751) do
     t.index ["subsample_id"], name: "index_qubit_reports_on_subsample_id"
   end
 
+  create_table "reagents", force: :cascade do |t|
+    t.string "product_description"
+    t.string "name"
+    t.integer "stock_itens"
+    t.integer "usage_per_test"
+    t.string "brand"
+    t.integer "total_aviable"
+    t.bigint "field_id"
+    t.integer "first_warn_at"
+    t.integer "danger_warn_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_reagents_on_field_id"
+  end
+
   create_table "sample_kinds", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "acronym"
@@ -289,6 +304,7 @@ ActiveRecord::Schema.define(version: 2019_09_23_180751) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
+  add_foreign_key "reagents", "fields"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"

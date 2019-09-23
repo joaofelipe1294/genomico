@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reagents
   patch 'exams/:id/partial_released', to: 'exams#change_to_partial_released', as: :partial_released
   get 'exams/:id/partial_released', to: 'exams#partial_released', as: :change_to_partial_released
   get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
