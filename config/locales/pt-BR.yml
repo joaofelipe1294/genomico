@@ -134,6 +134,8 @@
         field: Área
         first_warn_at: Primeiro aviso
         danger_warn_at: Segundo aviso
+        mv_code: Código MV
+        product_code: Código do produto
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'

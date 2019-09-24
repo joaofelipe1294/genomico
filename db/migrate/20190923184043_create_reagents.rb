@@ -10,6 +10,8 @@ class CreateReagents < ActiveRecord::Migration[5.2]
       t.references :field, foreign_key: true
       t.integer :first_warn_at
       t.integer :danger_warn_at
+      t.integer :mv_code
+      t.integer :product_code
 
       t.timestamps
     end
