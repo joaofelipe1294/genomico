@@ -140,17 +140,6 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       expect(find(id: 'success-warning').text).to eq I18n.t :edit_subsample_success
     end
 
-    it "remove subsample" do
-      extract_subsample
-      click_link class: 'remove-internal-code', match: :first
-      page.driver.browser.switch_to.alert.accept
-      visit current_path
-      click_button id: 'sample_nav'
-      click_link class: 'remove-subsample'
-      page.driver.browser.switch_to.alert.accept
-      expect(find(id: 'success-warning').text).to eq I18n.t :remove_subsample_success
-    end
-
   end
 
 end
