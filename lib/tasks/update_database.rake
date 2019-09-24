@@ -11,4 +11,52 @@ namespace :update_database do
     # SubsampleKind.find_by(acronym: 'FISH').update({refference_index: 226})
   end
 
+  desc "Remove old attendances"
+  task remove_biomol_attendances: :environment do
+    attendance_27 = Attendance.find 27
+    attendance_27.exams.each do |exam|
+      exam.exam_status_changes.delete_all
+      exam.delete
+    end
+    attendance_27.samples.each do |sample|
+      sample.subsamples.each do |subsample|
+        subsample.qubit_report.delete
+        subsample.nanodrop_report.delete
+        subsample.delete
+      end
+      sample.delete
+    end
+    attendance_27.delete
+
+    attendance_2 = Attendance.find 2
+    attendance_2.exams.each do |exam|
+      exam.exam_status_changes.delete_all
+      exam.delete
+    end
+    attendance_2.samples.each do |sample|
+      sample.subsamples.each do |subsample|
+        subsample.qubit_report.delete
+        subsample.nanodrop_report.delete
+        subsample.delete
+      end
+      sample.delete
+    end
+    attendance_2.delete
+
+    attendance_1 = Attendance.find 1
+    attendance_1.exams.each do |exam|
+      exam.exam_status_changes.delete_all
+      exam.delete
+    end
+    attendance_1.samples.each do |sample|
+      sample.subsamples.each do |subsample|
+        subsample.qubit_report.delete
+        subsample.nanodrop_report.delete
+        subsample.delete
+      end
+      sample.delete
+    end
+    attendance_1.delete
+  end
+
 end
