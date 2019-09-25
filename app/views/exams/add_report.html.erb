@@ -1,5 +1,25 @@
 <%= render 'layouts/user_navbar' %>
 
+<div class="col-md-12 pl-4 pr-4 mt-3">
+
+  <div class="col-md-5 d-inline-block offset-md-1 border-right">
+    <h5 class="text-center">
+      Paciente: <%= link_to @exam.attendance.patient.name, patient_path(@exam.attendance.patient), id: 'patient-link' %>
+    </h5>
+  </div>
+
+  <div class="col-md-5 d-inline-block">
+    <h5 class="text-center">
+      Atendimento:
+      <span id='lis-code'>
+        <%= @exam.attendance.lis_code %>
+      </span>
+    </h5>
+  </div>
+</div>
+
+<hr>
+
 <div class="card mt-5 col-md-8 offset-md-2 p-0">
   <div class="card-header bg-info">
     <h4 class="text-center text-white">
