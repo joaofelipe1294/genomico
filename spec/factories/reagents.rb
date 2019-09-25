@@ -1,13 +1,15 @@
 FactoryBot.define do
   factory :reagent do
-    product_description { "MyString" }
-    name { "MyString" }
-    stock_itens { 1 }
-    usage_per_test { 1 }
-    brand { "MyString" }
+    product_description { Faker::Games::Zelda.character }
+    name { Faker::Games::Zelda.item }
+    stock_itens { 0 }
+    usage_per_test { 0 }
+    brand { Faker::Games::Zelda.location }
     total_aviable { 1 }
-    field { nil }
-    first_warn_at { 1 }
-    danger_warn_at { 1 }
+    field { Field.IMUNOFENO }
+    first_warn_at { Faker::Number.number(digits: 3) }
+    danger_warn_at { Faker::Number.number(digits: 3) }
+    product_code { Faker::Number.number(digits: 5).to_s }
+    mv_code { Faker::Number.number(digits: 5).to_s }
   end
 end

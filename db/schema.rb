@@ -207,8 +207,8 @@ ActiveRecord::Schema.define(version: 2019_09_23_184043) do
     t.bigint "field_id"
     t.integer "first_warn_at"
     t.integer "danger_warn_at"
-    t.integer "mv_code"
-    t.integer "product_code"
+    t.string "mv_code"
+    t.string "product_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["field_id"], name: "index_reagents_on_field_id"
