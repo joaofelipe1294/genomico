@@ -12,12 +12,6 @@ class HomeUserController < ApplicationController
                     .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
                     .joins(:offered_exam)
                     .where("offered_exams.field_id = ?", @user.fields.first)
-      puts "==============================="
-      @issues.each do |issue|
-        p issue
-        puts "    ----    "
-      end
-      puts "==============================="
       @delayed_exams = helpers.delayed_exams @issues
     end
   end
