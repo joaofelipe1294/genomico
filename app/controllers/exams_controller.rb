@@ -91,7 +91,7 @@ class ExamsController < ApplicationController
 
   # GET exams/1/add_report
   def add_report
-    @exam = Exam.includes(:offered_exam).find(params[:id])
+    @exam = Exam.includes(:offered_exam, :attendance).find(params[:id])
   end
 
   # PATCH exams/1/save_exam_report
