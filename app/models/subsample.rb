@@ -14,8 +14,6 @@ class Subsample < ActiveRecord::Base
   private
 
     def add_default_values
-  		# subsample_kind.refference_index += 1
-  		# subsample_kind.save
   		self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{subsample_kind.acronym}-#{subsample_kind.refference_index.to_s.rjust(4,  "0")}"
       subsample_kind.refference_index += 1
   		subsample_kind.save
