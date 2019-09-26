@@ -1,28 +1,14 @@
 namespace :update_database do
 
-  desc "Remove wrong DNAs and correct dna index"
-  task correct_biomol_DNA_index: :environment do
-
-    subsample_19 = Subsample.find 19
-    subsample_19.qubit_report.delete
-    subsample_19.nanodrop_report.delete
-    subsample_19.delete
-
-    subsample_21 = Subsample.find 21
-    subsample_21.qubit_report.delete
-    subsample_21.nanodrop_report.delete
-    subsample_21.delete
-
-    subsample_22 = Subsample.find 22
-    subsample_22.qubit_report.delete
-    subsample_22.nanodrop_report.delete
-    subsample_22.delete
-
-    SubsampleKind.find(2).update({refference_index: 420})
-
+  desc "Update biomol DATA"
+  task update_biomol_data: :environment do
+    Subsample.create({
+      subsample_kind: SubsampleKind.DNA,
+      refference_label: "19-DNA-0421",
+      sample_id: 119,
+      collection_date: Date.today
+    })
+    Subsample.find(31).destroy
   end
-
-
-
 
 end
