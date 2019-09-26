@@ -11,11 +11,13 @@
     <% @backups.each do |backup| %>
       <tr>
         <td>
-          <%= l backup.generated_at %>
+          <%= backup.generated_at.strftime('%H:%M  -  %d/%m/%Y') %>
         </td>
         <td>
           <% if backup.status %>
             <%= link_to 'Download', backup_download_path(backup), target: :_blank, class: 'btn btn-sm btn-outline-primary' %>
+          <% else %>
+            <label>Backup removido</label>
           <% end %>
         </td>
       </tr>
