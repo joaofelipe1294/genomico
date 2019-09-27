@@ -2,7 +2,8 @@ namespace :infra do
   desc "será chamado pelo hook fazendo o deploy de forma automatizada"
   task deploy: :environment do
     # `export RAILS_ENV=production`
-    # puts "Kill server"
+    # `rails backup:do`
+    puts "Kill server"
     # server_port = `lsof -t -i :3500`
     # `kill #{server_port}`
     # puts "Kill server [OK]"
