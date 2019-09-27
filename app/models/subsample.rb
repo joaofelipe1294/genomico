@@ -23,7 +23,7 @@ class Subsample < ActiveRecord::Base
           index += 311
         elsif self.subsample_kind == SubsampleKind.DNA
           index += 419
-        elsif self.subsample_kind == SubsampleKind.FISH
+        elsif self.subsample_kind == SubsampleKind.PELLET
           index += 226
         end
 
