@@ -7,7 +7,7 @@ namespace :infra do
     # server_port = `lsof -t -i :3500`
     # `kill #{server_port}`
     # puts "Kill server [OK]"
-    # puts "Installing gems"
+    puts "Installing gems"
     # `export http_proxy=http://proxy.cdapp.net.br:3128`
     # `export HTTP_PROXY=$http_proxy`
     # `bundle`
