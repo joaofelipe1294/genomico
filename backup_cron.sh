@@ -1,4 +1,7 @@
-# * */4 * * * /home/vagrant/genomico/backup_cron.sh
+#adicionar permissao de execucao
+# chmod +x backup_cron.sh
+#adicionar ao cron
+# * */2 * * * /opt/genomico/backup_cron.sh
 
 
 cd "/opt/genomico"
