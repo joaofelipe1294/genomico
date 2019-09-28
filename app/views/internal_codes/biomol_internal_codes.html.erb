@@ -1,6 +1,20 @@
 <%= render 'layouts/user_navbar' %>
 
-<table class="table table-bordered text-center mt-5">
+<div class="col-md-6 mt-3 offset-md-3">
+  <%= form_with url: biomol_internal_codes_path, method: :get do |form| %>
+    <div class="form-group">
+      <%= form.label "Tipo de subamostra" %>
+      <%= form.select :subsample_kind_id, options_for_select(['Todos']) + options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control'%>
+    </div>
+    <button id="btn-search" class="btn btn-outline-info">
+      Buscar
+    </button>
+  <% end %>
+</div>
+
+<hr>
+
+<table class="table table-bordered text-center mt-3">
   <thead class="bg-dark text-white">
     <th class="h4">
       Código Interno
