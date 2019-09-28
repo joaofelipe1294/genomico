@@ -54,4 +54,23 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
     expect(find_all(class: 'biomol-sample').size).to eq 0
   end
 
+  it "filter" do
+    internal_code = InternalCode.create(field: Field.BIOMOL, subsample: Subsample.all.first)
+    second_subsample = Subsample.create({
+      collection_date: Date.today,
+      sample: Attendance.all.first.samples.last,
+      nanodrop_report: NanodropReport.new,
+      qubit_report: QubitReport.new,
+      subsample_kind: SubsampleKind.RNA
+    })
+    second_internal_code = InternalCode.create(field: Field.BIOMOL, subsample: second_subsample)
+    biomol_user_do_login
+    click_link id: 'samples-dropdown'
+    click_link id: 'samples-biomol'
+    expect(find_all(class: 'biomol-sample').size).to eq 2
+    select(SubsampleKind.RNA.name, from: "subsample_kind_id").select_option
+    click_button id: 'btn-search'
+    expect(find_all(class: 'biomol-sample').size).to eq 1
+  end
+
 end
