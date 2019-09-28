@@ -76,7 +76,13 @@ class InternalCodesController < ApplicationController
 
   # GET internal_codes/biomol_internal_codes
   def biomol_internal_codes
-    @internal_codes = InternalCode.where(field: Field.BIOMOL).order created_at: :desc
+    @internal_codes = InternalCode
+                                  .where(field: Field.BIOMOL)
+                                  .where.not(subsample: nil)
+                                  .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                  .includes(:attendance)
+                                  .order(created_at: :desc)
+                                  .page params[:page]
   end
 
   private
