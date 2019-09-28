@@ -43,7 +43,7 @@ class Backup < ActiveRecord::Base
     backup.save
   end
 
-  def self.restore(database, file_path) ## TODO: revisar metodo !!!
+  def self.restore(database, file_path)
     `mkdir ./public/backups/temp_restore`
     `cp #{file_path} ./public/backups/temp_restore/`
     `unzip public/backups/temp_restore/#{file_path.split("/").last} -d ./public/backups/temp_restore/`
@@ -51,7 +51,6 @@ class Backup < ActiveRecord::Base
     `PGPASSWORD="1234" pg_restore -h localhost -p 5432 -U postgres -c -d genomico_development -v ./public/backups/temp_restore/pgdump.dump`
     `rm -r ./public/backups/temp_restore`
     `sudo -u postgres psql -d genomico_development -c "REASSIGN OWNED BY deploy TO postgres;"`
-    # REASSIGN OWNED BY deploy TO postgres;
     true
   end
 
