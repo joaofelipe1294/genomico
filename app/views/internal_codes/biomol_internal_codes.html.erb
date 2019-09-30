@@ -1,0 +1,84 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="col-md-6 mt-3 offset-md-3">
+  <%= form_with url: biomol_internal_codes_path, method: :get do |form| %>
+    <div class="form-group">
+      <%= form.label "Tipo de subamostra" %>
+      <%= form.select :subsample_kind_id, options_for_select(['Todos']) + options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control'%>
+    </div>
+    <button id="btn-search" class="btn btn-outline-info">
+      Buscar
+    </button>
+  <% end %>
+</div>
+
+<hr>
+
+<table class="table table-bordered text-center mt-3">
+  <thead class="bg-dark text-white">
+    <th class="h4">
+      Código Interno
+    </th>
+    <th class="h4">
+      Tipo
+    </th>
+    <th class="h4">
+      Paciente
+    </th>
+    <th class="h4">
+      Coletada em
+    </th>
+    <th class="h4">
+      Concentração (Nanodrop)
+    </th>
+    <th class="h4">
+      260/280
+    </th>
+    <th class="h4">
+      260/230
+    </th>
+    <th class="h4">
+      Concentração (Qubit)
+    </th>
+    <th>
+    </th>
+  </thead>
+  <tbody>
+
+    <% @internal_codes.each do |internal_code| %>
+      <tr class="biomol-sample">
+        <td>
+          <%= internal_code.code %>
+        </td>
+        <td>
+          <%= internal_code.subsample.subsample_kind.name %>
+        </td>
+        <td>
+          <%= internal_code.subsample.patient.name %>
+        </td>
+        <td>
+          <%= l internal_code.subsample.collection_date.to_date %>
+        </td>
+        <td>
+          <%= internal_code.subsample.nanodrop_report.concentration %>
+        </td>
+        <td>
+          <%= internal_code.subsample.nanodrop_report.rate_260_280 %>
+        </td>
+        <td>
+          <%= internal_code.subsample.nanodrop_report.rate_260_230 %>
+        </td>
+        <td>
+          <%= internal_code.subsample.qubit_report.concentration %>
+        </td>
+        <td>
+          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance) %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+<div class="container pagination justify-content-center" >
+  <%= paginate @internal_codes , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+</div>
