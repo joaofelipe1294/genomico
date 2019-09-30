@@ -19,28 +19,25 @@ module HomeUserHelper
     { count: waiting_exams_count, relation: relation }
   end
 
-  def exams_in_progress field_id
-    conn = ActiveRecord::Base.connection
-    result = conn.execute "
-    SELECT DISTINCT oe.name AS exam_name,
-           COUNT(e.id) AS total,
-           f.name AS field
-    FROM exams e
-         INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-         INNER JOIN fields f ON f.id = oe.field_id
-    WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-          AND e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Aguardando início')
-          AND oe.field_id = #{conn.quote(field_id)}
-    GROUP BY oe.id, f.name;"
-    exams_relation = {}
-    exams_count = 0
-    result.each do |exam|
-      key = exam["exam_name"]
-      value = exam["total"]
-      exams_relation[key] = value
-      exams_count += exam["total"]
+  def exams_in_progress
+    exams_inprogress_count = Exam
+                                  .joins(:offered_exam)
+                                  .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                                  .where("offered_exams.field_id = ?", @user.fields.first)
+                                  .size
+    exams_relation = Exam
+                        .joins(:offered_exam)
+                        .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                        .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                        .where("offered_exams.field_id = ?", @user.fields.first)
+                        .group(:offered_exam)
+                        .size
+                        relation = {}
+    exams_relation.keys.each do |offered_exam|
+      relation[offered_exam.name] = exams_relation[offered_exam]
     end
-    { relation: exams_relation, count: exams_count }
+    { count: exams_inprogress_count , relation: relation }
   end
 
   def delayed_exams exams
