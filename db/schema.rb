@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_21_172832) do
+ActiveRecord::Schema.define(version: 2019_09_30_145359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_attendance_status_kinds_on_name"
   end
 
   create_table "attendances", id: :serial, force: :cascade do |t|
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_exam_status_kinds_on_name"
   end
 
   create_table "exams", id: :serial, force: :cascade do |t|
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_fields_on_name"
   end
 
   create_table "fields_users", id: false, force: :cascade do |t|
@@ -197,6 +200,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.integer "refference_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sample_kinds_on_name"
   end
 
   create_table "samples", id: :serial, force: :cascade do |t|
@@ -222,6 +226,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.datetime "updated_at", null: false
     t.string "acronym"
     t.integer "refference_index"
+    t.index ["name"], name: "index_subsample_kinds_on_name"
   end
 
   create_table "subsamples", id: :serial, force: :cascade do |t|
@@ -244,6 +249,7 @@ ActiveRecord::Schema.define(version: 2019_09_21_172832) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_user_kinds_on_name"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
