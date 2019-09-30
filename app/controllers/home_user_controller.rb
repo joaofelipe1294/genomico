@@ -6,7 +6,7 @@ class HomeUserController < ApplicationController
     @user = User.find session[:user_id]
     unless @user.fields.empty?
       @user = User.includes(:fields).find(session[:user_id])
-      @waiting_exams = helpers.waiting_exams @user.fields.first.id
+      @waiting_exams = helpers.waiting_exams
       @exams_in_progress = helpers.exams_in_progress @user.fields.first.id
       @issues = Exam
                     .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
