@@ -4,27 +4,14 @@ class HomeUserController < ApplicationController
 
   def index
     @user = User.includes(:fields).find session[:user_id]
-    puts "======================= BUSCA USUARIO =============================="
     unless @user.fields.empty?
-      puts "===================== EXAMES AGUARDANDO INICIO ====================="
       @waiting_exams = helpers.waiting_exams
-      puts "===================== EXAMES AGUARDANDO INICIO ====================="
-      puts "===================== EXAMES EM PROGRESSO =========================="
       @exams_in_progress = helpers.exams_in_progress
-      puts "===================== EXAMES EM PROGRESSO =========================="
-      puts "================================ ISSUES ============================"
       @issues = Exam
                     .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
                     .joins(:offered_exam)
                     .where("offered_exams.field_id = ?", @user.fields.first)
-      puts "================================ ISSUES ============================"
-      puts "========================== DELEYED_EXAMS ==========================="
-      @delayed_exams = helpers.delayed_exams @issues
-      puts "========================== DELEYED_EXAMS ==========================="
-      puts "####################################################################"
-      puts "####################################################################"
-      puts "####################################################################"
-      puts "####################################################################"
+      @delayed_exams = helpers.delayed_exams
     end
   end
 

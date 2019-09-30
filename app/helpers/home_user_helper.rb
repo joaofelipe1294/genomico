@@ -40,7 +40,12 @@ module HomeUserHelper
     { count: exams_inprogress_count , relation: relation }
   end
 
-  def delayed_exams exams
+  def delayed_exams
+    exams = Exam
+                .includes(:offered_exam)
+                .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                .joins(:offered_exam)
+                .where("offered_exams.field_id = ?", @user.fields.first)
     late_exams = []
     exams.each do |exam|
       created_at = exam.created_at.to_date
