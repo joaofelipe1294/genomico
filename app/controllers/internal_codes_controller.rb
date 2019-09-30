@@ -6,50 +6,9 @@ class InternalCodesController < ApplicationController
   end
 
   def new
-    # user = User.includes(:fields).find(session[:user_id])
-    # if user.fields.size == 1
-    #   if params[:target] == "sample"
-    #     @internal_code = InternalCode.create({
-    #       field: user.fields.first,
-    #       sample: Sample.find(params[:id])
-    #     })
-    #   else
-    #     @internal_code = InternalCode.create({
-    #       field: user.fields.first,
-    #       subsample: Subsample.find(params[:id])
-    #     })
-    #   end
-    #   flash[:success] = I18n.t :new_internal_code_success
-    #   redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
-    # else
-    #   if params[:target] == "sample"
-    #     @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
-    #   else
-    #     @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
-    #   end
-    #   @fields = [Field.IMUNOFENO, Field.BIOMOL, Field.FISH]
-    # end
   end
 
   def create
-    # @internal_code = InternalCode.new internal_code_attributes
-    # if @internal_code.save
-    #   flash[:success] = 'Código interno salvo com sucesso.'
-    #   redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
-    # else
-    #   unless @internal_code.errors.empty?
-    #     flash[:warning] = @internal_code.errors.first.last
-    #   else
-    #     flash[:warning] = 'Erro ao cadastrar código interno, tente novamente mais tarde.'
-    #   end
-    #   unless @internal_code.sample.nil?
-    #     redirect_to new_internal_code_path(@internal_code.sample, target: "sample")
-    #     @fields = [Field.find_by({name: 'Imunofenotipagem'})]
-    #   else
-    #     redirect_to new_internal_code_path(@internal_code.subsample, target: "subsample")
-    #     @fields = [Field.find_by({name: 'Biologia Molecular'}),Field.find_by({name: 'FISH'})]
-    #   end
-    # end
     user = User.includes(:fields).find(session[:user_id])
     if user.fields.size == 1
       if params[:target] == "sample"

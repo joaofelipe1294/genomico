@@ -11,8 +11,14 @@ class HomeUserController < ApplicationController
                     .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
                     .joins(:offered_exam)
                     .where("offered_exams.field_id = ?", @user.fields.first)
+                    .includes(attendance: [:patient], :exam_status_kind)
       @delayed_exams = helpers.delayed_exams
     end
+    puts "######################################################################"
+    puts "######################################################################"
+    puts "##########################    NA VIEW    #############################"
+    puts "######################################################################"
+    puts "######################################################################"
   end
 
   def waiting_colors
