@@ -1,17 +1,33 @@
 module HomeUserHelper
 
-  def waiting_exams
-    waiting_exams_count = Exam
-                              .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                              .joins(:offered_exam)
-                              .where("offered_exams.field_id = ?", @user.fields.first)
-                              .size
-    exams_relation = Exam
-                    .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                    .joins(:offered_exam)
-                    .where("offered_exams.field_id = ?", @user.fields.first)
-                    .group(:offered_exam)
-                    .size
+  def waiting_exams filter_by: nil
+    if filter_by.nil? || filter_by == 'Todos'
+      waiting_exams_count = Exam
+                                .where(exam_status_kind: ExamStatusKind.WAITING_START)
+                                .joins(:offered_exam)
+                                .where("offered_exams.field_id = ?", @user.fields.first)
+                                .size
+      exams_relation = Exam
+                      .where(exam_status_kind: ExamStatusKind.WAITING_START)
+                      .joins(:offered_exam)
+                      .where("offered_exams.field_id = ?", @user.fields.first)
+                      .group(:offered_exam)
+                      .size
+    else
+      waiting_exams_count = Exam
+                                .where(exam_status_kind: ExamStatusKind.WAITING_START)
+                                .joins(:offered_exam)
+                                .where("offered_exams.field_id = ?", @user.fields.first)
+                                .where("offered_exams.id = ?", filter_by)
+                                .size
+      exams_relation = Exam
+                      .where(exam_status_kind: ExamStatusKind.WAITING_START)
+                      .joins(:offered_exam)
+                      .where("offered_exams.field_id = ?", @user.fields.first)
+                      .where("offered_exams.id = ?", filter_by)
+                      .group(:offered_exam)
+                      .size
+    end
     relation = {}
     exams_relation.keys.each do |offered_exam|
       relation[offered_exam.name] = exams_relation[offered_exam]
@@ -19,33 +35,60 @@ module HomeUserHelper
     { count: waiting_exams_count, relation: relation }
   end
 
-  def exams_in_progress
-    exams_inprogress_count = Exam
-                                  .joins(:offered_exam)
-                                  .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                                  .where("offered_exams.field_id = ?", @user.fields.first)
-                                  .size
-    exams_relation = Exam
-                        .joins(:offered_exam)
-                        .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                        .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                        .where("offered_exams.field_id = ?", @user.fields.first)
-                        .group(:offered_exam)
-                        .size
-                        relation = {}
+  def exams_in_progress filter_by: nil
+    if filter_by.nil? || filter_by == 'Todos'
+      exams_inprogress_count = Exam
+                                    .joins(:offered_exam)
+                                    .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                                    .where("offered_exams.field_id = ?", @user.fields.first)
+                                    .size
+      exams_relation = Exam
+                          .joins(:offered_exam)
+                          .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                          .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                          .where("offered_exams.field_id = ?", @user.fields.first)
+                          .group(:offered_exam)
+                          .size
+    else
+      exams_inprogress_count = Exam
+                                    .joins(:offered_exam)
+                                    .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                                    .where("offered_exams.field_id = ?", @user.fields.first)
+                                    .where(offered_exam_id: filter_by)
+                                    .size
+      exams_relation = Exam
+                          .joins(:offered_exam)
+                          .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                          .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                          .where("offered_exams.field_id = ?", @user.fields.first)
+                          .where(offered_exam_id: filter_by)
+                          .group(:offered_exam)
+                          .size
+    end
+    relation = {}
     exams_relation.keys.each do |offered_exam|
       relation[offered_exam.name] = exams_relation[offered_exam]
     end
     { count: exams_inprogress_count , relation: relation }
   end
 
-  def delayed_exams
-    exams = Exam
-                .includes(:offered_exam)
-                .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                .joins(:offered_exam)
-                .where("offered_exams.field_id = ?", @user.fields.first)
+  def delayed_exams filter_by: nil
+    if filter_by.nil? || filter_by == 'Todos'
+      exams = Exam
+                  .includes(:offered_exam)
+                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .joins(:offered_exam)
+                  .where("offered_exams.field_id = ?", @user.fields.first)
+    else
+      exams = Exam
+                  .includes(:offered_exam)
+                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .joins(:offered_exam)
+                  .where("offered_exams.field_id = ?", @user.fields.first)
+                  .where(offered_exam_id: filter_by)
+    end
     late_exams = []
     exams.each do |exam|
       created_at = exam.created_at.to_date
@@ -62,6 +105,26 @@ module HomeUserHelper
       end
     end
     { count: late_exams.size, relation: exams_relation }
+  end
+
+  def find_issues filter_by: nil
+    if filter_by.nil? || filter_by == 'Todos'
+      issues = Exam
+                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                    .joins(:offered_exam)
+                    .where("offered_exams.field_id = ?", @user.fields.first)
+                    .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+                    .order(created_at: :asc)
+    else
+      issues = Exam
+                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                    .joins(:offered_exam)
+                    .where("offered_exams.field_id = ?", @user.fields.first)
+                    .where(offered_exam_id: filter_by)
+                    .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+                    .order(created_at: :asc)
+    end
+    issues
   end
 
 end
