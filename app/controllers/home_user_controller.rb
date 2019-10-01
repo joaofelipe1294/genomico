@@ -4,6 +4,7 @@ class HomeUserController < ApplicationController
 
   def index
     @user = User.find session[:user_id]
+    @offered_exams = OfferedExam.where(field: @user.fields.first).where(is_active: true).order name: :asc
     unless @user.fields.empty?
       @user = User.includes(:fields).find(session[:user_id])
       @waiting_exams = helpers.waiting_exams
