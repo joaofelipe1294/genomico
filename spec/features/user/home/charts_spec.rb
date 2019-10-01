@@ -216,7 +216,22 @@ RSpec.feature "User::Home::Charts", type: :feature do
       expect(page).to have_current_path workflow_path(attendance, {tab: 'exams'})
     end
 
-
+    it "filter issues" do
+      exams = [
+        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).order(id: :asc).first),
+        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).order(id: :asc).last)
+      ]
+      attendance = create(:attendance, exams: exams)
+      visit current_path
+      expect(find_all(class: 'issue').size).to eq 2
+      offered_exam = Exam.all.first.offered_exam
+      select(offered_exam.name, from: "offered_exam").select_option
+      click_button id: 'btn-search'
+      expect(find_all(class: 'issue').size).to eq 1
+      select('Todos', from: "offered_exam").select_option
+      click_button id: 'btn-search'
+      expect(find_all(class: 'issue').size).to eq 2
+    end
 
 
 

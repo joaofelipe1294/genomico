@@ -5,7 +5,7 @@
     <%= form.label "Filtrar por exame", class: "mr-3" %>
     <%= form.select :offered_exam, options_for_select(['Todos']) + options_from_collection_for_select(@offered_exams, "id", "name"), {}, class: 'form-control' %>
   </div>
-  <button class="btn btn-outline-info mb-2 ml-4">
+  <button id="btn-search" class="btn btn-outline-info mb-2 ml-4">
     Buscar
   </button>
 <% end %>
