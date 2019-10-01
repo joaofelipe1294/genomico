@@ -42,6 +42,7 @@ RSpec.feature "User::Workflow::FinishAttendances", type: :feature, js: true do
   end
 
   it "finish attendance with exams and reports" do
+    # sleep 8
     click_button id: 'exam_nav'
     click_link class: 'add-report', match: :first
     attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"

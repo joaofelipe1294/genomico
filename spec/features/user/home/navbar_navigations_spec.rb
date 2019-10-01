@@ -56,7 +56,7 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
 
     it "biomol" do
       click_link 'samples-biomol'
-      expect(page).to have_current_path internal_codes_path field_id: Field.BIOMOL
+      expect(page).to have_current_path biomol_internal_codes_path
     end
 
     it "fish" do

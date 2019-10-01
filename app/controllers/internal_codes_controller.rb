@@ -74,6 +74,29 @@ class InternalCodesController < ApplicationController
     end
   end
 
+  # GET internal_codes/biomol_internal_codes
+  def biomol_internal_codes
+    @subsample_kinds = SubsampleKind.all.order(name: :asc)
+    if params[:subsample_kind_id].nil? || params[:subsample_kind_id] == 'Todos'
+      @internal_codes = InternalCode
+                                    .where(field: Field.BIOMOL)
+                                    .where.not(subsample: nil)
+                                    .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                    .includes(:attendance)
+                                    .order(created_at: :desc)
+                                    .page params[:page]
+    else
+      @internal_codes = InternalCode
+                                    .where(field: Field.BIOMOL)
+                                    .where.not(subsample: nil)
+                                    .joins(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                    .where("subsamples.subsample_kind_id = ?", params[:subsample_kind_id])
+                                    .includes(:attendance)
+                                    .order(created_at: :desc)
+                                    .page params[:page]
+    end
+  end
+
   private
 
   def internal_code_attributes

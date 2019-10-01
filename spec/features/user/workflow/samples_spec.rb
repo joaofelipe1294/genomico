@@ -117,8 +117,7 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
     it "extract internal_code form subsample" do
       extract_subsample
       click_button id: 'sample_nav'
-      find_all(class: 'new-internal-code').last.click
-      click_button id: 'sample_nav'
+      expect(find_all(class: 'subsample').size).to eq 1
     end
 
     it "edit subsample" do
@@ -153,7 +152,6 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       page.driver.browser.switch_to.alert.accept
       expect(find(id: 'success-warning').text).to eq I18n.t :remove_subsample_success
     end
-
 
   end
 
