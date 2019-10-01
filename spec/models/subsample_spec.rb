@@ -87,7 +87,7 @@ RSpec.describe Subsample, type: :model do
 			)
 			subsample = Subsample.find subsample.id
 			expect(subsample).to be_valid
-			expect(subsample.refference_label).to eq("#{Date.today.year.to_s.slice(2, 3)}-DNA-0001")
+			expect(subsample.refference_label).to eq("19-DNA-0419")
 		end
 
 	end

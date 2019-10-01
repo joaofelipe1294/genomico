@@ -4,21 +4,13 @@ class HomeUserController < ApplicationController
 
   def index
     @user = User.includes(:fields).find session[:user_id]
+    @offered_exams = OfferedExam.where(field: @user.fields.first).where(is_active: true).order name: :asc
     unless @user.fields.empty?
-      @waiting_exams = helpers.waiting_exams
-      @exams_in_progress = helpers.exams_in_progress
-      @issues = Exam
-                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                    .joins(:offered_exam)
-                    .where("offered_exams.field_id = ?", @user.fields.first)
-                    .includes(attendance: [:patient], :exam_status_kind)
+      @waiting_exams = helpers.waiting_exams filter_by: params[:offered_exam]
+      @exams_in_progress = helpers.exams_in_progress filter_by: params[:offered_exam]
+      @issues = helpers.find_issues filter_by: params[:offered_exam]
       @delayed_exams = helpers.delayed_exams
     end
-    puts "######################################################################"
-    puts "######################################################################"
-    puts "##########################    NA VIEW    #############################"
-    puts "######################################################################"
-    puts "######################################################################"
   end
 
   def waiting_colors

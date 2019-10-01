@@ -19,11 +19,7 @@ module ExamsHelper
         options << link_to('Adicionar laudo', add_report_to_exam_path(exam), class: 'ml-3 add-report')
     else
       options << "<label class = 'text-success ml-3'>Exame concluído</label>".html_safe
-      # unless exam.report?
-      #   options << link_to('Adicionar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-secondary add-report ml-3')
-      # else
         options << link_to('Visualizar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-info see-report ml-3')
-      # end
     end
     options << link_to('Editar', edit_exam_path(exam), class: 'btn btn-sm btn-outline-warning ml-2 edit-exam')
     options.html_safe
