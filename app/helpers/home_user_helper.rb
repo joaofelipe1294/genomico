@@ -1,37 +1,11 @@
 module HomeUserHelper
 
-  def waiting_exams filter_by: nil
-    if filter_by.nil? || filter_by == 'Todos'
-      waiting_exams_count = Exam
-                                .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                                .joins(:offered_exam)
-                                .where("offered_exams.field_id = ?", @user.fields.first)
-                                .size
-      exams_relation = Exam
-                      .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                      .joins(:offered_exam)
-                      .where("offered_exams.field_id = ?", @user.fields.first)
-                      .group(:offered_exam)
-                      .size
-    else
-      waiting_exams_count = Exam
-                                .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                                .joins(:offered_exam)
-                                .where("offered_exams.field_id = ?", @user.fields.first)
-                                .where("offered_exams.id = ?", filter_by)
-                                .size
-      exams_relation = Exam
-                      .where(exam_status_kind: ExamStatusKind.WAITING_START)
-                      .joins(:offered_exam)
-                      .where("offered_exams.field_id = ?", @user.fields.first)
-                      .where("offered_exams.id = ?", filter_by)
-                      .group(:offered_exam)
-                      .size
-    end
+  def waiting_exams exams
+    exams_waiting_to_start = exams.where(exam_status_kind: ExamStatusKind.WAITING_START)
+    waiting_exams_count = exams_waiting_to_start.size
+    exams_relation = exams_waiting_to_start.group(:offered_exam).size
     relation = {}
-    exams_relation.keys.each do |offered_exam|
-      relation[offered_exam.name] = exams_relation[offered_exam]
-    end
+    exams_relation.keys.each { |offered_exam| relation[offered_exam.name] = exams_relation[offered_exam] }
     { count: waiting_exams_count, relation: relation }
   end
 

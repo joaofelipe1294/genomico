@@ -6,9 +6,9 @@ class HomeUserController < ApplicationController
     @user = User.includes(:fields).find session[:user_id]
     @offered_exams = OfferedExam.where(field: @user.fields.first).where(is_active: true).order name: :asc
     unless @user.fields.empty?
-      @waiting_exams = helpers.waiting_exams filter_by: params[:offered_exam]
-      @exams_in_progress = helpers.exams_in_progress filter_by: params[:offered_exam]
       @issues = helpers.find_issues filter_by: params[:offered_exam]
+      @waiting_exams = helpers.waiting_exams @issues
+      @exams_in_progress = helpers.exams_in_progress filter_by: params[:offered_exam]
       @delayed_exams = helpers.delayed_exams
     end
   end
