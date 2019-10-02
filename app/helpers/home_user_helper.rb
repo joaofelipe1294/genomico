@@ -9,43 +9,17 @@ module HomeUserHelper
     { count: waiting_exams_count, relation: relation }
   end
 
-  def exams_in_progress filter_by: nil
-    if filter_by.nil? || filter_by == 'Todos'
-      exams_inprogress_count = Exam
-                                    .joins(:offered_exam)
-                                    .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                                    .where("offered_exams.field_id = ?", @user.fields.first)
-                                    .size
-      exams_relation = Exam
-                          .joins(:offered_exam)
-                          .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                          .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                          .where("offered_exams.field_id = ?", @user.fields.first)
-                          .group(:offered_exam)
-                          .size
-    else
-      exams_inprogress_count = Exam
-                                    .joins(:offered_exam)
-                                    .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                                    .where("offered_exams.field_id = ?", @user.fields.first)
-                                    .where(offered_exam_id: filter_by)
-                                    .size
-      exams_relation = Exam
-                          .joins(:offered_exam)
-                          .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                          .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                          .where("offered_exams.field_id = ?", @user.fields.first)
-                          .where(offered_exam_id: filter_by)
-                          .group(:offered_exam)
-                          .size
-    end
+  def exams_in_progress exams
+    exams_in_progress = exams
+                            .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                            .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+    exams_in_progress_count = exams_in_progress.size
+    exams_relation = exams_in_progress.group(:offered_exam).size
     relation = {}
     exams_relation.keys.each do |offered_exam|
       relation[offered_exam.name] = exams_relation[offered_exam]
     end
-    { count: exams_inprogress_count , relation: relation }
+    { count: exams_in_progress_count , relation: relation }
   end
 
   def delayed_exams filter_by: nil
