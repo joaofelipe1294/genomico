@@ -9,7 +9,7 @@ class HomeUserController < ApplicationController
       @issues = helpers.find_issues filter_by: params[:offered_exam]
       @waiting_exams = helpers.waiting_exams @issues
       @exams_in_progress = helpers.exams_in_progress @issues
-      @delayed_exams = helpers.delayed_exams
+      @delayed_exams = helpers.delayed_exams @issues
     end
   end
 

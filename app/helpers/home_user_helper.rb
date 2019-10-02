@@ -22,21 +22,8 @@ module HomeUserHelper
     { count: exams_in_progress_count , relation: relation }
   end
 
-  def delayed_exams filter_by: nil
-    if filter_by.nil? || filter_by == 'Todos'
-      exams = Exam
-                  .includes(:offered_exam)
-                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                  .joins(:offered_exam)
-                  .where("offered_exams.field_id = ?", @user.fields.first)
-    else
-      exams = Exam
-                  .includes(:offered_exam)
-                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                  .joins(:offered_exam)
-                  .where("offered_exams.field_id = ?", @user.fields.first)
-                  .where(offered_exam_id: filter_by)
-    end
+  def delayed_exams exams
+    exams = exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
     late_exams = []
     exams.each do |exam|
       created_at = exam.created_at.to_date
