@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_145359) do
+ActiveRecord::Schema.define(version: 2019_10_03_170800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_attendance_status_kinds_on_id"
     t.index ["name"], name: "index_attendance_status_kinds_on_name"
   end
 
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.index ["attendance_status_kind_id"], name: "index_attendances_on_attendance_status_kind_id"
     t.index ["desease_stage_id"], name: "index_attendances_on_desease_stage_id"
     t.index ["health_ensurance_id"], name: "index_attendances_on_health_ensurance_id"
+    t.index ["id"], name: "index_attendances_on_id"
     t.index ["patient_id"], name: "index_attendances_on_patient_id"
   end
 
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_desease_stages_on_id"
   end
 
   create_table "exam_status_changes", id: :serial, force: :cascade do |t|
@@ -83,6 +86,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_exam_status_kinds_on_id"
     t.index ["name"], name: "index_exam_status_kinds_on_name"
   end
 
@@ -105,6 +109,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.datetime "partial_released_report_updated_at"
     t.index ["attendance_id"], name: "index_exams_on_attendance_id"
     t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id"
+    t.index ["id"], name: "index_exams_on_id"
     t.index ["internal_code_id"], name: "index_exams_on_internal_code_id"
     t.index ["offered_exam_id"], name: "index_exams_on_offered_exam_id"
   end
@@ -113,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_fields_on_id"
     t.index ["name"], name: "index_fields_on_name"
   end
 
@@ -126,12 +132,14 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_health_ensurances_on_id"
   end
 
   create_table "hospitals", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_hospitals_on_id"
   end
 
   create_table "internal_codes", force: :cascade do |t|
@@ -144,6 +152,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.bigint "subsample_id"
     t.index ["attendance_id"], name: "index_internal_codes_on_attendance_id"
     t.index ["field_id"], name: "index_internal_codes_on_field_id"
+    t.index ["id"], name: "index_internal_codes_on_id"
     t.index ["sample_id"], name: "index_internal_codes_on_sample_id"
     t.index ["subsample_id"], name: "index_internal_codes_on_subsample_id"
   end
@@ -162,6 +171,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.integer "subsample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_nanodrop_reports_on_id"
     t.index ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id"
   end
 
@@ -173,6 +183,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.datetime "updated_at", null: false
     t.integer "refference_date"
     t.index ["field_id"], name: "index_offered_exams_on_field_id"
+    t.index ["id"], name: "index_offered_exams_on_id"
   end
 
   create_table "patients", id: :serial, force: :cascade do |t|
@@ -184,6 +195,9 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.datetime "updated_at", null: false
     t.integer "hospital_id"
     t.text "observations"
+    t.index ["id"], name: "index_patients_on_id"
+    t.index ["medical_record"], name: "index_patients_on_medical_record"
+    t.index ["name"], name: "index_patients_on_name"
   end
 
   create_table "qubit_reports", id: :serial, force: :cascade do |t|
@@ -191,6 +205,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.integer "subsample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_qubit_reports_on_id"
     t.index ["subsample_id"], name: "index_qubit_reports_on_subsample_id"
   end
 
@@ -200,6 +215,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.integer "refference_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_sample_kinds_on_id"
     t.index ["name"], name: "index_sample_kinds_on_name"
   end
 
@@ -216,6 +232,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.datetime "updated_at", null: false
     t.bigint "patient_id"
     t.index ["attendance_id"], name: "index_samples_on_attendance_id"
+    t.index ["id"], name: "index_samples_on_id"
     t.index ["patient_id"], name: "index_samples_on_patient_id"
     t.index ["sample_kind_id"], name: "index_samples_on_sample_kind_id"
   end
@@ -226,6 +243,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.datetime "updated_at", null: false
     t.string "acronym"
     t.integer "refference_index"
+    t.index ["id"], name: "index_subsample_kinds_on_id"
     t.index ["name"], name: "index_subsample_kinds_on_name"
   end
 
@@ -240,6 +258,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_145359) do
     t.integer "attendance_id"
     t.bigint "patient_id"
     t.index ["attendance_id"], name: "index_subsamples_on_attendance_id"
+    t.index ["id"], name: "index_subsamples_on_id"
     t.index ["patient_id"], name: "index_subsamples_on_patient_id"
     t.index ["sample_id"], name: "index_subsamples_on_sample_id"
     t.index ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id"
