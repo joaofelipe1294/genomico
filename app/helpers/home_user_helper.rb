@@ -44,20 +44,20 @@ module HomeUserHelper
 
   def find_issues filter_by: nil
     if filter_by.nil? || filter_by == 'Todos'
-      issues = Exam
-                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                    .joins(:offered_exam)
-                    .where("offered_exams.field_id = ?", @user.fields.first)
-                    .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
-                    .order(created_at: :asc)
+      cache = Rails.cache.read "exams:field:#{@user.fields.first.name}"
+      if cache.nil? == false && Rails.env != "test"
+        issues = cache
+      else
+        issues = @user.fields.first.set_issues_in_cache
+      end
     else
       issues = Exam
-                    .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-                    .joins(:offered_exam)
-                    .where("offered_exams.field_id = ?", @user.fields.first)
-                    .where(offered_exam_id: filter_by)
-                    .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
-                    .order(created_at: :asc)
+                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .joins(:offered_exam)
+                  .where("offered_exams.field_id = ?", @user.fields.first)
+                  .where(offered_exam_id: filter_by)
+                  .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+                  .order(created_at: :asc)
     end
     issues
   end
