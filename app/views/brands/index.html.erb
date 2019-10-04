@@ -1,27 +1,22 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
 
-<h1>Brands</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
+<table class="table table-bordered text-center mt-5 col-6 offset-3">
+  <thead class="bg-dark text-white">
+    <th class="h3">
+      Marca
+    </th>
+    <th></th>
   </thead>
-
   <tbody>
     <% @brands.each do |brand| %>
-      <tr>
-        <td><%= brand.name %></td>
-        <td><%= link_to 'Show', brand %></td>
-        <td><%= link_to 'Edit', edit_brand_path(brand) %></td>
-        <td><%= link_to 'Destroy', brand, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="brand">
+        <td>
+          <%= brand.name %>
+        </td>
+        <td>
+          <%= link_to "Editar", edit_brand_path(brand), class: "btn btn-sm btn-outline-warning" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Brand', new_brand_path %>
