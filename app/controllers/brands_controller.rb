@@ -36,14 +36,11 @@ class BrandsController < ApplicationController
   # PATCH/PUT /brands/1
   # PATCH/PUT /brands/1.json
   def update
-    respond_to do |format|
-      if @brand.update(brand_params)
-        format.html { redirect_to @brand, notice: 'Brand was successfully updated.' }
-        format.json { render :show, status: :ok, location: @brand }
-      else
-        format.html { render :edit }
-        format.json { render json: @brand.errors, status: :unprocessable_entity }
-      end
+    if @brand.update(brand_params)
+      flash[:success] = I18n.t :edit_brand_success
+      redirect_to home_user_index_path
+    else
+      render :edit
     end
   end
 
