@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_170800) do
+ActiveRecord::Schema.define(version: 2019_10_04_153710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,12 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
   end
 
   create_table "bottle_status_kinds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "brands", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -291,6 +297,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_user_kinds_on_id"
     t.index ["name"], name: "index_user_kinds_on_name"
   end
 
@@ -302,6 +309,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.integer "user_kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_users_on_id"
     t.index ["user_kind_id"], name: "index_users_on_user_kind_id"
   end
 
@@ -314,6 +322,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.string "map_content_type"
     t.integer "map_file_size"
     t.datetime "map_updated_at"
+    t.index ["id"], name: "index_work_maps_on_id"
   end
 
   add_foreign_key "attendances", "attendance_status_kinds"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :brands
   resources :reagents
   get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes
   patch 'exams/:id/partial_released', to: 'exams#change_to_partial_released', as: :partial_released
