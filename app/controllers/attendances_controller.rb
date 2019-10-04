@@ -46,6 +46,7 @@ class AttendancesController < ApplicationController
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to workflow_path(@attendance, {tab: 'samples'})
+      User.includes(:fields).find(session[:user_id]).fields.first.set_issues_in_cache
     else
       set_desease_stages_and_health_ensurances
       @fields = Field.all.order :name

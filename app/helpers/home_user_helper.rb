@@ -1,51 +1,29 @@
 module HomeUserHelper
 
-  def waiting_exams field_id
-    conn = ActiveRecord::Base.connection
-    result = conn.execute "
-          SELECT DISTINCT oe.name AS exam_name,
-                 COUNT(oe.id) AS total
-          FROM exams e
-               INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-          WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Aguardando início')
-                AND oe.field_id = #{conn.quote(field_id)}
-          GROUP BY oe.id;"
-    waiting_exams_relation = {}
-    waiting_exams_count = 0
-    result.each do |exam|
-      key = exam["exam_name"]
-      value = exam["total"]
-      waiting_exams_relation[key] = value
-      waiting_exams_count += exam["total"]
-    end
-    { count: waiting_exams_count, relation: waiting_exams_relation }
+  def waiting_exams exams
+    exams_waiting_to_start = exams.where(exam_status_kind: ExamStatusKind.WAITING_START)
+    waiting_exams_count = exams_waiting_to_start.size
+    exams_relation = exams_waiting_to_start.group(:offered_exam).size
+    relation = {}
+    exams_relation.keys.each { |offered_exam| relation[offered_exam.name] = exams_relation[offered_exam] }
+    { count: waiting_exams_count, relation: relation }
   end
 
-  def exams_in_progress field_id
-    conn = ActiveRecord::Base.connection
-    result = conn.execute "
-    SELECT DISTINCT oe.name AS exam_name,
-           COUNT(e.id) AS total,
-           f.name AS field
-    FROM exams e
-         INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-         INNER JOIN fields f ON f.id = oe.field_id
-    WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-          AND e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Aguardando início')
-          AND oe.field_id = #{conn.quote(field_id)}
-    GROUP BY oe.id, f.name;"
-    exams_relation = {}
-    exams_count = 0
-    result.each do |exam|
-      key = exam["exam_name"]
-      value = exam["total"]
-      exams_relation[key] = value
-      exams_count += exam["total"]
+  def exams_in_progress exams
+    exams_in_progress = exams
+                            .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+                            .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+    exams_in_progress_count = exams_in_progress.size
+    exams_relation = exams_in_progress.group(:offered_exam).size
+    relation = {}
+    exams_relation.keys.each do |offered_exam|
+      relation[offered_exam.name] = exams_relation[offered_exam]
     end
-    { relation: exams_relation, count: exams_count }
+    { count: exams_in_progress_count , relation: relation }
   end
 
   def delayed_exams exams
+    exams = exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
     late_exams = []
     exams.each do |exam|
       created_at = exam.created_at.to_date
@@ -62,6 +40,26 @@ module HomeUserHelper
       end
     end
     { count: late_exams.size, relation: exams_relation }
+  end
+
+  def find_issues filter_by: nil
+    if filter_by.nil? || filter_by == 'Todos'
+      cache = Rails.cache.read "exams:field:#{@user.fields.first.name}"
+      if cache.nil? == false && Rails.env != "test"
+        issues = cache
+      else
+        issues = @user.fields.first.set_issues_in_cache
+      end
+    else
+      issues = Exam
+                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .joins(:offered_exam)
+                  .where("offered_exams.field_id = ?", @user.fields.first)
+                  .where(offered_exam_id: filter_by)
+                  .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+                  .order(created_at: :asc)
+    end
+    issues
   end
 
 end

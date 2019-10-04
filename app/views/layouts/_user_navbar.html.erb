@@ -31,7 +31,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to 'Imunofenotipagem', imunofeno_internal_codes_path, class: 'dropdown-item', id: 'samples-imunofeno' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Biologia Molecular', internal_codes_path(field_id: Field.BIOMOL), class: 'dropdown-item', id: 'samples-biomol' %>
+          <%= link_to 'Biologia Molecular', biomol_internal_codes_path, class: 'dropdown-item', id: 'samples-biomol' %>
           <div class="dropdown-divider"></div>
           <%= link_to 'FISH', internal_codes_path(field_id: Field.FISH), class: 'dropdown-item', id: 'samples-fish' %>
         </div>

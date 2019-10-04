@@ -27,7 +27,11 @@
 
   <div class = "form-group">
     <%= f.label :subsample_kind_id %>
-    <%= f.select :subsample_kind_id, options_from_collection_for_select(@subsample_kinds, :id, :name), {}, {class: 'form-control'} %>
+    <% if @subsample.subsample_kind.nil? %>
+      <%= f.select :subsample_kind_id, options_from_collection_for_select(@subsample_kinds, :id, :name), {}, {class: 'form-control'} %>
+    <% else %>
+      <%= f.select :subsample_kind_id, options_from_collection_for_select(@subsample_kinds, :id, :name, selected: @subsample.subsample_kind.id), {}, {class: 'form-control'} %>
+    <% end %>
   </div>
 
   <% if @subsample.collection_date %>

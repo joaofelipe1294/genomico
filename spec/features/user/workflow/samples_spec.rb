@@ -6,7 +6,7 @@ def extract_subsample
   click_link class: 'new-subsample', match: :first
   subsample = Subsample.new({
     storage_location: 'F -10',
-    subsample_kind: SubsampleKind.all.sample,
+    subsample_kind: SubsampleKind.DNA,
     collection_date: 2.days.ago,
     sample: @attendance.samples.first
   })
@@ -117,8 +117,7 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
     it "extract internal_code form subsample" do
       extract_subsample
       click_button id: 'sample_nav'
-      find_all(class: 'new-internal-code').last.click
-      click_button id: 'sample_nav'
+      expect(find_all(class: 'subsample').size).to eq 1
     end
 
     it "edit subsample" do
@@ -126,7 +125,7 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       click_link class: 'edit-subsample', match: :first
       subsample = Subsample.new({
         storage_location: 'F -100',
-        subsample_kind: SubsampleKind.all.sample,
+        subsample_kind: SubsampleKind.RNA,
         collection_date: 20.days.ago,
         sample: @attendance.samples.last
       })
@@ -138,6 +137,20 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       fill_in "subsample[qubit_report_attributes][concentration]", with: Faker::Number.number(digits: 3)
       click_button id: 'btn-save'
       expect(find(id: 'success-warning').text).to eq I18n.t :edit_subsample_success
+      click_button id: 'sample_nav'
+      click_link class: 'edit-subsample', match: :first
+      expect(page).to have_select('subsample[subsample_kind_id]', selected: SubsampleKind.RNA.name)
+    end
+
+    it "remove subsample" do
+      extract_subsample
+      click_link class: 'remove-internal-code', match: :first
+      page.driver.browser.switch_to.alert.accept
+      visit current_path
+      click_button id: 'sample_nav'
+      click_link class: 'remove-subsample'
+      page.driver.browser.switch_to.alert.accept
+      expect(find(id: 'success-warning').text).to eq I18n.t :remove_subsample_success
     end
 
   end

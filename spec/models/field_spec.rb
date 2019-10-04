@@ -53,4 +53,15 @@ RSpec.describe Field, type: :model do
   end
 
 
+  it "find issues from field" do
+    Rails.application.load_seed
+    exams = Exam.create([
+        { offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample} ,
+        { offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample} ,
+        { offered_exam: OfferedExam.where(field: Field.BIOMOL).where(is_active: true).sample} ,
+      ])
+    expect(Field.IMUNOFENO.set_issues_in_cache.size).to eq 2
+    expect(Field.BIOMOL.set_issues_in_cache.size).to eq 1
+  end
+
 end
