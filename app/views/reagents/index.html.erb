@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reagents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product description</th>
+      <th>Name</th>
+      <th>Stock itens</th>
+      <th>Usage per test</th>
+      <th>Brand</th>
+      <th>Total aviable</th>
+      <th>Field</th>
+      <th>First warn at</th>
+      <th>Danger warn at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reagents.each do |reagent| %>
+      <tr>
+        <td><%= reagent.product_description %></td>
+        <td><%= reagent.name %></td>
+        <td><%= reagent.stock_itens %></td>
+        <td><%= reagent.usage_per_test %></td>
+        <td><%= reagent.brand %></td>
+        <td><%= reagent.total_aviable %></td>
+        <td><%= reagent.field %></td>
+        <td><%= reagent.first_warn_at %></td>
+        <td><%= reagent.danger_warn_at %></td>
+        <td><%= link_to 'Show', reagent %></td>
+        <td><%= link_to 'Edit', edit_reagent_path(reagent) %></td>
+        <td><%= link_to 'Destroy', reagent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reagent', new_reagent_path %>

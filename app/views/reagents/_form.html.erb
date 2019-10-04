@@ -1,0 +1,57 @@
+<%= form_with(model: reagent, local: true) do |form| %>
+  <% if reagent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reagent.errors.count, "error") %> prohibited this reagent from being saved:</h2>
+
+      <ul>
+      <% reagent.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :product_description %>
+    <%= form.text_field :product_description, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :mv_code %>
+    <%= form.number_field :mv_code, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :product_code %>
+    <%= form.number_field :product_code, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :usage_per_test %>
+    <%= form.number_field :usage_per_test, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :brand %>
+    <%= form.text_field :brand, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :first_warn_at %>
+    <%= form.number_field :first_warn_at, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :danger_warn_at %>
+    <%= form.number_field :danger_warn_at, class: 'form-control' %>
+  </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
+<% end %>
