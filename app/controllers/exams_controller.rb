@@ -16,6 +16,7 @@ class ExamsController < ApplicationController
     if @exam.save
       flash[:success] = "Exame cadastrado com sucesso."
       redirect_to workflow_path(Attendance.find(params[:id]), {tab: "exams"})
+      User.includes(:fields).find(session[:user_id]).fields.first.set_issues_in_cache
     else
       flash[:warning] = 'Erro ao cadastrar exame, tente novamente mais tarde.'
 			redirect_to new_exam_path(@exam.attendance)
@@ -101,6 +102,7 @@ class ExamsController < ApplicationController
     if @exam.update exam_params
       flash[:success] = I18n.t :add_report_to_exam_success
       redirect_to workflow_path(@exam.attendance, {tab: "exams"})
+      User.includes(:fields).find(session[:user_id]).fields.first.set_issues_in_cache
     else
       flash[:error] = I18n.t :add_report_to_exam_success
       redirect_to add_report_path(@exam)

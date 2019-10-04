@@ -62,6 +62,10 @@ gem "chartkick"
 
 gem "nokogiri", ">= 1.10.4"
 
+# A Ruby client library for Redis
+gem "hiredis", "~> 0.6.0"
+gem "redis", ">= 3.2.0"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
