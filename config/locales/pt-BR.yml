@@ -22,6 +22,7 @@
       work_map: Mapa de Trabalho
       internal_code: Código interno
       reagent: Reagente
+      brand: Marca
     attributes:
       user_kind:
         name: Nome
@@ -136,6 +137,8 @@
         danger_warn_at: Segundo aviso
         mv_code: Código MV
         product_code: Código do produto
+      brand:
+        name: Nome
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
@@ -155,3 +158,4 @@
   complete_attendance_success: 'Atendimento encerrado com sucesso.'
   pending_reports_message: 'Adicione os laudos pendentes para concluir o atendimento.'
   create_work_map_success: 'Mapa de trabalho cadastrado com sucesso.'
+  new_brand_success: "Marca cadastrada com sucesso."
