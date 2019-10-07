@@ -19,6 +19,14 @@
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
+  <div class="field">
+    <%= form.label "Reagente é de uso exclusivo do setor: #{User.includes(:fields).find(session[:user_id]).fields.first.name} ?" %><br />
+    <%= form.label "belong_to_field", "Sim", value: "true"  %>
+    <%= form.radio_button "belong_to_field", true, checked: true %>
+    <%= form.label "belong_to_field", "Não", value: "false", class: 'ml-3' %>
+    <%= form.radio_button "belong_to_field", false, checked: false %>
+  </div>
+
   <div class="field form-group">
     <%= form.label :mv_code %>
     <%= form.text_field :mv_code, class: 'form-control' %>

@@ -41,7 +41,7 @@ RSpec.describe Reagent, type: :model do
 
     it "field" do
       reagent = build(:reagent, field: nil)
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "first_warn_at" do
