@@ -31,7 +31,8 @@ class ReagentsController < ApplicationController
       @reagent.field = User.includes(:fields).find(session[:user_id]).fields.first
     end
     if @reagent.save
-      redirect_to @reagent
+      flash[:success] = I18n.t :new_reagent_success
+      redirect_to home_user_index_path
     else
       @brands = Brand.all.order name: :asc
       render :new
