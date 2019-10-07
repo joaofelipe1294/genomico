@@ -3,6 +3,7 @@ class Reagent < ApplicationRecord
   validates :product_description, :name, :brand, :mv_code, :product_code, presence: true
   before_validation :before_validation
   validates :product_description, :name, :mv_code, :product_code, uniqueness: true
+  belongs_to :brand
 
   private
 

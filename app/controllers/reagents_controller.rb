@@ -5,7 +5,7 @@ class ReagentsController < ApplicationController
   # GET /reagents
   # GET /reagents.json
   def index
-    @reagents = Reagent.all
+    @reagents = Reagent.joins(:field).all.order name: :asc
   end
 
   # GET /reagents/1
@@ -76,7 +76,7 @@ class ReagentsController < ApplicationController
         :name,
         :stock_itens,
         :usage_per_test,
-        :brand,
+        :brand_id,
         :total_aviable,
         :field_id,
         :first_warn_at,

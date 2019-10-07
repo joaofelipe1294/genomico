@@ -131,6 +131,7 @@
         stock_itens: Itens em estoque
         usage_per_test: Titulação
         brand: Marca
+        brand_id: Marca
         total_aviable: Quantidade disponível
         field: Área
         first_warn_at: Primeiro aviso

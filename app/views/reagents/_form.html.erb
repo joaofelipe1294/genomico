@@ -19,7 +19,7 @@
     <%= form.text_field :name, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label "Reagente é de uso exclusivo do setor: #{User.includes(:fields).find(session[:user_id]).fields.first.name} ?" %><br />
     <%= form.label "belong_to_field", "Sim", value: "true", id: 'belong_to_single_field'  %>
     <%= form.radio_button "belong_to_field", true, checked: true %>
@@ -43,8 +43,8 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label :brand %>
-    <%= form.select :brand, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
+    <%= form.label :brand_id %>
+    <%= form.select :brand_id, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
