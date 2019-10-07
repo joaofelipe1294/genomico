@@ -1,6 +1,6 @@
 class Reagent < ApplicationRecord
   belongs_to :field
-  validates :product_description, :name, :brand, :field, :first_warn_at, :danger_warn_at, :danger_warn_at, :mv_code, :product_code, presence: true
+  validates :product_description, :name, :brand, :field, :mv_code, :product_code, presence: true
   before_validation :before_validation
   validates :product_description, :name, :mv_code, :product_code, uniqueness: true
 
@@ -10,6 +10,5 @@ class Reagent < ApplicationRecord
       self.total_aviable = 0 unless self.total_aviable
       self.stock_itens = 0 unless self.stock_itens
     end
-
 
 end

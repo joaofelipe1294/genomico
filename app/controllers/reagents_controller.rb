@@ -15,6 +15,7 @@ class ReagentsController < ApplicationController
   # GET /reagents/new
   def new
     @reagent = Reagent.new
+    @brands = Brand.all.order name: :asc
   end
 
   # GET /reagents/1/edit
@@ -25,12 +26,14 @@ class ReagentsController < ApplicationController
   # POST /reagents.json
   def create
     @reagent = Reagent.new(reagent_params)
+    @reagent.field = User.find(session[:user_id]).fields.first
 
     respond_to do |format|
       if @reagent.save
         format.html { redirect_to @reagent, notice: 'Reagent was successfully created.' }
         format.json { render :show, status: :created, location: @reagent }
       else
+        @brands = Brand.all.order name: :asc
         format.html { render :new }
         format.json { render json: @reagent.errors, status: :unprocessable_entity }
       end
@@ -69,6 +72,6 @@ class ReagentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reagent_params
-      params.require(:reagent).permit(:product_description, :name, :stock_itens, :usage_per_test, :brand, :total_aviable, :field_id, :first_warn_at, :danger_warn_at)
+      params.require(:reagent).permit(:product_description, :name, :stock_itens, :usage_per_test, :brand, :total_aviable, :field_id, :first_warn_at, :danger_warn_at, :mv_code, :product_code)
     end
 end

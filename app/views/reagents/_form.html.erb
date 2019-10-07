@@ -1,11 +1,9 @@
 <%= form_with(model: reagent, local: true) do |form| %>
   <% if reagent.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(reagent.errors.count, "error") %> prohibited this reagent from being saved:</h2>
-
       <ul>
       <% reagent.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="error"><%= message %></li>
       <% end %>
       </ul>
     </div>
@@ -23,12 +21,12 @@
 
   <div class="field form-group">
     <%= form.label :mv_code %>
-    <%= form.number_field :mv_code, class: 'form-control' %>
+    <%= form.text_field :mv_code, class: 'form-control' %>
   </div>
 
   <div class="field form-group">
     <%= form.label :product_code %>
-    <%= form.number_field :product_code, class: 'form-control' %>
+    <%= form.text_field :product_code, class: 'form-control' %>
   </div>
 
   <div class="field form-group">
@@ -38,7 +36,7 @@
 
   <div class="field form-group">
     <%= form.label :brand %>
-    <%= form.text_field :brand, class: 'form-control' %>
+    <%= form.select :brand, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">

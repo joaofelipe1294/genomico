@@ -46,12 +46,12 @@ RSpec.describe Reagent, type: :model do
 
     it "first_warn_at" do
       reagent = build(:reagent, first_warn_at: '')
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "danger_warn_at" do
       reagent = build(:reagent, danger_warn_at: '')
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "mv_code" do
