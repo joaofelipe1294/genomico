@@ -83,6 +83,8 @@ group :development, :test do
   gem 'faker', '~> 2.0.0'
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
+  # A Ruby code quality reporter
+  gem "rubycritic", require: false
 end
 
 group :test do
