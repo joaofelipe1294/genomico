@@ -85,6 +85,8 @@ group :development, :test do
   gem 'shoulda-matchers'
   # A Ruby code quality reporter
   gem "rubycritic", require: false
+  # A static analysis security vulnerability scanner for Ruby on Rails applications https://brakemanscanner.org/
+  gem 'brakeman'
 end
 
 group :test do

@@ -66,6 +66,7 @@ GEM
       kaminari (>= 0.13)
       rails (>= 3.1)
     bower-rails (0.11.0)
+    brakeman (4.6.1)
     builder (3.2.3)
     byebug (11.0.1)
     capybara (3.28.0)
@@ -350,6 +351,7 @@ DEPENDENCIES
   bootstrap (~> 4.3.1)
   bootstrap4-kaminari-views
   bower-rails (~> 0.11.0)
+  brakeman
   byebug
   capybara
   chartkick
