@@ -4,7 +4,7 @@ FactoryBot.define do
     name { Faker::Games::Zelda.item }
     stock_itens { 0 }
     usage_per_test { 0 }
-    brand { Faker::Games::Zelda.location }
+    brand { create(:brand) }
     total_aviable { 1 }
     field { Field.IMUNOFENO }
     first_warn_at { Faker::Number.number(digits: 3) }

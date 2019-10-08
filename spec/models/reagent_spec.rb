@@ -35,7 +35,7 @@ RSpec.describe Reagent, type: :model do
     end
 
     it "brand" do
-      reagent = build(:reagent, brand: '')
+      reagent = build(:reagent, brand: nil)
       expect(reagent).to be_invalid
     end
 

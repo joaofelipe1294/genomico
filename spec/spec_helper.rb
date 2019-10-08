@@ -1,4 +1,7 @@
 require 'capybara'
+# require 'simplecov'
+#
+# SimpleCov.start
 
 Capybara.server_host = '0.0.0.0' # bind to all interfaces
 
