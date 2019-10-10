@@ -7,7 +7,7 @@ def fill_in_values
   fill_in "reagent[mv_code]", with: @reagent.mv_code if @reagent.mv_code
   fill_in "reagent[product_code]", with: @reagent.product_code if @reagent.product_code
   fill_in "reagent[usage_per_test]", with: @reagent.usage_per_test if @reagent.usage_per_test
-  select(Brand.all.first.name, from: "reagent[brand]").select_option if @reagent.brand
+  select(Brand.all.first.name, from: "reagent[brand_id]").select_option if @reagent.brand
   fill_in "reagent[first_warn_at]", with: @reagent.first_warn_at if @reagent.first_warn_at
   fill_in "reagent[danger_warn_at]", with: @reagent.danger_warn_at if @reagent.danger_warn_at
 end
