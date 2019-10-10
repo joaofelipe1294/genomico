@@ -18,6 +18,9 @@
       <%= Reagent.human_attribute_name :brand %>
     </th>
     <th class="h4">
+      <%= Reagent.human_attribute_name :field %>
+    </th>
+    <th class="h4">
       <%= Reagent.human_attribute_name :usage_per_test %>
     </th>
     <th class="h4">
@@ -26,6 +29,7 @@
     <th class="h4">
       <%= Reagent.human_attribute_name :danger_warn_at %>
     </th>
+    <th></th>
   </thead>
   <tbody>
     <% @reagents.each do |reagent| %>
@@ -48,6 +52,17 @@
           <% end %>
         </td>
         <td>
+          <% if reagent.field %>
+            <label>
+              <%= reagent.field.name %>
+            </label>
+          <% else %>
+            <label>
+              Compartilhado
+            </label>
+          <% end %>
+        </td>
+        <td>
           <%= reagent.usage_per_test %>
         </td>
         <td>
@@ -56,6 +71,9 @@
         <td>
           <%= reagent.danger_warn_at %>
         </td>
+        <th>
+          <%= link_to "Editar", edit_reagent_path(reagent), class: 'btn btn-sm btn-outline-warning' %>
+        </th>
       </tr>
     <% end %>
   </tbody>

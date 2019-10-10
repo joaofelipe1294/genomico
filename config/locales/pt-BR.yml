@@ -161,3 +161,4 @@
   create_work_map_success: 'Mapa de trabalho cadastrado com sucesso.'
   new_brand_success: "Marca cadastrada com sucesso."
   new_reagent_success: "Reagente cadastrado com sucesso."
+  edit_reagent_success: "Reagente editado com sucesso."

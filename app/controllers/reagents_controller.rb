@@ -1,11 +1,12 @@
 class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
+  before_action :set_brands, only: [:new, :edit]
 
   # GET /reagents
   # GET /reagents.json
   def index
-    @reagents = Reagent.joins(:field).all.order name: :asc
+    @reagents = Reagent.includes(:field).all.order name: :asc
   end
 
   # GET /reagents/1
@@ -16,7 +17,6 @@ class ReagentsController < ApplicationController
   # GET /reagents/new
   def new
     @reagent = Reagent.new
-    @brands = Brand.all.order name: :asc
   end
 
   # GET /reagents/1/edit
@@ -40,8 +40,10 @@ class ReagentsController < ApplicationController
   # PATCH/PUT /reagents/1
   # PATCH/PUT /reagents/1.json
   def update
+    set_reagent_field
     if @reagent.update(reagent_params)
-      redirect_to @reagent
+      flash[:success] = I18n.t :edit_reagent_success
+      redirect_to reagents_path
     else
       render :edit
     end
@@ -61,6 +63,10 @@ class ReagentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_reagent
       @reagent = Reagent.find(params[:id])
+    end
+
+    def set_brands
+      @brands = Brand.all.order name: :asc
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -83,6 +89,8 @@ class ReagentsController < ApplicationController
     def set_reagent_field
       if params[:reagent][:belong_to_field] == "true"
         @reagent.field = User.includes(:fields).find(session[:user_id]).fields.first
+      else
+        @reagent.field = nil
       end
     end
 end
