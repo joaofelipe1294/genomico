@@ -47,7 +47,7 @@ RSpec.feature "User::Stock::Reagent::News", type: :feature do
 
       after :each do
         click_button id: "btn-save"
-        expect(page).to have_current_path home_user_index_path
+        expect(page).to have_current_path reagents_path
         expect(find(id: 'success-warning').text).to eq I18n.t :new_reagent_success
       end
 

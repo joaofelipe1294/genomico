@@ -30,7 +30,7 @@ class ReagentsController < ApplicationController
     set_reagent_field
     if @reagent.save
       flash[:success] = I18n.t :new_reagent_success
-      redirect_to home_user_index_path
+      redirect_to reagents_path
     else
       @brands = Brand.all.order name: :asc
       render :new
