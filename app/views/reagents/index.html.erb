@@ -52,15 +52,7 @@
           <% end %>
         </td>
         <td>
-          <% if reagent.field %>
-            <label>
-              <%= reagent.field.name %>
-            </label>
-          <% else %>
-            <label>
-              Compartilhado
-            </label>
-          <% end %>
+          <%= reagent.display_field %>
         </td>
         <td>
           <%= reagent.usage_per_test %>

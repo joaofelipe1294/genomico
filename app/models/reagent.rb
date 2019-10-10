@@ -5,6 +5,15 @@ class Reagent < ApplicationRecord
   validates :product_description, :name, :mv_code, :product_code, uniqueness: true
   belongs_to :brand
 
+  def display_field
+    if self.field
+      content = self.field.name
+    else
+      content = "Compartilhado"
+    end
+    "<label>#{content}</label>".html_safe
+  end
+
   private
 
     def before_validation
