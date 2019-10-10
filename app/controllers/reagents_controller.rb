@@ -27,9 +27,7 @@ class ReagentsController < ApplicationController
   # POST /reagents.json
   def create
     @reagent = Reagent.new(reagent_params)
-    if params[:reagent][:belong_to_field] == "true"
-      @reagent.field = User.includes(:fields).find(session[:user_id]).fields.first
-    end
+    set_reagent_field
     if @reagent.save
       flash[:success] = I18n.t :new_reagent_success
       redirect_to home_user_index_path
@@ -42,14 +40,10 @@ class ReagentsController < ApplicationController
   # PATCH/PUT /reagents/1
   # PATCH/PUT /reagents/1.json
   def update
-    respond_to do |format|
-      if @reagent.update(reagent_params)
-        format.html { redirect_to @reagent, notice: 'Reagent was successfully updated.' }
-        format.json { render :show, status: :ok, location: @reagent }
-      else
-        format.html { render :edit }
-        format.json { render json: @reagent.errors, status: :unprocessable_entity }
-      end
+    if @reagent.update(reagent_params)
+      redirect_to @reagent
+    else
+      render :edit
     end
   end
 
@@ -84,5 +78,11 @@ class ReagentsController < ApplicationController
         :mv_code,
         :product_code,
       )
+    end
+
+    def set_reagent_field
+      if params[:reagent][:belong_to_field] == "true"
+        @reagent.field = User.includes(:fields).find(session[:user_id]).fields.first
+      end
     end
 end
