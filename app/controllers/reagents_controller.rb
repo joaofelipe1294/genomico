@@ -32,7 +32,7 @@ class ReagentsController < ApplicationController
       flash[:success] = I18n.t :new_reagent_success
       redirect_to reagents_path
     else
-      @brands = Brand.all.order name: :asc
+      set_brands
       render :new
     end
   end
@@ -45,6 +45,7 @@ class ReagentsController < ApplicationController
       flash[:success] = I18n.t :edit_reagent_success
       redirect_to reagents_path
     else
+      @brands = Brand.all.order name: :asc
       render :edit
     end
   end
@@ -93,4 +94,5 @@ class ReagentsController < ApplicationController
         @reagent.field = nil
       end
     end
+
 end

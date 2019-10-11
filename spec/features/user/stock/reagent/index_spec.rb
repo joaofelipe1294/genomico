@@ -22,13 +22,13 @@ RSpec.feature "User::Stock::Reagent::Indices", type: :feature do
     end
 
     it "count list elements - 0" do
-      expect(find_all(class: 'reagent').size).to eq 0
+      expect(find_all(class: 'reagent').size).to eq Reagent.all.size
     end
 
     it "count list elements - 1" do
       create(:reagent)
       visit current_path
-      expect(find_all(class: 'reagent').size).to eq 1
+      expect(find_all(class: 'reagent').size).to eq Reagent.all.size
     end
 
     it "count list elements - 3" do
@@ -36,7 +36,7 @@ RSpec.feature "User::Stock::Reagent::Indices", type: :feature do
       create(:reagent)
       create(:reagent)
       visit current_path
-      expect(find_all(class: 'reagent').size).to eq 3
+      expect(find_all(class: 'reagent').size).to eq Reagent.all.size
     end
 
   end
