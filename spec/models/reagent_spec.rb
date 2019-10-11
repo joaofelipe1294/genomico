@@ -35,23 +35,23 @@ RSpec.describe Reagent, type: :model do
     end
 
     it "brand" do
-      reagent = build(:reagent, brand: '')
+      reagent = build(:reagent, brand: nil)
       expect(reagent).to be_invalid
     end
 
     it "field" do
       reagent = build(:reagent, field: nil)
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "first_warn_at" do
       reagent = build(:reagent, first_warn_at: '')
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "danger_warn_at" do
       reagent = build(:reagent, danger_warn_at: '')
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "mv_code" do
@@ -101,5 +101,23 @@ RSpec.describe Reagent, type: :model do
   end
 
   it { should belong_to :field }
+
+  context "display_field" do
+
+    before :all do
+      Rails.application.load_seed
+    end
+
+    it "display_field" do
+      reagent = build(:reagent, field: Field.IMUNOFENO)
+      expect(reagent.display_field).to eq "<label>#{Field.IMUNOFENO.name}</label>".html_safe
+    end
+
+    it "display_field without field" do
+      reagent = build(:reagent, field: nil)
+      expect(reagent.display_field).to eq "<label>Compartilhado</label>".html_safe
+    end
+
+  end
 
 end

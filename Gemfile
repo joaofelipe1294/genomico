@@ -83,6 +83,10 @@ group :development, :test do
   gem 'faker', '~> 2.0.0'
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
+  # A Ruby code quality reporter
+  gem "rubycritic", require: false
+  # A static analysis security vulnerability scanner for Ruby on Rails applications https://brakemanscanner.org/
+  gem 'brakeman'
 end
 
 group :test do
@@ -91,9 +95,10 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers', '~> 4.0'
   gem 'puma'
-  # gem 'chromedriver-helper' #only headless
   gem 'listen'
   gem 'geckodriver-helper'
+  # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites
+  gem 'simplecov', require: false
 end
 
 group :development do

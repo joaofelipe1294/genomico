@@ -1,43 +1,72 @@
-<p id="notice"><%= notice %></p>
+<%= render "layouts/user_navbar" %>
 
-<h1>Reagents</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Product description</th>
-      <th>Name</th>
-      <th>Stock itens</th>
-      <th>Usage per test</th>
-      <th>Brand</th>
-      <th>Total aviable</th>
-      <th>Field</th>
-      <th>First warn at</th>
-      <th>Danger warn at</th>
-      <th colspan="3"></th>
-    </tr>
+<table class="table table-bordered text-center mt-5">
+  <thead class="text-white bg-dark">
+    <th class="h4">
+      <%= Reagent.human_attribute_name :name %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :product_description %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :mv_code %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :product_code %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :brand %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :field %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :usage_per_test %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :first_warn_at %>
+    </th>
+    <th class="h4">
+      <%= Reagent.human_attribute_name :danger_warn_at %>
+    </th>
+    <th></th>
   </thead>
-
   <tbody>
     <% @reagents.each do |reagent| %>
-      <tr>
-        <td><%= reagent.product_description %></td>
-        <td><%= reagent.name %></td>
-        <td><%= reagent.stock_itens %></td>
-        <td><%= reagent.usage_per_test %></td>
-        <td><%= reagent.brand %></td>
-        <td><%= reagent.total_aviable %></td>
-        <td><%= reagent.field %></td>
-        <td><%= reagent.first_warn_at %></td>
-        <td><%= reagent.danger_warn_at %></td>
-        <td><%= link_to 'Show', reagent %></td>
-        <td><%= link_to 'Edit', edit_reagent_path(reagent) %></td>
-        <td><%= link_to 'Destroy', reagent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr class="reagent">
+        <td>
+          <%= reagent.name %>
+        </td>
+        <td>
+          <%= reagent.product_description %>
+        </td>
+        <td>
+          <%= reagent.mv_code%>
+        </td>
+        <td>
+          <%= reagent.product_code %>
+        </td>
+        <td>
+          <% if reagent.brand %>
+            <%= reagent.brand.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= reagent.display_field %>
+        </td>
+        <td>
+          <%= reagent.usage_per_test %>
+        </td>
+        <td>
+          <%= reagent.first_warn_at %>
+        </td>
+        <td>
+          <%= reagent.danger_warn_at %>
+        </td>
+        <th>
+          <%= link_to "Editar", edit_reagent_path(reagent), class: 'btn btn-sm btn-outline-warning edit-reagent' %>
+        </th>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Reagent', new_reagent_path %>
