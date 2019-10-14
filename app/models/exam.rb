@@ -1,6 +1,6 @@
 class Exam < ActiveRecord::Base
   attr_accessor :refference_label
-  validates :exam_status_kind, presence: true
+  validates :exam_status_kind, :offered_exam, presence: true
   belongs_to :offered_exam
   belongs_to :exam_status_kind
   belongs_to :attendance
@@ -11,6 +11,7 @@ class Exam < ActiveRecord::Base
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_attached_file :partial_released_report
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
+  after_create :reload_issues_cache
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
@@ -70,6 +71,10 @@ class Exam < ActiveRecord::Base
 
   def default_values
   	self.exam_status_kind = ExamStatusKind.WAITING_START if self.exam_status_kind.nil?
+  end
+
+  def reload_issues_cache
+    self.offered_exam.field.set_issues_in_cache
   end
 
 end

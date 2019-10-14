@@ -10,16 +10,12 @@ class ExamsController < ApplicationController
   end
 
   def create
-    @exam = Exam.new({
-      attendance: Attendance.find(params[:id]),
-      offered_exam_id: params[:offered_exam_id]
-    })
+    @exam = Exam.new(exam_params)
     if @exam.save
-      flash[:success] = "Exame cadastrado com sucesso."
+      flash[:success] = I18n.t :new_exam_success
       redirect_to workflow_path(Attendance.find(params[:id]), {tab: "exams"})
-      User.includes(:fields).find(session[:user_id]).fields.first.set_issues_in_cache
     else
-      flash[:warning] = 'Erro ao cadastrar exame, tente novamente mais tarde.'
+      flash[:warning] = @exam.errors.full_messages.first
 			redirect_to new_exam_path(@exam.attendance)
     end
   end
@@ -125,7 +121,7 @@ class ExamsController < ApplicationController
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report, :partial_released_report)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report, :partial_released_report, :attendance_id)
   	end
 
   	def set_exam

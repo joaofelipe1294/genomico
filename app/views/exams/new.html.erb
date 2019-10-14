@@ -9,6 +9,8 @@
   <div class="card-body">
     <div>
       <%= form_with model: @exam, url: create_exam_path(@exam.attendance) do |form| %>
+        <%= form.text_field :attendance_id, value: @exam.attendance_id, hidden: true, id: "exam_attendance_id" %>
+
         <div class="form-group">
           <label>Área</label>
           <%= select_tag "field", options_from_collection_for_select(@fields, "id", "name"), class: 'form-control', id: 'field_select', name: 'field' %>
