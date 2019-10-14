@@ -14,10 +14,9 @@ class ExamsController < ApplicationController
     @exam = Exam.new(exam_params)
     if @exam.save
       flash[:success] = I18n.t :new_exam_success
-      redirect_to workflow_path(Attendance.find(params[:id]), {tab: "exams"})
+      redirect_to workflow_path(@exam.attendance, {tab: "exams"})
     else
-      flash[:warning] = @exam.errors.full_messages.first
-			redirect_to new_exam_path(@exam.attendance)
+      show_error
     end
   end
 
@@ -28,14 +27,11 @@ class ExamsController < ApplicationController
 	end
 
 	def update
-    @exam.internal_code_id = exam_params[:internal_code]
-    @exam.offered_exam_id = exam_params[:offered_exam_id]
-		if @exam.save
+    if @exam.update(exam_params)
 			flash[:success] = I18n.t :edit_exam_success
 			redirect_to workflow_path(@exam.attendance, {tab: "exams"})
 		else
-			flash[:warning] = 'Erro ao editar exame, tente novamente mais tarde.'
-			redirect_to workflow_path(@exam.attendance)
+      show_error
 		end
 	end
 
@@ -121,7 +117,7 @@ class ExamsController < ApplicationController
   private
 
   	def exam_params
-			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report, :partial_released_report, :attendance_id)
+			params.require(:exam).permit(:offered_exam_id, :attendance, :internal_code, :report, :partial_released_report, :attendance_id, :internal_code_id)
   	end
 
   	def set_exam
@@ -169,6 +165,11 @@ class ExamsController < ApplicationController
                                   .where(is_active: true)
                                   .where(field: session[:field_id])
                                   .order(name: :asc)
+    end
+
+    def show_error
+      flash[:warning] = @exam.errors.full_messages.first
+			redirect_to workflow_path(@exam.attendance)
     end
 
 end

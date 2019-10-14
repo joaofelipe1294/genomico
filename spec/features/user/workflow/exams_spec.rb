@@ -123,7 +123,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       click_button id: 'btn-save'
       click_button id: 'exam_nav'
       click_link class: 'edit-exam', match: :first
-      select(@attendance.internal_codes.order(id: :desc).first.code, from: 'exam[internal_code]').select_option
+      select(@attendance.internal_codes.order(id: :desc).first.code, from: 'exam[internal_code_id]').select_option
       click_button id: 'btn-save'
       expect(find(id: 'success-warning').text).to eq I18n.t :edit_exam_success
     end
