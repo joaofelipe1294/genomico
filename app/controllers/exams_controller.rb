@@ -1,5 +1,5 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update, :partial_released]
+  before_action :set_exam, only: [:initiate, :change_exam_status, :start, :completed, :edit, :update, :partial_released]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
   before_action :user_filter
   before_action :set_offered_exams, only: [:new, :edit]
@@ -36,54 +36,44 @@ class ExamsController < ApplicationController
 	end
 
   def change_exam_status
+    @exam.exam_status_kind_id = params[:new_status]
+    apply_changes
   end
 
-	def initiate
-		@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
-    @exam.internal_code_id = exam_params[:internal_code]
-    @exam.start_date = Date.today
-		apply_changes
-	end
-
-	def tecnical_released
-		@exam.exam_status_kind = ExamStatusKind.TECNICAL_RELEASED
-		apply_changes
-	end
-
-	def in_repeat
-		@exam.exam_status_kind = ExamStatusKind.IN_REPEAT
-		apply_changes
-	end
-
-	def completed
+  def completed
 		@exam.exam_status_kind = ExamStatusKind.COMPLETE_WITHOUT_REPORT
 		@exam.finish_date = DateTime.now
 		apply_changes
 	end
 
+  # GET exams/1/partial_released
+  def partial_released
+  end
+
+  # PATCH exams/1/partial_released
+  def change_to_partial_released
+    @exam = Exam.find params[:id]
+    @exam.exam_status_kind = ExamStatusKind.PARTIAL_RELEASED
+    @exam.partial_released_report = exam_params[:partial_released_report]
+    apply_changes
+  end
+
+	def initiate
+    @exam.internal_code_id = exam_params[:internal_code]
+    @exam.start_date = Date.today
+    @exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
+		apply_changes
+	end
+
   def exams_from_patient
-    @fields = Field.all.order name: :asc
-    @patient = Patient.find params[:id]
-    attendances = @patient.attendances.order start_date: :desc
-    patient_exams = []
-    if params[:field_id].nil? || params[:field_id] == "0"
-      attendances.each do |attendance|
-        patient_exams = patient_exams + attendance.exams.includes(:offered_exam, :exam_status_kind)
-      end
-    else
-      connection = ActiveRecord::Base.connection
-      result = connection.execute("
-        SELECT e.id
-        FROM patients p
-             INNER JOIN attendances a ON a.patient_id = p.id
-             INNER JOIN exams e ON e.attendance_id = a.id
-             INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-        WHERE p.id = #{connection.quote @patient.id} AND oe.field_id = #{connection.quote params[:field_id]};")
-      result.each do |row|
-        patient_exams.push Exam.find(row["id"])
-      end
+    field_id = params[:field_id]
+    @fields = Field.all.order(name: :asc)
+    @patient = Patient.find(params[:id])
+    @exams = Exam.where(attendance_id: Attendance.where(patient_id: params[:id])).includes(:offered_exam)
+    if field_id && field_id != "0"
+      @exams = @exams.joins(:offered_exam).where("offered_exams.field_id = ?", field_id)
     end
-    @exams = Kaminari.paginate_array(patient_exams).page(params[:page]).per(10)
+    @exams = Kaminari.paginate_array(@exams).page(params[:page]).per(10)
   end
 
   # GET exams/1/add_report
@@ -103,18 +93,6 @@ class ExamsController < ApplicationController
       flash[:error] = I18n.t :add_report_to_exam_success
       redirect_to add_report_path(@exam)
     end
-  end
-
-  # GET exams/1/partial_released
-  def partial_released
-  end
-
-  # PATCH exams/1/partial_released
-  def change_to_partial_released
-    @exam = Exam.find params[:id]
-    @exam.exam_status_kind = ExamStatusKind.PARTIAL_RELEASED
-    @exam.partial_released_report = exam_params[:partial_released_report]
-    apply_changes
   end
 
   private
@@ -149,18 +127,6 @@ class ExamsController < ApplicationController
 
 		def set_samples_and_subsamples
 			@internal_codes = InternalCode.includes(:sample, :subsample).where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
-		end
-
-		def select_label_refference
-			sample = Sample.find_by({refference_label: exam_params[:refference_label]})
-			if sample.nil? == false
-				@exam.sample = sample
-				@exam.uses_subsample = false
-			else
-				@exam.subsample = Subsample.find_by({refference_label: exam_params[:refference_label]})
-				@exam.uses_subsample = true
-			end
-			@exam
 		end
 
     def set_offered_exams
