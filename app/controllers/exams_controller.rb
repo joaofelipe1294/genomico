@@ -35,6 +35,9 @@ class ExamsController < ApplicationController
 		end
 	end
 
+  def change_exam_status
+  end
+
 	def initiate
 		@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
     @exam.internal_code_id = exam_params[:internal_code]
