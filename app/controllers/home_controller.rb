@@ -8,6 +8,7 @@ class HomeController < ApplicationController
 	  	if user.authenticate user_params[:password]
 	  		session[:user_id] = user.id
         session[:user_login] = user.login
+        session[:field_id] = user.fields.first.id
 	  		redirect_to home_admin_index_path if user.user_kind == UserKind.ADMIN
 	  		redirect_to home_user_index_path if user.user_kind == UserKind.USER
 			else

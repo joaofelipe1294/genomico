@@ -1,11 +1,12 @@
 class ExamsController < ApplicationController
   before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update, :partial_released]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
+  before_action :user_filter
 
   def new
-    @attendance = Attendance.find(params[:id])
+    @exam = Exam.new(attendance_id: params[:id])
     @fields = Field.all.order name: :asc
-    @offered_exams = OfferedExam.where(field: @fields.first).order name: :asc
+    @offered_exams = OfferedExam.where(field: session[:field_id]).where(is_active: true).order name: :asc
   end
 
   def create

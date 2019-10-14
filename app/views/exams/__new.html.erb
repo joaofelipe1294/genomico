@@ -8,17 +8,17 @@
   </div>
   <div class="card-body">
     <div>
-      <%= form_with model: @exam, url: create_exam_path(@exam.attendance) do |form| %>
+      <%= form_tag create_exam_path(@attendance) do %>
         <div class="form-group">
-          <label>Área</label>
-          <%= select_tag "field", options_from_collection_for_select(@fields, "id", "name"), class: 'form-control', id: 'field_select', name: 'field' %>
+          <label for="">Área</label>
+          <%= select_tag "field", options_from_collection_for_select(@fields, "id", "name"), {class: 'form-control', id: 'field_select'} %>
         </div>
         <div class="form-group">
           <label for="">Exame</label>
-          <select id="exam_select" class="form-control" name="exam[offered_exam_id]">
-            <% @offered_exams.each do |offered_exam|%>
-              <option value="<%=offered_exam.id%>" class="exam-option">
-                <%= offered_exam.name %>
+          <select id="exam_select" class="form-control" name="offered_exam_id">
+            <% @offered_exams.each do |offered_exam| %>
+              <option value="<%= offered_exam.id %>" class="exam-option">
+                <%= offered_exam.name%>
               </option>
             <% end %>
           </select>
@@ -30,10 +30,6 @@
     </div>
   </div>
 </div>
-
-<script>
-  $("#field_select").val("<%= session[:field_id]%>")
-</script>
 
 <script>
   $('#field_select').change(() => {
