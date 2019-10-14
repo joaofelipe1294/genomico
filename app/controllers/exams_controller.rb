@@ -2,11 +2,12 @@ class ExamsController < ApplicationController
   before_action :set_exam, only: [:initiate, :tecnical_released, :in_repeat, :start, :completed, :edit, :update, :partial_released]
   before_action :set_samples_and_subsamples, only: [:start, :edit]
   before_action :user_filter
+  before_action :set_offered_exams, only: [:new, :edit]
+
 
   def new
     @exam = Exam.new(attendance_id: params[:id])
     @fields = Field.all.order name: :asc
-    @offered_exams = OfferedExam.where(field: session[:field_id]).where(is_active: true).order name: :asc
   end
 
   def create
@@ -24,7 +25,6 @@ class ExamsController < ApplicationController
 	end
 
 	def edit
-    @offered_exams = OfferedExam.where(is_active: true).where(field: User.find(session[:user_id]).fields.first)
 	end
 
 	def update
@@ -163,5 +163,12 @@ class ExamsController < ApplicationController
 			end
 			@exam
 		end
+
+    def set_offered_exams
+      @offered_exams = OfferedExam
+                                  .where(is_active: true)
+                                  .where(field: session[:field_id])
+                                  .order(name: :asc)
+    end
 
 end
