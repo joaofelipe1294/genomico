@@ -1,0 +1,21 @@
+<%= form_with(model: brand, local: true) do |form| %>
+  <% if brand.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% brand.errors.full_messages.each do |message| %>
+          <li class="error"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
+
+<% end %>

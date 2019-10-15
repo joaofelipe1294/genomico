@@ -15,7 +15,6 @@ RSpec.describe Exam, type: :model do
 		end
 
 		it 'without exam_status_kind' do
-			# exam_status_kind = create(:exam_status_kind, name: 'Aguardando início')
 			exam = build(:exam, exam_status_kind: nil)
 			exam.save
 			expect(exam).to be_valid
@@ -33,6 +32,11 @@ RSpec.describe Exam, type: :model do
 			exam.save
 			expect(exam).to be_valid
 			expect(exam.start_date).to eq(nil)
+		end
+
+		it "without offered_exam" do
+			exam = build(:exam, offered_exam: nil)
+			expect(exam).to be_invalid
 		end
 
 	end

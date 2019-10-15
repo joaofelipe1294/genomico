@@ -1,0 +1,63 @@
+<%= form_with(model: reagent, local: true) do |form| %>
+  <% if reagent.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% reagent.errors.full_messages.each do |message| %>
+        <li class="error"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :product_description %>
+    <%= form.text_field :product_description, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label "Reagente é de uso exclusivo do setor: #{User.includes(:fields).find(session[:user_id]).fields.first.name} ?" %><br />
+    <%= form.label "belong_to_field", "Sim", value: "true" %>
+    <%= form.radio_button "belong_to_field", true, checked: (@reagent.field.nil? == false), id: 'belong_to_single_field' %>
+    <%= form.label "belong_to_field", "Não", value: "false", class: 'ml-3' %>
+    <%= form.radio_button "belong_to_field", false, checked: (@reagent.field.nil? == true), id: 'belong_to_many_fields' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :mv_code %>
+    <%= form.text_field :mv_code, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :product_code %>
+    <%= form.text_field :product_code, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :usage_per_test %>
+    <%= form.number_field :usage_per_test, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :brand_id %>
+    <%= form.select :brand_id, options_from_collection_for_select(@brands, "id", "name", selected: @reagent.brand_id), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :first_warn_at %>
+    <%= form.number_field :first_warn_at, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :danger_warn_at %>
+    <%= form.number_field :danger_warn_at, class: 'form-control' %>
+  </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
+<% end %>
