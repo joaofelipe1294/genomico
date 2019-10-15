@@ -12,7 +12,14 @@
     <% end %>
   </div>
   <div class="col-5 d-inline-block">
-
+    <%= form_with url: reagents_path, method: :get do |form| %>
+      <div class="form-group">
+        <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name"), {}, class: 'form-control'%>
+      </div>
+      <button id="btn-search-by-field" class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
   </div>
 </div>
 

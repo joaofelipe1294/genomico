@@ -81,5 +81,44 @@ RSpec.feature "User::Stock::Reagent::Indices", type: :feature do
 
   end
 
+  context "field search validation" do
+
+    before :all do
+      Reagent.delete_all
+      Rails.application.load_seed
+      create(:reagent, name: 'CD3', field: Field.BIOMOL)
+      create(:reagent, name: 'CD8', field: Field.IMUNOFENO)
+      create(:reagent, name: 'YOLO', field: Field.IMUNOFENO)
+      create(:reagent, name: 'CD45', field: nil)
+      create(:reagent, name: 'Tubo', field: nil)
+    end
+
+    before :each do
+      imunofeno_user_do_login
+      click_link id: 'stock-dropdown'
+      click_link id: 'reagents'
+      expect(find_all(class: 'reagent').size).to eq 5
+    end
+
+    it "field search validation" do
+      select(Field.IMUNOFENO.name, from: "field_id").select_option
+      click_button id: "btn-search-by-field"
+      expect(page).to have_current_path(reagents_path, ignore_query: true)
+      expect(find_all(class: 'reagent').size).to eq 2
+    end
+
+    it "change field" do
+      select(Field.BIOMOL.name, from: "field_id").select_option
+      click_button id: "btn-search-by-field"
+      expect(find_all(class: "reagent").size).to eq 1
+    end
+
+    it "shared" do
+      select("Compartilhado", from: "field_id").select_option
+      click_button id: "btn-search-by-field"
+      expect(find_all(class: 'reagent').size).to eq 2
+    end
+
+  end
 
 end

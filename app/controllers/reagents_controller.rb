@@ -6,9 +6,8 @@ class ReagentsController < ApplicationController
   # GET /reagents
   # GET /reagents.json
   def index
-    reagent_name = params[:name]
-    @reagents = Reagent.includes(:field).all.order(name: :asc).page params[:page]
-    @reagents = @reagents.where("name ILIKE ?", "%#{reagent_name}%") if reagent_name
+    @fields = Field.all.order(name: :asc)
+    set_reagents
   end
 
   # GET /reagents/1
@@ -95,6 +94,18 @@ class ReagentsController < ApplicationController
       else
         @reagent.field = nil
       end
+    end
+
+    def set_reagents
+      reagent_name = params[:name]
+      reagent_field = params[:field_id]
+      reagents = Reagent.includes(:field).all.order(name: :asc).page params[:page]
+      reagents = reagents.where("name ILIKE ?", "%#{reagent_name}%") if reagent_name
+      if reagent_field
+        reagents = reagents.where(field_id: reagent_field) if reagent_field != "Compartilhado"
+        reagents = reagents.where(field_id: nil) if reagent_field == "Compartilhado"
+      end
+      @reagents = reagents
     end
 
 end
