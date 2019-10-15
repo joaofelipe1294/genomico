@@ -186,7 +186,6 @@
   var searchParams = new URLSearchParams(window.location.search)
   if(searchParams.has('tab')){
     let tab = searchParams.get('tab')
-    console.log(tab)
     if (tab === 'exams'){
       $('#exam_nav').addClass('active')
       $('#exams_tab').removeAttr('style')

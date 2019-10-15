@@ -18,8 +18,6 @@
           Atendimentos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Painel de exames', panels_exams_path, class: 'dropdown-item', id: 'attendance-panel' %>
-          <div class="dropdown-divider"></div>
           <%= link_to 'Buscar', attendances_path, class: 'dropdown-item', id: 'attendance-search' %>
         </div>
       </li>
@@ -45,6 +43,21 @@
           <%= link_to 'Novo', new_work_map_path, class: 'dropdown-item', id: 'new-work-map' %>
           <div class="dropdown-divider"></div>
           <%= link_to 'Buscar', work_maps_path, class: 'dropdown-item', id: 'work-maps' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="stock-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Estoque
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdown">
+          <%= link_to 'Novo reagente', new_reagent_path, class: 'dropdown-item', id: 'new-reagent' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Buscar reagente", reagents_path, class: 'dropdown-item', id: 'reagents' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Cadastrar marca", new_brand_path, class: 'dropdown-item', id: 'new-brand' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Buscar marca", brands_path, class: 'dropdown-item', id: 'brands' %>
         </div>
       </li>
 

@@ -31,11 +31,6 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
       click_link 'attendance-dropdown'
     end
 
-    it "panel" do
-      click_link 'attendance-panel'
-      expect(page).to have_current_path panels_exams_path
-    end
-
     it "search" do
       click_link 'attendance-search'
       expect(page).to have_current_path attendances_path

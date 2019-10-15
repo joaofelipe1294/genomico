@@ -5,12 +5,8 @@ module ExamsHelper
     if exam.exam_status_kind == ExamStatusKind.WAITING_START
       options << link_to('Iniciar exame', start_exam_path(exam), id: 'start-exam', class: 'btn btn-sm btn-outline-primary ml-3 start-exam')
     elsif exam.exam_status_kind != ExamStatusKind.COMPLETE_WITHOUT_REPORT && exam.exam_status_kind != ExamStatusKind.COMPLETE
-      unless exam.exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
-        options << link_to('Liberado técnico', change_to_tecnical_released_path(exam), method: :patch, class: 'btn btn-sm btn-outline-info ml-3 change-to-tecnical-released')
-      end
-      unless exam.exam_status_kind == ExamStatusKind.IN_REPEAT
-        options << link_to('Em repetição', change_to_in_repeat_path(exam), method: :patch, class: 'btn btn-sm btn-outline-secondary ml-3 change-to-in-repeat')
-      end
+      options << link(exam, new_status: ExamStatusKind.TECNICAL_RELEASED, css_class: 'info change-to-tecnical-released') unless exam.exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
+      options << link(exam, new_status: ExamStatusKind.IN_REPEAT, css_class: 'secondary change-to-in-repeat') unless exam.exam_status_kind == ExamStatusKind.IN_REPEAT
       options << link_to('Liberado parcial', change_to_partial_released_path(exam), class: 'btn btn-sm btn-outline-dark ml-3 change-to-partial-released')
       unless exam.exam_status_kind == ExamStatusKind.COMPLETE || exam.exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
         options << link_to('Concluído', change_to_completed_path(exam), data: { confirm: "Tem certeza ?" }, method: :patch, class: 'btn btn-sm btn-outline-success ml-3 change-to-complete')
@@ -19,24 +15,27 @@ module ExamsHelper
         options << link_to('Adicionar laudo', add_report_to_exam_path(exam), class: 'ml-3 add-report')
     else
       options << "<label class = 'text-success ml-3'>Exame concluído</label>".html_safe
-        options << link_to('Visualizar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-info see-report ml-3')
+      options << link_to('Visualizar laudo', add_report_to_exam_path(exam), class: 'btn btn-sm btn-outline-info see-report ml-3')
     end
     options << link_to('Editar', edit_exam_path(exam), class: 'btn btn-sm btn-outline-warning ml-2 edit-exam')
     options.html_safe
   end
 
   def exam_status_helper exam_status_kind
-    text_style = ""
-    if exam_status_kind == ExamStatusKind.IN_PROGRESS
-      text_style = "text-primary"
-    elsif exam_status_kind == ExamStatusKind.COMPLETE
-      text_style = "text-success"
-    elsif exam_status_kind == ExamStatusKind.IN_REPEAT
-      text_style = "text-secondary"
-    elsif exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
-      text_style = "text-info"
-    end
+    text_style = "text-primary" if exam_status_kind == ExamStatusKind.IN_PROGRESS
+    text_style = "text-success" if exam_status_kind == ExamStatusKind.COMPLETE
+    text_style = "text-secondary" if exam_status_kind == ExamStatusKind.IN_REPEAT
+    text_style = "text-info" if exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
     "<label class='#{text_style}'>#{exam_status_kind.name}</label>".html_safe
+  end
+
+  def link(exam, new_status: nil, css_class: "", method: "patch")
+    link_to(
+      new_status.name,
+      change_exam_status_path(exam, {new_status: new_status}),
+      method: method,
+      class: "btn btn-sm ml-3 btn-outline-#{css_class}"
+    )
   end
 
 end

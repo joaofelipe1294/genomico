@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_03_170800) do
+ActiveRecord::Schema.define(version: 2019_10_07_194418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.datetime "generated_at"
     t.boolean "status"
     t.string "dump_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bottle_status_kinds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -209,6 +221,24 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.index ["subsample_id"], name: "index_qubit_reports_on_subsample_id"
   end
 
+  create_table "reagents", force: :cascade do |t|
+    t.string "product_description"
+    t.string "name"
+    t.integer "stock_itens"
+    t.integer "usage_per_test"
+    t.integer "total_aviable"
+    t.bigint "field_id"
+    t.integer "first_warn_at"
+    t.integer "danger_warn_at"
+    t.string "mv_code"
+    t.string "product_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "brand_id"
+    t.index ["brand_id"], name: "index_reagents_on_brand_id"
+    t.index ["field_id"], name: "index_reagents_on_field_id"
+  end
+
   create_table "sample_kinds", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "acronym"
@@ -268,6 +298,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_user_kinds_on_id"
     t.index ["name"], name: "index_user_kinds_on_name"
   end
 
@@ -279,6 +310,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.integer "user_kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_users_on_id"
     t.index ["user_kind_id"], name: "index_users_on_user_kind_id"
   end
 
@@ -291,6 +323,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
     t.string "map_content_type"
     t.integer "map_file_size"
     t.datetime "map_updated_at"
+    t.index ["id"], name: "index_work_maps_on_id"
   end
 
   add_foreign_key "attendances", "attendance_status_kinds"
@@ -308,6 +341,7 @@ ActiveRecord::Schema.define(version: 2019_10_03_170800) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
+  add_foreign_key "reagents", "fields"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
