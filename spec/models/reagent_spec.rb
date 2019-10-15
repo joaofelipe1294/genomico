@@ -56,7 +56,7 @@ RSpec.describe Reagent, type: :model do
 
     it "mv_code" do
       reagent = build(:reagent, mv_code: '')
-      expect(reagent).to be_invalid
+      expect(reagent).to be_valid
     end
 
     it "product_code" do
@@ -98,6 +98,12 @@ RSpec.describe Reagent, type: :model do
       @duplicated = build(:reagent, product_code: @reagent.product_code)
     end
 
+  end
+
+  it "two nil mv_codes" do
+    create(:reagent, mv_code: nil)
+    second_reagent_without_mv_code = build(:reagent, mv_code: nil)
+    expect(second_reagent_without_mv_code).to be_valid
   end
 
   it { should belong_to :field }

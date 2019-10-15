@@ -134,6 +134,7 @@
         brand_id: Marca
         total_aviable: Quantidade disponível
         field: Área
+        field_id: Área
         first_warn_at: Primeiro aviso
         danger_warn_at: Segundo aviso
         mv_code: Código MV

@@ -2,11 +2,12 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
   before_action :set_brands, only: [:new, :edit]
+  before_action :set_fields, only: [:index, :new]
 
   # GET /reagents
   # GET /reagents.json
   def index
-    @fields = Field.all.order(name: :asc)
+    # @fields = Field.all.order(name: :asc)
     set_reagents
   end
 
@@ -106,6 +107,10 @@ class ReagentsController < ApplicationController
         reagents = reagents.where(field_id: nil) if reagent_field == "Compartilhado"
       end
       @reagents = reagents
+    end
+
+    def set_fields
+      @fields = Field.all.order(name: :asc)
     end
 
 end
