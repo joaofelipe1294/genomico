@@ -41,4 +41,45 @@ RSpec.feature "User::Stock::Reagent::Indices", type: :feature do
 
   end
 
+  context "search by name" do
+
+    before :all do
+      Reagent.delete_all
+      Rails.application.load_seed
+      create(:reagent, name: 'CD3')
+      create(:reagent, name: 'CD8')
+      create(:reagent, name: 'YOLO')
+      create(:reagent, name: 'CD45')
+      create(:reagent, name: 'Tubo')
+    end
+
+    before :each do
+      imunofeno_user_do_login
+      click_link id: 'stock-dropdown'
+      click_link id: 'reagents'
+      expect(find_all(class: 'reagent').size).to eq 5
+    end
+
+    it "search by name" do
+      fill_in "name", with: 'cd'
+      click_button id: 'btn-search-by-name'
+      expect(page).to have_current_path(reagents_path, ignore_query: true)
+      expect(find_all(class: 'reagent').size).to eq 3
+    end
+
+    it "search by invalid name" do
+      fill_in "name", with: "INVALIDO"
+      click_button id: 'btn-search-by-name'
+      expect(find_all(class: 'reagent').size).to eq 0
+    end
+
+    it "search with empty number" do
+      fill_in "name", with: ''
+      click_button id: 'btn-search-by-name'
+      expect(find_all(class: 'reagent').size).to eq 5
+    end
+
+  end
+
+
 end

@@ -6,7 +6,9 @@ class ReagentsController < ApplicationController
   # GET /reagents
   # GET /reagents.json
   def index
-    @reagents = Reagent.includes(:field).all.order name: :asc
+    reagent_name = params[:name]
+    @reagents = Reagent.includes(:field).all.order(name: :asc).page params[:page]
+    @reagents = @reagents.where("name ILIKE ?", "%#{reagent_name}%") if reagent_name
   end
 
   # GET /reagents/1
@@ -45,7 +47,7 @@ class ReagentsController < ApplicationController
       flash[:success] = I18n.t :edit_reagent_success
       redirect_to reagents_path
     else
-      @brands = Brand.all.order name: :asc
+      set_brands
       render :edit
     end
   end

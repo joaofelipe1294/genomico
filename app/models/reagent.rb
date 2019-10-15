@@ -4,6 +4,7 @@ class Reagent < ApplicationRecord
   before_validation :before_validation
   validates :product_description, :name, :mv_code, :product_code, uniqueness: true
   belongs_to :brand
+  paginates_per 15
 
   def display_field
     if self.field
