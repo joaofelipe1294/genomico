@@ -2,7 +2,7 @@ class ReagentsController < ApplicationController
   before_action :set_reagent, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
   before_action :set_brands, only: [:new, :edit]
-  before_action :set_fields, only: [:index, :new]
+  before_action :set_fields, only: [:index, :new, :edit]
 
   # GET /reagents
   # GET /reagents.json
@@ -35,6 +35,7 @@ class ReagentsController < ApplicationController
       redirect_to reagents_path
     else
       set_brands
+      set_fields
       render :new
     end
   end
@@ -48,6 +49,7 @@ class ReagentsController < ApplicationController
       redirect_to reagents_path
     else
       set_brands
+      set_fields
       render :edit
     end
   end
@@ -90,10 +92,10 @@ class ReagentsController < ApplicationController
     end
 
     def set_reagent_field
-      if params[:reagent][:belong_to_field] == "true"
-        @reagent.field = User.includes(:fields).find(session[:user_id]).fields.first
-      else
+      if reagent_params[:field_id] == "Compartilhado"
         @reagent.field = nil
+      else
+        @reagent.field_id = reagent_params[:field_id]
       end
     end
 

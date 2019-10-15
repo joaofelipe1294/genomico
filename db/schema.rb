@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_194418) do
+ActiveRecord::Schema.define(version: 2019_10_15_184156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,7 +341,6 @@ ActiveRecord::Schema.define(version: 2019_10_07_194418) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
-  add_foreign_key "reagents", "fields"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"

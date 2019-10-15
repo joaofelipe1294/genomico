@@ -53,9 +53,9 @@ RSpec.feature "User::Stock::Reagent::Edits", type: :feature do
     it "complete" do
       fill_in "reagent[product_description]", with: @new_reagent.product_description
       fill_in "reagent[name]", with: @new_reagent.name
-      find(id: 'belong_to_single_field').click
       fill_in "reagent[mv_code]", with: @new_reagent.mv_code
       fill_in "reagent[product_code]", with: @new_reagent.product_code
+      select(@new_reagent.field.name, from: "reagent[field_id]").select_option
       select(@new_reagent.brand.name, from: "reagent[brand_id]").select_option
       fill_in "reagent[first_warn_at]", with: @new_reagent.first_warn_at
       fill_in "reagent[danger_warn_at]", with: @new_reagent.danger_warn_at
@@ -109,19 +109,20 @@ RSpec.feature "User::Stock::Reagent::Edits", type: :feature do
     context "FIELD" do
 
       it "change to no field" do
-        find(id: 'belong_to_many_fields').click
+        select("Compartilhado", from: "reagent[field_id]").select_option
         expect_correct_edition
         visit edit_reagent_path(@original_reagent.id)
-        expect(find(id: "belong_to_many_fields")).to be_checked
+        @original_reagent = Reagent.find @original_reagent.id
+        expect(@original_reagent.field).to eq nil
       end
 
       it "change to field" do
         @original_reagent.update(field: nil)
         visit edit_reagent_path(@original_reagent.id)
-        find(id: 'belong_to_single_field').click
+        select(Field.BIOMOL.name, from: "reagent[field_id]").select_option
         expect_correct_edition
-        visit edit_reagent_path(@original_reagent.id)
-        expect(find(id: "belong_to_single_field")).to be_checked
+        @original_reagent = Reagent.find @original_reagent.id
+        expect(@original_reagent.field).to eq Field.BIOMOL
       end
 
     end
@@ -136,7 +137,8 @@ RSpec.feature "User::Stock::Reagent::Edits", type: :feature do
       it "without" do
         fill_in "reagent[mv_code]", with: ""
         click_button id: 'btn-save'
-        expect(find(class: "error", match: :first).text).to eq "#{Reagent.human_attribute_name :mv_code} não pode ficar em branco"
+        expect(find(id: "success-warning").text).to eq I18n.t :edit_reagent_success
+        expect(page).to have_current_path reagents_path
       end
 
       it "duplicated" do

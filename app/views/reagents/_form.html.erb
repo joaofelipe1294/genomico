@@ -21,7 +21,7 @@
 
   <div class="field form-group">
     <%= form.label :field_id %>
-    <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name", selected: @reagent.field_id), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
