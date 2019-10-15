@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_193607) do
+ActiveRecord::Schema.define(version: 2019_10_15_200224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,8 +235,10 @@ ActiveRecord::Schema.define(version: 2019_10_15_193607) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "brand_id"
+    t.bigint "unit_of_measurement_id"
     t.index ["brand_id"], name: "index_reagents_on_brand_id"
     t.index ["field_id"], name: "index_reagents_on_field_id"
+    t.index ["unit_of_measurement_id"], name: "index_reagents_on_unit_of_measurement_id"
   end
 
   create_table "sample_kinds", id: :serial, force: :cascade do |t|
@@ -347,6 +349,7 @@ ActiveRecord::Schema.define(version: 2019_10_15_193607) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
+  add_foreign_key "reagents", "unit_of_measurements"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
