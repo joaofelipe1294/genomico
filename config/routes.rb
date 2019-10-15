@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :brands
-  resources :reagents
+
   get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes
   patch 'exams/:id/partial_released', to: 'exams#change_to_partial_released', as: :partial_released
   get 'exams/:id/partial_released', to: 'exams#partial_released', as: :change_to_partial_released
@@ -20,8 +19,7 @@ Rails.application.routes.draw do
   get 'backups/index', to: 'backups#index', as: :backups
   get 'panels/exams'
   get 'panels/attendances'
-  resources :work_maps
-  resources :hospitals
+
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
@@ -38,9 +36,8 @@ Rails.application.routes.draw do
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
   patch 'exams/:id', to: 'exams#update', as: :update_exam
   patch 'exams/:id/initiate', to: 'exams#initiate', as: :initiate_exam
-  patch 'exams/:id/tecnical-released', to: 'exams#tecnical_released', as: :change_to_tecnical_released
-  patch 'exams/:id/in-repeat', to: 'exams#in_repeat', as: :change_to_in_repeat
   patch 'exams/:id/completed', to: 'exams#completed', as: :change_to_completed
+  patch 'exams/:id/change_exam_status', to: 'exams#change_exam_status', as: :change_exam_status
 
   get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
   get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
@@ -55,6 +52,10 @@ Rails.application.routes.draw do
 
   get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
 
+  resources :brands
+  resources :reagents
+  resources :work_maps
+  resources :hospitals
   resources :subsamples
   resources :samples, except: [:new]
   resources :users
