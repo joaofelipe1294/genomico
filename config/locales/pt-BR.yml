@@ -129,15 +129,18 @@
         product_description: Descrição do produto
         name: Nome
         stock_itens: Itens em estoque
-        usage_per_test: Titulação
+        usage_per_test: Titulação (valor de referência)
         brand: Marca
         brand_id: Marca
         total_aviable: Quantidade disponível
         field: Área
+        field_id: Área
         first_warn_at: Primeiro aviso
         danger_warn_at: Segundo aviso
         mv_code: Código MV
         product_code: Código do produto
+        unit_of_measurement_id: Unidade de medida
+        unit_of_measurement: Unidade de medida
       brand:
         name: Nome
   wrong_login_message: 'Login ou senha inválidos.'

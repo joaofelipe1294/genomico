@@ -7,6 +7,7 @@ def fill_in_values
   fill_in "reagent[mv_code]", with: @reagent.mv_code if @reagent.mv_code
   fill_in "reagent[product_code]", with: @reagent.product_code if @reagent.product_code
   fill_in "reagent[usage_per_test]", with: @reagent.usage_per_test if @reagent.usage_per_test
+  select(@reagent.field.name, from: "reagent[field_id]").select_option
   select(Brand.all.first.name, from: "reagent[brand_id]").select_option if @reagent.brand
   fill_in "reagent[first_warn_at]", with: @reagent.first_warn_at if @reagent.first_warn_at
   fill_in "reagent[danger_warn_at]", with: @reagent.danger_warn_at if @reagent.danger_warn_at
@@ -55,7 +56,7 @@ RSpec.feature "User::Stock::Reagent::News", type: :feature do
       end
 
       it "without field" do
-        find(id: 'belong_to_many_fields').click
+        select("Compartilhado", from: "reagent[field_id]").select_option
       end
 
       it "without usage_per_test" do
@@ -68,6 +69,10 @@ RSpec.feature "User::Stock::Reagent::News", type: :feature do
 
       it "without danger_warn_at" do
         fill_in "reagent[danger_warn_at]", with: ""
+      end
+
+      it "without mv_code" do
+        fill_in "reagent[mv_code]", with: ""
       end
 
     end
@@ -101,12 +106,6 @@ RSpec.feature "User::Stock::Reagent::News", type: :feature do
         fill_in "reagent[product_description]", with: ""
         click_button id: 'btn-save'
         expect(find(class: 'error', match: :first).text).to eq "Descrição do produto não pode ficar em branco"
-      end
-
-      it "mv_code" do
-        fill_in "reagent[mv_code]", with: ""
-        click_button id: 'btn-save'
-        expect(find(class: "error", match: :first).text).to eq "Código MV não pode ficar em branco"
       end
 
       it "product_code" do
