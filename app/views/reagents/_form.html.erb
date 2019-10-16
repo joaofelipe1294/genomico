@@ -20,11 +20,8 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label "Reagente é de uso exclusivo do setor: #{User.includes(:fields).find(session[:user_id]).fields.first.name} ?" %><br />
-    <%= form.label "belong_to_field", "Sim", value: "true" %>
-    <%= form.radio_button "belong_to_field", true, checked: (@reagent.field.nil? == false), id: 'belong_to_single_field' %>
-    <%= form.label "belong_to_field", "Não", value: "false", class: 'ml-3' %>
-    <%= form.radio_button "belong_to_field", false, checked: (@reagent.field.nil? == true), id: 'belong_to_many_fields' %>
+    <%= form.label :field_id %>
+    <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name", selected: @reagent.field_id), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
@@ -35,6 +32,11 @@
   <div class="field form-group">
     <%= form.label :product_code %>
     <%= form.text_field :product_code, class: 'form-control' %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :unit_of_measurement_id %>
+    <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@units_of_measurement, "id", "name"), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
