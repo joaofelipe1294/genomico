@@ -172,6 +172,17 @@ RSpec.feature "User::Stock::Reagent::Edits", type: :feature do
 
     end
 
+    context "Unit of measurement" do
+
+      it "change to last unit_of_measurement" do
+        new_unit_of_mesurement = UnitOfMeasurement.all.order(:id).last
+        select(new_unit_of_mesurement.name, from: "reagent[unit_of_measurement_id]").select_option
+        expect_correct_edition
+        expect(Reagent.find(@original_reagent.id).unit_of_measurement).to eq new_unit_of_mesurement
+      end
+
+    end
+
   end
 
 end

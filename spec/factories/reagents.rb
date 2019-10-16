@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :reagent do
-    product_description { Faker::Games::Zelda.character }
-    name { Faker::Games::Zelda.item }
+    product_description { Faker::Name.name }
+    name { Faker::Name.name }
     stock_itens { 0 }
     usage_per_test { 0 }
     brand { create(:brand) }
@@ -11,5 +11,6 @@ FactoryBot.define do
     danger_warn_at { Faker::Number.number(digits: 3) }
     product_code { Faker::Number.number(digits: 5).to_s }
     mv_code { Faker::Number.number(digits: 5).to_s }
+    unit_of_measurement { UnitOfMeasurement.all.sample }
   end
 end

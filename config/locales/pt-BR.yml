@@ -139,6 +139,8 @@
         danger_warn_at: Segundo aviso
         mv_code: Código MV
         product_code: Código do produto
+        unit_of_measurement_id: Unidade de medida
+        unit_of_measurement: Unidade de medida
       brand:
         name: Nome
   wrong_login_message: 'Login ou senha inválidos.'

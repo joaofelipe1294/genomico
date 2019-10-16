@@ -342,3 +342,13 @@ BottleStatusKind.create([
 	{name: "Em uso"},
 	{name: "Em quarentena"},
 ])
+
+
+UnitOfMeasurement.create([
+	{ name: "Caixas"} ,
+	{ name: "Microlitros"} ,
+	{ name: "Unidades"} ,
+	{ name: "Kits"} ,
+	{ name: "Reações"} ,
+	{ name: "Extrações"} ,
+])

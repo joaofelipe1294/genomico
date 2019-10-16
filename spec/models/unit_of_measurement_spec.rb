@@ -13,7 +13,7 @@ RSpec.describe UnitOfMeasurement, type: :model do
   end
 
   it "duplicated name" do
-    original_unit_of_measurement = create(:unit_of_measurement, name: "Kits")
+    original_unit_of_measurement = create(:unit_of_measurement, name: "Outra medida")
     duplicated = build(:unit_of_measurement, name: original_unit_of_measurement.name)
     expect(duplicated).to be_invalid
   end

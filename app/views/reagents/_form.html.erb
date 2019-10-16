@@ -35,6 +35,11 @@
   </div>
 
   <div class="field form-group">
+    <%= form.label :unit_of_measurement_id %>
+    <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@units_of_measurement, "id", "name"), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
     <%= form.label :usage_per_test %>
     <%= form.number_field :usage_per_test, class: 'form-control' %>
   </div>
