@@ -102,7 +102,7 @@
             <% end %>
           </td>
           <td>
-            <%= exam_status_helper exam.exam_status_kind %>
+            <%= exam.exam_status_kind.display_name %>
           </td>
           <td>
             <%= link_to "Exame", workflow_path(exam.attendance, {tab: "exams"}), class: 'attendance-code' %>

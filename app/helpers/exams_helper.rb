@@ -21,14 +21,6 @@ module ExamsHelper
     options.html_safe
   end
 
-  def exam_status_helper exam_status_kind
-    text_style = "text-primary" if exam_status_kind == ExamStatusKind.IN_PROGRESS
-    text_style = "text-success" if exam_status_kind == ExamStatusKind.COMPLETE
-    text_style = "text-secondary" if exam_status_kind == ExamStatusKind.IN_REPEAT
-    text_style = "text-info" if exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
-    "<label class='#{text_style}'>#{exam_status_kind.name}</label>".html_safe
-  end
-
   def link(exam, new_status: nil, css_class: "", method: "patch")
     link_to(
       new_status.name,

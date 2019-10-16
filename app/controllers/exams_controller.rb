@@ -1,6 +1,6 @@
 class ExamsController < ApplicationController
   before_action :set_exam, only: [:initiate, :change_exam_status, :start, :completed, :edit, :update, :partial_released]
-  before_action :set_samples_and_subsamples, only: [:start, :edit]
+  before_action :set_internal_codes, only: [:start, :edit]
   before_action :user_filter
   before_action :set_offered_exams, only: [:new, :edit]
 
@@ -110,7 +110,7 @@ class ExamsController < ApplicationController
 				exam_status_kind: @exam.exam_status_kind,
 				exam: @exam,
 				change_date: DateTime.now,
-        user: User.find(session[:user_id])
+        user_id: session[:user_id]
 			})
 			if @exam.save
         flash[:success] = "Status de exame alterado para #{@exam.exam_status_kind.name}."
@@ -125,7 +125,7 @@ class ExamsController < ApplicationController
 			end
 		end
 
-		def set_samples_and_subsamples
+		def set_internal_codes
 			@internal_codes = InternalCode.includes(:sample, :subsample).where(attendance: @exam.attendance).where(field: @exam.offered_exam.field)
 		end
 
