@@ -44,12 +44,12 @@ module HomeUserHelper
 
   def find_issues filter_by: nil
     if filter_by.nil? || filter_by == 'Todos'
-      # cache = Rails.cache.read "exams:field:#{@user.fields.first.name}"
-      # if cache.nil? == false && Rails.env != "test"
-      #   issues = cache
-      # else
+      cache = Rails.cache.read "exams:field:#{@user.fields.first.name}"
+      if cache.nil? == false && Rails.env != "test"
+        issues = cache
+      else
         issues = @user.fields.first.set_issues_in_cache
-      # end
+      end
     else
       issues = Exam
                   .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
