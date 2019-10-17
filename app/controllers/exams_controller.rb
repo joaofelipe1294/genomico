@@ -4,7 +4,6 @@ class ExamsController < ApplicationController
   before_action :user_filter
   before_action :set_offered_exams, only: [:new, :edit]
 
-
   def new
     @exam = Exam.new(attendance_id: params[:id])
     @fields = Field.all.order name: :asc

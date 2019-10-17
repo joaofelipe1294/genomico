@@ -5,6 +5,7 @@ module ExamsHelper
     @exam = exam
     @exam_status_kind = @exam.exam_status_kind
     options = ""
+    return "".html_safe if @exam_status_kind == ExamStatusKinds::CANCELED
     is_in_progress = @exam_status_kind != ExamStatusKinds::COMPLETE_WITHOUT_REPORT && @exam_status_kind != ExamStatusKinds::COMPLETE
     if @exam_status_kind == ExamStatusKinds::WAITING_START
       options << start_exam_link
@@ -16,6 +17,7 @@ module ExamsHelper
       options << complete_options
     end
     options << edit_link
+    options << cancel_exam_link if @exam_status_kind != ExamStatusKinds::COMPLETE
     options.html_safe
   end
 
@@ -108,6 +110,16 @@ module ExamsHelper
       options << partial_released_link
       options << complete_link
       options
+    end
+
+    def cancel_exam_link
+      link_to(
+        "Cancelar",
+        change_exam_status_path(@exam, {new_status: ExamStatusKinds::CANCELED}),
+        data: { confirm: "Tem certeza ?" },
+        method: :patch,
+        class: "btn btn-sm btn-outline-danger cancel-exam ml-3"
+      )
     end
 
     def complete_options

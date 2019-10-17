@@ -81,7 +81,7 @@ class AttendancesController < ApplicationController
   #GET attendances/1
   def workflow
     @attendance = Attendance.includes(:exams, :samples).find params[:id]
-    check_attendance_status
+    helpers.check_attendance_status @attendance
   end
 
   #GET /patient/:id/attendances
@@ -176,31 +176,31 @@ class AttendancesController < ApplicationController
       @health_ensurances = HealthEnsurance.all.order :name
     end
 
-    def check_attendance_status
-      complete_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE).size
-      complete_without_report_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
-      complete_exams = complete_exams + complete_without_report_exams
-      if @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
-        flash[:info] = "Atendimento encerrado em #{I18n.l @attendance.finish_date.to_date}."
-      elsif complete_exams == @attendance.exams.size
-        all_exams_has_report = true
-        @attendance.exams.each do |exam|
-          all_exams_has_report = false if exam.report? == false
-        end
-        if all_exams_has_report
-          new_params = {
-            attendance_status_kind: AttendanceStatusKind.COMPLETE,
-            finish_date: Date.today,
-          }
-          if @attendance.update new_params
-            flash[:success] = I18n.t :complete_attendance_success
-          else
-            flash[:error] = I18n.t :server_error_message
-          end
-        else
-          flash[:info] = I18n.t :pending_reports_message
-        end
-      end
-    end
+    # def check_attendance_status
+    #   complete_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE).size
+    #   complete_without_report_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
+    #   complete_exams = complete_exams + complete_without_report_exams
+    #   if @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
+    #     flash[:info] = "Atendimento encerrado em #{I18n.l @attendance.finish_date.to_date}."
+    #   elsif complete_exams == @attendance.exams.size
+    #     all_exams_has_report = true
+    #     @attendance.exams.each do |exam|
+    #       all_exams_has_report = false if exam.report? == false
+    #     end
+    #     if all_exams_has_report
+    #       new_params = {
+    #         attendance_status_kind: AttendanceStatusKind.COMPLETE,
+    #         finish_date: Date.today,
+    #       }
+    #       if @attendance.update new_params
+    #         flash[:success] = I18n.t :complete_attendance_success
+    #       else
+    #         flash[:error] = I18n.t :server_error_message
+    #       end
+    #     else
+    #       flash[:info] = I18n.t :pending_reports_message
+    #     end
+    #   end
+    # end
 
 end

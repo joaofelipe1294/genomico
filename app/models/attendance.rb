@@ -21,4 +21,11 @@ class Attendance < ActiveRecord::Base
     self.start_date = Date.today if self.start_date.nil?
     self.attendance_status_kind = AttendanceStatusKind.find_by({name: 'Em andamento'}) if self.attendance_status_kind.nil?
   end
+
+  def conclude
+    self.finish_date = Date.today
+    self.attendance_status_kind = AttendanceStatusKind.COMPLETE
+    self.save
+  end
+
 end

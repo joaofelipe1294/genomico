@@ -5,4 +5,5 @@ module ExamStatusKinds
   COMPLETE = ExamStatusKind.COMPLETE
   IN_REPEAT = ExamStatusKind.IN_REPEAT
   TECNICAL_RELEASED = ExamStatusKind.TECNICAL_RELEASED
+  CANCELED = ExamStatusKind.CANCELED
 end
