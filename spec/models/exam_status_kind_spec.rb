@@ -65,6 +65,10 @@ RSpec.describe ExamStatusKind, type: :model do
 			expect(ExamStatusKind.COMPLETE_WITHOUT_REPORT).to eq ExamStatusKind.find_by name: 'Concluído (sem laudo)'
 		end
 
+		it "canceled" do
+			expect(ExamStatusKind.CANCELED).to eq ExamStatusKind.find_by name: "Cancelado"
+		end
+
 	end
 
 	context "display colors" do
@@ -95,6 +99,10 @@ RSpec.describe ExamStatusKind, type: :model do
 
 		it "complete without report" do
 			expect(ExamStatusKind.COMPLETE_WITHOUT_REPORT.display_name).to eq "<label class='text-dark'>#{ExamStatusKind.COMPLETE_WITHOUT_REPORT.name}</label>"
+		end
+
+		it "canceled" do
+			expect(ExamStatusKind.CANCELED.display_name).to eq "<label class='text-danger'>#{ExamStatusKind.CANCELED.name}</label>"
 		end
 
 	end
