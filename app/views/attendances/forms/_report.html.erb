@@ -14,7 +14,7 @@
                 <%= exam.offered_exam.name %>
               </td>
               <td>
-                <%= exam_status_helper exam.exam_status_kind %>
+                <%= exam.exam_status_kind.display_name %>
               </td>
               <td class="w-25">
                 <%= l exam.finish_date %>
@@ -29,7 +29,7 @@
                 <%= exam.offered_exam.name %>
               </td>
               <td>
-                <%= exam_status_helper exam.exam_status_kind %>
+                <%= exam.exam_status_kind.display_name %>
               </td>
               <td class="w-25">
                 -
