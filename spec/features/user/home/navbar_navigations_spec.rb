@@ -25,19 +25,6 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
 
   end
 
-  context "attendance_options" do
-
-    before :each do
-      click_link 'attendance-dropdown'
-    end
-
-    it "search" do
-      click_link 'attendance-search'
-      expect(page).to have_current_path attendances_path
-    end
-
-  end
-
   context "samples" do
 
     before :each do

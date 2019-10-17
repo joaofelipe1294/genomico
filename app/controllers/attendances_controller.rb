@@ -3,27 +3,23 @@ class AttendancesController < ApplicationController
   before_action :user_filter
   before_action :set_desease_stages_and_health_ensurances, only: [:workflow, :new]
 
-  # GET /attendances
-  # GET /attendances.json
-  def index
-    @attendances = Attendance.where("doctor_name ILIKE ?", "%#{params[:doctor_name]}%").order(start_date: :desc).page params[:page]
-  end
-
   # GET /attendances/1
   # GET /attendances/1.json
   def show
-    if params[:exam] == 'all' || params[:exam].nil?
-      @exams_status_changes = []
-      @attendance.exams.each do |exam|
-        exam.exam_status_changes.each do |exam_status_change|
-          @exams_status_changes.append exam_status_change
-        end
-      end
-      @exams_status_changes = @exams_status_changes.sort_by{ |status_change| status_change.change_date }
+    exam_id = params[:exam]
+    if exam_id && exam_id != 'all'
+      @exams_status_changes = ExamStatusChange.
+                                              where(
+                                                exam_id: exam_id
+                                              ).
+                                              order(change_date: :desc)
     else
-      @exams_status_changes = Exam.find(params[:exam]).exam_status_changes.order change_date: :asc
+      @exams_status_changes = ExamStatusChange.
+                                              where(
+                                                exam_id: @attendance.exams.ids
+                                              ).
+                                              order(change_date: :desc)
     end
-    @exams = @attendance.exams
   end
 
   # GET /attendances/new
@@ -66,16 +62,6 @@ class AttendancesController < ApplicationController
         set_desease_stages_and_health_ensurances
         render :workflow
       end
-  end
-
-  # DELETE /attendances/1
-  # DELETE /attendances/1.json
-  def destroy
-    @attendance.destroy
-    respond_to do |format|
-      format.html { redirect_to attendances_url, notice: 'Attendance was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   #GET attendances/1
@@ -175,32 +161,5 @@ class AttendancesController < ApplicationController
       @desease_stages = DeseaseStage.all.order :name
       @health_ensurances = HealthEnsurance.all.order :name
     end
-
-    # def check_attendance_status
-    #   complete_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE).size
-    #   complete_without_report_exams = @attendance.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
-    #   complete_exams = complete_exams + complete_without_report_exams
-    #   if @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
-    #     flash[:info] = "Atendimento encerrado em #{I18n.l @attendance.finish_date.to_date}."
-    #   elsif complete_exams == @attendance.exams.size
-    #     all_exams_has_report = true
-    #     @attendance.exams.each do |exam|
-    #       all_exams_has_report = false if exam.report? == false
-    #     end
-    #     if all_exams_has_report
-    #       new_params = {
-    #         attendance_status_kind: AttendanceStatusKind.COMPLETE,
-    #         finish_date: Date.today,
-    #       }
-    #       if @attendance.update new_params
-    #         flash[:success] = I18n.t :complete_attendance_success
-    #       else
-    #         flash[:error] = I18n.t :server_error_message
-    #       end
-    #     else
-    #       flash[:info] = I18n.t :pending_reports_message
-    #     end
-    #   end
-    # end
 
 end
