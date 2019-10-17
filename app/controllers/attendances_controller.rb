@@ -25,13 +25,7 @@ class AttendancesController < ApplicationController
   # GET /attendances/new
   def new
     @attendance = Attendance.new(patient: Patient.find(params[:id]))
-    @fields = Field.all.order :name
-    @sample_kinds = SampleKind.all.order :name
-    @exams = OfferedExam.where(field: @fields.first).order :name
-  end
-
-  # GET /attendances/1/edit
-  def edit
+    set_dependencies
   end
 
   # POST /attendances
@@ -42,12 +36,9 @@ class AttendancesController < ApplicationController
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to workflow_path(@attendance, {tab: 'samples'})
-      User.includes(:fields).find(session[:user_id]).fields.first.set_issues_in_cache
     else
       set_desease_stages_and_health_ensurances
-      @fields = Field.all.order :name
-      @exams = OfferedExam.where(field: @fields.first).order :name
-      @sample_kinds = SampleKind.all.order :name
+      set_dependencies
       render :new
     end
   end
@@ -75,28 +66,28 @@ class AttendancesController < ApplicationController
     @attendances = Patient.find(params[:id]).attendances.order start_date: :desc
   end
 
-  #GET /attendances/list_code?lis_code=:lis_code
-  def find_by_lis_code
-    attendance = Attendance.find_by(lis_code: params[:lis_code_search])
-    if attendance
-      redirect_to workflow_path(attendance)
-    else
-      flash[:warning] = 'O código LisNet informado não esta vinculado a nenhum atendimento.'
-      redirect_to home_user_index_path
-    end
-  end
+  # #GET /attendances/list_code?lis_code=:lis_code
+  # def find_by_lis_code
+  #   attendance = Attendance.find_by(lis_code: params[:lis_code_search])
+  #   if attendance
+  #     redirect_to workflow_path(attendance)
+  #   else
+  #     flash[:warning] = 'O código LisNet informado não esta vinculado a nenhum atendimento.'
+  #     redirect_to home_user_index_path
+  #   end
+  # end
 
-  #PATCH
-  def add_report
-    attendance = Attendance.find params[:id]
-    if attendance.update attendance_params
-      flash[:success] = 'Laudo cadastrado com sucesso.'
-      redirect_to workflow_path(attendance)
-    else
-      flash[:warning] = 'Erro ao adicionar laudo, tente novamente mais tarde.'
-      redirect_to workflow_path(attendance)
-    end
-  end
+  # #PATCH
+  # def add_report
+  #   attendance = Attendance.find params[:id]
+  #   if attendance.update attendance_params
+  #     flash[:success] = 'Laudo cadastrado com sucesso.'
+  #     redirect_to workflow_path(attendance)
+  #   else
+  #     flash[:warning] = 'Erro ao adicionar laudo, tente novamente mais tarde.'
+  #     redirect_to workflow_path(attendance)
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -160,6 +151,12 @@ class AttendancesController < ApplicationController
     def set_desease_stages_and_health_ensurances
       @desease_stages = DeseaseStage.all.order :name
       @health_ensurances = HealthEnsurance.all.order :name
+    end
+
+    def set_dependencies
+      @fields = Field.all.order :name
+      @sample_kinds = SampleKind.all.order :name
+      @exams = OfferedExam.where(field: @fields.first).order :name
     end
 
 end

@@ -66,7 +66,6 @@ class Exam < ActiveRecord::Base
     health_ensurance_relation
   end
 
-
   private
 
   def default_values

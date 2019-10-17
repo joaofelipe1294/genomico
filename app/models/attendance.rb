@@ -16,6 +16,7 @@ class Attendance < ActiveRecord::Base
   has_and_belongs_to_many :work_maps
   paginates_per 10
   has_many :internal_codes
+  after_create :update_cache
 
   def default_values
     self.start_date = Date.today if self.start_date.nil?
@@ -26,6 +27,14 @@ class Attendance < ActiveRecord::Base
     self.finish_date = Date.today
     self.attendance_status_kind = AttendanceStatusKind.COMPLETE
     self.save
+  end
+
+  private
+
+  def update_cache
+    Field.IMUNOFENO.set_issues_in_cache
+    Field.BIOMOL.set_issues_in_cache
+    Field.FISH.set_issues_in_cache
   end
 
 end
