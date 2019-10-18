@@ -1,4 +1,5 @@
 class AttendancesController < ApplicationController
+  include JsonParser
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
   before_action :set_desease_stages_and_health_ensurances, only: [:workflow, :new]
@@ -31,8 +32,7 @@ class AttendancesController < ApplicationController
   # POST /attendances
   # POST /attendances.json
   def create
-    @attendance = Attendance.new create_attendance_params
-    @attendance.attendance_status_kind = AttendanceStatusKind.IN_PROGRESS
+    @attendance = Attendance.new(attendance_params)
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to workflow_path(@attendance, {tab: 'samples'})
@@ -66,29 +66,6 @@ class AttendancesController < ApplicationController
     @attendances = Patient.find(params[:id]).attendances.order start_date: :desc
   end
 
-  # #GET /attendances/list_code?lis_code=:lis_code
-  # def find_by_lis_code
-  #   attendance = Attendance.find_by(lis_code: params[:lis_code_search])
-  #   if attendance
-  #     redirect_to workflow_path(attendance)
-  #   else
-  #     flash[:warning] = 'O código LisNet informado não esta vinculado a nenhum atendimento.'
-  #     redirect_to home_user_index_path
-  #   end
-  # end
-
-  # #PATCH
-  # def add_report
-  #   attendance = Attendance.find params[:id]
-  #   if attendance.update attendance_params
-  #     flash[:success] = 'Laudo cadastrado com sucesso.'
-  #     redirect_to workflow_path(attendance)
-  #   else
-  #     flash[:warning] = 'Erro ao adicionar laudo, tente novamente mais tarde.'
-  #     redirect_to workflow_path(attendance)
-  #   end
-  # end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance
@@ -97,7 +74,7 @@ class AttendancesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def attendance_params
-      params.require(:attendance).permit(
+      filtered_params = params.require(:attendance).permit(
         :desease_stage_id,
         :cid_code,
         :lis_code,
@@ -115,37 +92,7 @@ class AttendancesController < ApplicationController
         samples_attributes: [:sample_kind_id, :collection_date, :bottles_number, :storage_location],
         exams_attributes: [:offered_exam_id],
       )
-    end
-
-    def create_attendance_params
-      complete_params = params.require(:attendance).permit(
-        :desease_stage_id,
-        :cid_code,
-        :lis_code,
-        :start_date,
-        :patient_id,
-        :attendance_status_kind_id,
-        :doctor_name,
-        :doctor_crm,
-        :observations,
-        :health_ensurance_id,
-        :samples,
-        :exams,
-      )
-      filtered_params = complete_params.clone
-      if complete_params[:samples] != ""
-        samples_json = JSON.parse complete_params[:samples]
-        filtered_params[:samples] = samples_json.map { |sample_params| Sample.new sample_params }
-      else
-        filtered_params[:samples] = []
-      end
-      if complete_params[:exams] != ""
-        exams_json = JSON.parse complete_params[:exams]
-        filtered_params[:exams] = exams_json.map { |exam_params| Exam.new exam_params }
-      else
-        filtered_params[:exams] = []
-      end
-      filtered_params
+      treat_params filtered_params
     end
 
     def set_desease_stages_and_health_ensurances
@@ -157,6 +104,12 @@ class AttendancesController < ApplicationController
       @fields = Field.all.order :name
       @sample_kinds = SampleKind.all.order :name
       @exams = OfferedExam.where(field: @fields.first).order :name
+    end
+
+    def treat_params parameters
+      parameters = parse_list :exams, Exam, parameters
+      parameters = parse_list :samples, Sample, parameters
+      parameters
     end
 
 end
