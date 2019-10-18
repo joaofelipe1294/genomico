@@ -233,20 +233,6 @@ RSpec.feature "User::Home::Charts", type: :feature do
       expect(find_all(class: 'issue').size).to eq 2
     end
 
-
-
   end
-
-
-
-
-
-
-
-
-
-
-
-
 
 end
