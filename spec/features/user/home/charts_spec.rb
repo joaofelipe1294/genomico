@@ -17,10 +17,19 @@ def setup_attendance_with_no_exams
   })
 end
 
+def reload_constants
+  Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
+  Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
+  load 'app/models/concerns/exam_status_kinds.rb'
+  load 'app/models/concerns/attendance_status_kinds.rb'
+end
+
 RSpec.feature "User::Home::Charts", type: :feature do
 
   before :each do
-    imunofeno_user_do_login_with_seeds
+    Rails.application.load_seed
+    reload_constants
+    imunofeno_user_do_login
   end
 
   context "WAITING_EXAMS" do
@@ -31,7 +40,7 @@ RSpec.feature "User::Home::Charts", type: :feature do
     end
 
     it "with one exam" do
-      exam = Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)
+      exam = Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample, exam_status_kind: ExamStatusKind.WAITING_START)
       attendance = create(:attendance, exams: [exam])
       visit current_path
       expect(page).to have_selector '#waiting-exams-chart'
@@ -233,20 +242,19 @@ RSpec.feature "User::Home::Charts", type: :feature do
       expect(find_all(class: 'issue').size).to eq 2
     end
 
-
-
   end
 
-
-
-
-
-
-
-
-
-
-
-
+  it "check if canceled exams are displayed on home" do
+    Rails.application.load_seed
+    reload_constants
+    attendance = setup_attendance_with_no_exams
+    first_exam = Exam.new(exam_status_kind: ExamStatusKind.WAITING_START, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    second_exam = Exam.new(exam_status_kind: ExamStatusKind.IN_PROGRESS, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    third_exam = Exam.new(exam_status_kind: ExamStatusKind.CANCELED, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    attendance.exams = [first_exam, second_exam, third_exam]
+    attendance.save
+    imunofeno_user_do_login
+    expect(find_all(class: "issue").size).to eq 2
+  end
 
 end

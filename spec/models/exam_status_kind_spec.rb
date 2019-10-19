@@ -65,6 +65,46 @@ RSpec.describe ExamStatusKind, type: :model do
 			expect(ExamStatusKind.COMPLETE_WITHOUT_REPORT).to eq ExamStatusKind.find_by name: 'Concluído (sem laudo)'
 		end
 
+		it "canceled" do
+			expect(ExamStatusKind.CANCELED).to eq ExamStatusKind.find_by name: "Cancelado"
+		end
+
+	end
+
+	context "display colors" do
+
+		it "in repeat" do
+			expect(ExamStatusKind.IN_REPEAT.display_name).to eq "<label class='text-warning'>#{ExamStatusKind.IN_REPEAT.name}</label>"
+		end
+
+		it "waiting_start" do
+			expect(ExamStatusKind.WAITING_START.display_name).to eq "<label class=''>#{ExamStatusKind.WAITING_START.name}</label>"
+		end
+
+		it "in_progress" do
+			expect(ExamStatusKind.IN_PROGRESS.display_name).to eq "<label class='text-primary'>#{ExamStatusKind.IN_PROGRESS.name}</label>"
+		end
+
+		it "tecnical_released" do
+			expect(ExamStatusKind.TECNICAL_RELEASED.display_name).to eq "<label class='text-secondary'>#{ExamStatusKind.TECNICAL_RELEASED.name}</label>"
+		end
+
+		it "complete" do
+			expect(ExamStatusKind.COMPLETE.display_name).to eq "<label class='text-success'>#{ExamStatusKind.COMPLETE.name}</label>"
+		end
+
+		it "partial_released" do
+			expect(ExamStatusKind.PARTIAL_RELEASED.display_name).to eq "<label class='text-info'>#{ExamStatusKind.PARTIAL_RELEASED.name}</label>"
+		end
+
+		it "complete without report" do
+			expect(ExamStatusKind.COMPLETE_WITHOUT_REPORT.display_name).to eq "<label class='text-dark'>#{ExamStatusKind.COMPLETE_WITHOUT_REPORT.name}</label>"
+		end
+
+		it "canceled" do
+			expect(ExamStatusKind.CANCELED.display_name).to eq "<label class='text-danger'>#{ExamStatusKind.CANCELED.name}</label>"
+		end
+
 	end
 
 end

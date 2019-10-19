@@ -155,6 +155,7 @@ ExamStatusKind.create([
 	{name: 'Aguardando início'},
 	{name: 'Liberado parcial'},
 	{name: 'Concluído (sem laudo)'},
+	{name: 'Cancelado'},
 ])
 
 # puts 'Criando ExamStatusKind [OK]'

@@ -32,4 +32,19 @@ class ExamStatusKind < ActiveRecord::Base
 		ExamStatusKind.find_by name: 'Concluído (sem laudo)'
 	end
 
+	def self.CANCELED
+		ExamStatusKind.find_by name: 'Cancelado'
+	end
+
+	def display_name
+    text_style = "text-primary" if self == ExamStatusKind.IN_PROGRESS
+    text_style = "text-success" if self == ExamStatusKind.COMPLETE
+    text_style = "text-warning" if self == ExamStatusKind.IN_REPEAT
+    text_style = "text-secondary" if self == ExamStatusKind.TECNICAL_RELEASED
+		text_style = "text-info" if self == ExamStatusKind.PARTIAL_RELEASED
+		text_style = "text-dark" if self == ExamStatusKind.COMPLETE_WITHOUT_REPORT
+		text_style = "text-danger" if self == ExamStatusKind.CANCELED
+    "<label class='#{text_style}'>#{self.name}</label>".html_safe
+	end
+
 end

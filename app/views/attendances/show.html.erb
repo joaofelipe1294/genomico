@@ -6,7 +6,7 @@
       <%= label_tag Exam.model_name.human %>
       <select class="form-control" name="exam">
         <option value="all">Todos</option>
-        <%= @exams.each do |exam| %>
+        <%= @attendance.exams.each do |exam| %>
           <option value="<%= exam.id %>">
             <%= exam.offered_exam.name %>
           </option>
@@ -44,23 +44,7 @@
           <%= status_change.exam.offered_exam.name %>
         </td>
         <td>
-          <% if status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Concluído'}) %>
-            <label class="text-success">
-              <%= status_change.exam_status_kind.name %>
-            </label>
-          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Liberado técnico'})%>
-            <label class="text-info">
-              <%= status_change.exam_status_kind.name %>
-            </label>
-          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Em repetição'}) %>
-            <label class="text-secondary">
-              <%= status_change.exam_status_kind.name %>
-            </label>
-          <% elsif status_change.exam_status_kind == ExamStatusKind.find_by({name: 'Em andamento'}) %>
-            <label class="">
-              <%= status_change.exam_status_kind.name %>
-            </label>
-          <% end %>
+          <%= status_change.exam_status_kind.display_name %>
         </td>
         <td>
           <%= status_change.change_date.strftime("%-d/%-m/%y: %H:%M") %>

@@ -1,4 +1,5 @@
 class Field < ActiveRecord::Base
+	include ExamStatusKinds
 	validates :name, uniqueness: true
 	validates :name, presence: true
 	has_many :offered_exams
@@ -19,7 +20,8 @@ class Field < ActiveRecord::Base
 
 	def set_issues_in_cache
 		field_issues = Exam
-				.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+				.where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
+				.where.not(exam_status_kind: ExamStatusKinds::CANCELED)
 				.joins(:offered_exam)
 				.where("offered_exams.field_id = ?", self.id)
 				.includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
