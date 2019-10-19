@@ -10,10 +10,18 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
     exam
   end
 
+  def reload_constants
+    Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
+    Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
+    load 'app/models/concerns/exam_status_kinds.rb'
+    load 'app/models/concerns/attendance_status_kinds.rb'
+  end
+
   context "Canceled" do
 
     before :each do
       Rails.application.load_seed
+      reload_constants
       create_attendance
       attendance = Attendance.all.last
       attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
@@ -53,6 +61,7 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
 
     it "complete exam" do
       Rails.application.load_seed
+      reload_constants
       create_attendance
       attendance = Attendance.all.last
       attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all

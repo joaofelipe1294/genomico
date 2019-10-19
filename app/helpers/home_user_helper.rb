@@ -1,7 +1,8 @@
 module HomeUserHelper
+  include ExamStatusKinds
 
   def waiting_exams exams
-    exams_waiting_to_start = exams.where(exam_status_kind: ExamStatusKind.WAITING_START)
+    exams_waiting_to_start = exams.where(exam_status_kind: ExamStatusKinds::WAITING_START)
     waiting_exams_count = exams_waiting_to_start.size
     exams_relation = exams_waiting_to_start.group(:offered_exam).size
     relation = {}
@@ -11,8 +12,8 @@ module HomeUserHelper
 
   def exams_in_progress exams
     exams_in_progress = exams
-                            .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-                            .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                            .where.not(exam_status_kind: ExamStatusKinds::WAITING_START)
+                            .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
     exams_in_progress_count = exams_in_progress.size
     exams_relation = exams_in_progress.group(:offered_exam).size
     relation = {}
@@ -23,7 +24,7 @@ module HomeUserHelper
   end
 
   def delayed_exams exams
-    exams = exams.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+    exams = exams.where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
     late_exams = []
     exams.each do |exam|
       created_at = exam.created_at.to_date
@@ -52,7 +53,8 @@ module HomeUserHelper
       end
     else
       issues = Exam
-                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
+                  .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
                   .joins(:offered_exam)
                   .where("offered_exams.field_id = ?", @user.fields.first)
                   .where(offered_exam_id: filter_by)

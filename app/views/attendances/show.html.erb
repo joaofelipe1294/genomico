@@ -6,7 +6,7 @@
       <%= label_tag Exam.model_name.human %>
       <select class="form-control" name="exam">
         <option value="all">Todos</option>
-        <%= @exams.each do |exam| %>
+        <%= @attendance.exams.each do |exam| %>
           <option value="<%= exam.id %>">
             <%= exam.offered_exam.name %>
           </option>
