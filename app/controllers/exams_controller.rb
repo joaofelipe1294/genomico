@@ -1,5 +1,5 @@
 class ExamsController < ApplicationController
-  before_action :set_exam, only: [:initiate, :change_exam_status, :start, :completed, :edit, :update, :partial_released]
+  before_action :set_exam, only: [:initiate, :change_exam_status, :start, :completed, :edit, :update, :partial_released, :remove_report]
   before_action :set_internal_codes, only: [:start, :edit]
   before_action :user_filter
   before_action :set_offered_exams, only: [:new, :edit]
@@ -91,6 +91,18 @@ class ExamsController < ApplicationController
     else
       flash[:error] = I18n.t :add_report_to_exam_success
       redirect_to add_report_path(@exam)
+    end
+  end
+
+  def remove_report
+    if params[:kind] == "partial_released"
+      if @exam.update({exam_status_kind: ExamStatusKind.IN_PROGRESS, partial_released_report: nil})
+        flash[:success] = I18n.t :remove_report_success
+        redirect_to workflow_path(@exam.attendance, {tab: "exams"})
+      else
+        flash[:error] = @exam.erros.complete_message.first
+        redirect_to workflow_path(@exam.attendance, {tab: "exams"})
+      end
     end
   end
 
