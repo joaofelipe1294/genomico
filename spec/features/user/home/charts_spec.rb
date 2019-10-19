@@ -244,4 +244,17 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
   end
 
+  it "check if canceled exams are displayed on home" do
+    Rails.application.load_seed
+    reload_constants
+    attendance = setup_attendance_with_no_exams
+    first_exam = Exam.new(exam_status_kind: ExamStatusKind.WAITING_START, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    second_exam = Exam.new(exam_status_kind: ExamStatusKind.IN_PROGRESS, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    third_exam = Exam.new(exam_status_kind: ExamStatusKind.CANCELED, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+    attendance.exams = [first_exam, second_exam, third_exam]
+    attendance.save
+    imunofeno_user_do_login
+    expect(find_all(class: "issue").size).to eq 2
+  end
+
 end
