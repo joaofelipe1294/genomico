@@ -36,6 +36,7 @@
               </td>
               <td class="w-25">
                 <%= link_to "Visualizar", change_to_partial_released_path(exam), class: 'btn btn-outline-info' %>
+                <%= link_to "Remover", remove_report_path(exam, {kind: "partial_released"}), method: :patch, class: "btn btn-outline-danger remove-report ml-3", data: { confirm: "Tem certeza ?" } %>
               </td>
             </tr>
           <% end %>

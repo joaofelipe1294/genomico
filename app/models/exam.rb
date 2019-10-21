@@ -12,6 +12,24 @@ class Exam < ActiveRecord::Base
   has_attached_file :partial_released_report
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
   after_create :reload_issues_cache
+  after_update :reload_issues_cache
+
+  def change_status user_id
+    ExamStatusChange.create({
+      exam_status_kind_id: self.exam_status_kind_id,
+      exam: self,
+      change_date: DateTime.now,
+      user_id: user_id
+    })
+    self.save
+  end
+
+  def reopen user_id
+    self.report = nil
+    self.exam_status_kind = ExamStatusKind.IN_PROGRESS
+    self.attendance.reopen if self.attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
+    self.change_status user_id
+  end
 
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection

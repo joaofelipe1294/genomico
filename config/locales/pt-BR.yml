@@ -166,3 +166,5 @@
   new_reagent_success: "Reagente cadastrado com sucesso."
   edit_reagent_success: "Reagente editado com sucesso."
   new_exam_success: "Exame cadastrado com sucesso."
+  remove_report_success: "Laudo removido com sucesso"
+  exam_reopen_success: "Exame reaberto com sucesso"

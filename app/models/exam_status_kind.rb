@@ -1,4 +1,5 @@
 class ExamStatusKind < ActiveRecord::Base
+	include ExamStatusKinds
 	validates :name, uniqueness: true
 	validates :name, presence: true
 	has_many :exam_status_changes
@@ -37,13 +38,13 @@ class ExamStatusKind < ActiveRecord::Base
 	end
 
 	def display_name
-    text_style = "text-primary" if self == ExamStatusKind.IN_PROGRESS
-    text_style = "text-success" if self == ExamStatusKind.COMPLETE
-    text_style = "text-warning" if self == ExamStatusKind.IN_REPEAT
-    text_style = "text-secondary" if self == ExamStatusKind.TECNICAL_RELEASED
-		text_style = "text-info" if self == ExamStatusKind.PARTIAL_RELEASED
-		text_style = "text-dark" if self == ExamStatusKind.COMPLETE_WITHOUT_REPORT
-		text_style = "text-danger" if self == ExamStatusKind.CANCELED
+    text_style = "text-primary" if self == ExamStatusKinds::IN_PROGRESS
+    text_style = "text-success" if self == ExamStatusKinds::COMPLETE
+    text_style = "text-warning" if self == ExamStatusKinds::IN_REPEAT
+    text_style = "text-secondary" if self == ExamStatusKinds::TECNICAL_RELEASED
+		text_style = "text-info" if self == ExamStatusKinds::PARTIAL_RELEASED
+		text_style = "text-dark" if self == ExamStatusKinds::COMPLETE_WITHOUT_REPORT
+		text_style = "text-danger" if self == ExamStatusKinds::CANCELED
     "<label class='#{text_style}'>#{self.name}</label>".html_safe
 	end
 

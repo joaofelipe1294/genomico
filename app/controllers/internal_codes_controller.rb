@@ -1,65 +1,49 @@
 class InternalCodesController < ApplicationController
+  include InstanceVariableSetter
   before_action :user_filter
+  before_action :set_subsample_kinds, only: :biomol_internal_codes
 
   def index
-    @internal_codes = InternalCode.includes(:sample, :exams).where(field_id: params[:field_id]).order(created_at: :desc).page params[:page]
-  end
-
-  def new
+    @internal_codes = InternalCode.
+                                  includes(:sample, :exams).
+                                  where(field_id: params[:field_id]).
+                                  order(created_at: :desc).
+                                  page params[:page]
   end
 
   def create
-    user = User.includes(:fields).find(session[:user_id])
-    if user.fields.size == 1
-      if params[:target] == "sample"
-        @internal_code = InternalCode.create({
-          field: user.fields.first,
-          sample: Sample.find(params[:id])
-        })
-        flash[:success] = I18n.t :new_internal_code_success
-      else
-        @internal_code = InternalCode.create({
-          field: user.fields.first,
-          subsample: Subsample.find(params[:id])
-        })
-        flash[:success] = I18n.t :new_internal_code_success
-      end
-      redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
+    @internal_code = InternalCode.new({
+      field_id: session[:field_id],
+      sample_id: params[:id]
+      })
+    if @internal_code.save
+      flash[:success] = I18n.t :new_internal_code_success
     else
-      if params[:target] == "sample"
-        @internal_code = InternalCode.new(sample: Sample.find(params[:id]))
-      else
-        @internal_code = InternalCode.new(subsample: Subsample.find(params[:id]))
-      end
-      @fields = [Field.IMUNOFENO, Field.BIOMOL, Field.FISH]
+      flash[:error] = @internal_code.errors.full_messages.first
     end
+    redirect_to_samples_tab
   end
 
   def destroy
-    internal_code = InternalCode.includes(:attendance).find params[:id]
-    sample = internal_code.sample
-    if internal_code.delete
+    @internal_code = InternalCode.includes(:attendance).find params[:id]
+    if @internal_code.delete
       flash[:success] = I18n.t :remove_internal_code_success
-      redirect_to workflow_path(internal_code.attendance, {tab: "samples"})
     else
-      flash[:warning] = 'Erro ao remover código interno, tente novamente mais tarde.'
-      redirect_to workflow_path(internal_code.sample.attendance)
+      flash[:warning] = @internal_code.errors.full_messages.first
     end
+    redirect_to_samples_tab
   end
 
   def imunofeno_internal_codes
-    if params[:code].nil? || params[:code].empty?
-      @internal_codes = InternalCode
-                                    .includes(:sample, :attendance)
-                                    .where(field: Field.IMUNOFENO)
-                                    .order(created_at: :desc)
-                                    .page params[:page]
-    else
-      @internal_codes = InternalCode
-                                    .includes(:sample, :attendance)
-                                    .where(code: params[:code])
-                                    .page params[:page]
+    search_code = params[:code]
+    internal_codes = InternalCode.
+                                  includes(:sample, :attendance).
+                                  where(field: Field.IMUNOFENO).
+                                  order(created_at: :desc)
+    if search_code && search_code.empty? == false 
+      internal_codes = internal_codes.where(code: search_code)
     end
+    @internal_codes = internal_codes.page params[:page]
   end
 
   # GET internal_codes/1
@@ -76,31 +60,25 @@ class InternalCodesController < ApplicationController
 
   # GET internal_codes/biomol_internal_codes
   def biomol_internal_codes
-    @subsample_kinds = SubsampleKind.all.order(name: :asc)
-    if params[:subsample_kind_id].nil? || params[:subsample_kind_id] == 'Todos'
-      @internal_codes = InternalCode
-                                    .where(field: Field.BIOMOL)
-                                    .where.not(subsample: nil)
-                                    .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
-                                    .includes(:attendance)
-                                    .order(created_at: :desc)
-                                    .page params[:page]
-    else
-      @internal_codes = InternalCode
-                                    .where(field: Field.BIOMOL)
-                                    .where.not(subsample: nil)
-                                    .joins(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
-                                    .where("subsamples.subsample_kind_id = ?", params[:subsample_kind_id])
-                                    .includes(:attendance)
-                                    .order(created_at: :desc)
-                                    .page params[:page]
+    subsample_kind_id = params[:subsample_kind_id]
+    internal_codes = InternalCode
+                                .where(field: Field.BIOMOL)
+                                .where.not(subsample: nil)
+                                .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                .includes(:attendance)
+                                .order(created_at: :desc)
+    if subsample_kind_id && subsample_kind_id != 'Todos'
+      internal_codes = internal_codes.
+                                      joins(:subsample).
+                                      where("subsamples.subsample_kind_id = ?", subsample_kind_id)
     end
+    @internal_codes = internal_codes.page params[:page]
   end
 
   private
 
-  def internal_code_attributes
-    params.require(:internal_code).permit(:sample_id, :field_id, :subsample_id)
-  end
+    def redirect_to_samples_tab
+      redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
+    end
 
 end
