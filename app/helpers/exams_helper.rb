@@ -135,7 +135,7 @@ module ExamsHelper
         reopen_exam_path(@exam),
         method: :patch,
         data: { confirm: "Tem certeza ?" },
-        class: 'btn btn-sm btn-outline-danger ml-3'
+        class: 'btn btn-sm btn-outline-danger ml-3 reopen-exam'
       )
       options
     end
