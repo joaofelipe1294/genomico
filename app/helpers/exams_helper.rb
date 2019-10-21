@@ -130,6 +130,13 @@ module ExamsHelper
         add_report_to_exam_path(@exam),
         class: 'btn btn-sm btn-info see-report ml-3'
         )
+      options << link_to(
+        "Reabrir exame",
+        reopen_exam_path(@exam),
+        method: :patch,
+        data: { confirm: "Tem certeza ?" },
+        class: 'btn btn-sm btn-outline-danger ml-3'
+      )
       options
     end
 

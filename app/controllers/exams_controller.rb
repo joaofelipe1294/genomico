@@ -12,7 +12,8 @@ class ExamsController < ApplicationController
                                   :remove_report,
                                   :add_report,
                                   :change_to_partial_released,
-                                  :save_exam_report
+                                  :save_exam_report,
+                                  :reopen_exam
                                 ]
   before_action :set_internal_codes, only: [:start, :edit]
   before_action :user_filter
@@ -82,6 +83,15 @@ class ExamsController < ApplicationController
       else
         flash[:error] = @exam.erros.complete_message.first
       end
+    end
+    redirect_to_exams_tab
+  end
+
+  def reopen_exam
+    if @exam.reopen session[:user_id]
+      flash[:success] = I18n.t :exam_reopen_success
+    else
+      flash[:error] = @exam.errors.full_messages.first
     end
     redirect_to_exams_tab
   end

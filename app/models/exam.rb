@@ -24,6 +24,13 @@ class Exam < ActiveRecord::Base
     self.save
   end
 
+  def reopen user_id
+    self.report = nil
+    self.exam_status_kind = ExamStatusKind.IN_PROGRESS
+    self.attendance.reopen if self.attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
+    self.change_status user_id
+  end
+
   def self.in_progress_by_field field
     conn = ActiveRecord::Base.connection
     result = conn.execute "
