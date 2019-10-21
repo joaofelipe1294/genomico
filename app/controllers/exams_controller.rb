@@ -1,5 +1,6 @@
 class ExamsController < ApplicationController
   include ChangeExamStatus
+  include InstanceVariableSetter
   before_action :set_exam, only: [
                                   :initiate,
                                   :change_exam_status,
@@ -115,10 +116,6 @@ class ExamsController < ApplicationController
                                   .where(is_active: true)
                                   .where(field: session[:field_id])
                                   .order(name: :asc)
-    end
-
-    def set_fields
-      @fields = Field.all.order(name: :asc)
     end
 
     def redirect_to_exams_tab
