@@ -1,5 +1,5 @@
 module JsonParser
-  # extend ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
   def parse_list key, model, parameters
     param = parameters[key]

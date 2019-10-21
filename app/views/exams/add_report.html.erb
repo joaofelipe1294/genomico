@@ -29,6 +29,15 @@
   <div class="card-body">
 
     <%= form_with(model: @exam, url: save_exam_report_path(@exam), method: :patch, multipart: true, class: 'form-inline') do |f| %>
+
+      <div id="error_explanation">
+        <ul>
+          <% @exam.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+
       <div class='form-group'>
         <label class='h3'>Selecione um arquivo: </label>
         <%= f.file_field :report, class: '', required: true %>
