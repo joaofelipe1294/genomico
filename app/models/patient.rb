@@ -1,10 +1,11 @@
 class Patient < ActiveRecord::Base
+	include ActiveModel::Validations
 	belongs_to :hospital
 	has_many :attendances
 	paginates_per 10
 	validates :name, :hospital_id, :birth_date, presence: true
 	validate :medical_record_presence_validation
-	validates :medical_record, uniqueness: {scope: :hospital_id}
+	validates_with MedicalRecordUniquenessValidator
 	validates :name, uniqueness: {scope: [:hospital_id, :birth_date]}
 	has_many :samples
 	has_many :subsamples
