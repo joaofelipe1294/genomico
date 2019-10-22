@@ -16,8 +16,8 @@
   </div>
 
   <div class="form-group">
-    <%= label_tag Sample.human_attribute_name :bottles_number %>
-    <%= text_field_tag :bottles_number, '', class: 'form-control', value: '1' %>
+    <%= label_tag Sample.human_attribute_name :receipt_notice %>
+    <%= text_area_tag :receipt_notice, '1 frasco', class: 'form-control' %>
   </div>
 
   <div class="form-group">
@@ -47,7 +47,7 @@
     </th>
     <th>
       <h4>
-        <%= Sample.human_attribute_name :bottles_number %>
+        <%= Sample.human_attribute_name :receipt_notice %>
       </h4>
     </th>
     <th>
@@ -74,7 +74,7 @@
   function remove_sample_line(event){
     event.preventDefault()
     let line = event.target.parentNode.parentNode
-    let remove_index = parseInt($(line).find('.index').text())
+    let remove_indebottles_numberx = parseInt($(line).find('.index').text())
     let samples = $('#samples').val()
     samples = JSON.parse(samples)
     delete samples[remove_index]
@@ -88,19 +88,19 @@
 <script>
   $('#btn_add_sample').click(event => {
     event.preventDefault()
-    if ($('#bottles_number').val().length === 0)
+    if ($('#receipt_notice').val().length === 0)
       alert('Informe o número de frascos.')
     else{
       let sample_kind_id = $('#sample_kind').val()
       let sample_kind_name = $('#sample_kind option:selected').text()
       let collection_date = $('#collection_date_').val()
-      let bottles_number = $('#bottles_number').val()
+      let receipt_notice = $('#receipt_notice').val()
       let storage_location = $('#storage_location').val()
       let sample = {
         sample_kind_id,
         sample_kind_name,
         collection_date,
-        bottles_number,
+        receipt_notice,
         storage_location
       }
       let samples = $('#samples').val()
@@ -110,7 +110,7 @@
         <tr>
           <td>${sample.sample_kind_name}</td>
           <td>${sample.collection_date}</td>
-          <td>${sample.bottles_number}</td>
+          <td>${sample.receipt_notice}</td>
           <td>${sample.storage_location}</td>
           <td class="index" hidden>${sample_index}</td>
           <td>
@@ -128,7 +128,7 @@
         new_value.push(sample)
         $('#samples').val(JSON.stringify(new_value))
       }
-      $('#bottles_number').val('')
+      $('#receipt_notice').val('1 frasco')
       $('#storage_location').val('')
     }
   })

@@ -32,12 +32,12 @@
 		<%= f.date_field :collection_date, class: 'form-control', value: Date.today %>
 	</div>
 
-	<div class = 'form-group'>
-		<%= f.label :bottles_number %>
-		<% if @sample.bottles_number.nil? %>
-			<%= f.number_field :bottles_number, class: 'form-control', required: true, value: "1" %>
+	<div class="form-group">
+		<%= f.label :receipt_notice %>
+		<% if @sample.receipt_notice %>
+			<%= f.text_area :receipt_notice, class: 'form-control' %>
 		<% else %>
-			<%= f.number_field :bottles_number, class: 'form-control', required: true %>
+			<%= f.text_area :receipt_notice, class: 'form-control', value: '1 frasco' %>
 		<% end %>
 	</div>
 

@@ -4,25 +4,21 @@
 
 <table class = 'table table-bordered text-center mt-3 table-sm'>
 	<thead class = 'text-white bg-dark'>
-		<th>
-			<h4>
+		<th class="h5">
 				<%= Sample.human_attribute_name(:sample_kind) %>
-			</h4>
 		</th>
-		<th>
-			<h4>
+		<th class="h5">
 				<%= Sample.human_attribute_name(:collection_date) %>
-			</h4>
 		</th>
-		<th>
-			<h4>
+		<th class="h5">
+			Observações
+		</th>
+		<th class="h5">
 				Armazenamento
-			</h4>
 		</th>
-		<th>
-			<h4>
+		<th class="h5">
 				<%= Sample.human_attribute_name(:has_subsample) %>
-			</h4>
+
 		</th>
 		<th></th>
 	</thead>
@@ -34,6 +30,9 @@
 				</td>
 				<td>
 					<%= l sample.collection_date %>
+				</td>
+				<td>
+					<%= sample.receipt_notice %>
 				</td>
 				<td>
 					<%= sample.storage_location %>
