@@ -4,6 +4,7 @@ class RemoveIncorrectHospital < ActiveRecord::Migration[5.2]
     patient = Patient.find 139
     correct_hospital = Hospital.find 6
     patient.hospital = correct_hospital
+    patient.save
     wrong_hospital.delete
   end
 end
