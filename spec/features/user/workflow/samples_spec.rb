@@ -50,12 +50,12 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       sample = Sample.new({
         sample_kind: SampleKind.SWAB,
         collection_date: Date.today,
-        bottles_number: 2,
+        receipt_notice: "Houve atraso na entrega",
         storage_location: 'F -80'
       })
       select(sample.sample_kind.name, from: "sample[sample_kind_id]").select_option
       fill_in "sample[collection_date]", with: 15.days.ago
-      fill_in "sample[bottles_number]", with: "3"
+      fill_in "sample[receipt_notice]", with: "Mais três frascos recebidos"
       fill_in "sample[storage_location]", with: "F -10"
       click_button id: "btn-save"
       expect(find(id: 'success-warning').text).to eq I18n.t :edit_sample_success
@@ -82,12 +82,12 @@ RSpec.feature "User::Workflow::Samples", type: :feature, js: true do
       sample = Sample.new({
         sample_kind: SampleKind.all.sample,
         collection_date: 2.days.from_now,
-        bottles_number: Faker::Number.number(digits: 1),
+        receipt_notice: "2 frascos",
         storage_location: "F 18"
       })
       select(sample.sample_kind.name, from: "sample[sample_kind_id]").select_option
       fill_in "sample[collection_date]", with: sample.collection_date
-      fill_in "sample[bottles_number]", with: sample.bottles_number
+      fill_in "sample[receipt_notice]", with: sample.receipt_notice
       fill_in "sample[storage_location]", with: sample.storage_location
       click_button id: 'btn-save'
       expect(find(id: 'success-warning').text).to eq I18n.t :new_sample_success

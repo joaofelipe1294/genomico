@@ -5,7 +5,6 @@ def setup_attendance_with_no_exams
   patient = create(:patient)
   sample = Sample.new({
     sample_kind: SampleKind.PERIPHERAL_BLOOD,
-     bottles_number: 1,
      collection_date: Date.today
   })
   @attendance = Attendance.new({

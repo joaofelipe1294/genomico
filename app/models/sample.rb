@@ -5,7 +5,7 @@ class Sample < ActiveRecord::Base
   has_many :subsamples
   has_many :exams
   before_save :set_refference_label
-  validates :sample_kind, :collection_date, :bottles_number, presence: true
+  validates :sample_kind, :collection_date, presence: true
   has_many :internal_codes
   belongs_to :patient
 

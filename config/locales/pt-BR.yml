@@ -74,11 +74,11 @@
         entry_date: Data de entrada
         collection_date: Data da coleta
         refference_label: Código interno
-        bottles_number: Número de frascos
         attendance_id: Atendimento
         storage_location: Local de armazenamento
         attendance: Atendimento
         attendance_id: Atendimento
+        receipt_notice: "Observações de recebimento"
       sample_kind:
         name: Nome
         acronym: Acrônimo
