@@ -73,6 +73,11 @@ RSpec.describe ExamStatusKind, type: :model do
 
 	context "display colors" do
 
+		before :each do
+			Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
+	    load 'app/models/concerns/exam_status_kinds.rb'
+		end
+
 		it "in repeat" do
 			expect(ExamStatusKind.IN_REPEAT.display_name).to eq "<label class='text-warning'>#{ExamStatusKind.IN_REPEAT.name}</label>"
 		end

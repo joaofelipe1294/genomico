@@ -25,13 +25,13 @@ RSpec.configure do |config|
 
   # config.use_transactional_fixtures = true
   #
-  # config.before(:suite) do
-  #   Rails.application.load_seed
-  #   Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
-  #   Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
-  #   load 'app/models/concerns/exam_status_kinds.rb'
-  #   load 'app/models/concerns/attendance_status_kinds.rb'
-  # end
+  config.before(:suite) do
+    Rails.application.load_seed
+    Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
+    Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
+    load 'app/models/concerns/exam_status_kinds.rb'
+    load 'app/models/concerns/attendance_status_kinds.rb'
+  end
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

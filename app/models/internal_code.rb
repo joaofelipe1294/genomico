@@ -9,7 +9,7 @@ class InternalCode < ApplicationRecord
   paginates_per 15
   belongs_to :attendance
   before_validation :set_attendance
-  has_many :exams
+  has_and_belongs_to_many :exams
   belongs_to :subsample
   has_and_belongs_to_many :work_maps
 
