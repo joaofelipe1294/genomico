@@ -22,7 +22,7 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
         })
       internal_code = InternalCode.create(sample: attendance.samples.first, field: Field.IMUNOFENO)
       exam = attendance.exams.first
-      exam.internal_code = internal_code
+      exam.internal_codes << internal_code
       exam.exam_status_kind = ExamStatusKind.COMPLETE
       exam.finish_date = 3.days.ago
       exam.report = File.open "#{Rails.root}/spec/support_files/PDF.pdf"
@@ -50,7 +50,7 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
         })
       internal_code = InternalCode.create(sample: attendance.samples.first, field: Field.IMUNOFENO)
       exam = attendance.exams.first
-      exam.internal_code = internal_code
+      exam.internal_codes << internal_code
       exam.exam_status_kind = ExamStatusKind.COMPLETE
       exam.finish_date = 3.days.ago
       exam.report = File.open "#{Rails.root}/spec/support_files/PDF.pdf"

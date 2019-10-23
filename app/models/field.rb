@@ -24,7 +24,7 @@ class Field < ActiveRecord::Base
 				.where.not(exam_status_kind: ExamStatusKinds::CANCELED)
 				.joins(:offered_exam)
 				.where("offered_exams.field_id = ?", self.id)
-				.includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+				.includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
 				.order(created_at: :asc)
 		Rails.cache.write "exams:field:#{self.name}", field_issues, expires_in: 30.minutes
 		field_issues

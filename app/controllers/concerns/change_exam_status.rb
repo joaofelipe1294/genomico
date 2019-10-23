@@ -15,7 +15,7 @@ module ChangeExamStatus
   end
 
   def initiate
-    @exam.internal_code_id = exam_params[:internal_code]
+    @exam.internal_code_ids = params[:internal_code_ids]
     @exam.start_date = Date.today
     @exam.exam_status_kind = ExamStatusKinds::IN_PROGRESS
     apply_changes
@@ -36,9 +36,5 @@ module ChangeExamStatus
     end
     redirect_to_exams_tab
   end
-
-
-
-
 
 end

@@ -51,7 +51,7 @@ RSpec.describe Exam, type: :model do
 
 		it { should have_many(:exam_status_changes) }
 
-    it { should belong_to :internal_code }
+    it { should have_and_belong_to_many :internal_codes }
 
 	end
 

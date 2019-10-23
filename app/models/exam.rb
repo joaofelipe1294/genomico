@@ -6,13 +6,14 @@ class Exam < ActiveRecord::Base
   belongs_to :attendance
   has_many :exam_status_changes
   before_validation :default_values
-  belongs_to :internal_code
+  has_and_belongs_to_many :internal_codes
   has_attached_file :report
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_attached_file :partial_released_report
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
   after_create :reload_issues_cache
   after_update :reload_issues_cache
+  before_validation :treat_two_internal_codes_case
 
   def change_status user_id
     ExamStatusChange.create({
@@ -92,6 +93,21 @@ class Exam < ActiveRecord::Base
 
   def reload_issues_cache
     self.offered_exam.field.set_issues_in_cache
+  end
+
+  def treat_two_internal_codes_case
+    internal_codes = self.attendance.internal_codes.where(field: Field.BIOMOL).size if self.attendance
+    if self.internal_codes.empty? && self.exam_status_kind != ExamStatusKind.WAITING_START && internal_codes >= 2
+      internal_codes = InternalCode.
+                                    includes(:sample, :subsample).
+                                    where(attendance: self.attendance).
+                                    where(field: self.offered_exam.field)
+      internal_codes_from_attendance = self.attendance.internal_codes.joins(:subsample)
+      dna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
+      rna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
+      self.internal_codes << dna
+      self.internal_codes << rna
+    end
   end
 
 end

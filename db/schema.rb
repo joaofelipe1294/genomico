@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_131700) do
+ActiveRecord::Schema.define(version: 2019_10_22_181310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 2019_10_22_131700) do
     t.integer "attendance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "internal_code_id"
     t.string "report_file_name"
     t.string "report_content_type"
     t.integer "report_file_size"
@@ -122,8 +121,14 @@ ActiveRecord::Schema.define(version: 2019_10_22_131700) do
     t.index ["attendance_id"], name: "index_exams_on_attendance_id"
     t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id"
     t.index ["id"], name: "index_exams_on_id"
-    t.index ["internal_code_id"], name: "index_exams_on_internal_code_id"
     t.index ["offered_exam_id"], name: "index_exams_on_offered_exam_id"
+  end
+
+  create_table "exams_internal_codes", force: :cascade do |t|
+    t.bigint "internal_code_id"
+    t.bigint "exam_id"
+    t.index ["exam_id"], name: "index_exams_internal_codes_on_exam_id"
+    t.index ["internal_code_id"], name: "index_exams_internal_codes_on_internal_code_id"
   end
 
   create_table "fields", id: :serial, force: :cascade do |t|
