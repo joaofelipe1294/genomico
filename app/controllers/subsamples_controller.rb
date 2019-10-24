@@ -1,14 +1,16 @@
 class SubsamplesController < ApplicationController
+  include InstanceVariableSetter
   before_action :set_subsample, only: [:show, :edit, :update, :destroy]
+  before_action :set_subsample_kinds, only: [:new, :edit]
 
   # GET /subsamples
   # GET /subsamples.json
   def index
-    if params[:subsample_kind].nil?
+    subsample_kind_id = params[:subsample_kind]
+    unless subsample_kind.present?
       @subsamples = Subsample.all
     else
-      subsample_kind = SubsampleKind.find params[:subsample_kind]
-      subsamples = Subsample.where({subsample_kind: subsample_kind})
+      subsamples = Subsample.where({subsample_kind_id: subsample_kind_id})
       render json: subsamples, status: :ok, only: [:id, :refference_label]
     end
   end
@@ -25,12 +27,10 @@ class SubsamplesController < ApplicationController
       nanodrop_report: NanodropReport.new,
       qubit_report: QubitReport.new
     })
-    @subsample_kinds = SubsampleKind.all.order :name
   end
 
   # GET /subsamples/1/edit
   def edit
-    @subsample_kinds = SubsampleKind.all.order :name
   end
 
   # POST /subsamples
@@ -38,22 +38,11 @@ class SubsamplesController < ApplicationController
   def create
     @subsample = Subsample.new(subsample_params)
     if @subsample.save
-      if @subsample.subsample_kind == SubsampleKind.PELLET
-        InternalCode.create({
-          field: Field.FISH,
-          subsample: @subsample,
-        })
-      else
-        InternalCode.create(
-          field: Field.BIOMOL,
-          subsample: @subsample
-        )
-      end
       flash[:success] = I18n.t :new_subsample_success
-      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
+      redirect_to_workflow
     else
-      flash[:danger] = "Não foi possível cadastrar a subamostra."
-      @subsample_kinds = SubsampleKind.all.order :name
+      flash[:danger] = @subsample.errors.full_messages.first
+      set_subsample_kinds
       render :new
     end
   end
@@ -63,7 +52,7 @@ class SubsamplesController < ApplicationController
   def update
     if @subsample.update(subsample_params)
       flash[:success] = I18n.t :edit_subsample_success
-      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
+      redirect_to_workflow
     else
       render :edit
     end
@@ -74,7 +63,7 @@ class SubsamplesController < ApplicationController
   def destroy
     @subsample.destroy
     flash[:success] = 'Subamostra removida com sucesso.'
-    redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
+    redirect_to_workflow
   end
 
   private
@@ -94,6 +83,10 @@ class SubsamplesController < ApplicationController
         qubit_report_attributes: [:id, :concentration, :_destroy],
         nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy]
       )
+    end
+
+    def redirect_to_workflow
+      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
     end
 
 

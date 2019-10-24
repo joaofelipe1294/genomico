@@ -115,16 +115,17 @@ class ExamsController < ApplicationController
     end
 
 		def set_internal_codes
-      attendance = @exam.attendance
-			internal_codes = InternalCode.
-                                    includes(:sample, :subsample).
-                                    where(attendance: @exam.attendance).
-                                    where(field: @exam.offered_exam.field)
-      internal_codes_from_attendance = attendance.internal_codes.joins(:subsample)
-      dna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
-      rna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
+      internal_codes = @exam.attendance.internal_codes
+      unless @exam.offered_exam.field == Field.BIOMOL
+        @internal_codes = internal_codes
+        return
+      else
+        internal_codes = internal_codes.joins(:subsample)
+      end
+			dna = internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
+      rna = internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
       if dna && rna
-        internal_code =  InternalCode.new(code: "#{dna.code}  -  #{rna.code}", id: [1, 2])
+        internal_code =  InternalCode.new(code: "#{dna.code}  -  #{rna.code}", id: nil)
         internal_codes = internal_codes.to_a << internal_code
       end
       @internal_codes = internal_codes

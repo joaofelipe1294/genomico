@@ -16,10 +16,10 @@
 
 			<div class = 'form-group'>
 				<%= f.label "Código da amostra" %>
-        <% if @exam.internal_codes.nil? %>
-          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @internal_codes.last.code), {}, {class: 'form-control'} %>
+        <% if @exam.internal_codes.size == 2 %>
+          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @internal_codes.last.id), {}, {class: 'form-control'} %>
         <% else %>
-          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @exam.refference_label), {}, {class: 'form-control'} %>
+          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @exam.internal_codes.first.id), {}, {class: 'form-control'} %>
         <% end %>
       </div>
 
@@ -31,3 +31,11 @@
   </div>
 
 </div>
+
+<script>
+
+  let has_two_internal_codes = <%= @exam.internal_codes.size %> === 2
+  if (has_two_internal_codes)
+    $("#exam_internal_code_ids option:last").attr("selected", "selected")
+
+</script>
