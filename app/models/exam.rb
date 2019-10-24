@@ -1,4 +1,5 @@
 class Exam < ActiveRecord::Base
+  include ExamReports
   attr_accessor :refference_label
   validates :exam_status_kind, :offered_exam, presence: true
   belongs_to :offered_exam
@@ -13,7 +14,7 @@ class Exam < ActiveRecord::Base
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
   after_create :reload_issues_cache
   after_update :reload_issues_cache
-  before_validation :treat_two_internal_codes_case
+  before_update :treat_two_internal_codes_case
 
   def change_status user_id
     ExamStatusChange.create({
@@ -28,67 +29,15 @@ class Exam < ActiveRecord::Base
   def reopen user_id
     self.report = nil
     self.exam_status_kind = ExamStatusKind.IN_PROGRESS
-    self.attendance.reopen if self.attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
+    attendance = self.attendance
+    attendance.reopen if attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
     self.change_status user_id
-  end
-
-  def self.in_progress_by_field field
-    conn = ActiveRecord::Base.connection
-    result = conn.execute "
-      SELECT e.id,
-             oe.name,
-             f.name
-      FROM exams e
-           INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-           INNER JOIN fields f ON f.id = oe.field_id
-      WHERE e.exam_status_kind_id <> (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-        AND f.id = (select id from fields where name = #{conn.quote(field)});"
-    result.cmd_tuples
-  end
-
-  def self.complete_exams_by_field(field= '', start_date= 2.year.ago, finish_date= 10.seconds.ago)
-    conn = ActiveRecord::Base.connection
-    result = conn.execute "
-    SELECT e.id,
-           oe.name
-    FROM exams e
-         INNER JOIN offered_exams oe ON oe.id = e.offered_exam_id
-    WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-          AND oe.field_id = (SELECT id FROM fields WHERE name = #{conn.quote(field)})
-          AND e.start_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(finish_date)};"
-    result.cmd_tuples
-  end
-
-  def self.health_ensurance_relation(start_date= 3.years.ago, end_date= 1.second.ago)
-    conn = ActiveRecord::Base.connection
-    health_ensurance_relation = {}
-    HealthEnsurance.all.each do |health_ensurance|
-      result = conn.execute "
-        SELECT he.name,
-               a.id
-        FROM exams e
-             INNER JOIN attendances a ON a.id = e.attendance_id
-             INNER JOIN health_ensurances he ON he.id = a.health_ensurance_id
-        WHERE e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-              AND he.id = (SELECT id FROM health_ensurances WHERE name = #{conn.quote(health_ensurance.name)})
-              AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
-      health_ensurance_relation[health_ensurance.name] = result.cmd_tuples if result.cmd_tuples > 0
-    end
-    result = conn.execute "
-      SELECT e.id
-      FROM exams e
-           INNER JOIN attendances a ON e.attendance_id = a.id
-      WHERE a.health_ensurance_id IS NULL
-            AND e.exam_status_kind_id = (SELECT id FROM exam_status_kinds WHERE name = 'Concluído')
-            AND e.finish_date BETWEEN #{conn.quote(start_date)} AND #{conn.quote(end_date)};"
-    health_ensurance_relation['Sem Plano'] = result.cmd_tuples
-    health_ensurance_relation
   end
 
   private
 
   def default_values
-  	self.exam_status_kind = ExamStatusKind.WAITING_START if self.exam_status_kind.nil?
+  	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
   end
 
   def reload_issues_cache
@@ -96,17 +45,13 @@ class Exam < ActiveRecord::Base
   end
 
   def treat_two_internal_codes_case
-    internal_codes = self.attendance.internal_codes.where(field: Field.BIOMOL).size if self.attendance
-    if self.internal_codes.empty? && self.exam_status_kind != ExamStatusKind.WAITING_START && internal_codes >= 2
-      internal_codes = InternalCode.
-                                    includes(:sample, :subsample).
-                                    where(attendance: self.attendance).
-                                    where(field: self.offered_exam.field)
-      internal_codes_from_attendance = self.attendance.internal_codes.joins(:subsample)
-      dna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
-      rna = internal_codes_from_attendance.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
-      self.internal_codes << dna
-      self.internal_codes << rna
+    attendance = self.attendance
+    internal_codes = self.internal_codes
+    biomol_internal_codes = attendance.internal_codes.where(field: Field.BIOMOL).joins(:subsample) if attendance
+    if internal_codes.empty? && biomol_internal_codes.size >= 2
+      internal_codes << biomol_internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
+      internal_codes << biomol_internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
+      self.internal_codes = internal_codes
     end
   end
 

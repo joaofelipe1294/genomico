@@ -47,6 +47,7 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
   end
 
   it "list without biomol internal_codes" do
+    InternalCode.all.delete_all
     internal_code = InternalCode.create(field: Field.FISH, subsample: Subsample.all.first)
     biomol_user_do_login
     click_link id: 'samples-dropdown'

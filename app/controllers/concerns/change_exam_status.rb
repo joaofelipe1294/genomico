@@ -26,6 +26,8 @@ module ChangeExamStatus
     apply_changes
   end
 
+  private
+
   def apply_changes
     exam_status_kind = @exam.exam_status_kind
     if @exam.change_status session[:user_id]
