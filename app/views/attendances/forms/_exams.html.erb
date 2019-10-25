@@ -4,20 +4,23 @@
 
 <table class="table text-center table-bordered table-sm">
 	<thead class="bg-dark text-white">
-		<th>
-			<h4>Nome</h4>
+		<th class="h4">
+			Nome
 		</th>
-		<th>
-			<h4>Data de início</h4>
+		<th class="h4">
+			Amostra
 		</th>
-		<th>
-			<h4>Data de conclusão</h4>
+		<th class="h4">
+			Data de início
 		</th>
-		<th>
-			<h4>Status</h4>
+		<th class="h4">
+			Conclusão
 		</th>
-		<th>
-			<h4>Alterar status</h4>
+		<th class="h4">
+			Status
+		</th>
+		<th class="h4">
+			Alterar status
 		</th>
 	</thead>
 	<tbody>
@@ -25,6 +28,13 @@
 			<tr class="exam">
 				<td>
 					<%= exam.offered_exam.name %>
+				</td>
+				<td>
+					<% if exam.internal_codes.size == 1 %>
+						<%= exam.internal_codes.first.code %>
+					<% elsif exam.internal_codes.size == 2 %>
+						<%= "#{exam.internal_codes.first.code} - #{exam.internal_codes.last.code}" %>
+					<% end %>
 				</td>
 				<td>
 					<% if exam.start_date %>

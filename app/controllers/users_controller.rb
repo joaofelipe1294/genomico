@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  include InstanceVariableSetter
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :change_password, :change_password_view]
   before_action :admin_filter
-
+  before_action :set_fields_and_user_kinds, only: [:new, :edit]
 
   # GET /users
   # GET /users.json
@@ -9,40 +10,24 @@ class UsersController < ApplicationController
     set_users
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    redirect_to home_admin_index_path
-  end
-
   # GET /users/new
   def new
     @user = User.new
-    @user_kinds = UserKind.all.order(name: :desc)
-    @fields = Field.all.order name: :asc
   end
 
   # GET /users/1/edit
   def edit
-    @user_kinds = UserKind.all.order(name: :desc)
-    @fields = Field.all.order name: :asc
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-    if user_params[:password] != user_params[:password_confirmation]
-      @user.errors[:password] = ' informada não combina.'
-      @user_kinds = UserKind.all.order(name: :desc)
-      return render new_user_path(@user)
-    end
     if @user.save
       flash[:success] = 'Usuário cadastrado com sucesso.'
       redirect_to home_admin_index_path
     else
-      @fields = Field.all.order name: :asc
-      @user_kinds = UserKind.all.order(name: :desc)
+      set_fields_and_user_kinds
       render :new
     end
   end
@@ -54,8 +39,7 @@ class UsersController < ApplicationController
       flash[:success] = 'Usuário editado com sucesso.'
       redirect_to home_admin_index_path
     else
-      @fields = Field.all.order name: :asc
-      @user_kinds = UserKind.all.order(name: :desc)
+      set_fields_and_user_kinds
       render :edit
     end
   end
@@ -87,19 +71,14 @@ class UsersController < ApplicationController
   end
 
   def change_password_view
-    @user = User.find params[:id]
   end
 
   def change_password
-    @user = User.find params[:id]
-    if user_params[:password] != user_params[:password_confirmation] || user_params[:password].empty?
-      flash[:warning] = 'As senhas informadas não combinam.'
-      render :change_password_view
-    elsif @user.update(user_params)
+    if @user.update(user_params)
       flash[:success] = 'Senha alterada com sucesso.'
       redirect_to home_admin_index_path
     else
-      flash[:warning] = 'Houve um problema no servidor, tente novamente mais tarde.'
+      flash[:warning] = @user.errors.full_messages.first
       render :change_password_view
     end
   end
@@ -112,24 +91,43 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      accepted_params = params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, fields:[])
-      unless accepted_params[:fields].nil?
-        unless accepted_params[:fields].empty?
-          accepted_params[:fields] = accepted_params[:fields].map do |field_id|
-            Field.find(field_id)
-          end
-        end
-      end
-      accepted_params
+      puts "============================="
+      p params
+      p params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, :fields)
+      puts "============================="
+      # accepted_params = params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, fields:[])
+      # unless accepted_params[:fields].nil?
+      #   unless accepted_params[:fields].empty?
+      #     accepted_params[:fields] = accepted_params[:fields].map do |field_id|
+      #       Field.find(field_id)
+      #     end
+      #   end
+      # end
+      # accepted_params
+      permited_params = params.require(:user).permit(
+          :login,
+          :password,
+          :password_confirmation,
+          :name,
+          :user_kind_id,
+          :fields
+        )
+
     end
 
     def set_users
-      if params[:kind].nil?
-        @users = User.all.order(:name)
+      user_kind_id = params[:kind]
+      unless user_kind_id.present?
+        User.all.joins(:user_kind).order("user_kinds.name ASC")
       else
-        @users = User.where({user_kind: UserKind.find_by(name: 'admin')}) if params[:kind] == 'admin'
-        @users = User.where({user_kind: UserKind.find_by(name: 'user')}) if params[:kind] == 'user'
+        @users = User.where({ user_kind: UserKind.ADMIN }) if user_kind_id == 'admin'
+        @users = User.where({ user_kind: UserKind.USER }) if user_kind_id == 'user'
       end
+    end
+
+    def set_fields_and_user_kinds
+      set_fields
+      set_user_kinds
     end
 
 end
