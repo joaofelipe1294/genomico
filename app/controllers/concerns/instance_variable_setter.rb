@@ -13,4 +13,8 @@ module InstanceVariableSetter
     @subsample_kinds = SubsampleKind.all.order :name
   end
 
+  def set_user_kinds
+    @user_kinds = UserKind.all.order(name: :desc)
+  end
+
 end

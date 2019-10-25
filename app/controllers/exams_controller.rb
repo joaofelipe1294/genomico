@@ -106,7 +106,6 @@ class ExamsController < ApplicationController
         :report,
         :partial_released_report,
         :attendance_id,
-        :internal_code_id
       )
   	end
 

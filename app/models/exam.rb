@@ -46,7 +46,7 @@ class Exam < ActiveRecord::Base
 
   def treat_two_internal_codes_case
     attendance = self.attendance
-    internal_codes = self.internal_codes
+    internal_codes = self.internal_code_ids
     biomol_internal_codes = attendance.internal_codes.where(field: Field.BIOMOL).joins(:subsample) if attendance
     if internal_codes.empty? && biomol_internal_codes.size >= 2
       internal_codes << biomol_internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first

@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   resources :hospitals
   resources :subsamples
   resources :samples, except: [:new]
-  resources :users
+  resources :users, except: [:show]
   resources :attendances, except: [:new, :delete, :index, :edit]
   resources :offered_exams
   resources :patients, except: [:destroy]
