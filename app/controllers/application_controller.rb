@@ -5,43 +5,19 @@ class ApplicationController < ActionController::Base
   helper_method :exam_status_color_helper
 
   def admin_filter
-      user = User.find_by({
-        id: session[:user_id],
-        login: session[:user_login],
-        user_kind: UserKind.ADMIN,
-        is_active: true
-      })
-      if user.nil?
-        reset_session
-        flash[:warning] = I18n.t :wrong_credentials_message
-        redirect_to root_path
-      end
+      user = find_user UserKind.ADMIN
+      wrong_credentials_redirect unless user
     end
 
     def user_filter
-      user = User.find_by({
-        id: session[:user_id],
-        login: session[:user_login],
-        user_kind: UserKind.USER,
-        is_active: true
-      })
-      if user.nil?
-        reset_session
-        flash[:warning] = I18n.t :wrong_credentials_message
-        redirect_to root_path
-      end
+      user = find_user UserKind.USER
+      wrong_credentials_redirect unless user
     end
 
     def generic_filter
-      user = User.find_by({
-        id: session[:user_id],
-        login: session[:user_login],
-      })
-      if user.nil?
-        reset_session
-        flash[:warning] = I18n.t :wrong_credentials_message
-        redirect_to root_path
-      end
+      admin = find_user UserKind.ADMIN
+      user = find_user UserKind.USER
+      wrong_credentials_redirect unless user || admin
     end
 
     def redirect_to_home
@@ -50,6 +26,23 @@ class ApplicationController < ActionController::Base
       else
         redirect_to home_user_index_path
       end
+    end
+
+    private
+
+    def wrong_credentials_redirect
+      reset_session
+      flash[:warning] = I18n.t :wrong_credentials_message
+      redirect_to root_path
+    end
+
+    def find_user user_kind
+      User.find_by({
+        id: session[:user_id],
+        login: session[:user_login],
+        user_kind: user_kind,
+        is_active: true
+      })
     end
 
 end
