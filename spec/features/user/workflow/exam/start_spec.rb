@@ -74,7 +74,7 @@ RSpec.feature "User::Workflow::Exam::Starts", type: :feature, js: true do
       click_button id: 'exam_nav'
       click_link class: 'start-exam', match: :first
       compose_option = find_all("option").last.text
-      select(compose_option, from: "exam[internal_code]").select_option
+      select(compose_option, from: "exam[internal_codes]").select_option
       click_button id: 'btn-save'
       expect(page).to have_current_path workflow_path(@attendance, tab: 'exams')
       expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Em andamento."

@@ -1,35 +1,31 @@
 class OfferedExamsController < ApplicationController
+  include InstanceVariableSetter
   before_action :set_offered_exam, only: [:show, :edit, :update, :destroy, :active_exam]
   before_action :generic_filter, except: [:exams_per_field]
+  before_action :set_fields, only: [:new, :edit, :index]
 
   # GET /offered_exams
   # GET /offered_exams.json
   def index
-    @fields = Field.all.order(:name)
-    if params.has_key? :field
-      @offered_exams = OfferedExam.where({field: Field.find(params[:field])}).order(:name).page params[:page]
-    elsif params.has_key? :name
-      @offered_exams = OfferedExam.where("name ILIKE ?", "%#{params[:name]}%").page params[:page]
+    field_id = params[:field]
+    name = params[:name]
+    if field_id.present?
+      offered_exams = OfferedExam.where({field_id: field_id})
+    elsif name.present?
+      offered_exams = OfferedExam.where("name ILIKE ?", "%#{name}%")
     else
-      @offered_exams = OfferedExam.all.order(name: :asc).page params[:page]
+      offered_exams = OfferedExam.all.order(name: :asc)
     end
-  end
-
-  # GET /offered_exams/1
-  # GET /offered_exams/1.json
-  def show
-    redirect_to home_admin_index_path
+    @offered_exams = offered_exams.order(name: :asc).page params[:page]
   end
 
   # GET /offered_exams/new
   def new
     @offered_exam = OfferedExam.new
-    @fields = Field.all.order(:name)
   end
 
   # GET /offered_exams/1/edit
   def edit
-    @fields = Field.all.order(:name)
   end
 
   # POST /offered_exams
@@ -40,7 +36,7 @@ class OfferedExamsController < ApplicationController
       flash[:success] = 'Exame ofertado cadastrado com sucesso.'
       redirect_to_home
     else
-      @fields = Field.all.order(:name)
+      set_fields
       render :new
     end
   end
@@ -52,7 +48,7 @@ class OfferedExamsController < ApplicationController
       flash[:success] = 'Exame ofertado editado com sucesso.'
       redirect_to_home
     else
-      @fields = Field.all.order(:name)
+      set_fields
       render :edit
     end
   end

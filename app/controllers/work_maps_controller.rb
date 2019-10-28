@@ -5,13 +5,16 @@ class WorkMapsController < ApplicationController
   # GET /work_maps
   # GET /work_maps.json
   def index
-    if params[:name]
-      @work_maps = WorkMap.where('name ILIKE ?', "%#{params[:name]}%").order(:date).page params[:page]
-    elsif params[:date] && params[:date][:initial] != "" && params[:date][:final] != ""
-      @work_maps = WorkMap.where('date BETWEEN ? AND ?', params[:date][:initial], params[:date][:final]).page params[:page]
+    name = params[:name]
+    date = params[:date]
+    if name.present?
+      work_maps = WorkMap.where('name ILIKE ?', "%#{name}%").order(:date)
+    elsif date.present?
+      work_maps = WorkMap.where('date BETWEEN ? AND ?', date[:initial], date[:final])
     else
-      @work_maps = WorkMap.all.page params[:page]
+      work_maps = WorkMap.all
     end
+    @work_maps = work_maps.page params[:page]
   end
 
   # GET /work_maps/1
@@ -41,30 +44,6 @@ class WorkMapsController < ApplicationController
     else
       flash[:warning] = @work_map.errors.full_messages.first
       redirect_to new_work_map_path
-    end
-  end
-
-  # PATCH/PUT /work_maps/1
-  # PATCH/PUT /work_maps/1.json
-  def update
-    respond_to do |format|
-      if @work_map.update(work_map_params)
-        format.html { redirect_to @work_map, notice: 'Work map was successfully updated.' }
-        format.json { render :show, status: :ok, location: @work_map }
-      else
-        format.html { render :edit }
-        format.json { render json: @work_map.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /work_maps/1
-  # DELETE /work_maps/1.json
-  def destroy
-    @work_map.destroy
-    respond_to do |format|
-      format.html { redirect_to work_maps_url, notice: 'Work map was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
