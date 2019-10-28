@@ -102,11 +102,10 @@ class ExamsController < ApplicationController
 			params.require(:exam).permit(
         :offered_exam_id,
         :attendance,
-        :internal_code,
+        :internal_code_ids,
         :report,
         :partial_released_report,
         :attendance_id,
-        :internal_code_id
       )
   	end
 
@@ -115,10 +114,20 @@ class ExamsController < ApplicationController
     end
 
 		def set_internal_codes
-			@internal_codes = InternalCode.
-                                    includes(:sample, :subsample).
-                                    where(attendance: @exam.attendance).
-                                    where(field: @exam.offered_exam.field)
+      internal_codes = @exam.attendance.internal_codes
+      unless @exam.offered_exam.field == Field.BIOMOL
+        @internal_codes = internal_codes
+        return
+      else
+        internal_codes = internal_codes.joins(:subsample)
+      end
+			dna = internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
+      rna = internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
+      if dna && rna
+        internal_code =  InternalCode.new(code: "#{dna.code}  -  #{rna.code}", id: nil)
+        internal_codes = internal_codes.to_a << internal_code
+      end
+      @internal_codes = internal_codes
 		end
 
     def set_offered_exams

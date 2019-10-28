@@ -54,7 +54,13 @@ class SamplesController < ApplicationController
   private
 
   	def sample_params
-			params.require(:sample).permit(:sample_kind_id, :collection_date, :bottles_number, :storage_location, :attendance_id)
+			params.require(:sample).permit(
+        :sample_kind_id,
+        :collection_date,
+        :receipt_notice, 
+        :storage_location,
+        :attendance_id
+      )
   	end
 
 end

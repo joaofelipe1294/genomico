@@ -90,8 +90,12 @@
             <%= exam.attendance.patient.name %>
           </td>
           <td>
-            <% unless exam.internal_code.nil? %>
-              <%= exam.internal_code.code %>
+            <% unless exam.internal_codes.empty? %>
+              <% if exam.internal_codes.size == 1 %>
+                <%= exam.internal_codes.first.code %>
+              <% else %>
+                <%= "#{exam.internal_codes.first.code}  #{exam.internal_codes.last.code}"%>
+              <% end %>
             <% end %>
           </td>
           <td>

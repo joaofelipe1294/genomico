@@ -7,7 +7,6 @@ def setup
 	sample = Sample.new({
 		sample_kind: SampleKind.all.sample,
 		collection_date: Date.today,
-		bottles_number: 1,
 	})
 	@attendance = Attendance.new({
 		id: 1,

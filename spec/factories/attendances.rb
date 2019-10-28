@@ -6,11 +6,11 @@ FactoryBot.define do
   	start_date { nil }
   	finish_date { nil }
   	patient { create(:patient) }
-  	attendance_status_kind { create(:attendance_status_kind) }
+  	attendance_status_kind { AttendanceStatusKind.IN_PROGRESS }
   	doctor_name { Faker::Name.name }
   	doctor_crm { Faker::Number.number(digits: 5).to_s }
   	observations { Faker::Lorem.sentence }
-  	health_ensurance { create(:health_ensurance) }
+  	health_ensurance { HealthEnsurance.all.sample }
   	report { nil }
   	samples_attributes { [attributes_for(:sample)] }
   	exams_attributes { [attributes_for(:exam), attributes_for(:exam) ]}

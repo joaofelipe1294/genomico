@@ -51,8 +51,50 @@ RSpec.describe Exam, type: :model do
 
 		it { should have_many(:exam_status_changes) }
 
-    it { should belong_to :internal_code }
+    it { should have_and_belong_to_many :internal_codes }
 
 	end
+
+	context "before update method " do
+
+		before :each do
+			Rails.application.load_seed
+			@sample = build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD)
+			@exam = build(:exam, offered_exam: OfferedExam.where(is_active: true).where(field: Field.BIOMOL).first)
+			@attendance = create(:attendance, exams: [@exam], samples: [@sample])
+			@dna_subsample = create(:subsample, sample: @sample, subsample_kind: SubsampleKind.DNA)
+			@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
+		end
+
+		it "with only one subsample dna" do
+			@exam.internal_codes = [@dna_subsample.internal_codes.first]
+			has_saved = @exam.save
+			@exam.reload
+			expect(has_saved).to eq true
+			expect(@exam.internal_codes.size).to eq 1
+		end
+
+		it "with dna and rna BUT only dna will be selected" do
+			@rna_subsample = create(:subsample, sample: @sample, subsample_kind: SubsampleKind.RNA)
+			@exam.internal_codes = [@rna_subsample.internal_codes.first]
+			has_saved = @exam.save
+			@exam.reload
+			expect(has_saved).to eq true
+			expect(@exam.internal_codes.size).to eq 1
+		end
+
+		it "with dna and rna BUT only dna will be selected" do
+			@rna_subsample = create(:subsample, sample: @sample, subsample_kind: SubsampleKind.RNA)
+			@exam.internal_codes = []
+			has_saved = @exam.save
+			@exam.reload
+			expect(has_saved).to eq true
+			expect(@exam.internal_codes.size).to eq 2
+		end
+
+
+
+	end
+
 
 end

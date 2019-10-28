@@ -34,9 +34,9 @@ RSpec.describe Sample, type: :model do
 			expect(sample).to be_valid
 		end
 
-		it 'without bottles_number' do
-			sample = build(:sample, bottles_number: nil)
-			expect(sample).to be_invalid
+		it 'without receipt_notice' do
+			sample = build(:sample, receipt_notice: nil)
+			expect(sample).to be_valid
 		end
 
 		it 'without storage_location' do

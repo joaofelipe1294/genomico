@@ -10,7 +10,7 @@ def setup_change_password
 end
 
 RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
-  
+
 	it 'navigate to change password', js: false do
 		setup_change_password
 		expect(find(class: 'card-header').text).to eq("Alterar senha")
@@ -34,8 +34,7 @@ RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
 		fill_in('user_password_confirmation', with: '1233')
 		click_button(class: 'btn-outline-secondary')
 		message = find(id: 'danger-warning').text
-		expect(message).to eq("As senhas informadas não combinam.")
+		expect(message).to eq("Confirmação de senha não é igual a Senha")
 	end
-
 
 end

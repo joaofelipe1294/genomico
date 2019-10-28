@@ -29,7 +29,6 @@ def create_attendance
         collection_date: Date.today,
         entry_date: Date.today,
         storage_location: 'Geladeira 3',
-        bottles_number: 3
       })
     ]
   })
@@ -64,12 +63,10 @@ def create_attendance
   samples = [
     Sample.new({
       sample_kind: SampleKind.PERIPHERAL_BLOOD,
-      bottles_number: 1,
       collection_date: 1.day.ago
     }),
     Sample.new({
       sample_kind: SampleKind.LIQUOR,
-      bottles_number: 1,
       collection_date: Date.today
     }),
   ]

@@ -10,20 +10,21 @@ class Subsample < ActiveRecord::Base
   before_save :add_default_values
   has_many :internal_codes
   belongs_to :patient
+  after_create :generate_internal_code
 
   private
 
     def add_default_values
-      if self.refference_label.nil?
-
-        index = Subsample.where(subsample_kind: self.subsample_kind).size
-        if self.subsample_kind == SubsampleKind.VIRAL_DNA
+      unless self.refference_label
+        subsample_kind = self.subsample_kind
+        index = Subsample.where(subsample_kind: subsample_kind).size
+        if subsample_kind == SubsampleKind.VIRAL_DNA
           index += 828
-        elsif self.subsample_kind == SubsampleKind.RNA
+        elsif subsample_kind == SubsampleKind.RNA
           index += 311
-        elsif self.subsample_kind == SubsampleKind.DNA
+        elsif subsample_kind == SubsampleKind.DNA
           index += 419
-        elsif self.subsample_kind == SubsampleKind.PELLET
+        elsif subsample_kind == SubsampleKind.PELLET
           index += 226
         end
 
@@ -32,7 +33,21 @@ class Subsample < ActiveRecord::Base
       self.collection_date = DateTime.now
   		self.sample.update({has_subsample: true})
       self.attendance = sample.attendance
-      self.patient = self.attendance.patient if self.patient.nil?
+      self.patient = self.attendance.patient unless self.patient
+    end
+
+    def generate_internal_code
+      if self.subsample_kind == SubsampleKind.PELLET
+        InternalCode.create({
+          field: Field.FISH,
+          subsample: self,
+        })
+      else
+        InternalCode.create(
+          field: Field.BIOMOL,
+          subsample: self
+        )
+      end
     end
 
 end

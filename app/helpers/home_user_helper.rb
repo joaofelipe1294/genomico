@@ -58,7 +58,7 @@ module HomeUserHelper
                   .joins(:offered_exam)
                   .where("offered_exams.field_id = ?", @user.fields.first)
                   .where(offered_exam_id: filter_by)
-                  .includes(:offered_exam, :internal_code, :exam_status_kind, attendance: [:patient])
+                  .includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
                   .order(created_at: :asc)
     end
     issues

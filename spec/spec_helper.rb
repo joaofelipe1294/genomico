@@ -24,7 +24,7 @@ Capybara.server_host = '0.0.0.0' # bind to all interfaces
 RSpec.configure do |config|
 
   # config.use_transactional_fixtures = true
-
+  #
   config.before(:suite) do
     Rails.application.load_seed
     Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)

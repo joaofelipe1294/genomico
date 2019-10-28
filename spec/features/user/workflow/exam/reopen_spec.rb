@@ -18,11 +18,11 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
         finish_date: 2.weeks.ago,
         desease_stage: DeseaseStage.all.sample,
         exams: [Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)],
-        samples: [Sample.new(sample_kind: SampleKind.PERIPHERAL_BLOOD, bottles_number: 1, collection_date: 3.days.ago)],
+        samples: [Sample.new(sample_kind: SampleKind.PERIPHERAL_BLOOD, collection_date: 3.days.ago)],
         })
       internal_code = InternalCode.create(sample: attendance.samples.first, field: Field.IMUNOFENO)
       exam = attendance.exams.first
-      exam.internal_code = internal_code
+      exam.internal_codes << internal_code
       exam.exam_status_kind = ExamStatusKind.COMPLETE
       exam.finish_date = 3.days.ago
       exam.report = File.open "#{Rails.root}/spec/support_files/PDF.pdf"
@@ -46,11 +46,11 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
         start_date: 1.month.ago,
         desease_stage: DeseaseStage.all.sample,
         exams: [Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample), Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)],
-        samples: [Sample.new(sample_kind: SampleKind.PERIPHERAL_BLOOD, bottles_number: 1, collection_date: 3.days.ago)],
+        samples: [Sample.new(sample_kind: SampleKind.PERIPHERAL_BLOOD, collection_date: 3.days.ago)],
         })
       internal_code = InternalCode.create(sample: attendance.samples.first, field: Field.IMUNOFENO)
       exam = attendance.exams.first
-      exam.internal_code = internal_code
+      exam.internal_codes << internal_code
       exam.exam_status_kind = ExamStatusKind.COMPLETE
       exam.finish_date = 3.days.ago
       exam.report = File.open "#{Rails.root}/spec/support_files/PDF.pdf"
