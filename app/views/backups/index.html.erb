@@ -11,7 +11,7 @@
     <% @backups.each do |backup| %>
       <tr>
         <td>
-          <%= backup.generated_at.utc.strftime('%H:%M  -  %d/%m/%Y') %>
+          <%= backup.generated_at.strftime('%H:%M  -  %d/%m/%Y') %>
         </td>
         <td>
           <% if backup.status %>
