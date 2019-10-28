@@ -51,4 +51,40 @@ RSpec.feature "Home_page", type: :feature, js: false do
 
 	end
 
+	context "last_login update at login" do
+
+		before :each do
+			Rails.application.load_seed
+		end
+
+		after :each do
+			visit root_path
+			expect(@user.last_login_at).to eq nil
+			fill_in 'login', with: @user.login
+			fill_in 'password', with: @user.password
+			click_button 'btn-login'
+			@user.reload
+			expect(@user.last_login_at).not_to eq nil
+		end
+
+		it "check if last_login_at is updated USER" do
+			@user = User.create({
+				name: 'Azuka Langley',
+				login: 'azuka',
+				password: 'NERV',
+				user_kind: UserKind.USER
+				})
+			end
+
+			it "check if last_login_at is updated, ADMIN" do
+				@user = User.create({
+					name: 'Azuka Langley',
+					login: 'azuka',
+					password: 'NERV',
+					user_kind: UserKind.ADMIN
+					})
+				end
+	end
+
+
 end

@@ -91,19 +91,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      puts "============================="
-      p params
-      p params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, :fields)
-      puts "============================="
-      # accepted_params = params.require(:user).permit(:login, :password, :password_confirmation, :name, :user_kind_id, fields:[])
-      # unless accepted_params[:fields].nil?
-      #   unless accepted_params[:fields].empty?
-      #     accepted_params[:fields] = accepted_params[:fields].map do |field_id|
-      #       Field.find(field_id)
-      #     end
-      #   end
-      # end
-      # accepted_params
       permited_params = params.require(:user).permit(
           :login,
           :password,
@@ -112,7 +99,8 @@ class UsersController < ApplicationController
           :user_kind_id,
           :fields
         )
-
+      permited_params[:fields] = params[:user][:fields].map { |field_id| Field.find field_id.to_i } if params[:user][:fields]
+      permited_params
     end
 
     def set_users
