@@ -15,7 +15,7 @@ class Backup < ActiveRecord::Base
       `PGPASSWORD="1234" pg_dump -Fc -U postgres -h localhost genomico_development > ./public/backups/temp/pgdump.dump`
     end
     `cp -r public/system/ ./public/backups/temp`
-    date_to_save = DateTime.now
+    date_to_save = DateTime.current
     current_date = date_to_save.to_i
     zip_name = "genomico_backup_#{current_date}.zip"
     `cd ./public/backups/temp && zip -r ../#{zip_name} .`
