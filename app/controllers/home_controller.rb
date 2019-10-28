@@ -23,6 +23,7 @@ class HomeController < ApplicationController
   private
 
   def set_user_credentials
+    @user.update(last_login_at: DateTime.current)
     session[:user_id] = @user.id
     session[:user_login] = @user.login
     user_fields = @user.fields
