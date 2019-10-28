@@ -3,7 +3,7 @@ namespace :user do
   task login_info: :environment do
     puts "================== ATIVOS =================="
     User.where.not(last_login_at: nil).order(login: :asc).each do |user|
-      last_login_at = user.last_login_at.strftime("%d/%m/%Y  %H:%M")
+      last_login_at = user.last_login_at.utc.strftime("%d/%m/%Y  %H:%M")
       puts "#{user.name}   =>   #{last_login_at}"
     end
     puts "============================================"
