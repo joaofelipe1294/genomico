@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_28_175944) do
+ActiveRecord::Schema.define(version: 2019_10_29_143248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_175944) do
     t.datetime "updated_at", null: false
     t.integer "refference_date"
     t.bigint "offered_exam_group_id"
+    t.string "mnemonyc"
     t.index ["field_id"], name: "index_offered_exams_on_field_id"
     t.index ["id"], name: "index_offered_exams_on_id"
     t.index ["offered_exam_group_id"], name: "index_offered_exams_on_offered_exam_group_id"

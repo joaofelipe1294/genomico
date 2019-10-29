@@ -1,4 +1,9 @@
 <%= render 'layouts/user_navbar' %>
 
-
 Pacientes que entraram: <%= @patients %>
+<br>
+Exames feitos: <%= @exams_done %>
+<br>
+<%= @exams_relation %>
+
+<%= column_chart @exams_relation %>

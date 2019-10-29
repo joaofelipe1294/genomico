@@ -53,4 +53,25 @@ RSpec.describe OfferedExam, type: :model do
 
 	end
 
+	context "mnemonyc" do
+
+		it "without" do
+			offered_exam = build(:offered_exam, mnemonyc: "")
+			expect(offered_exam).to be_valid
+		end
+
+		it "duplicated with value" do
+			create(:offered_exam, mnemonyc: "NERV")
+			duplicated = build(:offered_exam, mnemonyc: "NERV")
+			expect(duplicated).to be_invalid
+		end
+
+		it "duplicated without value" do
+			create(:offered_exam, mnemonyc: "")
+			duplicated = build(:offered_exam, mnemonyc: "")
+			expect(duplicated).to be_valid
+		end
+
+	end
+
 end

@@ -6,6 +6,7 @@ class OfferedExam < ActiveRecord::Base
   validates :name, :field, :refference_date, presence: true
   after_initialize :default_params
   paginates_per 10
+  validates_with MnemonycUniquenessCheck
 
   def default_params
   	self.is_active = true if self.is_active.nil?

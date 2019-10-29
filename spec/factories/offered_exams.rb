@@ -4,5 +4,6 @@ FactoryBot.define do
   	field { create(:field) }
   	is_active { Faker::Boolean.boolean }
     refference_date { Faker::Number.number(digits: 2) }
+    mnemonyc { "" }
   end
 end
