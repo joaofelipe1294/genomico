@@ -344,7 +344,6 @@ BottleStatusKind.create([
 	{name: "Em quarentena"},
 ])
 
-
 UnitOfMeasurement.create([
 	{ name: "Caixas"} ,
 	{ name: "Microlitros"} ,
@@ -352,4 +351,12 @@ UnitOfMeasurement.create([
 	{ name: "Kits"} ,
 	{ name: "Reações"} ,
 	{ name: "Extrações"} ,
+])
+
+OfferedExamGroup.create([
+	{ name: "Imunofenotipagem" },
+	{ name: "FISH" },
+	{ name: "NGS" },
+	{ name: "PCR e qPCR"},
+	{ name: "Sequenciamento"}
 ])

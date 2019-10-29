@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_28_175044) do
+ActiveRecord::Schema.define(version: 2019_10_28_175944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,8 +205,10 @@ ActiveRecord::Schema.define(version: 2019_10_28_175044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "refference_date"
+    t.bigint "offered_exam_group_id"
     t.index ["field_id"], name: "index_offered_exams_on_field_id"
     t.index ["id"], name: "index_offered_exams_on_id"
+    t.index ["offered_exam_group_id"], name: "index_offered_exams_on_offered_exam_group_id"
   end
 
   create_table "patients", id: :serial, force: :cascade do |t|
@@ -359,6 +361,7 @@ ActiveRecord::Schema.define(version: 2019_10_28_175044) do
   add_foreign_key "internal_codes", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
+  add_foreign_key "offered_exams", "offered_exam_groups"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "reagents", "unit_of_measurements"

@@ -38,6 +38,8 @@ RSpec.describe OfferedExam, type: :model do
 
 		it { should validate_presence_of(:refference_date) }
 
+		it { should belong_to :offered_exam_group }
+
 	end
 
 	context 'After_initialize' do
