@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "indicators/response_time", to: "indicators#response_time", as: :response_time
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
   get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes

@@ -39,4 +39,13 @@ class IndicatorsController < ApplicationController
     end
   end
 
+  def response_time
+    exams = Exam
+                .joins(:offered_exam, :attendance)
+                .where(exam_status_kind: ExamStatusKind.COMPLETE)
+                .where("offered_exams.offered_exam_group_id = ?", 4)
+                .where("exams.finish_date BETWEEN ? AND ?", 15.days.ago, 1.day.ago) #.map { |exam| exam.attendance.patient.id }.uniq.size
+    @patients = exams.includes(attendance: [:patient]).map { |exam| exam.attendance.patient }.uniq.size
+  end
+
 end
