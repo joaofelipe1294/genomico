@@ -41,6 +41,7 @@
         field_id: Área do Exame
         is_active: Ativo
         refference_date: Tempo de execução (em dias)
+        mnemonyc: Mnemônico
       attendance_status_kind:
         name: Nome
       health_ensurance:
@@ -168,3 +169,4 @@
   new_exam_success: "Exame cadastrado com sucesso."
   remove_report_success: "Laudo removido com sucesso"
   exam_reopen_success: "Exame reaberto com sucesso"
+  new_offered_exam_success: "Exame ofertado cadastrado com sucesso."

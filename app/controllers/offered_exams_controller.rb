@@ -33,7 +33,7 @@ class OfferedExamsController < ApplicationController
   def create
     @offered_exam = OfferedExam.new(offered_exam_params)
     if @offered_exam.save
-      flash[:success] = 'Exame ofertado cadastrado com sucesso.'
+      flash[:success] = I18n.t :new_offered_exam_success
       redirect_to_home
     else
       set_fields
@@ -90,6 +90,6 @@ class OfferedExamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offered_exam_params
-      params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date)
+      params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date, :mnemonyc)
     end
 end
