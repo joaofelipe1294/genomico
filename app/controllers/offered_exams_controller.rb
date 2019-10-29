@@ -45,8 +45,8 @@ class OfferedExamsController < ApplicationController
   # PATCH/PUT /offered_exams/1.json
   def update
     if @offered_exam.update(offered_exam_params)
-      flash[:success] = 'Exame ofertado editado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :edit_offered_exam_success
+      redirect_to offered_exams_path
     else
       set_fields
       render :edit
