@@ -57,23 +57,21 @@ class OfferedExamsController < ApplicationController
   # DELETE /offered_exams/1.json
   def destroy
     if @offered_exam.update({is_active: false})
-      flash[:success] = 'Exame desativado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :disable_offered_exam_success
     else
-      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
-      redirect_to offered_exams_path
+      flash[:warning] = @offered_exam.errors.full_messages.first
     end
+    redirect_to offered_exams_path
   end
 
   #POST /offered_exams/:id/activate
   def active_exam
     if @offered_exam.update({is_active: true})
-      flash[:success] = 'Exame ativado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :enable_offered_exam_success
     else
-      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
-      redirect_to offered_exams_path
+      flash[:warning] = @offered_exam.errors.full_messages.first
     end
+    redirect_to offered_exams_path
   end
 
   #GET /offered_exams/field/id
