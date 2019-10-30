@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_143248) do
+ActiveRecord::Schema.define(version: 2019_10_30_124314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 2019_10_29_143248) do
     t.string "partial_released_report_content_type"
     t.integer "partial_released_report_file_size"
     t.datetime "partial_released_report_updated_at"
+    t.boolean "was_delayed"
+    t.integer "lag_time"
     t.index ["attendance_id"], name: "index_exams_on_attendance_id"
     t.index ["exam_status_kind_id"], name: "index_exams_on_exam_status_kind_id"
     t.index ["id"], name: "index_exams_on_id"

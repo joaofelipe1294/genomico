@@ -43,14 +43,17 @@ class IndicatorsController < ApplicationController
     exams = Exam
                 .joins(:offered_exam, :attendance)
                 .where(exam_status_kind: ExamStatusKind.COMPLETE)
-                .where("offered_exams.offered_exam_group_id = ?", 4)
-                .where("exams.finish_date BETWEEN ? AND ?", 15.days.ago, 1.day.ago) #.map { |exam| exam.attendance.patient.id }.uniq.size
+                .where("offered_exams.offered_exam_group_id = ?", 9)
+                .where("exams.finish_date BETWEEN ? AND ?", 30.days.ago, 1.day.ago) #.map { |exam| exam.attendance.patient.id }.uniq.size
     @patients = exams.includes(attendance: [:patient]).map { |exam| exam.attendance.patient }.uniq.size
     @exams_done = exams.size
     @exams_relation = {}
     offered_exams = exams.map { |exam| exam.offered_exam }.uniq
+    puts "============================="
+    offered_exams.map { |yolo| puts yolo.name }
+    puts "============================="
     offered_exams.each do |offered_exam|
-      if offered_exam.mnemonyc.present?
+      if offered_exam.mnemonyc && offered_exam.mnemonyc != ""
         @exams_relation[offered_exam.mnemonyc] = exams.where(offered_exam_id: offered_exam.id).size
       else
         @exams_relation[offered_exam.name] = exams.where(offered_exam_id: offered_exam.id).size
