@@ -6,7 +6,7 @@ class OfferedExam < ActiveRecord::Base
   validates :name, :field, :refference_date, presence: true
   after_initialize :default_params
   paginates_per 10
-  # validates_with MnemonycUniquenessCheck
+  validates_with MnemonycUniquenessCheck
 
   def show_name
     return self.mnemonyc if self.mnemonyc != "" && self.mnemonyc
