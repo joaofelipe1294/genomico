@@ -2,7 +2,9 @@ require 'rails_helper'
 require 'helpers/user'
 
 def navigate_to_edit_patient patient
-  user_do_login
+  # user_do_login
+  Rails.application.load_seed
+  imunofeno_user_do_login
   click_link id: 'patient-dropdown'
   click_link id: 'patients'
   fill_in id: 'patient-name-search', with: patient.name
@@ -18,6 +20,7 @@ def correct_expetations
 end
 
 RSpec.feature "User::Patient::Edits", type: :feature do
+  include UserLogin
 
   context 'correct single attributes' do
 
@@ -172,7 +175,9 @@ RSpec.feature "User::Patient::Edits", type: :feature do
         medical_record: '654321',
         hospital: hpp
       })
-      user_do_login
+      # user_do_login
+      Rails.application.load_seed
+			imunofeno_user_do_login
       fill_in id: 'patient-name-search', with: @duplicated.name
       click_button id: 'btn-search-patient'
       click_link class: 'patient-info', match: :first
@@ -214,7 +219,9 @@ RSpec.feature "User::Patient::Edits", type: :feature do
         medical_record: '654321',
         hospital: hpp
       })
-      user_do_login
+      # user_do_login
+      Rails.application.load_seed
+			imunofeno_user_do_login
       fill_in id: 'patient-name-search', with: @duplicated.name
       click_button id: 'btn-search-patient'
       click_link class: 'patient-info', match: :first

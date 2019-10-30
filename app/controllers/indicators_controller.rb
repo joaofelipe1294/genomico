@@ -41,11 +41,24 @@ class IndicatorsController < ApplicationController
 
   def response_time
     @offered_exam_group = OfferedExamGroup.find params[:id]
+    if params[:start_date].present?
+      start_date = params[:start_date]
+    else
+      start_date = 3.years.ago
+    end
+
+    if params[:end_date].present?
+      end_date = params[:end_date]
+    else
+      end_date = Date.today
+    end
+
+
     exams = Exam
                 .joins(:offered_exam, :attendance)
                 .where(exam_status_kind: ExamStatusKind.COMPLETE)
                 .where("offered_exams.offered_exam_group_id = ?", @offered_exam_group.id)
-                .where("exams.finish_date BETWEEN ? AND ?", 30.days.ago, 1.day.ago) #.map { |exam| exam.attendance.patient.id }.uniq.size
+                .where("exams.finish_date BETWEEN ? AND ?", start_date, end_date)
     @patients = exams.includes(attendance: [:patient]).map { |exam| exam.attendance.patient }.uniq.size
     @exams_done = exams.size
     @total_in_time = exams.where(was_late: false).size

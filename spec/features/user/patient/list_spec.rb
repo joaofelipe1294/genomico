@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'helpers/user'
 
 RSpec.feature "User::Patient::Lists", type: :feature do
+  include UserLogin
 
   context 'with registers' do
 
@@ -9,7 +10,9 @@ RSpec.feature "User::Patient::Lists", type: :feature do
       create(:patient)
       create(:patient)
       create(:patient)
-      user_do_login
+      # user_do_login
+      Rails.application.load_seed
+			imunofeno_user_do_login
       click_link(id: 'patient-dropdown')
       click_link(id: 'patients')
       expect(page).to have_current_path patients_path
@@ -40,7 +43,9 @@ RSpec.feature "User::Patient::Lists", type: :feature do
   context 'without records' do
 
     it 'search by invalid medical record' do
-      user_do_login
+      # user_do_login
+      Rails.application.load_seed
+			imunofeno_user_do_login
       click_link(id: 'patient-dropdown')
       click_link(id: 'patients')
       fill_in 'medical-record', with: '8712563876'

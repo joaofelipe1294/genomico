@@ -1,7 +1,16 @@
 <%= render 'layouts/user_navbar' %>
 
-<h1 class="text-center mt-4">
-  <%= @offered_exam_group.name %>
+<div class="mt-4">
+  <%= render 'date_search_form', locals: {search_route: response_time_path(params[:id])} %>
+</div>
+
+<hr>
+<h1 class="text-center mt-3">
+  <% if params[:start_date].present? %>
+    <%= "<label class='h1'>#{@offered_exam_group.name}<label> <label class='h3 ml-2'>(#{I18n.l params[:start_date].to_date} até #{I18n.l params[:end_date].to_date}</label>)".html_safe %>
+  <% else %>
+    <%= @offered_exam_group.name %>
+  <% end %>
 </h1>
 
 <hr>
