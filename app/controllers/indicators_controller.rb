@@ -47,24 +47,13 @@ class IndicatorsController < ApplicationController
                 .where("exams.finish_date BETWEEN ? AND ?", 30.days.ago, 1.day.ago) #.map { |exam| exam.attendance.patient.id }.uniq.size
     @patients = exams.includes(attendance: [:patient]).map { |exam| exam.attendance.patient }.uniq.size
     @exams_done = exams.size
-    @exams_relation = {}
     offered_exams = exams.map { |exam| exam.offered_exam }.uniq
-    puts "============================="
-    offered_exams.map { |yolo| puts yolo.name }
-    puts "============================="
-    offered_exams.each do |offered_exam|
-      if offered_exam.mnemonyc && offered_exam.mnemonyc != ""
-        @exams_relation[offered_exam.mnemonyc] = exams.where(offered_exam_id: offered_exam.id).size
-      else
-        @exams_relation[offered_exam.name] = exams.where(offered_exam_id: offered_exam.id).size
-      end
-    end
-
-
-
-
-
-
+    late_exams_stack = offered_exams.map { |offered_exam| [offered_exam.show_name, exams.where(offered_exam: offered_exam).where(was_late: true).size] }
+    in_time_stack = offered_exams.map { |offered_exam| [offered_exam.show_name, exams.where(offered_exam: offered_exam).where(was_late: false).size] }
+    @exams_relation = [
+      { name: "Em tempo", data: in_time_stack },
+      { name: "Com atraso", data: late_exams_stack },
+    ]
   end
 
 end

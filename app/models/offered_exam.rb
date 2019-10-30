@@ -8,8 +8,16 @@ class OfferedExam < ActiveRecord::Base
   paginates_per 10
   validates_with MnemonycUniquenessCheck
 
-  def default_params
-  	self.is_active = true if self.is_active.nil?
+  def show_name
+    return self.mnemonyc if self.mnemonyc != "" && self.mnemonyc
+    self.name
   end
+
+
+  private
+
+    def default_params
+    	self.is_active = true if self.is_active.nil?
+    end
 
 end
