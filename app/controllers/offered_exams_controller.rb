@@ -33,7 +33,7 @@ class OfferedExamsController < ApplicationController
   def create
     @offered_exam = OfferedExam.new(offered_exam_params)
     if @offered_exam.save
-      flash[:success] = 'Exame ofertado cadastrado com sucesso.'
+      flash[:success] = I18n.t :new_offered_exam_success
       redirect_to_home
     else
       set_fields
@@ -45,8 +45,8 @@ class OfferedExamsController < ApplicationController
   # PATCH/PUT /offered_exams/1.json
   def update
     if @offered_exam.update(offered_exam_params)
-      flash[:success] = 'Exame ofertado editado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :edit_offered_exam_success
+      redirect_to offered_exams_path
     else
       set_fields
       render :edit
@@ -57,23 +57,21 @@ class OfferedExamsController < ApplicationController
   # DELETE /offered_exams/1.json
   def destroy
     if @offered_exam.update({is_active: false})
-      flash[:success] = 'Exame desativado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :disable_offered_exam_success
     else
-      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
-      redirect_to offered_exams_path
+      flash[:warning] = @offered_exam.errors.full_messages.first
     end
+    redirect_to offered_exams_path
   end
 
   #POST /offered_exams/:id/activate
   def active_exam
     if @offered_exam.update({is_active: true})
-      flash[:success] = 'Exame ativado com sucesso.'
-      redirect_to_home
+      flash[:success] = I18n.t :enable_offered_exam_success
     else
-      flash[:warning] = 'Houve um erro no servidor, tente novamente mais tarde'
-      redirect_to offered_exams_path
+      flash[:warning] = @offered_exam.errors.full_messages.first
     end
+    redirect_to offered_exams_path
   end
 
   #GET /offered_exams/field/id
@@ -90,6 +88,6 @@ class OfferedExamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def offered_exam_params
-      params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date)
+      params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date, :mnemonyc)
     end
 end

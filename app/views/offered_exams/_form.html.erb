@@ -1,11 +1,10 @@
 <%= form_for(@offered_exam) do |f| %>
   <% if @offered_exam.errors.any? %>
     <div id="error_explanation">
-      <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
       <ul>
       <% @offered_exam.errors.full_messages.each do |message| %>
         <li>
-          <span class = 'text-danger error'>
+          <span class = 'error'>
             <%= message %>
           </span>
         </li>
@@ -18,6 +17,7 @@
     <%= f.label :name %>
     <%= f.text_field :name, {class: 'form-control'}%>
   </div>
+
   <div class="field form-group">
     <%= f.label :field_id %>
     <% if @offered_exam.field.nil? %>
@@ -26,10 +26,19 @@
       <%= f.select :field_id, options_from_collection_for_select(@fields, 'id', 'name', selected: @offered_exam.field.id), {}, {class: 'form-control'} %>
     <% end %>
   </div>
+
   <div class="form-group">
     <%= f.label :refference_date %>
     <%= f.number_field :refference_date, class: 'form-control' %>
   </div>
 
-  <%= render 'shared/form_button', locals: {action: locals[:action]} %>
+  <div class="form-group">
+    <%= f.label :mnemonyc %>
+    <%= f.text_field :mnemonyc, class: "form-control"%>
+  </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right" >
+    Salvar
+  </button>
+
 <% end %>
