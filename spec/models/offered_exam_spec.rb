@@ -38,6 +38,8 @@ RSpec.describe OfferedExam, type: :model do
 
 		it { should validate_presence_of(:refference_date) }
 
+		it { should belong_to :offered_exam_group }
+
 	end
 
 	context 'After_initialize' do
@@ -47,6 +49,27 @@ RSpec.describe OfferedExam, type: :model do
 			offered_exam.save
 			offered_exam = OfferedExam.find offered_exam.id
 			expect(offered_exam.is_active).to be_equal(true)
+		end
+
+	end
+
+	context "mnemonyc" do
+
+		it "without" do
+			offered_exam = build(:offered_exam, mnemonyc: "")
+			expect(offered_exam).to be_valid
+		end
+
+		it "duplicated with value" do
+			create(:offered_exam, mnemonyc: "NERV")
+			duplicated = build(:offered_exam, mnemonyc: "NERV")
+			expect(duplicated).to be_invalid
+		end
+
+		it "duplicated without value" do
+			create(:offered_exam, mnemonyc: "")
+			duplicated = build(:offered_exam, mnemonyc: "")
+			expect(duplicated).to be_valid
 		end
 
 	end

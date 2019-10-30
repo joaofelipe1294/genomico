@@ -1,0 +1,86 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="mt-4">
+  <%= render 'date_search_form', locals: {search_route: response_time_path(params[:id])} %>
+</div>
+
+<hr>
+<h1 class="text-center mt-3">
+  <% if params[:start_date].present? %>
+    <%= "<label class='h1'>#{@offered_exam_group.name}<label> <label class='h3 ml-2'>(#{I18n.l params[:start_date].to_date} até #{I18n.l params[:end_date].to_date}</label>)".html_safe %>
+  <% else %>
+    <%= @offered_exam_group.name %>
+  <% end %>
+</h1>
+
+<hr>
+<div class="row">
+  <div class="d-inline-block col-4 border-right">
+    <h2 class="text-center mt-5">
+      Pacientes: <%= @patients %>
+    </h2>
+    <h2 class="text-center mt-2">
+      Exames: <%= @exams_done %>
+    </h2>
+  </div>
+  <div class="col-4 d-inline-block">
+    <h2 class="text-center mt-5">
+      Em tempo: <%= @total_in_time %>
+    </h2>
+    <h2 class="text-center mt-2">
+      Atrasados: <%= @total_late %>
+    </h2>
+  </div>
+  <div class="col-4 d-inline-block border-left">
+    <h3>Relação de exames concluídos em tempo e atrasados</h3>
+    <%= pie_chart @pie_chart_data, width: "250px", height: "250px", legend: false %>
+  </div>
+</div>
+
+<hr>
+
+<h1 class="text-center">
+  Relação de exames atrasados
+</h1>
+
+<%= column_chart @exams_relation, stacked: true %>
+
+<hr>
+
+<h1 class="text-center mt-5">Descritivo</h1>
+<table class="table table-sm text-center table-bordered mt-2">
+  <thead class="bg-dark text-white">
+    <th>Exame</th>
+    <th>Tempo esperado</th>
+    <th>Tempo médio</th>
+    <th>Tempo mediano</th>
+    <th>Total concluídos</th>
+  </thead>
+  <tbody>
+    <% @exams_info.each do |exam_info| %>
+
+      <tr>
+        <td>
+          <%= exam_info[:name] %>
+        </td>
+        <td>
+          <%= exam_info[:reference_time] %>
+        </td>
+        <td>
+          <%= exam_info[:mean_time] %>
+        </td>
+        <td>
+          <%= exam_info[:median_time] %>
+        </td>
+        <td>
+          <%= exam_info[:total] %>
+        </td>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+  $('#chart-1').attr("style", "margin-left: 0%")
+</script>

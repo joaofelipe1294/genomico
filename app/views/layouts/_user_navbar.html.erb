@@ -84,6 +84,16 @@
           <%= link_to 'Exames concluídos', concluded_exams_path, class: 'dropdown-item', id: 'concluded-exams' %>
           <div class="dropdown-divider"></div>
           <%= link_to 'Exames feitos por plano de saúde', health_ensurances_relation_path, class: 'dropdown-item', id: 'health-ensurances-relation' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'PCR e qPCR', response_time_path(OfferedExamGroup.PCR), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Sequenciamento', response_time_path(OfferedExamGroup.SEQUENCING), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'NGS', response_time_path(OfferedExamGroup.NGS), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'Imunofeno', response_time_path(OfferedExamGroup.IMUNOFENO), class: 'dropdown-item' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to 'FISH', response_time_path(OfferedExamGroup.FISH), class: 'dropdown-item' %>
         </div>
       </li>
 
