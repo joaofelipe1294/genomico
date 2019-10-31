@@ -12,14 +12,8 @@ class IndicatorsController < ApplicationController
   end
 
   def concluded_exams
-    start_date = params[:start_date]
-    end_date = params[:end_date]
     complete_exams = Exam.joins(:offered_exam).where(exam_status_kind: ExamStatusKind.COMPLETE)
-    search_by_date = start_date.present? && end_date.present?
-    if search_by_date
-      complete_exams = complete_exams
-                                      .where("finish_date BETWEEN ? AND ?", start_date, end_date)
-    end
+    complete_exams = filter_by_date complete_exams
     @concluded_exams_cont = complete_exams.size
     @complete_exams_relation = {}
     Field.all.order(:name).each do |field|
@@ -28,14 +22,13 @@ class IndicatorsController < ApplicationController
   end
 
   def health_ensurances_relation
-    if params[:start_date].nil? || params[:end_date].nil? || params[:start_date].empty? || params[:end_date].empty?
-      @concluded_exams_cont = Exam.where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'})).size
-      @exams_relation = Exam.health_ensurance_relation
-    else
-      @concluded_exams_cont = Exam
-                                  .where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'}))
-                                  .where("finish_date BETWEEN ? AND ?", params[:start_date], params[:end_date]).size
-      @exams_relation = Exam.health_ensurance_relation params[:start_date], params[:end_date]
+    complete_exams = Exam.joins(:attendance).where(exam_status_kind: ExamStatusKind.COMPLETE)
+    complete_exams = filter_by_date complete_exams
+    @concluded_exams_cont = complete_exams.size
+    @exams_relation = {}
+    HealthEnsurance.all.order(:name).each do |health_ensurance|
+      amount_by_health_ensurance = complete_exams.where("attendances.health_ensurance_id = ?", health_ensurance.id).size
+      @exams_relation[health_ensurance.name] = amount_by_health_ensurance if amount_by_health_ensurance > 0
     end
   end
 
@@ -100,6 +93,15 @@ class IndicatorsController < ApplicationController
     sorted = array.sort
     len = sorted.length
     (sorted[(len - 1) / 2] + sorted[len / 2]) / 2
+  end
+
+  def filter_by_date exams
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    if start_date.present? && end_date.present?
+      exams = exams.where("exams.finish_date BETWEEN ? AND ?", start_date, end_date)
+    end
+    exams
   end
 
 end

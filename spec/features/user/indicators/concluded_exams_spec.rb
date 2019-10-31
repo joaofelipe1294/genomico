@@ -20,7 +20,7 @@ RSpec.feature "User::Indicators::ConcludedExams", type: :feature do
       expect(find(id: "complete-exams-count").text).to eq 0.to_s
     end
 
-    it "with one exam", js: true do
+    it "with one exam" do
       exam = Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
       navigate_to
       expect(find(id: "complete-exams-count").text).to eq 1.to_s
