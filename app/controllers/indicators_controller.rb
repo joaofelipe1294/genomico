@@ -14,16 +14,16 @@ class IndicatorsController < ApplicationController
   def concluded_exams
     start_date = params[:start_date]
     end_date = params[:end_date]
-    if start_date.present? && end_date.present?
-      @start_date = params[:start_date]
-      @end_date = params[:end_date]
-      @concluded_exams_cont = Exam
-                                  .where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'}))
-                                  .where("finish_date BETWEEN ? AND ?", start_date, end_date).size
-    else
-      @start_date = 2.years.ago
-      @end_date = 1.second.ago
-      @concluded_exams_cont = Exam.where(exam_status_kind: ExamStatusKind.find_by({name: 'Concluído'})).size
+    complete_exams = Exam.joins(:offered_exam).where(exam_status_kind: ExamStatusKind.COMPLETE)
+    search_by_date = start_date.present? && end_date.present?
+    if search_by_date
+      complete_exams = complete_exams
+                                      .where("finish_date BETWEEN ? AND ?", start_date, end_date)
+    end
+    @concluded_exams_cont = complete_exams.size
+    @complete_exams_relation = {}
+    Field.all.order(:name).each do |field|
+      @complete_exams_relation[field.name] = complete_exams.where("offered_exams.field_id = ?", field.id).size
     end
   end
 
