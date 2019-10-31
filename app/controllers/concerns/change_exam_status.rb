@@ -5,6 +5,7 @@ module ChangeExamStatus
   def completed
 		@exam.exam_status_kind = ExamStatusKinds::COMPLETE_WITHOUT_REPORT
 		@exam.finish_date = DateTime.now
+    @exam.verify_if_was_late
 		apply_changes
 	end
 

@@ -92,9 +92,43 @@ RSpec.describe Exam, type: :model do
 			expect(@exam.internal_codes.size).to eq 2
 		end
 
+	end
 
+	context "new attributes validation" do
+
+		it "without was_late" do
+			exam = build(:exam, was_late: nil)
+			expect(exam).to be_valid
+			expect(exam.was_late).to eq false
+		end
+
+		it "without lag_time" do
+			exam = build(:exam, lag_time: nil)
+			expect(exam).to be_valid
+			expect(exam.lag_time).to eq 0
+		end
 
 	end
 
+	context "check if method thad verofy dalay is okay" do
+
+		it "without delay" do
+			exam = create(:exam, offered_exam: OfferedExam.where(refference_date: 5).sample)
+			exam.finish_date = 3.days.from_now
+			exam.verify_if_was_late
+			expect(exam.was_late).to eq false
+			expect(exam.lag_time).to eq 0
+		end
+
+		it "without delay" do
+			exam = create(:exam, offered_exam: OfferedExam.where(refference_date: 5).sample)
+			exam.finish_date = 15.days.from_now
+			exam.verify_if_was_late
+			expect(exam.was_late).to eq true
+			expect(exam.lag_time).to eq 7
+		end
+
+
+	end
 
 end
