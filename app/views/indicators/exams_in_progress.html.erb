@@ -1,13 +1,7 @@
 <%= render 'layouts/user_navbar' %>
 
 <h1 class="text-center mt-5 mb-5 border-bottom">
-  Exames em andamento (<%= @exams_in_progress_count %>)
+  Exames em andamento (<span id="total"><%= @exams_in_progress_count %></span>)
 </h1>
 
-<%= pie_chart({
-  "Anatomia patológica" => Exam.in_progress_by_field("Anatomia Patológica") ,
-  "FISH" => Exam.in_progress_by_field("FISH"),
-  "Biologia Molecular" => Exam.in_progress_by_field("Biologia Molecular"),
-  "Citogenética" => Exam.in_progress_by_field("Citogenética"),
-  "Imunofenotipagem" => Exam.in_progress_by_field("Imunofenotipagem")
-  }) %>
+<%= pie_chart(@exams_relation) %>

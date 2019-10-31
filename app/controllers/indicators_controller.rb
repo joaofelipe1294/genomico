@@ -5,20 +5,19 @@ class IndicatorsController < ApplicationController
   end
 
   def exams_in_progress
-    @exams_in_progress_count = Exam.
-                                    where.not(
-                                      exam_status_kind: ExamStatusKinds::COMPLETE
-                                    ).size
+    exams = Exam
+                .joins(:offered_exam)
+                .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                .where.not(exam_status_kind: ExamStatusKind.CANCELED)
+    @exams_in_progress_count = exams.size
+    @exams_relation = generate_fields_relation exams
   end
 
   def concluded_exams
     complete_exams = Exam.joins(:offered_exam).where(exam_status_kind: ExamStatusKind.COMPLETE)
     complete_exams = filter_by_date complete_exams
     @concluded_exams_cont = complete_exams.size
-    @complete_exams_relation = {}
-    Field.all.order(:name).each do |field|
-      @complete_exams_relation[field.name] = complete_exams.where("offered_exams.field_id = ?", field.id).size
-    end
+    @complete_exams_relation = generate_fields_relation complete_exams
   end
 
   def health_ensurances_relation
@@ -102,6 +101,15 @@ class IndicatorsController < ApplicationController
       exams = exams.where("exams.finish_date BETWEEN ? AND ?", start_date, end_date)
     end
     exams
+  end
+
+  def generate_fields_relation exams
+    exams_relation = {}
+    Field.all.order(:name).each do |field|
+      amount = exams.where("offered_exams.field_id = ?", field.id).size
+      exams_relation[field.name] = amount if amount > 0
+    end
+    exams_relation
   end
 
 end

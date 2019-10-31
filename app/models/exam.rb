@@ -1,5 +1,4 @@
 class Exam < ActiveRecord::Base
-  include ExamReports
   attr_accessor :refference_label
   validates :exam_status_kind, :offered_exam, presence: true
   belongs_to :offered_exam
