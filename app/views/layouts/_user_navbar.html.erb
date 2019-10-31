@@ -85,15 +85,15 @@
           <div class="dropdown-divider"></div>
           <%= link_to 'Exames feitos por plano de saúde', health_ensurances_relation_path, class: 'dropdown-item', id: 'health-ensurances-relation' %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'PCR e qPCR', response_time_path(OfferedExamGroup.PCR), class: 'dropdown-item' %>
+          <%= link_to 'PCR e qPCR', response_time_path(OfferedExamGroup.PCR), class: 'dropdown-item', id: "pcr" %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Sequenciamento', response_time_path(OfferedExamGroup.SEQUENCING), class: 'dropdown-item' %>
+          <%= link_to 'Sequenciamento', response_time_path(OfferedExamGroup.SEQUENCING), class: 'dropdown-item', id: "sequencing" %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'NGS', response_time_path(OfferedExamGroup.NGS), class: 'dropdown-item' %>
+          <%= link_to 'NGS', response_time_path(OfferedExamGroup.NGS), class: 'dropdown-item', id: "ngs" %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'Imunofeno', response_time_path(OfferedExamGroup.IMUNOFENO), class: 'dropdown-item' %>
+          <%= link_to 'Imunofeno', response_time_path(OfferedExamGroup.IMUNOFENO), class: 'dropdown-item', id: "imunofeno" %>
           <div class="dropdown-divider"></div>
-          <%= link_to 'FISH', response_time_path(OfferedExamGroup.FISH), class: 'dropdown-item' %>
+          <%= link_to 'FISH', response_time_path(OfferedExamGroup.FISH), class: 'dropdown-item', id: "fish" %>
         </div>
       </li>
 
