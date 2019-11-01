@@ -117,7 +117,6 @@ RSpec.describe Exam, type: :model do
 			exam.finish_date = 3.days.from_now
 			exam.verify_if_was_late
 			expect(exam.was_late).to eq false
-			expect(exam.lag_time).to eq 0
 		end
 
 		it "without delay" do
@@ -125,10 +124,8 @@ RSpec.describe Exam, type: :model do
 			exam.finish_date = 15.days.from_now
 			exam.verify_if_was_late
 			expect(exam.was_late).to eq true
-			expect(exam.lag_time).to eq 7
 		end
-
-
+	
 	end
 
 end
