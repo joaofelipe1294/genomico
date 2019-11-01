@@ -17,7 +17,8 @@
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-secondary">
-        Exames aguardando início <span id="waiting-exams-number"><%= @waiting_exams[:count] %></span>
+        <%= link_to "Exames aguardando início", home_user_index_path({exam_status_kind: "waiting_start"}), class: "h4 text-secondary" %>
+        <span id="waiting-exams-number"><%= @waiting_exams[:count] %></span>
       </h4>
       <div id="exams-waiting-chart">
         <% if @waiting_exams[:count] > 0 %>
@@ -28,7 +29,8 @@
 
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
-        Exames em andamento <span id="in-progress-exams-number"><%= @exams_in_progress[:count] %></span>
+        <%= link_to "Exames em andamento", home_user_index_path({exam_status_kind: "in_progress"}), class: "h4 text-primary" %>
+        <span id="in-progress-exams-number"><%= @exams_in_progress[:count] %></span>
       </h4>
       <div>
         <% if @exams_in_progress[:count] > 0 %>
@@ -39,7 +41,8 @@
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-danger">
-        Exames atrasados <span id="delayed-exams-number"><%= @delayed_exams[:count] %></span>
+        <%= link_to "Exames atrasados", home_user_index_path({exam_status_kind: "late"}), class: "h4 text-danger" %>
+        <span id="delayed-exams-number"><%= @delayed_exams[:count] %></span>
       </h4>
       <div>
         <% if @delayed_exams[:count] > 0 %>
@@ -76,6 +79,9 @@
           Status
         </h4>
       </td>
+      <td class="h4">
+        Situação
+      </td>
       <th>
         <h4></h4>
       </th>
@@ -107,6 +113,13 @@
           </td>
           <td>
             <%= exam.exam_status_kind.display_name %>
+          </td>
+          <td>
+            <% if exam.is_late? %>
+              <label class="text-danger">Atrasado</label>
+            <% else %>
+              -
+            <% end %>
           </td>
           <td>
             <%= link_to "Exame", workflow_path(exam.attendance, {tab: "exams"}), class: 'attendance-code' %>

@@ -32,8 +32,16 @@ module HomeUserHelper
                 .where("offered_exams.field_id = ?", @user.fields.first)
                 .includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
                 .order(created_at: :asc)
-    if filter_by[:exam_status_kind_id].present?
-      issues = issues.where(exam_status_kind_id: filter_by[:exam_status_kind_id])
+    if filter_by[:exam_status_kind].present?
+      if filter_by[:exam_status_kind] == "waiting_start"
+        issues = issues.where(exam_status_kind: ExamStatusKind.WAITING_START)
+      elsif filter_by[:exam_status_kind] == "in_progress"
+        issues = issues.where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+      else
+        delayed_exams = []
+        issues.each { |exam| delayed_exams << exam if exam.is_late? }
+        issues = Exam.where(id: delayed_exams.map {|exam| exam.id})
+      end
     elsif filter_by[:offered_exam].present? && filter_by[:offered_exam] != 'Todos'
       issues = issues.where(offered_exam_id: filter_by[:offered_exam])
     else
