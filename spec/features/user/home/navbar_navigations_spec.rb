@@ -43,7 +43,7 @@ RSpec.feature "User::Home::NavbarNavigations", type: :feature do
 
     it "fish" do
       click_link 'samples-fish'
-      expect(page).to have_current_path internal_codes_path field_id: Field.FISH
+      expect(page).to have_current_path fish_internal_codes_path
     end
 
   end

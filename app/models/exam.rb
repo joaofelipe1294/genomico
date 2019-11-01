@@ -33,10 +33,20 @@ class Exam < ActiveRecord::Base
     self.change_status user_id
   end
 
+  def verify_if_was_late
+    days_took = (self.created_at.to_date..self.finish_date).select { |d| (1..5).include?(d.wday) }.size
+    if days_took > self.offered_exam.refference_date
+      self.was_late = true
+      self.lag_time = days_took - self.offered_exam.refference_date
+    end
+  end
+
   private
 
   def default_values
   	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
+    self.was_late = false unless self.was_late
+    self.lag_time = 0 unless  self.lag_time
   end
 
   def reload_issues_cache
