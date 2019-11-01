@@ -40,7 +40,7 @@ class InternalCodesController < ApplicationController
                                   includes(:sample, :attendance).
                                   where(field: Field.IMUNOFENO).
                                   order(created_at: :desc)
-    if search_code && search_code.empty? == false 
+    if search_code && search_code.empty? == false
       internal_codes = internal_codes.where(code: search_code)
     end
     @internal_codes = internal_codes.page params[:page]
@@ -60,25 +60,34 @@ class InternalCodesController < ApplicationController
 
   # GET internal_codes/biomol_internal_codes
   def biomol_internal_codes
-    subsample_kind_id = params[:subsample_kind_id]
-    internal_codes = InternalCode
-                                .where(field: Field.BIOMOL)
-                                .where.not(subsample: nil)
-                                .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
-                                .includes(:attendance)
-                                .order(created_at: :desc)
-    if subsample_kind_id && subsample_kind_id != 'Todos'
-      internal_codes = internal_codes.
-                                      joins(:subsample).
-                                      where("subsamples.subsample_kind_id = ?", subsample_kind_id)
-    end
-    @internal_codes = internal_codes.page params[:page]
+    set_internal_codes Field.BIOMOL
+  end
+
+  # GET internal_codes/fish_internal_codes
+  def fish_internal_codes
+    set_internal_codes Field.FISH
   end
 
   private
 
     def redirect_to_samples_tab
       redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
+    end
+
+    def set_internal_codes field
+      subsample_kind_id = params[:subsample_kind_id]
+      internal_codes = InternalCode
+                                  .where(field: field)
+                                  .where.not(subsample: nil)
+                                  .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                  .includes(:attendance)
+                                  .order(created_at: :desc)
+      if subsample_kind_id && subsample_kind_id != 'Todos'
+        internal_codes = internal_codes.
+                                        joins(:subsample).
+                                        where("subsamples.subsample_kind_id = ?", subsample_kind_id)
+      end
+      @internal_codes = internal_codes.page params[:page]
     end
 
 end

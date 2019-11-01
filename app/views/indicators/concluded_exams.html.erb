@@ -1,16 +1,10 @@
 <%= render 'layouts/user_navbar' %>
 
 <h1 class="text-center mt-5 mb-5 border-bottom">
-  Exames concluídos (<%= @concluded_exams_cont %>)
+  Exames concluídos (<span id="complete-exams-count"><%= @concluded_exams_cont %></span>)
 </h1>
 
-<%= pie_chart({
-  "Anatomia patológica" => Exam.complete_exams_by_field("Anatomia Patológica", @start_date, @end_date) ,
-  "FISH" => Exam.complete_exams_by_field("FISH", @start_date, @end_date),
-  "Biologia Molecular" => Exam.complete_exams_by_field("Biologia Molecular", @start_date, @end_date),
-  "Citogenética" => Exam.complete_exams_by_field("Citogenética", @start_date, @end_date),
-  "Imunofenotipagem" => Exam.complete_exams_by_field("Imunofenotipagem", @start_date, @end_date)
-  }) %>
+<%= pie_chart(@complete_exams_relation) %>
 
 <hr>
 
