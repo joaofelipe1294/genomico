@@ -9,7 +9,7 @@ class HomeUserController < ApplicationController
       @issues = helpers.find_issues filter_by: params[:offered_exam]
       @waiting_exams = helpers.waiting_exams @issues
       @exams_in_progress = helpers.exams_in_progress @issues
-      @delayed_exams = helpers.delayed_exams @issues
+      @delayed_exams = find_delayed_exams
     end
   end
 
@@ -35,5 +35,24 @@ class HomeUserController < ApplicationController
       "#e62e00", "#ff0066", "#ff0000", "#990000", "#b3003b", "#b3003b", "#b82e8a"
     ]
   end
+
+  private
+
+    def find_delayed_exams
+      exams = @issues
+                  .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
+                  .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
+      count = 0
+      exams_relation = {}
+      offered_exams = exams.map { |exam| exam.offered_exam }.uniq
+      offered_exams.each do |offered_exam|
+        open_exams = exams.where(offered_exam: offered_exam)
+        total_late_exams = 0
+        open_exams.each { |exam| total_late_exams += 1 if exam.is_late?}
+        exams_relation[offered_exam.name] = total_late_exams
+        count += total_late_exams
+      end
+      { count: count, relation: exams_relation }
+    end
 
 end
