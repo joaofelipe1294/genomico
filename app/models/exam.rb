@@ -33,6 +33,11 @@ class Exam < ActiveRecord::Base
     self.change_status user_id
   end
 
+  def is_late?
+    days_took = (self.created_at.to_date..Date.current).select { |d| (1..5).include?(d.wday) }.size
+    days_took > self.offered_exam.refference_date
+  end
+
   def verify_if_was_late
     days_took = (self.created_at.to_date..self.finish_date).select { |d| (1..5).include?(d.wday) }.size
     if days_took > self.offered_exam.refference_date
