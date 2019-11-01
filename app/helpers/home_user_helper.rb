@@ -14,6 +14,7 @@ module HomeUserHelper
     exams_in_progress = exams
                             .where.not(exam_status_kind: ExamStatusKinds::WAITING_START)
                             .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
+                            .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
     exams_in_progress_count = exams_in_progress.size
     exams_relation = exams_in_progress.group(:offered_exam).size
     relation = {}
@@ -23,43 +24,33 @@ module HomeUserHelper
     { count: exams_in_progress_count , relation: relation }
   end
 
-  def delayed_exams exams
-    exams = exams.where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
-    late_exams = []
-    exams.each do |exam|
-      created_at = exam.created_at.to_date
-      refference_date = exam.offered_exam.refference_date
-      business_days_since_creation = (created_at..Date.today).select { |d| (1..5).include?(d.wday) }.size
-      late_exams.push exam if business_days_since_creation > refference_date
-    end
-    exams_relation = {}
-    late_exams.each do |exam|
-      if exams_relation.key? exam.offered_exam.name
-        exams_relation[exam.offered_exam.name] += 1
-      else
-        exams_relation[exam.offered_exam.name] = 1
-      end
-    end
-    { count: late_exams.size, relation: exams_relation }
-  end
-
   def find_issues filter_by: nil
-    if filter_by.nil? || filter_by == 'Todos'
+    issues = Exam
+                .joins(:offered_exam, :exam_status_kind)
+                .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
+                .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
+                .where("offered_exams.field_id = ?", @user.fields.first)
+                .includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
+                .order(created_at: :asc)
+    if filter_by[:exam_status_kind].present?
+      if filter_by[:exam_status_kind] == "waiting_start"
+        issues = issues.where(exam_status_kind: ExamStatusKind.WAITING_START)
+      elsif filter_by[:exam_status_kind] == "in_progress"
+        issues = issues.where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+      else
+        delayed_exams = []
+        issues.each { |exam| delayed_exams << exam if exam.is_late? }
+        issues = Exam.where(id: delayed_exams.map {|exam| exam.id})
+      end
+    elsif filter_by[:offered_exam].present? && filter_by[:offered_exam] != 'Todos'
+      issues = issues.where(offered_exam_id: filter_by[:offered_exam])
+    else
       cache = Rails.cache.read "exams:field:#{@user.fields.first.name}"
       if cache.nil? == false && Rails.env != "test"
         issues = cache
       else
         issues = @user.fields.first.set_issues_in_cache
       end
-    else
-      issues = Exam
-                  .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
-                  .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
-                  .joins(:offered_exam)
-                  .where("offered_exams.field_id = ?", @user.fields.first)
-                  .where(offered_exam_id: filter_by)
-                  .includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
-                  .order(created_at: :asc)
     end
     issues
   end
