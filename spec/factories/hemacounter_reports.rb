@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :hemacounter_report do
-    subsample { nil }
-    valume { 1.5 }
-    leukocyte_total_count { 1.5 }
-    cellularity { 1.5 }
+    subsample { Subsample.all.sample }
+    volume { 1 }
+    leukocyte_total_count { 1 }
+    cellularity { 1 }
     pellet_leukocyte_count { 1.5 }
   end
 end

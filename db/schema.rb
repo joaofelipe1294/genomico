@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_122302) do
+ActiveRecord::Schema.define(version: 2019_11_04_131032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2019_11_04_122302) do
 
   create_table "hemacounter_reports", force: :cascade do |t|
     t.bigint "subsample_id"
-    t.float "valume"
+    t.float "volume"
     t.float "leukocyte_total_count"
     t.float "cellularity"
     t.float "pellet_leukocyte_count"
