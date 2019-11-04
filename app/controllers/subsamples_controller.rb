@@ -68,6 +68,7 @@ class SubsamplesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_subsample
       @subsample = Subsample.find(params[:id])
@@ -82,13 +83,13 @@ class SubsamplesController < ApplicationController
         :sample_id,
         :collection_date,
         qubit_report_attributes: [:id, :concentration, :_destroy],
-        nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy]
+        nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy],
+        hemacounter_report_attributes: [:id, :leukocyte_total_count, :volume, :pellet_leukocyte_count, :cellularity ,:_destroy],
       )
     end
 
     def redirect_to_workflow
       redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
     end
-
 
 end

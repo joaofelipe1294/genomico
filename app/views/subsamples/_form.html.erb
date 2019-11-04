@@ -1,16 +1,13 @@
 <%= form_for(@subsample) do |f| %>
   <% if @subsample.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@subsample.errors.count, "error") %> prohibited this subsample from being saved:</h2>
-
       <ul>
       <% @subsample.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="error"><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-
 
   <% if @subsample.refference_label.nil? %>
     <div class = 'form-group'>
@@ -81,21 +78,26 @@
       </h3>
     </div>
     <div class="card-body">
-      <%= f.fields_for :hemacounter_report do |nanodrop_fields| %>
+      <%= f.fields_for :hemacounter_report do |hemacounter_fields| %>
 
         <div class = 'form-group'>
-          <%= nanodrop_fields.label :leukocyte_total_count %>
-          <%= nanodrop_fields.number_field :leukocyte_total_count, {class: 'form-control', step: :any} %>
+          <%= hemacounter_fields.label :leukocyte_total_count %>
+          <%= hemacounter_fields.number_field :leukocyte_total_count, {class: 'form-control', step: :any} %>
         </div>
 
         <div class = 'form-group'>
-          <%= nanodrop_fields.label :volume %>
-          <%= nanodrop_fields.number_field :volume, {class: 'form-control', step: :any} %>
+          <%= hemacounter_fields.label :volume %>
+          <%= hemacounter_fields.number_field :volume, {class: 'form-control', step: :any} %>
+        </div>
+
+        <div class="form-group">
+          <%= hemacounter_fields.label :cellularity %>
+          <%= hemacounter_fields.text_field :cellularity, class: 'form-control', disabled: true %>
         </div>
 
         <div class = 'form-group'>
-          <%= nanodrop_fields.label :pellet_leukocyte_count %>
-          <%= nanodrop_fields.number_field :pellet_leukocyte_count, {class: 'form-control', step: :any} %>
+          <%= hemacounter_fields.label :pellet_leukocyte_count %>
+          <%= hemacounter_fields.number_field :pellet_leukocyte_count, {class: 'form-control', step: :any} %>
         </div>
 
       <% end %>
@@ -126,8 +128,6 @@
 <script>
   function display_hemacounter_form() {
     const subsample_kind = $("#subsample_subsample_kind_id option:selected").text()
-    console.log(subsample_kind);
-    console.log(subsample_kind === "DNA" || subsample_kind === "RNA");
     if (subsample_kind === "DNA" || subsample_kind === "RNA")
       $("#hemacounter-form").removeAttr("hidden")
     else
@@ -135,4 +135,22 @@
   }
   display_hemacounter_form()
   $("#subsample_subsample_kind_id").change(() => display_hemacounter_form())
+</script>
+
+
+<script>
+
+  function calc_volume(){
+    const leukocyte_total_count = $("#subsample_hemacounter_report_attributes_leukocyte_total_count").val()
+    const volume = $("#subsample_hemacounter_report_attributes_volume").val()
+    if (leukocyte_total_count !== "" && volume !== ""){
+      const cellularity = leukocyte_total_count * volume
+      const cellularity_formatted = cellularity.toString().replace(".", ",")
+      $("#subsample_hemacounter_report_attributes_cellularity").val(cellularity_formatted)
+    }
+  }
+
+  $("#subsample_hemacounter_report_attributes_leukocyte_total_count").blur(() => calc_volume())
+  $("#subsample_hemacounter_report_attributes_volume").blur(() => calc_volume())
+
 </script>
