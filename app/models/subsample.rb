@@ -5,8 +5,10 @@ class Subsample < ActiveRecord::Base
   belongs_to :subsample_kind
   has_one :qubit_report, dependent: :destroy
   has_one :nanodrop_report, dependent: :destroy
+  has_one :hemacounter_report, dependent: :destroy
   accepts_nested_attributes_for :qubit_report, allow_destroy: true
   accepts_nested_attributes_for :nanodrop_report, allow_destroy: true
+  accepts_nested_attributes_for :hemacounter_report, allow_destroy: true
   before_save :add_default_values
   has_many :internal_codes
   belongs_to :patient
