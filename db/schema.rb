@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_192854) do
+ActiveRecord::Schema.define(version: 2019_11_04_122302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,17 @@ ActiveRecord::Schema.define(version: 2019_11_01_192854) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_health_ensurances_on_id"
+  end
+
+  create_table "hemacounter_reports", force: :cascade do |t|
+    t.bigint "subsample_id"
+    t.float "valume"
+    t.float "leukocyte_total_count"
+    t.float "cellularity"
+    t.float "pellet_leukocyte_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subsample_id"], name: "index_hemacounter_reports_on_subsample_id"
   end
 
   create_table "hospitals", id: :serial, force: :cascade do |t|
@@ -360,6 +371,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_192854) do
   add_foreign_key "exams", "attendances"
   add_foreign_key "exams", "exam_status_kinds"
   add_foreign_key "exams", "offered_exams"
+  add_foreign_key "hemacounter_reports", "subsamples"
   add_foreign_key "internal_codes", "fields"
   add_foreign_key "internal_codes", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"
