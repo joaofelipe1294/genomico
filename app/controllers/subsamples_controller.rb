@@ -25,7 +25,8 @@ class SubsamplesController < ApplicationController
     @subsample = Subsample.new({
       sample: Sample.find(params[:id]),
       nanodrop_report: NanodropReport.new,
-      qubit_report: QubitReport.new
+      qubit_report: QubitReport.new,
+      hemacounter_report: HemacounterReport.new
     })
   end
 

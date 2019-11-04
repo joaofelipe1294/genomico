@@ -74,6 +74,34 @@
     </div>
   </div>
 
+  <div class="card mt-3" id="hemacounter-form" hidden>
+    <div class="card-header">
+      <h3 class = "text-center">
+        Hemacounter
+      </h3>
+    </div>
+    <div class="card-body">
+      <%= f.fields_for :hemacounter_report do |nanodrop_fields| %>
+
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :leukocyte_total_count %>
+          <%= nanodrop_fields.number_field :leukocyte_total_count, {class: 'form-control', step: :any} %>
+        </div>
+
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :volume %>
+          <%= nanodrop_fields.number_field :volume, {class: 'form-control', step: :any} %>
+        </div>
+
+        <div class = 'form-group'>
+          <%= nanodrop_fields.label :pellet_leukocyte_count %>
+          <%= nanodrop_fields.number_field :pellet_leukocyte_count, {class: 'form-control', step: :any} %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+
   <div class="card mb-3 mt-3">
     <div class="card-header">
       <h3 class = "text-center">
@@ -95,3 +123,16 @@
   </button>
 
 <% end %>
+<script>
+  function display_hemacounter_form() {
+    const subsample_kind = $("#subsample_subsample_kind_id option:selected").text()
+    console.log(subsample_kind);
+    console.log(subsample_kind === "DNA" || subsample_kind === "RNA");
+    if (subsample_kind === "DNA" || subsample_kind === "RNA")
+      $("#hemacounter-form").removeAttr("hidden")
+    else
+      $("#hemacounter-form").attr("hidden", "hidden")
+  }
+  display_hemacounter_form()
+  $("#subsample_subsample_kind_id").change(() => display_hemacounter_form())
+</script>
