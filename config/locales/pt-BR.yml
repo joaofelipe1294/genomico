@@ -107,6 +107,7 @@
         collection_date: Data da coleta
         subsample_kind: Tipo de subamostra
         subsample_kind_id: Tipo de Subamostra
+        observations: Observações
       qubit_report:
         concentration: Concentração
       nanodrop_report:
