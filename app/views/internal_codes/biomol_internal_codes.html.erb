@@ -19,14 +19,11 @@
     <th class="h4">
       Código Interno
     </th>
-    <th class="h4">
-      Tipo
-    </th>
-    <th class="h4">
+    <th class="h4" style="width: 15%;">
       Paciente
     </th>
     <th class="h4">
-      Coletada em
+      Coleta
     </th>
     <th class="h4">
       Concentração (Nanodrop)
@@ -40,6 +37,18 @@
     <th class="h4">
       Concentração (Qubit)
     </th>
+    <th class="h4">
+      Contagem leucócitos
+    </th>
+    <th class="h4">
+      Volume
+    </th>
+    <th class="h4">
+      Celularidade
+    </th>
+    <th class="h4">
+      Contagem pellet
+    </th>
     <th>
     </th>
   </thead>
@@ -51,10 +60,7 @@
           <%= internal_code.code %>
         </td>
         <td>
-          <%= internal_code.subsample.subsample_kind.name %>
-        </td>
-        <td>
-          <%= internal_code.subsample.patient.name %>
+          <%= internal_code.subsample.patient.first_and_last_name %>
         </td>
         <td>
           <%= l internal_code.subsample.collection_date.to_date %>
@@ -72,7 +78,19 @@
           <%= internal_code.subsample.qubit_report.concentration %>
         </td>
         <td>
-          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance) %>
+          <%= internal_code.subsample.hemacounter_report.leukocyte_total_count %>
+        </td>
+        <td>
+          <%= internal_code.subsample.hemacounter_report.volume %>
+        </td>
+        <td>
+          <%= internal_code.subsample.hemacounter_report.cellularity %>
+        </td>
+        <td>
+          <%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%>
+        </td>
+        <td>
+          <%= link_to "Atendimento", workflow_path(internal_code.attendance) %>
         </td>
       </tr>
     <% end %>
