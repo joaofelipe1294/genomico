@@ -49,6 +49,9 @@
     <th class="h5">
       <%= HemacounterReport.human_attribute_name :pellet_leukocyte_count %>
     </th>
+    <th class="h5">
+      Observações
+    </th>
     <th>
     </th>
   </thead>
@@ -88,6 +91,9 @@
         </td>
         <td>
           <%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%>
+        </td>
+        <td>
+          <%= internal_code.subsample.observations %>
         </td>
         <td>
           <%= link_to "Atendimento", workflow_path(internal_code.attendance) %>
