@@ -55,6 +55,7 @@ class SubsamplesController < ApplicationController
       flash[:success] = I18n.t :edit_subsample_success
       redirect_to_workflow
     else
+      set_subsample_kinds
       render :edit
     end
   end
