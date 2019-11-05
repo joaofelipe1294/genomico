@@ -26,6 +26,9 @@
       Coleta
     </th>
     <th class="h6">
+      Observações
+    </th>
+    <th class="h6">
       Concentração (Nanodrop)
     </th>
     <th class="h6">
@@ -49,9 +52,6 @@
     <th class="h6">
       <%= HemacounterReport.human_attribute_name :pellet_leukocyte_count %>
     </th>
-    <th class="h6">
-      Observações
-    </th>
     <th>
     </th>
   </thead>
@@ -67,6 +67,9 @@
         </td>
         <td>
           <%= l internal_code.subsample.collection_date.to_date %>
+        </td>
+        <td>
+          <%= internal_code.subsample.observations %>
         </td>
         <td>
           <%= internal_code.subsample.nanodrop_report.concentration %>
@@ -91,9 +94,6 @@
         </td>
         <td>
           <%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%>
-        </td>
-        <td>
-          <%= internal_code.subsample.observations %>
         </td>
         <td>
           <%= link_to "Atendimento", workflow_path(internal_code.attendance) %>
