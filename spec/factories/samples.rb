@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :sample do
-    sample_kind { create(:sample_kind) }
+    sample_kind { SampleKind.all.sample }
     has_subsample { Faker::Boolean.boolean }
     entry_date { Faker::Date.between(from: 22.days.ago, to: Date.today) }
     collection_date { Faker::Date.between(from: 30.days.ago, to: Date.today) }

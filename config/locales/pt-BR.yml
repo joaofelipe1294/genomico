@@ -107,6 +107,7 @@
         collection_date: Data da coleta
         subsample_kind: Tipo de subamostra
         subsample_kind_id: Tipo de Subamostra
+        observations: Observações
       qubit_report:
         concentration: Concentração
       nanodrop_report:
@@ -144,6 +145,13 @@
         unit_of_measurement: Unidade de medida
       brand:
         name: Nome
+      hemacounter_report:
+        subsample: Subamostra
+        subsample_id: Subamostra
+        volume: Volume (µl)
+        leukocyte_total_count: Leucócitos totais (10³/µl)
+        cellularity: Celularidade (10³)
+        pellet_leukocyte_count: Leucócitos pellet (10⁷)
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'

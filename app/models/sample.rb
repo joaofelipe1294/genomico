@@ -28,6 +28,4 @@ class Sample < ActiveRecord::Base
 			self.refference_label = "#{Date.today.year.to_s.slice(2, 3)}-#{sample_kind.acronym}-#{sample_kind.refference_index.to_s.rjust(4,  "0")}"
     end
 
-
-
 end
