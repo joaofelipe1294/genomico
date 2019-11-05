@@ -16,38 +16,38 @@
 
 <table class="table table-bordered text-center mt-3">
   <thead class="bg-dark text-white">
-    <th class="h4">
+    <th class="h5">
       Código Interno
     </th>
-    <th class="h4" style="width: 15%;">
+    <th class="h5" style="width: 15%;">
       Paciente
     </th>
-    <th class="h4">
+    <th class="h5">
       Coleta
     </th>
-    <th class="h4">
+    <th class="h5">
       Concentração (Nanodrop)
     </th>
-    <th class="h4">
+    <th class="h5">
       260/280
     </th>
-    <th class="h4">
+    <th class="h5">
       260/230
     </th>
-    <th class="h4">
+    <th class="h5">
       Concentração (Qubit)
     </th>
-    <th class="h4">
-      Contagem leucócitos
+    <th class="h5">
+      <%= HemacounterReport.human_attribute_name :leukocyte_total_count %>
     </th>
-    <th class="h4">
-      Volume
+    <th class="h5">
+      <%= HemacounterReport.human_attribute_name :volume %>
     </th>
-    <th class="h4">
-      Celularidade
+    <th class="h5">
+      <%= HemacounterReport.human_attribute_name :cellularity %>
     </th>
-    <th class="h4">
-      Contagem pellet
+    <th class="h5">
+      <%= HemacounterReport.human_attribute_name :pellet_leukocyte_count %>
     </th>
     <th>
     </th>

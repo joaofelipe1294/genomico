@@ -24,68 +24,66 @@ RSpec.feature "User::Workflow::Sample::EditSubsamples", type: :feature, js: true
     @new_subsample_values = generate_subsample sample: sample
   end
 
-  # it "edit subsample ok" do
-  #   setup
-  #   check_success
-  # end
+  it "edit subsample ok" do
+    setup
+    check_success
+  end
 
-  # context "nanodrop_report" do
-  #
-  #   before(:each){ setup }
-  #
-  #   after(:each){ check_success }
-  #
-  #   it "without concentration" do
-  #     @new_subsample_values.nanodrop_report.concentration = ""
-  #   end
-  #
-  #   it "rate_260_230" do
-  #     @new_subsample_values.nanodrop_report.rate_260_230 = ""
-  #   end
-  #
-  #   it "rate_260_280" do
-  #     @new_subsample_values.nanodrop_report.rate_260_280 = ""
-  #   end
-  #
-  #   it "all" do
-  #     @new_subsample_values.nanodrop_report.concentration = ""
-  #     @new_subsample_values.nanodrop_report.rate_260_230 = ""
-  #     @new_subsample_values.nanodrop_report.rate_260_280 = ""
-  #   end
-  #
-  # end
-
-  # context "qubit" do
-  #
-  #   it "without concentration" do
-  #     setup
-  #     @new_subsample_values.qubit_report.concentration = ""
-  #     check_success
-  #   end
-  #
-  # end
-
-  context "hemacounter_report" do
+  context "nanodrop_report" do
 
     before(:each){ setup }
 
+    after(:each){ check_success }
+
+    it "without concentration" do
+      @new_subsample_values.nanodrop_report.concentration = ""
+    end
+
+    it "rate_260_230" do
+      @new_subsample_values.nanodrop_report.rate_260_230 = ""
+    end
+
+    it "rate_260_280" do
+      @new_subsample_values.nanodrop_report.rate_260_280 = ""
+    end
+
+    it "all" do
+      @new_subsample_values.nanodrop_report.concentration = ""
+      @new_subsample_values.nanodrop_report.rate_260_230 = ""
+      @new_subsample_values.nanodrop_report.rate_260_280 = ""
+    end
+
+  end
+
+  context "qubit" do
+
+    it "without concentration" do
+      setup
+      @new_subsample_values.qubit_report.concentration = ""
+      check_success
+    end
+
+  end
+
+  context "hemacounter_report" do
+
+    before(:each) { setup }
+    after :each do
+      click_button id: "btn-save"
+      expect(page).to have_current_path workflow_path(@attendance, {tab: "samples"})
+      expect(find(id: "success-warning").text).to eq I18n.t :edit_subsample_success
+    end
+
     it "without leukocyte_total_count" do
       fill_in "subsample[hemacounter_report_attributes][leukocyte_total_count]", with: ""
-      click_button id: "btn-save"
-      expect(find(class: "error").text).to eq "Contagem total de leucócitos não pode ficar em branco"
     end
 
     it "without volume" do
       fill_in "subsample[hemacounter_report_attributes][volume]", with: ""
-      click_button id: "btn-save"
-      expect(find(class: "error").text).to eq "Volume não pode ficar em branco"
     end
 
     it "without pellet_leukocyte_count" do
       fill_in "subsample[hemacounter_report_attributes][pellet_leukocyte_count]", with: ""
-      click_button id: "btn-save"
-      expect(page).to have_current_path workflow_path(@attendance, {tab: "samples"})
-      expect(find(id: "success-warning").text).to eq I18n.t :edit_subsample_success
     end
 
   end
