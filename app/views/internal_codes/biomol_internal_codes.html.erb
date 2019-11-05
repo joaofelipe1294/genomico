@@ -16,38 +16,41 @@
 
 <table class="table table-bordered text-center mt-3">
   <thead class="bg-dark text-white">
-    <th class="h4">
+    <th class="h5">
       Código Interno
     </th>
-    <th class="h4" style="width: 15%;">
+    <th class="h5" style="width: 15%;">
       Paciente
     </th>
-    <th class="h4">
+    <th class="h5">
       Coleta
     </th>
-    <th class="h4">
+    <th class="h5">
       Concentração (Nanodrop)
     </th>
-    <th class="h4">
+    <th class="h5">
       260/280
     </th>
-    <th class="h4">
+    <th class="h5">
       260/230
     </th>
-    <th class="h4">
+    <th class="h5">
       Concentração (Qubit)
     </th>
-    <th class="h4">
+    <th class="h5">
       Contagem leucócitos
     </th>
-    <th class="h4">
+    <th class="h5">
       Volume
     </th>
-    <th class="h4">
+    <th class="h5">
       Celularidade
     </th>
-    <th class="h4">
+    <th class="h5">
       Contagem pellet
+    </th>
+    <th class="h5">
+      Observações
     </th>
     <th>
     </th>
@@ -88,6 +91,9 @@
         </td>
         <td>
           <%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%>
+        </td>
+        <td>
+          <%= internal_code.subsample.observations %>
         </td>
         <td>
           <%= link_to "Atendimento", workflow_path(internal_code.attendance) %>
