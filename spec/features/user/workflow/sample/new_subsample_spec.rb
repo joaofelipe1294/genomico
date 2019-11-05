@@ -97,10 +97,55 @@ RSpec.feature "User::Workflow::Sample::NewSubsamples", type: :feature, js: true 
       it "without pellet_leukocyte_count" do
         @subsample.hemacounter_report.pellet_leukocyte_count = ""
         success_confirmation
-        # fill_subsample_values @subsample
-        # click_button id: "btn-save"
-        # expect(page).to have_current_path workflow_path(@attendance, {tab: "samples"})
-        # expect(find(id: "success-warning").text).to eq I18n.t :new_subsample_success
+      end
+
+    end
+
+    context "with DNA subsample kind" do
+
+      before :each do
+        Rails.application.load_seed
+        @attendance = create(:attendance, exams: [biomol_exam])
+        biomol_user_do_login
+        visit new_sub_sample_path(@attendance.samples.sample)
+        @subsample = generate_subsample(sample: @attendance.samples.sample, subsample_kind: SubsampleKind.DNA)
+      end
+
+      after(:each){ success_confirmation }
+
+      it "without leukocyte_total_count" do
+        @subsample.hemacounter_report.leukocyte_total_count = ""
+      end
+
+      it "without volume" do
+        @subsample.hemacounter_report.volume = ""
+      end
+
+      it "without pellet_leukocyte_count" do
+        @subsample.hemacounter_report.pellet_leukocyte_count = ""
+      end
+
+    end
+
+    context "check hemacounter_report render" do
+
+      before :each do
+        Rails.application.load_seed
+        @attendance = create(:attendance, exams: [biomol_exam])
+        biomol_user_do_login
+        visit new_sub_sample_path(@attendance.samples.sample)
+      end
+
+      it "change to VIRAL_DNA" do
+        select(SubsampleKind.VIRAL_DNA.name, from: "subsample[subsample_kind_id]").select_option
+        expect(page).not_to have_selector('#hemacounter-form', visible: true)
+      end
+
+      it "change to VIRAL_DNA then RNA again" do
+        select(SubsampleKind.VIRAL_DNA.name, from: "subsample[subsample_kind_id]").select_option
+        expect(page).not_to have_selector('#hemacounter-form', visible: true)
+        select(SubsampleKind.RNA.name, from: "subsample[subsample_kind_id]").select_option
+        expect(page).to have_selector('#hemacounter-form', visible: true)
       end
 
     end
