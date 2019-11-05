@@ -23,23 +23,24 @@ RSpec.describe HemacounterReport, type: :model do
           expect(@hemacounter_report).to be_invalid
         end
 
-        it "leukocyte_total_count" do
-          @hemacounter_report = build(:hemacounter_report, leukocyte_total_count: nil)
-        end
-
         it "subsample" do
           @hemacounter_report = build(:hemacounter_report, subsample: nil)
         end
-
-        it "volume" do
-          @hemacounter_report = build(:hemacounter_report, volume: nil)
-        end
-
 
       end
 
       it "pellet_leukocyte_count" do
         hemacounter_report = build(:hemacounter_report, pellet_leukocyte_count: nil)
+        expect(hemacounter_report).to be_valid
+      end
+
+      it "leukocyte_total_count" do
+        hemacounter_report = build(:hemacounter_report, leukocyte_total_count: nil)
+        expect(hemacounter_report).to be_valid
+      end
+
+      it "volume" do
+        hemacounter_report = build(:hemacounter_report, volume: nil)
         expect(hemacounter_report).to be_valid
       end
 

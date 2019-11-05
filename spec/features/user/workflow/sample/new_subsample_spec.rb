@@ -78,25 +78,18 @@ RSpec.feature "User::Workflow::Sample::NewSubsamples", type: :feature, js: true 
 
       before(:each){ setup }
 
+      after(:each){ success_confirmation}
+
       it "without leukocyte_total_count" do
         @subsample.hemacounter_report.leukocyte_total_count = ""
-        fill_subsample_values @subsample
-        click_button id: "btn-save"
-        expect(find_all(class: "error").first.text).to eq "Contagem total de leucócitos não pode ficar em branco"
-        expect(find_all(class: "error").last.text).to eq "Celularidade não pode ficar em branco"
       end
 
       it "without volume" do
         @subsample.hemacounter_report.volume = ""
-        fill_subsample_values @subsample
-        click_button id: "btn-save"
-        expect(find_all(class: "error").first.text).to eq "Volume não pode ficar em branco"
-        expect(find_all(class: "error").last.text).to eq "Celularidade não pode ficar em branco"
       end
 
       it "without pellet_leukocyte_count" do
         @subsample.hemacounter_report.pellet_leukocyte_count = ""
-        success_confirmation
       end
 
     end
