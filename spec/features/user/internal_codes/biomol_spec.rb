@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::InternalCodes::Biomols", type: :feature do
+  include UserLogin
 
   before :each do
     Rails.application.load_seed
@@ -18,6 +18,7 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
       sample: attendance.samples.sample,
       nanodrop_report: NanodropReport.new,
       qubit_report: QubitReport.new,
+      hemacounter_report: HemacounterReport.new,
       subsample_kind: SubsampleKind.DNA
     })
   end
@@ -37,6 +38,7 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
       sample: Attendance.all.first.samples.last,
       nanodrop_report: NanodropReport.new,
       qubit_report: QubitReport.new,
+      hemacounter_report: HemacounterReport.new(volume: 2.1, leukocyte_total_count: 3),
       subsample_kind: SubsampleKind.RNA
     })
     second_internal_code = InternalCode.create(field: Field.BIOMOL, subsample: second_subsample)
@@ -62,6 +64,7 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
       sample: Attendance.all.first.samples.last,
       nanodrop_report: NanodropReport.new,
       qubit_report: QubitReport.new,
+      hemacounter_report: HemacounterReport.new(volume: 3.2, leukocyte_total_count: 2),
       subsample_kind: SubsampleKind.RNA
     })
     second_internal_code = InternalCode.create(field: Field.BIOMOL, subsample: second_subsample)

@@ -79,7 +79,7 @@ class InternalCodesController < ApplicationController
       internal_codes = InternalCode
                                   .where(field: field)
                                   .where.not(subsample: nil)
-                                  .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient])
+                                  .includes(subsample: [:subsample_kind, :qubit_report, :nanodrop_report, :patient, :hemacounter_report])
                                   .includes(:attendance)
                                   .order(created_at: :desc)
       if subsample_kind_id && subsample_kind_id != 'Todos'

@@ -10,6 +10,11 @@ class Patient < ActiveRecord::Base
 	has_many :samples
 	has_many :subsamples
 
+	def first_and_last_name
+		complete_name = self.name.split(" ")
+		"#{complete_name.first} #{complete_name.last}"
+	end
+
 	private
 
 		def medical_record_presence_validation
