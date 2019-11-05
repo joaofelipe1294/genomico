@@ -83,6 +83,7 @@ class SubsamplesController < ApplicationController
         :subsample_kind_id,
         :sample_id,
         :collection_date,
+        :observations,
         qubit_report_attributes: [:id, :concentration, :_destroy],
         nanodrop_report_attributes: [:id, :concentration, :rate_260_280, :rate_260_230, :_destroy],
         hemacounter_report_attributes: [:id, :leukocyte_total_count, :volume, :pellet_leukocyte_count, :cellularity ,:_destroy],
