@@ -2,8 +2,9 @@ module SubsampleSupport
 
   def fill_subsample_values subsample
     select(subsample.subsample_kind.name, from: "subsample[subsample_kind_id]").select_option if subsample.subsample_kind
-
     fill_in "subsample[storage_location]", with: subsample.storage_location if subsample.storage_location
+    fill_in "subsample[observations]", with: subsample.observations if subsample.observations
+
     fill_in "subsample[nanodrop_report_attributes][concentration]", with: subsample.nanodrop_report.concentration.to_s if subsample.nanodrop_report.concentration
     fill_in "subsample[nanodrop_report_attributes][rate_260_280]", with: subsample.nanodrop_report.rate_260_280 if subsample.nanodrop_report.rate_260_280
     fill_in "subsample[nanodrop_report_attributes][rate_260_230]", with: subsample.nanodrop_report.rate_260_230 if subsample.nanodrop_report.rate_260_230
@@ -20,6 +21,7 @@ module SubsampleSupport
       subsample_kind: subsample_kind,
       sample: sample,
       storage_location: "some location",
+      observations: "Turu bom",
       nanodrop_report: NanodropReport.new({
         concentration: Faker::Number.number(digits: 2),
         rate_260_280: Faker::Number.number(digits: 2),
