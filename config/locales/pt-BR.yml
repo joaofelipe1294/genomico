@@ -152,6 +152,10 @@
         leukocyte_total_count: Leucócitos totais (10³/µl)
         cellularity: Celularidade (10³)
         pellet_leukocyte_count: Leucócitos pellet (10⁷)
+      release:
+        name: Nome
+        tag: Tag
+        message: Mensagem
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'

@@ -1,37 +1,31 @@
 <%= form_with(model: release, local: true) do |form| %>
   <% if release.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(release.errors.count, "error") %> prohibited this release from being saved:</h2>
-
       <ul>
       <% release.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="error"><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :tag %>
-    <%= form.text_field :tag %>
+    <%= form.text_field :tag, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :message %>
-    <%= form.text_field :message %>
+    <%= form.text_area :message, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :is_actve %>
-    <%= form.check_box :is_actve %>
-  </div>
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>
