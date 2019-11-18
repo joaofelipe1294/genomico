@@ -1,6 +1,6 @@
 class Release < ApplicationRecord
   validates :name, :tag, :message, presence: true
-  validates :name, :tag, presence: true
+  validates :name, :tag, uniqueness: true
   before_validation :set_is_active
 
   private
