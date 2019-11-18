@@ -1,3 +1,5 @@
+<%= render 'layouts/admin_navbar' %>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Releases</h1>
@@ -19,7 +21,7 @@
         <td><%= release.name %></td>
         <td><%= release.tag %></td>
         <td><%= release.message %></td>
-        <td><%= release.is_actve %></td>
+        <td><%= release.is_active %></td>
         <td><%= link_to 'Show', release %></td>
         <td><%= link_to 'Edit', edit_release_path(release) %></td>
         <td><%= link_to 'Destroy', release, method: :delete, data: { confirm: 'Are you sure?' } %></td>

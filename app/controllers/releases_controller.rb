@@ -26,15 +26,11 @@ class ReleasesController < ApplicationController
   # POST /releases.json
   def create
     @release = Release.new(release_params)
-
-    respond_to do |format|
-      if @release.save
-        format.html { redirect_to @release, notice: 'Release was successfully created.' }
-        format.json { render :show, status: :created, location: @release }
-      else
-        format.html { render :new }
-        format.json { render json: @release.errors, status: :unprocessable_entity }
-      end
+    if @release.save
+      flash[:success] = I18n.t :new_release_success
+      redirect_to releases_path
+    else
+      render :new
     end
   end
 
