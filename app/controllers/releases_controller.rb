@@ -1,5 +1,6 @@
 class ReleasesController < ApplicationController
   before_action :set_release, only: [:show, :edit, :update, :destroy]
+  before_action :admin_filter
 
   # GET /releases
   # GET /releases.json
