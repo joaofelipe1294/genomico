@@ -4,7 +4,7 @@ class CreateReleases < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :tag
       t.string :message
-      t.boolean :is_actve
+      t.boolean :is_active
 
       t.timestamps
     end

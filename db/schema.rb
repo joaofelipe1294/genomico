@@ -272,7 +272,7 @@ ActiveRecord::Schema.define(version: 2019_11_13_171029) do
     t.string "name"
     t.string "tag"
     t.string "message"
-    t.boolean "is_actve"
+    t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
