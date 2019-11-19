@@ -5,7 +5,7 @@ class ReleasesController < ApplicationController
   # GET /releases
   # GET /releases.json
   def index
-    @releases = Release.all
+    @releases = Release.all.order(created_at: :asc)
   end
 
   # GET /releases/1
@@ -51,11 +51,7 @@ class ReleasesController < ApplicationController
   # DELETE /releases/1
   # DELETE /releases/1.json
   def destroy
-    @release.destroy
-    respond_to do |format|
-      format.html { redirect_to releases_url, notice: 'Release was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @release.release_checks.each { |release_check| release_check.update(has_confirmed: true) }
   end
 
   def confirm
