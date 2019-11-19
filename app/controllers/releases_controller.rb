@@ -1,6 +1,6 @@
 class ReleasesController < ApplicationController
   before_action :set_release, only: [:show, :edit, :update, :destroy]
-  before_action :admin_filter
+  before_action :admin_filter, except: [:confirm]
 
   # GET /releases
   # GET /releases.json
@@ -56,6 +56,12 @@ class ReleasesController < ApplicationController
       format.html { redirect_to releases_url, notice: 'Release was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def confirm
+    release_check = ReleaseCheck.find params[:id]
+    release_check.update(has_confirmed: true)
+    redirect_to home_user_index_path
   end
 
   private

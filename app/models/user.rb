@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :login, :name, :user_kind_id, presence: true
   after_initialize :default_values
   has_and_belongs_to_many :fields
+  has_many :release_checks
 
   def default_values
     self.is_active = true if self.is_active.nil?
