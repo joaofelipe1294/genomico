@@ -52,6 +52,7 @@ class ReleasesController < ApplicationController
   # DELETE /releases/1.json
   def destroy
     @release.release_checks.each { |release_check| release_check.update(has_confirmed: true) }
+    redirect_to releases_path
   end
 
   def confirm

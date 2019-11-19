@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <% @releases.each do |release| %>
-      <tr>
+      <tr class="release">
         <td>
           <%= release.name %>
         </td>
@@ -27,7 +27,7 @@
         </td>
         <td>
           <% if release.release_checks.where(has_confirmed: false).empty? == false %>
-            <%= link_to "Desativar", release_path(release), class: "btn btn-sm btn-outline-danger", method: :delete %>
+            <%= link_to "Desativar", release_path(release), class: "btn btn-sm btn-outline-danger disable-release", method: :delete %>
           <% end %>
         </td>
       </tr>
