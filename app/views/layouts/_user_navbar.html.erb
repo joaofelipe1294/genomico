@@ -112,3 +112,9 @@
 </nav>
 
 <%= render 'shared/flash_feedback' %>
+
+<% unless User.find(session[:user_id]).release_checks.where(has_confirmed: false).empty? %>
+  <div class="alert alert-info" role="alert" style="overflow: auto;" id="release-message">
+    <%= display_release_message(User.find(session[:user_id])) %>
+  </div>
+<% end %>

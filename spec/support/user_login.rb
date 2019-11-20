@@ -33,4 +33,14 @@ module UserLogin
   	click_button id: 'btn-login'
   end
 
+  def admin_do_login
+  	@user = User.create({
+  		login: 'admin',
+  		name: 'root',
+  		password: '1234',
+  		user_kind: UserKind.ADMIN
+  	})
+  	login
+  end
+
 end

@@ -1,0 +1,36 @@
+<%= render 'layouts/admin_navbar' %>
+
+<table class="table text-center mt-5">
+  <thead class="text-white bg-dark">
+    <th class="h4">
+      Nome
+    </th>
+    <th class="h4">
+      Tag
+    </th>
+    <th class="h4">
+      Mensagem
+    </th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @releases.each do |release| %>
+      <tr class="release">
+        <td>
+          <%= release.name %>
+        </td>
+        <td>
+          <%= release.tag %>
+        </td>
+        <td>
+          <%= release.message %>
+        </td>
+        <td>
+          <% if release.release_checks.where(has_confirmed: false).empty? == false %>
+            <%= link_to "Desativar", release_path(release), class: "btn btn-sm btn-outline-danger disable-release", method: :delete %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
