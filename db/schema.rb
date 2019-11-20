@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_05_192850) do
+ActiveRecord::Schema.define(version: 2019_11_18_173406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,25 @@ ActiveRecord::Schema.define(version: 2019_11_05_192850) do
     t.index ["unit_of_measurement_id"], name: "index_reagents_on_unit_of_measurement_id"
   end
 
+  create_table "release_checks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "release_id"
+    t.boolean "has_confirmed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["release_id"], name: "index_release_checks_on_release_id"
+    t.index ["user_id"], name: "index_release_checks_on_user_id"
+  end
+
+  create_table "releases", force: :cascade do |t|
+    t.string "name"
+    t.string "tag"
+    t.string "message"
+    t.boolean "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sample_kinds", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "acronym"
@@ -381,6 +400,8 @@ ActiveRecord::Schema.define(version: 2019_11_05_192850) do
   add_foreign_key "patients", "hospitals"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "reagents", "unit_of_measurements"
+  add_foreign_key "release_checks", "releases"
+  add_foreign_key "release_checks", "users"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
