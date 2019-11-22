@@ -9,7 +9,7 @@ class CreateStockEntries < ActiveRecord::Migration[5.2]
       t.date :entry_date
       t.references :current_state, foreign_key: true
       t.string :location
-      t.references :user, foreign_key: true
+      t.references :responsible, foreign_key: { to_table: 'users' }
       t.string :tag
 
       t.timestamps

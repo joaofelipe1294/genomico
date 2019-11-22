@@ -69,6 +69,6 @@ class StockEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_entry_params
-      params.require(:stock_entry).permit(:reagent_id, :lot, :shelf_life, :is_expired, :amount, :entry_date, :current_state_id, :location, :user_id, :tag)
+      params.require(:stock_entry).permit(:reagent_id, :lot, :shelf_life, :is_expired, :amount, :entry_date, :current_state_id, :location, :responsible_id, :tag)
     end
 end

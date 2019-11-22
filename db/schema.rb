@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_122035) do
+ActiveRecord::Schema.define(version: 2019_11_22_130658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -330,13 +330,14 @@ ActiveRecord::Schema.define(version: 2019_11_22_122035) do
     t.date "entry_date"
     t.bigint "current_state_id"
     t.string "location"
-    t.bigint "user_id"
+    t.bigint "responsible_id"
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "has_shelf_life"
     t.index ["current_state_id"], name: "index_stock_entries_on_current_state_id"
     t.index ["reagent_id"], name: "index_stock_entries_on_reagent_id"
-    t.index ["user_id"], name: "index_stock_entries_on_user_id"
+    t.index ["responsible_id"], name: "index_stock_entries_on_responsible_id"
   end
 
   create_table "subsample_kinds", id: :serial, force: :cascade do |t|
@@ -431,7 +432,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_122035) do
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "stock_entries", "current_states"
   add_foreign_key "stock_entries", "reagents"
-  add_foreign_key "stock_entries", "users"
+  add_foreign_key "stock_entries", "users", column: "responsible_id"
   add_foreign_key "subsamples", "patients"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"

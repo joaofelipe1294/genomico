@@ -1,14 +1,15 @@
 FactoryBot.define do
   factory :stock_entry do
-    reagent { nil }
-    lot { "MyString" }
-    shelf_life { "2019-11-22" }
+    reagent { Reagent.all.sample }
+    lot { "87612387123" }
+    has_shelf_life { true }
+    shelf_life { 2.years.from_now }
     is_expired { false }
-    amount { 1 }
-    entry_date { "2019-11-22" }
-    current_state { nil }
-    location { "MyString" }
-    user { nil }
-    tag { "MyString" }
+    amount { 250 }
+    entry_date { Date.current }
+    current_state { CurrentState.all.sample }
+    location { "Triagem" }
+    responsible { User.all.sample }
+    tag { "8716237" }
   end
 end
