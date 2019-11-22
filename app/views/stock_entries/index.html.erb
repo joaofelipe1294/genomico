@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Reagent</th>
+      <th>Lot</th>
+      <th>Shelf life</th>
+      <th>Is expired</th>
+      <th>Amount</th>
+      <th>Entry date</th>
+      <th>Current state</th>
+      <th>Location</th>
+      <th>User</th>
+      <th>Tag</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_entries.each do |stock_entry| %>
+      <tr>
+        <td><%= stock_entry.reagent %></td>
+        <td><%= stock_entry.lot %></td>
+        <td><%= stock_entry.shelf_life %></td>
+        <td><%= stock_entry.is_expired %></td>
+        <td><%= stock_entry.amount %></td>
+        <td><%= stock_entry.entry_date %></td>
+        <td><%= stock_entry.current_state %></td>
+        <td><%= stock_entry.location %></td>
+        <td><%= stock_entry.user %></td>
+        <td><%= stock_entry.tag %></td>
+        <td><%= link_to 'Show', stock_entry %></td>
+        <td><%= link_to 'Edit', edit_stock_entry_path(stock_entry) %></td>
+        <td><%= link_to 'Destroy', stock_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Entry', new_stock_entry_path %>

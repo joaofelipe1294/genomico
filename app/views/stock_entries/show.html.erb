@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reagent:</strong>
+  <%= @stock_entry.reagent %>
+</p>
+
+<p>
+  <strong>Lot:</strong>
+  <%= @stock_entry.lot %>
+</p>
+
+<p>
+  <strong>Shelf life:</strong>
+  <%= @stock_entry.shelf_life %>
+</p>
+
+<p>
+  <strong>Is expired:</strong>
+  <%= @stock_entry.is_expired %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @stock_entry.amount %>
+</p>
+
+<p>
+  <strong>Entry date:</strong>
+  <%= @stock_entry.entry_date %>
+</p>
+
+<p>
+  <strong>Current state:</strong>
+  <%= @stock_entry.current_state %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @stock_entry.location %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @stock_entry.user %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @stock_entry.tag %>
+</p>
+
+<%= link_to 'Edit', edit_stock_entry_path(@stock_entry) %> |
+<%= link_to 'Back', stock_entries_path %>

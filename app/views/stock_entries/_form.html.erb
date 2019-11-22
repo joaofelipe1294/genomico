@@ -1,0 +1,67 @@
+<%= form_with(model: stock_entry, local: true) do |form| %>
+  <% if stock_entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stock_entry.errors.count, "error") %> prohibited this stock_entry from being saved:</h2>
+
+      <ul>
+      <% stock_entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :reagent_id %>
+    <%= form.text_field :reagent_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lot %>
+    <%= form.text_field :lot %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shelf_life %>
+    <%= form.date_select :shelf_life %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_expired %>
+    <%= form.check_box :is_expired %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :entry_date %>
+    <%= form.date_select :entry_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_state_id %>
+    <%= form.text_field :current_state_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

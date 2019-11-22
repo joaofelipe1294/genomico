@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :stock_entries
   patch "releases/confirm/:id", to: "releases#confirm", as: :check_release_message
   resources :releases
   get "indicators/response_time/:id", to: "indicators#response_time", as: :response_time
