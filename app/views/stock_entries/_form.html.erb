@@ -40,6 +40,14 @@
   </div>
 
   <div class="field form-group">
+     <%= form.label :has_shelf_life %><br />
+     <%= form.label :has_shelf_life, "Sim", :value => "true" %>
+     <%= form.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
+     <%= form.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
+     <%= form.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
+   </div>
+
+  <div class="field form-group" id="shelf-life-group">
     <%= form.label :shelf_life %>
     <%= form.date_field :shelf_life, class: "form-control" %>
   </div>
@@ -114,5 +122,7 @@
   set_reagents()
   $("#fields-select").change(() => set_reagents())
   $("#reagents-select").change(() => set_unit_of_mesurement())
+  $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
+  $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
 
 </script>
