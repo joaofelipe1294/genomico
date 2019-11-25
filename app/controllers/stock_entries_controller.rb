@@ -1,5 +1,7 @@
 class StockEntriesController < ApplicationController
+  include InstanceVariableSetter
   before_action :set_stock_entry, only: [:show, :edit, :update, :destroy]
+
 
   # GET /stock_entries
   # GET /stock_entries.json
@@ -15,6 +17,16 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries/new
   def new
     @stock_entry = StockEntry.new
+    set_fields
+    @units_of_measurement = UnitOfMeasurement.all.order(:name)
+    @reagent_relation = {
+      0.to_s =>  Reagent.where(field: nil).order(:name),
+      Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
+      Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
+      Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
+      Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
+      Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
+    }
   end
 
   # GET /stock_entries/1/edit

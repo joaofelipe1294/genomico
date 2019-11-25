@@ -1,8 +1,6 @@
 <%= form_with(model: stock_entry, local: true) do |form| %>
   <% if stock_entry.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(stock_entry.errors.count, "error") %> prohibited this stock_entry from being saved:</h2>
-
       <ul>
       <% stock_entry.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,57 +9,110 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <label id="units-of-measurement" hidden>
+    <%= @units_of_measurement.to_json %>
+  </label>
+
+  <label hidden id="reagents-relation">
+    <%= @reagent_relation.to_json %>
+  </label>
+
+  <div class="field form-group">
+    <label>Áreas</label>
+    <select class="form-control" id="fields-select">
+      <option value="0">Compartilhado</option>
+      <% @fields.each do |field| %>
+        <option value="<%= field.id%>">
+          <%= field.name %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="field form-group">
     <%= form.label :reagent_id %>
-    <%= form.text_field :reagent_id %>
+    <%= form.select :reagent_id, [], {}, class: "form-control", id: "reagents-select" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :lot %>
-    <%= form.text_field :lot %>
+    <%= form.text_field :lot, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :shelf_life %>
-    <%= form.date_select :shelf_life %>
+    <%= form.date_field :shelf_life, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :is_expired %>
-    <%= form.check_box :is_expired %>
+  <div class="field form-group">
+    <%= form.label :amount %> (<span id="unit-of-measurement"></span>)
+    <%= form.number_field :amount, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.number_field :amount %>
-  </div>
-
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :entry_date %>
-    <%= form.date_select :entry_date %>
+    <%= form.date_field :entry_date, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :current_state_id %>
     <%= form.text_field :current_state_id %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :location %>
-    <%= form.text_field :location %>
+    <%= form.text_field :location, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :responsible_id %>
     <%= form.text_field :responsible_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tag %>
-    <%= form.text_field :tag %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+
+<script>
+
+  function set_reagents(){
+    const selected_field = $("#fields-select").val()
+    let reagents_relation = $('#reagents-relation').text()
+    reagents_relation = JSON.parse(reagents_relation)
+    const reagents = reagents_relation[selected_field]
+    $(".reagent").remove()
+    reagents.forEach(reagent => {
+      $("#reagents-select").append(`
+        <option value="${reagent.id}" class="reagent">
+          ${reagent.name}
+        </option>
+      `)
+      set_unit_of_mesurement()
+    })
+  }
+
+  function set_unit_of_mesurement(){
+    const current_reagent_id = $("#reagents-select").val()
+    const units_of_measurement = JSON.parse($("#units-of-measurement").text())
+    const reagents_relation = JSON.parse($("#reagents-relation").text())
+    const reagents = reagents_relation[$("#fields-select").val()]
+    let current_reagent = null
+    reagents.forEach(reagent => {
+      if (reagent.id == current_reagent_id)
+        current_reagent = reagent
+    })
+    let unit_of_measurement = null
+    units_of_measurement.forEach(unit => {
+      if (current_reagent.unit_of_measurement_id == unit.id)
+        unit_of_measurement = unit
+    })
+    $("#unit-of-measurement").text(unit_of_measurement.name)
+  }
+
+  set_reagents()
+  $("#fields-select").change(() => set_reagents())
+  $("#reagents-select").change(() => set_unit_of_mesurement())
+
+</script>
