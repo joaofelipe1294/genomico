@@ -74,4 +74,34 @@ RSpec.describe StockEntry, type: :model do
 
   end
 
+  context "default values" do
+
+    before(:each) { setup }
+
+    it "not expired" do
+      stock_entry = build(:stock_entry, shelf_life: 3.years.from_now)
+      expect(stock_entry).to be_valid
+      expect(stock_entry.is_expired).to eq false
+    end
+
+    it "expired" do
+      stock_entry = build(:stock_entry, shelf_life: 2.months.ago)
+      expect(stock_entry).to be_valid
+      expect(stock_entry.is_expired).to eq true
+    end
+
+    it "has_shelf_life = false" do
+      stock_entry = build(:stock_entry, has_shelf_life: false)
+      expect(stock_entry).to be_valid
+      expect(stock_entry.is_expired).to eq false
+    end
+
+    it "with has_shelf_life but without date" do
+      stock_entry = build(:stock_entry, has_shelf_life: true, shelf_life: nil)
+      expect(stock_entry).to be_invalid
+      expect(stock_entry.is_expired).to eq false
+    end
+
+  end
+
 end

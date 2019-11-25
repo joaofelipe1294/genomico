@@ -17,18 +17,19 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries/new
   def new
     @stock_entry = StockEntry.new
-    set_fields
-    @units_of_measurement = UnitOfMeasurement.all.order(:name)
-    @current_states = CurrentState.all.order(:name)
-    @users = User.where(user_kind: UserKind.USER).order(:login)
-    @reagent_relation = {
-      0.to_s =>  Reagent.where(field: nil).order(:name),
-      Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
-      Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
-      Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
-      Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
-      Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
-    }
+    set_instance_variables
+    # set_fields
+    # @units_of_measurement = UnitOfMeasurement.all.order(:name)
+    # @current_states = CurrentState.all.order(:name)
+    # @users = User.where(user_kind: UserKind.USER).order(:login)
+    # @reagent_relation = {
+    #   0.to_s =>  Reagent.where(field: nil).order(:name),
+    #   Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
+    #   Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
+    #   Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
+    #   Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
+    #   Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
+    # }
   end
 
   # GET /stock_entries/1/edit
@@ -40,14 +41,12 @@ class StockEntriesController < ApplicationController
   def create
     @stock_entry = StockEntry.new(stock_entry_params)
 
-    respond_to do |format|
-      if @stock_entry.save
-        format.html { redirect_to @stock_entry, notice: 'Stock entry was successfully created.' }
-        format.json { render :show, status: :created, location: @stock_entry }
-      else
-        format.html { render :new }
-        format.json { render json: @stock_entry.errors, status: :unprocessable_entity }
-      end
+    if @stock_entry.save
+      flash[:success] = I18n.t :new_stock_entry_success
+      redirect_to @stock_entry
+    else
+      set_instance_variables
+      render :new
     end
   end
 
@@ -83,6 +82,33 @@ class StockEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_entry_params
-      params.require(:stock_entry).permit(:reagent_id, :lot, :shelf_life, :is_expired, :amount, :entry_date, :current_state_id, :location, :responsible_id, :tag)
+      params.require(:stock_entry).permit(
+        :reagent_id,
+        :lot,
+        :shelf_life,
+        :is_expired,
+        :amount,
+        :entry_date,
+        :current_state_id,
+        :location,
+        :responsible_id,
+        :tag,
+        :has_shelf_life
+      )
+    end
+
+    def set_instance_variables
+      set_fields
+      @units_of_measurement = UnitOfMeasurement.all.order(:name)
+      @current_states = CurrentState.all.order(:name)
+      @users = User.where(user_kind: UserKind.USER).order(:login)
+      @reagent_relation = {
+        0.to_s =>  Reagent.where(field: nil).order(:name),
+        Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
+        Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
+        Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
+        Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
+        Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
+      }
     end
 end

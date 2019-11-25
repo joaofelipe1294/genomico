@@ -74,7 +74,7 @@
   function remove_sample_line(event){
     event.preventDefault()
     let line = event.target.parentNode.parentNode
-    let remove_indebottles_numberx = parseInt($(line).find('.index').text())
+    let remove_index = parseInt($(line).find('.index').text())
     let samples = $('#samples').val()
     samples = JSON.parse(samples)
     delete samples[remove_index]
