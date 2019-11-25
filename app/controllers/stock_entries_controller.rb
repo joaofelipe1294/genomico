@@ -19,6 +19,8 @@ class StockEntriesController < ApplicationController
     @stock_entry = StockEntry.new
     set_fields
     @units_of_measurement = UnitOfMeasurement.all.order(:name)
+    @current_states = CurrentState.all.order(:name)
+    @users = User.where(user_kind: UserKind.USER).order(:login)
     @reagent_relation = {
       0.to_s =>  Reagent.where(field: nil).order(:name),
       Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),

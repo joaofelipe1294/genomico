@@ -156,6 +156,21 @@
         name: Nome
         tag: Tag
         message: Mensagem
+      stock_entry:
+        reagent: Reagente
+        reagent_id: Reagente
+        lot: Lote
+        shelf_life: Data de validade
+        is_expired: Está vencido
+        amount: Quantidade
+        entry_date: Data de entrada
+        current_state: Estado atual
+        current_state_id: Estado atual
+        location: Localização
+        responsible: Responsável pela entrega
+        responsible_id: Responsável pela entrega
+        tag: Identificação
+        has_shelf_life: Possúi data de validade
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'

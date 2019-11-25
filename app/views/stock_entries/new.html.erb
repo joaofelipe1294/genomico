@@ -1,7 +1,12 @@
 <%= render 'layouts/user_navbar' %>
 
-<h1>New Stock Entry</h1>
-
-<%= render 'form', stock_entry: @stock_entry %>
-
-<%= link_to 'Back', stock_entries_path %>
+<div class="card col-8 offset-2 mt-4 p-0 mb-5">
+  <div class="card-header bg-info">
+    <h4 class="text-white text-center">
+      Nova entrada de estoque
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', stock_entry: @stock_entry %>
+  </div>
+</div>

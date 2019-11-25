@@ -18,7 +18,7 @@
   </label>
 
   <div class="field form-group">
-    <label>Áreas</label>
+    <label>Área</label>
     <select class="form-control" id="fields-select">
       <option value="0">Compartilhado</option>
       <% @fields.each do |field| %>
@@ -49,7 +49,7 @@
 
   <div class="field form-group" id="shelf-life-group">
     <%= form.label :shelf_life %>
-    <%= form.date_field :shelf_life, class: "form-control" %>
+    <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
   </div>
 
   <div class="field form-group">
@@ -59,12 +59,12 @@
 
   <div class="field form-group">
     <%= form.label :entry_date %>
-    <%= form.date_field :entry_date, class: "form-control" %>
+    <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
   </div>
 
   <div class="field form-group">
     <%= form.label :current_state_id %>
-    <%= form.text_field :current_state_id %>
+    <%= form.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: CurrentState.STOCK.id), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
@@ -74,14 +74,13 @@
 
   <div class="field form-group">
     <%= form.label :responsible_id %>
-    <%= form.text_field :responsible_id %>
+    <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
 <% end %>
-
 
 <script>
 
