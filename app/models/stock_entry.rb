@@ -5,7 +5,7 @@ class StockEntry < ApplicationRecord
   validates :reagent, :lot, :entry_date, :current_state, :location, :responsible, presence: true
   validates_with StockEntryShelfDateValidator
   before_validation :default_is_expired
-  before_validation :genertate_tag
+  before_create :genertate_tag
 
   private
 
@@ -24,16 +24,16 @@ class StockEntry < ApplicationRecord
 
     def genertate_tag
       return if self.reagent.nil?
-      return if self.tag.nil? == true
+      return if self.tag
       if self.reagent.field
         field_identifier = self.reagent.field.name[0, 3]
       else
         field_identifier = "ALL"
       end
       if self.reagent.field.nil?
-        counter = StockEntry.joins(:reagent).where("reagents.field_id IS NULL").size + 1
+        counter = StockEntry.joins(:reagent).where("reagents.field_id IS NULL").where(has_tag: true).size + 1
       else
-        counter = StockEntry.joins(:reagent).where("reagents.field_id = ?", self.reagent.field_id).size + 1
+        counter = StockEntry.joins(:reagent).where("reagents.field_id = ?", self.reagent.field_id).where(has_tag: true).size + 1
       end
       self.tag = "#{field_identifier}#{counter}"
     end

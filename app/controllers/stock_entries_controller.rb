@@ -1,7 +1,7 @@
 class StockEntriesController < ApplicationController
   include InstanceVariableSetter
   before_action :set_stock_entry, only: [:show, :edit, :update, :destroy]
-
+  before_action :user_filter
 
   # GET /stock_entries
   # GET /stock_entries.json
@@ -39,27 +39,27 @@ class StockEntriesController < ApplicationController
 
   # PATCH/PUT /stock_entries/1
   # PATCH/PUT /stock_entries/1.json
-  def update
-    respond_to do |format|
-      if @stock_entry.update(stock_entry_params)
-        format.html { redirect_to @stock_entry, notice: 'Stock entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @stock_entry }
-      else
-        format.html { render :edit }
-        format.json { render json: @stock_entry.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @stock_entry.update(stock_entry_params)
+  #       format.html { redirect_to @stock_entry, notice: 'Stock entry was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @stock_entry }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @stock_entry.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /stock_entries/1
   # DELETE /stock_entries/1.json
-  def destroy
-    @stock_entry.destroy
-    respond_to do |format|
-      format.html { redirect_to stock_entries_url, notice: 'Stock entry was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @stock_entry.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to stock_entries_url, notice: 'Stock entry was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

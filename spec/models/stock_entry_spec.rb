@@ -110,7 +110,7 @@ RSpec.describe StockEntry, type: :model do
 
     it "ok" do
       create(:reagent, field: Field.BIOMOL)
-      stock_entry = build(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first)
+      stock_entry = create(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
       expect(stock_entry).to be_valid
       expect(stock_entry.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
     end
@@ -122,17 +122,27 @@ RSpec.describe StockEntry, type: :model do
 
     it "distinct fields" do
       create(:reagent, field: Field.BIOMOL)
-      stock_entry_biomol = build(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first)
+      stock_entry_biomol = create(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
       create(:reagent, field: Field.IMUNOFENO)
-      stock_entry_imunofeno = build(:stock_entry, reagent: Reagent.where(field: Field.IMUNOFENO).first)
+      stock_entry_imunofeno = create(:stock_entry, reagent: Reagent.where(field: Field.IMUNOFENO).first, has_tag: true, tag: nil)
       create(:reagent, field: nil)
-      stock_entry_shared = build(:stock_entry, reagent: Reagent.where(field: nil).first)
+      stock_entry_shared = create(:stock_entry, reagent: Reagent.where(field: nil).first, has_tag: true, tag: nil)
       expect(stock_entry_biomol).to be_valid
       expect(stock_entry_imunofeno).to be_valid
       expect(stock_entry_shared).to be_valid
       expect(stock_entry_biomol.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
       expect(stock_entry_imunofeno.tag).to eq "#{Field.IMUNOFENO.name[0,3]}#{1}"
       expect(stock_entry_shared.tag).to eq "ALL#{1}"
+    end
+
+    it "same area entries" do
+      reagent = create(:reagent, field: Field.BIOMOL)
+      first_entrance = create(:stock_entry, reagent: reagent, has_tag: true, tag: nil)
+      second_entrance = create(:stock_entry, reagent: reagent, has_tag: true, tag: nil)
+      expect(first_entrance).to be_valid
+      expect(second_entrance).to be_valid
+      expect(first_entrance.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{1}"
+      expect(second_entrance.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{2}"
     end
 
   end
