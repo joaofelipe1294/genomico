@@ -77,6 +77,14 @@
     <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
   </div>
 
+  <div class="field form-group">
+     <%= form.label "Gerar identificador" %><br />
+     <%= form.label :has_tag, "Sim", :value => "true" %>
+     <%= form.radio_button :has_tag, true,  checked: true %>
+     <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
+     <%= form.radio_button :has_tag, false  %>
+   </div>
+
   <button id="btn-save" class="btn btn-outline-primary float-right">
     Salvar
   </button>

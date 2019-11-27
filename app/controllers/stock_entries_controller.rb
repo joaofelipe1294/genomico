@@ -18,18 +18,6 @@ class StockEntriesController < ApplicationController
   def new
     @stock_entry = StockEntry.new
     set_instance_variables
-    # set_fields
-    # @units_of_measurement = UnitOfMeasurement.all.order(:name)
-    # @current_states = CurrentState.all.order(:name)
-    # @users = User.where(user_kind: UserKind.USER).order(:login)
-    # @reagent_relation = {
-    #   0.to_s =>  Reagent.where(field: nil).order(:name),
-    #   Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
-    #   Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
-    #   Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
-    #   Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
-    #   Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
-    # }
   end
 
   # GET /stock_entries/1/edit
@@ -40,7 +28,6 @@ class StockEntriesController < ApplicationController
   # POST /stock_entries.json
   def create
     @stock_entry = StockEntry.new(stock_entry_params)
-
     if @stock_entry.save
       flash[:success] = I18n.t :new_stock_entry_success
       redirect_to @stock_entry
@@ -93,7 +80,8 @@ class StockEntriesController < ApplicationController
         :location,
         :responsible_id,
         :tag,
-        :has_shelf_life
+        :has_shelf_life,
+        :has_tag
       )
     end
 

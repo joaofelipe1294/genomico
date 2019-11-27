@@ -104,4 +104,37 @@ RSpec.describe StockEntry, type: :model do
 
   end
 
+  context "tag generation" do
+
+    before(:each) { setup }
+
+    it "ok" do
+      create(:reagent, field: Field.BIOMOL)
+      stock_entry = build(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first)
+      expect(stock_entry).to be_valid
+      expect(stock_entry.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
+    end
+
+    it "without reagent" do
+      stock_entry = build(:stock_entry, reagent: nil)
+      expect(stock_entry).to be_invalid
+    end
+
+    it "distinct fields" do
+      create(:reagent, field: Field.BIOMOL)
+      stock_entry_biomol = build(:stock_entry, reagent: Reagent.where(field: Field.BIOMOL).first)
+      create(:reagent, field: Field.IMUNOFENO)
+      stock_entry_imunofeno = build(:stock_entry, reagent: Reagent.where(field: Field.IMUNOFENO).first)
+      create(:reagent, field: nil)
+      stock_entry_shared = build(:stock_entry, reagent: Reagent.where(field: nil).first)
+      expect(stock_entry_biomol).to be_valid
+      expect(stock_entry_imunofeno).to be_valid
+      expect(stock_entry_shared).to be_valid
+      expect(stock_entry_biomol.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
+      expect(stock_entry_imunofeno.tag).to eq "#{Field.IMUNOFENO.name[0,3]}#{1}"
+      expect(stock_entry_shared.tag).to eq "ALL#{1}"
+    end
+
+  end
+
 end

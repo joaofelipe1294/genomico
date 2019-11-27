@@ -4,11 +4,12 @@ class StockEntry < ApplicationRecord
   belongs_to :responsible, class_name: :User
   validates :reagent, :lot, :entry_date, :current_state, :location, :responsible, presence: true
   validates_with StockEntryShelfDateValidator
-  before_validation :generate_default_values
+  before_validation :default_is_expired
+  before_validation :genertate_tag
 
   private
 
-    def generate_default_values
+    def default_is_expired
       return if self.shelf_life.nil?
       if self.has_shelf_life
         if self.shelf_life < Date.current
@@ -19,6 +20,22 @@ class StockEntry < ApplicationRecord
       else
         self.is_expired = false
       end
+    end
+
+    def genertate_tag
+      return if self.reagent.nil?
+      return if self.tag.nil? == true
+      if self.reagent.field
+        field_identifier = self.reagent.field.name[0, 3]
+      else
+        field_identifier = "ALL"
+      end
+      if self.reagent.field.nil?
+        counter = StockEntry.joins(:reagent).where("reagents.field_id IS NULL").size + 1
+      else
+        counter = StockEntry.joins(:reagent).where("reagents.field_id = ?", self.reagent.field_id).size + 1
+      end
+      self.tag = "#{field_identifier}#{counter}"
     end
 
 end
