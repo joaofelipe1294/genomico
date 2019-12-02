@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
   resources :stock_entries
   patch "releases/confirm/:id", to: "releases#confirm", as: :check_release_message
   resources :releases

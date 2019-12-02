@@ -2,8 +2,9 @@ class StockEntry < ApplicationRecord
   belongs_to :reagent
   belongs_to :current_state
   belongs_to :responsible, class_name: :User
-  validates :reagent, :lot, :entry_date, :current_state, :location, :responsible, presence: true
+  validates :reagent, :amount, :lot, :entry_date, :current_state, :location, :responsible, presence: true
   validates_with StockEntryShelfDateValidator
+  validates_with StockEntryAmountValidator
   before_validation :default_is_expired
   before_create :genertate_tag
 
@@ -25,6 +26,7 @@ class StockEntry < ApplicationRecord
     def genertate_tag
       return if self.reagent.nil?
       return if self.tag
+      return if self.has_tag == false
       if self.reagent.field
         field_identifier = self.reagent.field.name[0, 3]
       else

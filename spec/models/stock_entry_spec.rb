@@ -147,4 +147,20 @@ RSpec.describe StockEntry, type: :model do
 
   end
 
+  context "amount validation" do
+
+    before(:each) { setup }
+
+    after(:each) { expect(@stock_entry).to be_invalid }
+
+    it "wihtou amount value" do
+      @stock_entry = build(:stock_entry, amount: nil)
+    end
+
+    it "with zero on amount value" do
+      @stock_entry = build(:stock_entry, amount: 0)
+    end
+
+  end
+
 end

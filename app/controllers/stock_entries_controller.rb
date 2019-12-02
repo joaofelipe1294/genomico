@@ -30,11 +30,16 @@ class StockEntriesController < ApplicationController
     @stock_entry = StockEntry.new(stock_entry_params)
     if @stock_entry.save
       flash[:success] = I18n.t :new_stock_entry_success
-      redirect_to @stock_entry
+      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.has_tag
+      return redirect_to stock_entries_path if @stock_entry.has_tag == false
     else
       set_instance_variables
       render :new
     end
+  end
+
+  def display_new_tag
+    @stock_entry = StockEntry.find params[:id]
   end
 
   # PATCH/PUT /stock_entries/1
