@@ -14,14 +14,16 @@
         <%= f.select :offered_exam_id, options_from_collection_for_select(@offered_exams, "id", "name", selected: @exam.offered_exam.id), {}, class: 'form-control' %>
 			</div>
 
-			<div class = 'form-group'>
-				<%= f.label "Código da amostra" %>
-        <% if @exam.internal_codes.size == 2 %>
-          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @internal_codes.last.id), {}, {class: 'form-control'} %>
-        <% else %>
-          <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @exam.internal_codes.first.id), {}, {class: 'form-control'} %>
-        <% end %>
-      </div>
+      <% unless @exam.internal_codes.empty? %>
+  			<div class = 'form-group'>
+  				<%= f.label "Código da amostra" %>
+          <% if @exam.internal_codes.size == 2 %>
+            <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @internal_codes.last.id), {}, {class: 'form-control'} %>
+          <% else %>
+            <%= f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code', selected: @exam.internal_codes.first.id), {}, {class: 'form-control'} %>
+          <% end %>
+        </div>
+      <% end %>
 
 			<button id="btn-save" class='btn btn-outline-primary float-right'>
 				Salvar

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_173406) do
+ActiveRecord::Schema.define(version: 2019_11_25_150152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,12 @@ ActiveRecord::Schema.define(version: 2019_11_18_173406) do
   end
 
   create_table "brands", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "current_states", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -315,6 +321,26 @@ ActiveRecord::Schema.define(version: 2019_11_18_173406) do
     t.index ["sample_kind_id"], name: "index_samples_on_sample_kind_id"
   end
 
+  create_table "stock_entries", force: :cascade do |t|
+    t.bigint "reagent_id"
+    t.string "lot"
+    t.date "shelf_life"
+    t.boolean "is_expired"
+    t.integer "amount"
+    t.date "entry_date"
+    t.bigint "current_state_id"
+    t.string "location"
+    t.bigint "responsible_id"
+    t.string "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "has_shelf_life"
+    t.boolean "has_tag"
+    t.index ["current_state_id"], name: "index_stock_entries_on_current_state_id"
+    t.index ["reagent_id"], name: "index_stock_entries_on_reagent_id"
+    t.index ["responsible_id"], name: "index_stock_entries_on_responsible_id"
+  end
+
   create_table "subsample_kinds", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -405,6 +431,9 @@ ActiveRecord::Schema.define(version: 2019_11_18_173406) do
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
+  add_foreign_key "stock_entries", "current_states"
+  add_foreign_key "stock_entries", "reagents"
+  add_foreign_key "stock_entries", "users", column: "responsible_id"
   add_foreign_key "subsamples", "patients"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"

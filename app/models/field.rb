@@ -18,6 +18,14 @@ class Field < ActiveRecord::Base
 		Field.find_by name: 'Imunofenotipagem'
 	end
 
+	def self.ANATOMY
+		Field.find_by name: "Anatomia Patológica"
+	end
+
+	def self.CYTOGENETIC
+		Field.find_by name: "Citogenética"
+	end
+
 	def set_issues_in_cache
 		field_issues = Exam
 				.where.not(exam_status_kind: ExamStatusKinds::COMPLETE)

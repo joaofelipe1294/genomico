@@ -156,6 +156,22 @@
         name: Nome
         tag: Tag
         message: Mensagem
+      stock_entry:
+        reagent: Reagente
+        reagent_id: Reagente
+        lot: Lote
+        shelf_life: Data de validade
+        is_expired: Está vencido
+        amount: Quantidade
+        entry_date: Data de entrada
+        current_state: Estado atual
+        current_state_id: Estado atual
+        location: Localização
+        responsible: Responsável pela entrega
+        responsible_id: Responsável pela entrega
+        tag: Identificação
+        has_shelf_life: Possúi data de validade
+        has_tag: Possúi identificador
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
@@ -185,4 +201,5 @@
   disable_offered_exam_success: "Exame desabilitado com sucesso."
   enable_offered_exam_success: "Exame habilitado com sucesso."
   edit_offered_exam_success: "Exame ofertado editado com sucesso."
-  new_release_success: "Release cadastrada com sucesso"
+  new_release_success: "Release cadastrada com sucesso."
+  new_stock_entry_success: "Entrada de estoque cadastrada com sucesso."
