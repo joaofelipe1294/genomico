@@ -6,7 +6,11 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries
   # GET /stock_entries.json
   def index
-    @stock_entries = StockEntry.all
+    @stock_entries = StockEntry
+                                .all
+                                .includes(:reagent, :current_state, :responsible)
+                                .order(entry_date: :desc)
+                                .page params[:page]
   end
 
   # GET /stock_entries/1

@@ -7,6 +7,7 @@ class StockEntry < ApplicationRecord
   validates_with StockEntryAmountValidator
   before_validation :default_is_expired
   before_create :genertate_tag
+  paginates_per 10
 
   private
 
