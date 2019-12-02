@@ -77,17 +77,25 @@
     <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
   </div>
 
-  <div class="field form-group">
-     <%= form.label "Gerar identificador" %><br />
-     <%= form.label :has_tag, "Sim", :value => "true" %>
-     <%= form.radio_button :has_tag, true,  checked: true %>
-     <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
-     <%= form.radio_button :has_tag, false  %>
-   </div>
+  <% unless @stock_entry.id %>
+    <div class="field form-group">
+       <%= form.label "Gerar identificador" %><br />
+       <%= form.label :has_tag, "Sim", :value => "true" %>
+       <%= form.radio_button :has_tag, true,  checked: true %>
+       <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
+       <%= form.radio_button :has_tag, false  %>
+     </div>
+  <% end %>
 
   <button id="btn-save" class="btn btn-outline-primary float-right">
     Salvar
   </button>
+<% end %>
+
+<% if @stock_entry.reagent %>
+  <span id="edit-reagent" hidden>
+    <%= @stock_entry.reagent.to_json %>
+  </span>
 <% end %>
 
 <script>
@@ -123,7 +131,6 @@
       if (current_reagent.unit_of_measurement_id == unit.id)
         unit_of_measurement = unit
     })
-    $("#unit-of-measurement").text(unit_of_measurement.name)
   }
 
   set_reagents()
@@ -131,5 +138,16 @@
   $("#reagents-select").change(() => set_unit_of_mesurement())
   $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
   $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
+
+
+  const edit_reagent = $("#edit-reagent").text()
+  if( edit_reagent !== ""){
+    let current_reagent = JSON.parse(edit_reagent)
+    $("#fields-select").val(current_reagent.field_id)
+    $("#reagents-select").val(current_reagent.id)
+    if(<%= @stock_entry.has_shelf_life %> === false)
+      $("#shelf-life-group").attr("hidden", "true")
+    $("#tag-field").attr("hidden", "hidden")
+  }
 
 </script>
