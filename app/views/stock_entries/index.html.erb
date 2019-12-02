@@ -1,0 +1,38 @@
+<%= render 'layouts/user_navbar' %>
+
+<table class="table text-center mt-5">
+  <thead class="bg-dark text-white">
+    <tr>
+      <th>Reagente</th>
+      <th>Lote</th>
+      <th>Validade</th>
+      <th>Quantidade</th>
+      <th>Data de entrada</th>
+      <th>Estado atual</th>
+      <th>Localização</th>
+      <th>Responsável</th>
+      <th>Área</th>
+      <th>Identificação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_entries.each do |stock_entry| %>
+      <tr>
+        <td><%= stock_entry.reagent.name %></td>
+        <td><%= stock_entry.lot %></td>
+        <td><%= l stock_entry.shelf_life %></td>
+        <td><%= stock_entry.amount %></td>
+        <td><%= l stock_entry.entry_date %></td>
+        <td><%= stock_entry.current_state.name %></td>
+        <td><%= stock_entry.location %></td>
+        <td><%= stock_entry.responsible.login %></td>
+        <td><%= stock_entry.reagent.display_field %></td>
+        <td><%= stock_entry.tag %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="container pagination justify-content-center" >
+  <%= paginate @stock_entries , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+</div>

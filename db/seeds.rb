@@ -360,3 +360,9 @@ UnitOfMeasurement.create([
 	{ name: "Reações"} ,
 	{ name: "Extrações"} ,
 ])
+
+
+CurrentState.create([
+	{name: "Estoque"},
+	{name: "Em uso"}
+	])

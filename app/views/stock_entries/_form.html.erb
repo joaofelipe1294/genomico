@@ -1,0 +1,135 @@
+<%= form_with(model: stock_entry, local: true) do |form| %>
+  <% if stock_entry.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% stock_entry.errors.full_messages.each do |message| %>
+        <li class="error"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <label id="units-of-measurement" hidden>
+    <%= @units_of_measurement.to_json %>
+  </label>
+
+  <label hidden id="reagents-relation">
+    <%= @reagent_relation.to_json %>
+  </label>
+
+  <div class="field form-group">
+    <label>Área</label>
+    <select class="form-control" id="fields-select">
+      <option value="0">Compartilhado</option>
+      <% @fields.each do |field| %>
+        <option value="<%= field.id%>">
+          <%= field.name %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :reagent_id %>
+    <%= form.select :reagent_id, [], {}, class: "form-control", id: "reagents-select" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :lot %>
+    <%= form.text_field :lot, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+     <%= form.label :has_shelf_life %><br />
+     <%= form.label :has_shelf_life, "Sim", :value => "true" %>
+     <%= form.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
+     <%= form.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
+     <%= form.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
+   </div>
+
+  <div class="field form-group" id="shelf-life-group">
+    <%= form.label :shelf_life %>
+    <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :amount %> (<span id="unit-of-measurement"></span>)
+    <%= form.number_field :amount, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :entry_date %>
+    <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :current_state_id %>
+    <%= form.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: CurrentState.STOCK.id), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :responsible_id %>
+    <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+     <%= form.label "Gerar identificador" %><br />
+     <%= form.label :has_tag, "Sim", :value => "true" %>
+     <%= form.radio_button :has_tag, true,  checked: true %>
+     <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
+     <%= form.radio_button :has_tag, false  %>
+   </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
+<% end %>
+
+<script>
+
+  function set_reagents(){
+    const selected_field = $("#fields-select").val()
+    let reagents_relation = $('#reagents-relation').text()
+    reagents_relation = JSON.parse(reagents_relation)
+    const reagents = reagents_relation[selected_field]
+    $(".reagent").remove()
+    reagents.forEach(reagent => {
+      $("#reagents-select").append(`
+        <option value="${reagent.id}" class="reagent">
+          ${reagent.name}
+        </option>
+      `)
+      set_unit_of_mesurement()
+    })
+  }
+
+  function set_unit_of_mesurement(){
+    const current_reagent_id = $("#reagents-select").val()
+    const units_of_measurement = JSON.parse($("#units-of-measurement").text())
+    const reagents_relation = JSON.parse($("#reagents-relation").text())
+    const reagents = reagents_relation[$("#fields-select").val()]
+    let current_reagent = null
+    reagents.forEach(reagent => {
+      if (reagent.id == current_reagent_id)
+        current_reagent = reagent
+    })
+    let unit_of_measurement = null
+    units_of_measurement.forEach(unit => {
+      if (current_reagent.unit_of_measurement_id == unit.id)
+        unit_of_measurement = unit
+    })
+    $("#unit-of-measurement").text(unit_of_measurement.name)
+  }
+
+  set_reagents()
+  $("#fields-select").change(() => set_reagents())
+  $("#reagents-select").change(() => set_unit_of_mesurement())
+  $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
+  $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
+
+</script>
