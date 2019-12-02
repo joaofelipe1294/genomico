@@ -21,7 +21,13 @@
       <tr>
         <td><%= stock_entry.reagent.name %></td>
         <td><%= stock_entry.lot %></td>
-        <td><%= l stock_entry.shelf_life %></td>
+        <td>
+          <% if stock_entry.has_shelf_life %>
+            <%= l stock_entry.shelf_life %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td><%= stock_entry.amount %></td>
         <td><%= l stock_entry.entry_date %></td>
         <td><%= stock_entry.current_state.name %></td>
