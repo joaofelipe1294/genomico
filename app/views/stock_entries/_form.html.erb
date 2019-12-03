@@ -143,6 +143,7 @@
       if (current_reagent.unit_of_measurement_id == unit.id)
         unit_of_measurement = unit
     })
+    $("#unit-of-measurement").text(unit_of_measurement.name)
   }
 
   set_reagents()
@@ -151,14 +152,12 @@
   $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
   $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
 
-
-  const edit_reagent = $("#edit-reagent").text()
-  if( edit_reagent !== ""){
-    console.log("Tchiolo");
-    let current_reagent = JSON.parse(edit_reagent)
+  if( $("#edit-reagent").text() !== "" ){
+    let current_reagent = JSON.parse($("#edit-reagent").text())
     $("#fields-select").val(current_reagent.field_id)
     set_reagents()
     $("#reagents-select").val(current_reagent.id)
+    set_unit_of_mesurement()
     $("#tag-field").attr("hidden", "hidden")
   }
 
