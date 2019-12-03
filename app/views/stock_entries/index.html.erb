@@ -13,15 +13,22 @@
       <th>Responsável</th>
       <th>Área</th>
       <th>Identificação</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @stock_entries.each do |stock_entry| %>
-      <tr>
+      <tr class="stock-entry">
         <td><%= stock_entry.reagent.name %></td>
         <td><%= stock_entry.lot %></td>
-        <td><%= l stock_entry.shelf_life %></td>
+        <td class="shelf-life">
+          <% if stock_entry.has_shelf_life %>
+            <%= l stock_entry.shelf_life %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td><%= stock_entry.amount %></td>
         <td><%= l stock_entry.entry_date %></td>
         <td><%= stock_entry.current_state.name %></td>
@@ -29,6 +36,9 @@
         <td><%= stock_entry.responsible.login %></td>
         <td><%= stock_entry.reagent.display_field %></td>
         <td><%= stock_entry.tag %></td>
+        <td>
+          <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

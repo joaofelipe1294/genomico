@@ -47,9 +47,17 @@
      <%= form.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
    </div>
 
-  <div class="field form-group" id="shelf-life-group">
+  <% if @stock_entry.has_shelf_life == false %>
+    <div class="field form-group" id="shelf-life-group" hidden>
+  <% else %>
+    <div class="field form-group" id="shelf-life-group">
+  <% end %>
     <%= form.label :shelf_life %>
-    <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
+    <% if @stock_entry.shelf_life %>
+      <%= form.date_field :shelf_life, class: "form-control", value: @stock_entry.shelf_life %>
+    <% else %>
+      <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
+    <% end %>
   </div>
 
   <div class="field form-group">
@@ -59,7 +67,11 @@
 
   <div class="field form-group">
     <%= form.label :entry_date %>
-    <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+    <% if @stock_entry.entry_date %>
+      <%= form.date_field :entry_date, class: "form-control", value: @stock_entry.entry_date %>
+    <% else %>
+      <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+    <% end %>
   </div>
 
   <div class="field form-group">
@@ -77,17 +89,25 @@
     <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
   </div>
 
-  <div class="field form-group">
-     <%= form.label "Gerar identificador" %><br />
-     <%= form.label :has_tag, "Sim", :value => "true" %>
-     <%= form.radio_button :has_tag, true,  checked: true %>
-     <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
-     <%= form.radio_button :has_tag, false  %>
-   </div>
+  <% unless @stock_entry.id %>
+    <div class="field form-group">
+       <%= form.label "Gerar identificador" %><br />
+       <%= form.label :has_tag, "Sim", :value => "true" %>
+       <%= form.radio_button :has_tag, true,  checked: true %>
+       <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
+       <%= form.radio_button :has_tag, false  %>
+     </div>
+  <% end %>
 
   <button id="btn-save" class="btn btn-outline-primary float-right">
     Salvar
   </button>
+<% end %>
+
+<% if @stock_entry.reagent %>
+  <span id="edit-reagent" hidden>
+    <%= @stock_entry.reagent.to_json %>
+  </span>
 <% end %>
 
 <script>
@@ -131,5 +151,14 @@
   $("#reagents-select").change(() => set_unit_of_mesurement())
   $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
   $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
+
+  if( $("#edit-reagent").text() !== "" ){
+    let current_reagent = JSON.parse($("#edit-reagent").text())
+    $("#fields-select").val(current_reagent.field_id)
+    set_reagents()
+    $("#reagents-select").val(current_reagent.id)
+    set_unit_of_mesurement()
+    $("#tag-field").attr("hidden", "hidden")
+  }
 
 </script>
