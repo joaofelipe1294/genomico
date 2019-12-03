@@ -2,6 +2,7 @@ class StockEntriesController < ApplicationController
   include InstanceVariableSetter
   before_action :set_stock_entry, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
+  before_action :set_instance_variables, only: [:new, :edit]
 
   # GET /stock_entries
   # GET /stock_entries.json
@@ -21,7 +22,6 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries/new
   def new
     @stock_entry = StockEntry.new
-    set_instance_variables
   end
 
   # GET /stock_entries/1/edit
@@ -48,17 +48,16 @@ class StockEntriesController < ApplicationController
 
   # PATCH/PUT /stock_entries/1
   # PATCH/PUT /stock_entries/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @stock_entry.update(stock_entry_params)
-  #       format.html { redirect_to @stock_entry, notice: 'Stock entry was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @stock_entry }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @stock_entry.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    if @stock_entry.update(stock_entry_params)
+      flash[:success] = I18n.t :edit_stock_entry_success
+      redirect_to stock_entries_path
+    else
+      set_instance_variables
+      render :edit
+    end
+
+  end
 
   # DELETE /stock_entries/1
   # DELETE /stock_entries/1.json

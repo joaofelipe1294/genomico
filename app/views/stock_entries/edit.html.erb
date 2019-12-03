@@ -1,6 +1,13 @@
-<h1>Editing Stock Entry</h1>
+<%= render 'layouts/user_navbar' %>
 
-<%= render 'form', stock_entry: @stock_entry %>
 
-<%= link_to 'Show', @stock_entry %> |
-<%= link_to 'Back', stock_entries_path %>
+<div class="card col-8 offset-2 mt-5 p-0">
+  <div class="card-header bg-secondary">
+    <h4 class="text-white text-center">
+      Editar Entrada de estoque
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', stock_entry: @stock_entry %>
+  </div>
+</div>
