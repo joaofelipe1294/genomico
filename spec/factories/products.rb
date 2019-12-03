@@ -1,17 +1,17 @@
 FactoryBot.define do
   factory :product do
-    reagent { nil }
-    lot { "MyString" }
-    shelf_life { "MyString" }
+    reagent { Reagent.all.sample }
+    lot { "987123kjabsd" }
+    shelf_life { 3.years.from_now }
     is_expired { false }
     amount { 1 }
-    current_state { nil }
-    location { "MyString" }
-    tag { "MyString" }
-    has_shelf_life { false }
-    has_tag { false }
-    open_at { "2019-12-03" }
-    finished_at { "2019-12-03" }
+    current_state { CurrentState.STOCK }
+    location { "Santuario" }
+    tag { "BIO1" }
+    has_shelf_life { true }
+    has_tag { true }
+    open_at { 3.months.ago }
+    finished_at { nil }
     stock_entry { nil }
   end
 end

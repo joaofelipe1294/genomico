@@ -3,7 +3,7 @@ class CreateProducts < ActiveRecord::Migration[5.2]
     create_table :products do |t|
       t.references :reagent, foreign_key: true
       t.string :lot
-      t.string :shelf_life
+      t.date :shelf_life
       t.boolean :is_expired
       t.integer :amount
       t.references :current_state, foreign_key: true

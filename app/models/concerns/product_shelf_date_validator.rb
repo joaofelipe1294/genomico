@@ -1,4 +1,4 @@
-class StockEntryShelfDateValidator < ActiveModel::Validator
+class ProductShelfDateValidator < ActiveModel::Validator
 
   def validate record
     if record.has_shelf_life == true && record.shelf_life.nil?
