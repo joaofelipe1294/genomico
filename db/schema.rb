@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_150152) do
+ActiveRecord::Schema.define(version: 2019_12_03_174050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,27 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
     t.index ["name"], name: "index_patients_on_name"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "reagent_id"
+    t.string "lot"
+    t.string "shelf_life"
+    t.boolean "is_expired"
+    t.integer "amount"
+    t.bigint "current_state_id"
+    t.string "location"
+    t.string "tag"
+    t.boolean "has_shelf_life"
+    t.boolean "has_tag"
+    t.date "open_at"
+    t.date "finished_at"
+    t.bigint "stock_entry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["current_state_id"], name: "index_products_on_current_state_id"
+    t.index ["reagent_id"], name: "index_products_on_reagent_id"
+    t.index ["stock_entry_id"], name: "index_products_on_stock_entry_id"
+  end
+
   create_table "qubit_reports", id: :serial, force: :cascade do |t|
     t.float "concentration"
     t.integer "subsample_id"
@@ -424,6 +445,9 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "offered_exams", "offered_exam_groups"
   add_foreign_key "patients", "hospitals"
+  add_foreign_key "products", "current_states"
+  add_foreign_key "products", "reagents"
+  add_foreign_key "products", "stock_entries"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "reagents", "unit_of_measurements"
   add_foreign_key "release_checks", "releases"
