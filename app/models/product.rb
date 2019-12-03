@@ -33,9 +33,9 @@ class Product < ApplicationRecord
         field_identifier = "ALL"
       end
       if self.reagent.field.nil?
-        counter = StockEntry.joins(:reagent).where("reagents.field_id IS NULL").where(has_tag: true).size + 1
+        counter = Product.joins(:reagent).where("reagents.field_id IS NULL").where(has_tag: true).size + 1
       else
-        counter = StockEntry.joins(:reagent).where("reagents.field_id = ?", self.reagent.field_id).where(has_tag: true).size + 1
+        counter = Product.joins(:reagent).where("reagents.field_id = ?", self.reagent.field_id).where(has_tag: true).size + 1
       end
       self.tag = "#{field_identifier}#{counter}"
     end
