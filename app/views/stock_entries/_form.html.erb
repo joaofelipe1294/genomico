@@ -47,9 +47,17 @@
      <%= form.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
    </div>
 
-  <div class="field form-group" id="shelf-life-group">
+  <% if @stock_entry.has_shelf_life == false %>
+    <div class="field form-group" id="shelf-life-group" hidden>
+  <% else %>
+    <div class="field form-group" id="shelf-life-group">
+  <% end %>
     <%= form.label :shelf_life %>
-    <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
+    <% if @stock_entry.shelf_life %>
+      <%= form.date_field :shelf_life, class: "form-control", value: @stock_entry.shelf_life %>
+    <% else %>
+      <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
+    <% end %>
   </div>
 
   <div class="field form-group">
@@ -59,7 +67,11 @@
 
   <div class="field form-group">
     <%= form.label :entry_date %>
-    <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+    <% if @stock_entry.entry_date %>
+      <%= form.date_field :entry_date, class: "form-control", value: @stock_entry.entry_date %>
+    <% else %>
+      <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+    <% end %>
   </div>
 
   <div class="field form-group">
@@ -142,11 +154,11 @@
 
   const edit_reagent = $("#edit-reagent").text()
   if( edit_reagent !== ""){
+    console.log("Tchiolo");
     let current_reagent = JSON.parse(edit_reagent)
     $("#fields-select").val(current_reagent.field_id)
+    set_reagents()
     $("#reagents-select").val(current_reagent.id)
-    if(<%= @stock_entry.has_shelf_life %> === false)
-      $("#shelf-life-group").attr("hidden", "true")
     $("#tag-field").attr("hidden", "hidden")
   }
 

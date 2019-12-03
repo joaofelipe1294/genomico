@@ -50,6 +50,7 @@ class StockEntriesController < ApplicationController
   # PATCH/PUT /stock_entries/1.json
   def update
     if @stock_entry.update(stock_entry_params)
+      flash[:success] = I18n.t :edit_stock_entry_success
       redirect_to stock_entries_path
     else
       set_instance_variables
