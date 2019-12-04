@@ -1,5 +1,12 @@
-<h1>New Stock Product</h1>
+<%= render 'layouts/user_navbar' %>
 
-<%= render 'form', stock_product: @stock_product %>
-
-<%= link_to 'Back', stock_products_path %>
+<div class="card col-8 p-0 offset-2 mt-5">
+  <div class="card-header bg-info">
+    <h4 class="text-center text-white">
+      Cadastrar produto
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', stock_product: @stock_product %>
+  </div>
+</div>
