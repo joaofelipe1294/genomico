@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stock_product.name %>
+</p>
+
+<p>
+  <strong>Usage per test:</strong>
+  <%= @stock_product.usage_per_test %>
+</p>
+
+<p>
+  <strong>Total aviable:</strong>
+  <%= @stock_product.total_aviable %>
+</p>
+
+<p>
+  <strong>First warn at:</strong>
+  <%= @stock_product.first_warn_at %>
+</p>
+
+<p>
+  <strong>Danger warn at:</strong>
+  <%= @stock_product.danger_warn_at %>
+</p>
+
+<p>
+  <strong>Mv code:</strong>
+  <%= @stock_product.mv_code %>
+</p>
+
+<p>
+  <strong>Unit of measurement:</strong>
+  <%= @stock_product.unit_of_measurement %>
+</p>
+
+<p>
+  <strong>Field:</strong>
+  <%= @stock_product.field %>
+</p>
+
+<p>
+  <strong>Is shared:</strong>
+  <%= @stock_product.is_shared %>
+</p>
+
+<%= link_to 'Edit', edit_stock_product_path(@stock_product) %> |
+<%= link_to 'Back', stock_products_path %>

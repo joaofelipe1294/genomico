@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Usage per test</th>
+      <th>Total aviable</th>
+      <th>First warn at</th>
+      <th>Danger warn at</th>
+      <th>Mv code</th>
+      <th>Unit of measurement</th>
+      <th>Field</th>
+      <th>Is shared</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_products.each do |stock_product| %>
+      <tr>
+        <td><%= stock_product.name %></td>
+        <td><%= stock_product.usage_per_test %></td>
+        <td><%= stock_product.total_aviable %></td>
+        <td><%= stock_product.first_warn_at %></td>
+        <td><%= stock_product.danger_warn_at %></td>
+        <td><%= stock_product.mv_code %></td>
+        <td><%= stock_product.unit_of_measurement %></td>
+        <td><%= stock_product.field %></td>
+        <td><%= stock_product.is_shared %></td>
+        <td><%= link_to 'Show', stock_product %></td>
+        <td><%= link_to 'Edit', edit_stock_product_path(stock_product) %></td>
+        <td><%= link_to 'Destroy', stock_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Product', new_stock_product_path %>

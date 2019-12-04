@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_03_183343) do
+ActiveRecord::Schema.define(version: 2019_12_04_162304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -352,6 +352,22 @@ ActiveRecord::Schema.define(version: 2019_12_03_183343) do
     t.index ["responsible_id"], name: "index_stock_entries_on_responsible_id"
   end
 
+  create_table "stock_products", force: :cascade do |t|
+    t.string "name"
+    t.integer "usage_per_test"
+    t.integer "total_aviable"
+    t.integer "first_warn_at"
+    t.integer "danger_warn_at"
+    t.string "mv_code"
+    t.bigint "unit_of_measurement_id"
+    t.bigint "field_id"
+    t.boolean "is_shared"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_stock_products_on_field_id"
+    t.index ["unit_of_measurement_id"], name: "index_stock_products_on_unit_of_measurement_id"
+  end
+
   create_table "subsample_kinds", id: :serial, force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -446,6 +462,8 @@ ActiveRecord::Schema.define(version: 2019_12_03_183343) do
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
   add_foreign_key "stock_entries", "users", column: "responsible_id"
+  add_foreign_key "stock_products", "fields"
+  add_foreign_key "stock_products", "unit_of_measurements"
   add_foreign_key "subsamples", "patients"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"

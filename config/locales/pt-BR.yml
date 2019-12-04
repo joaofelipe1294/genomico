@@ -170,7 +170,7 @@
         responsible: Responsável pela entrega
         responsible_id: Responsável pela entrega
         tag: Identificação
-        has_shelf_life: Possúi data de validade
+        has_shelf_life: Possui data de validade
         has_tag: Possui identificador
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
