@@ -172,6 +172,18 @@
         tag: Identificação
         has_shelf_life: Possui data de validade
         has_tag: Possui identificador
+      stock_product:
+        name: Nome
+        usage_per_test: Uso por teste
+        total_aviable: Total disponível
+        first_warn_at: Primeiro aviso
+        danger_warn_at: Segundo aviso
+        mv_code: Código MV
+        unit_of_measurement: Unidade de controle
+        unit_of_measurement_id: Unidade de controle
+        field: Setor
+        field_id: Setor
+        is_shared: É compartilhado
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
