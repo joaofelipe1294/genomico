@@ -14,6 +14,7 @@ class CreateProducts < ActiveRecord::Migration[5.2]
       t.date :open_at
       t.date :finished_at
       t.references :stock_entry, foreign_key: true
+      t.references :brand, foreign_key: true
 
       t.timestamps
     end

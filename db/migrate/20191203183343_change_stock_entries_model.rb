@@ -11,10 +11,12 @@ class ChangeStockEntriesModel < ActiveRecord::Migration[5.2]
         location: stock_entry.location,
         tag: stock_entry.tag,
         has_shelf_life: stock_entry.has_shelf_life,
-        has_tag: stock_entry.has_tag
+        has_tag: stock_entry.has_tag,
+        brand: stock_entry.reagent.brand,
+        stock_entry: stock_entry
       })
     end
-    remove_reference :stock_entries, :reagent
+    # remove_reference :stock_entries, :reagent
     remove_column :stock_entries, :lot
     remove_column :stock_entries, :shelf_life
     remove_column :stock_entries, :is_expired
