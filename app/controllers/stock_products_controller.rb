@@ -15,6 +15,8 @@ class StockProductsController < ApplicationController
   # GET /stock_products/new
   def new
     @stock_product = StockProduct.new
+    @unit_of_measurements = UnitOfMeasurement.all.order(:name)
+    @fields = Field.all.order(:name)
   end
 
   # GET /stock_products/1/edit

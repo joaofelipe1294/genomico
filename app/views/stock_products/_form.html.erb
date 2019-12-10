@@ -1,59 +1,57 @@
 <%= form_with(model: stock_product, local: true) do |form| %>
   <% if stock_product.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(stock_product.errors.count, "error") %> prohibited this stock_product from being saved:</h2>
-
       <ul>
       <% stock_product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li class="error"><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :usage_per_test %>
-    <%= form.number_field :usage_per_test %>
-  </div>
-
-  <div class="field">
-    <%= form.label :total_aviable %>
-    <%= form.number_field :total_aviable %>
-  </div>
-
-  <div class="field">
-    <%= form.label :first_warn_at %>
-    <%= form.number_field :first_warn_at %>
-  </div>
-
-  <div class="field">
-    <%= form.label :danger_warn_at %>
-    <%= form.number_field :danger_warn_at %>
-  </div>
-
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :mv_code %>
-    <%= form.text_field :mv_code %>
+    <%= form.text_field :mv_code, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :unit_of_measurement_id %>
-    <%= form.text_field :unit_of_measurement_id %>
-  </div>
-
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :field_id %>
-    <%= form.text_field :field_id %>
+    <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :is_shared %>
     <%= form.check_box :is_shared %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :unit_of_measurement_id %>
+    <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name"), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :usage_per_test %>
+    <%= form.number_field :usage_per_test, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :total_aviable %>
+    <%= form.number_field :total_aviable, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :first_warn_at %>
+    <%= form.number_field :first_warn_at, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :danger_warn_at %>
+    <%= form.number_field :danger_warn_at, class: "form-control" %>
   </div>
 
   <div class="actions">
