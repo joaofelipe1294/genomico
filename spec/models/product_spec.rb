@@ -5,7 +5,8 @@ RSpec.describe Product, type: :model do
     def setup
       Rails.application.load_seed
       create(:user)
-      create(:reagent)
+      create(:brand)
+      create(:stock_product)
     end
 
     before(:each) { setup }
@@ -21,8 +22,8 @@ RSpec.describe Product, type: :model do
 
       after(:each) { expect(@product).to be_invalid }
 
-      it "reagent" do
-        @product.reagent = nil
+      it "stock_product" do
+        @product.stock_product = nil
       end
 
       it "lot" do
@@ -101,24 +102,24 @@ RSpec.describe Product, type: :model do
       before(:each) { setup }
 
       it "ok" do
-        create(:reagent, field: Field.BIOMOL)
-        product = create(:product, reagent: Reagent.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
+        create(:stock_product, field: Field.BIOMOL)
+        product = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
         expect(product).to be_valid
         expect(product.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
       end
 
-      it "without reagent" do
-        product = build(:product, reagent: nil)
+      it "without stock_product" do
+        product = build(:product, stock_product: nil)
         expect(product).to be_invalid
       end
 
       it "distinct fields" do
-        create(:reagent, field: Field.BIOMOL)
-        product_biomol = create(:product, reagent: Reagent.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
-        create(:reagent, field: Field.IMUNOFENO)
-        product_imunofeno = create(:product, reagent: Reagent.where(field: Field.IMUNOFENO).first, has_tag: true, tag: nil)
-        create(:reagent, field: nil)
-        product_shared = create(:product, reagent: Reagent.where(field: nil).first, has_tag: true, tag: nil)
+        create(:stock_product, field: Field.BIOMOL)
+        product_biomol = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
+        create(:stock_product, field: Field.IMUNOFENO)
+        product_imunofeno = create(:product, stock_product: StockProduct.where(field: Field.IMUNOFENO).first, has_tag: true, tag: nil)
+        create(:stock_product, field: nil)
+        product_shared = create(:product, stock_product: StockProduct.where(field: nil).first, has_tag: true, tag: nil)
         expect(product_biomol).to be_valid
         expect(product_imunofeno).to be_valid
         expect(product_shared).to be_valid
@@ -128,9 +129,9 @@ RSpec.describe Product, type: :model do
       end
 
       it "same area entries" do
-        reagent = create(:reagent, field: Field.BIOMOL)
-        first_product = create(:product, reagent: reagent, has_tag: true, tag: nil)
-        second_product = create(:product, reagent: reagent, has_tag: true, tag: nil)
+        stock_product = create(:stock_product, field: Field.BIOMOL)
+        first_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
+        second_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
         expect(first_product).to be_valid
         expect(second_product).to be_valid
         expect(first_product.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{1}"

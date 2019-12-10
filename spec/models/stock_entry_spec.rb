@@ -5,7 +5,8 @@ RSpec.describe StockEntry, type: :model do
   before :each do
     Rails.application.load_seed
     create(:user)
-    create(:reagent)
+    create(:brand)
+    create(:stock_product)
     @product = build(:product)
   end
 
