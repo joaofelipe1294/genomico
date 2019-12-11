@@ -6,7 +6,7 @@ class MigrateReagentsToStockProducts < ActiveRecord::Migration[5.2]
     StockEntry.all.each do |stock_entry|
       stock_entry.stock_product = StockProduct.find_by name: stock_entry.reagent.name
       p stock_entry.stock_product
-      p stock_entry.save
+      stock_entry.save
       p stock_entry.errors
     end
   end

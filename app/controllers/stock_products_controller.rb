@@ -1,10 +1,11 @@
 class StockProductsController < ApplicationController
   before_action :set_stock_product, only: [:show, :edit, :update, :destroy]
+  before_action :user_filter
 
   # GET /stock_products
   # GET /stock_products.json
   def index
-    @stock_products = StockProduct.all
+    @stock_products = StockProduct.all.order(:name)
   end
 
   # GET /stock_products/1

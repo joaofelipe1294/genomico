@@ -9,7 +9,7 @@ class StockEntriesController < ApplicationController
   def index
     @stock_entries = StockEntry
                                 .all
-                                .includes(:reagent, :current_state, :responsible)
+                                .includes(:product, :responsible)
                                 .order(entry_date: :desc)
                                 .page params[:page]
   end
