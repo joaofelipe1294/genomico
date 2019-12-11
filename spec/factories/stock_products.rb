@@ -5,7 +5,7 @@ FactoryBot.define do
     total_aviable { 0 }
     first_warn_at { nil }
     danger_warn_at { nil }
-    mv_code { "e2tv23" }
+    mv_code { Faker::Code.isbn }
     unit_of_measurement { UnitOfMeasurement.all.sample }
     field { Field.all.sample }
     is_shared { false }
