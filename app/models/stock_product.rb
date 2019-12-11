@@ -5,6 +5,7 @@ class StockProduct < ApplicationRecord
   validates :name, uniqueness: true
   before_validation :set_total_aviable
   validates_with StockProductMvCodeUniquenessValidator
+  paginates_per 15
 
   def display_field
     if self.field

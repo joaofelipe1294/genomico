@@ -1,11 +1,24 @@
 class StockProductsController < ApplicationController
   before_action :set_stock_product, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
+  include InstanceVariableSetter
 
   # GET /stock_products
   # GET /stock_products.json
   def index
-    @stock_products = StockProduct.all.order(:name)
+    set_fields
+    if params[:name].present?
+      stock_products = StockProduct.where("name ILIKE ?", "%#{params[:name]}%")
+    elsif params[:field_id].present?
+      if params[:field_id] == "Compartilhado"
+        stock_products = StockProduct.where(field: nil)
+      else
+        stock_products = StockProduct.where(field_id: params[:field_id])
+      end
+    else
+      stock_products = StockProduct.all
+    end
+    @stock_products = stock_products.order(:name).page params[:page]
   end
 
   # GET /stock_products/1
