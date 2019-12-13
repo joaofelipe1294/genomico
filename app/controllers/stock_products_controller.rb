@@ -52,14 +52,12 @@ class StockProductsController < ApplicationController
   # PATCH/PUT /stock_products/1
   # PATCH/PUT /stock_products/1.json
   def update
-    respond_to do |format|
-      if @stock_product.update(stock_product_params)
-        format.html { redirect_to @stock_product, notice: 'Stock product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @stock_product }
-      else
-        format.html { render :edit }
-        format.json { render json: @stock_product.errors, status: :unprocessable_entity }
-      end
+    if @stock_product.update(stock_product_params)
+      flash[:success] = I18n.t :edit_stock_product_success
+      redirect_to stock_products_path
+    else
+      set_instance_variables
+      render :edit
     end
   end
 

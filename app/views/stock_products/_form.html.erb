@@ -21,7 +21,7 @@
 
   <div class="field form-group">
     <%= form.label :is_shared %>
-    <%= form.check_box :is_shared, id: "is-shared" %>
+    <%= form.check_box :is_shared, id: "is-shared", checked: @stock_product.is_shared %>
   </div>
 
   <div class="field form-group" id="fields-div">
@@ -55,6 +55,10 @@
 <% end %>
 
 <script>
+
+  if ($("#is-shared").is(":checked"))
+    $("#fields-div").hide()
+
   $("#is-shared").change(() => {
     let current_value = $('#is-shared')
     let is_checked = $("#is-shared").is(":checked")
@@ -63,4 +67,5 @@
     else
       $("#fields-div").toggle()
   })
+
 </script>

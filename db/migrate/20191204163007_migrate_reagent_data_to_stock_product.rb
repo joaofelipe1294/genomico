@@ -2,7 +2,7 @@ class MigrateReagentDataToStockProduct < ActiveRecord::Migration[5.2]
   def change
     Reagent.all.each do |reagent|
       p reagent
-      stock_item = StockProduct.create({
+      stock_item = StockProduct.new({
         name: reagent.name,
         usage_per_test: reagent.usage_per_test,
         total_aviable: reagent.total_aviable,
@@ -17,7 +17,7 @@ class MigrateReagentDataToStockProduct < ActiveRecord::Migration[5.2]
       else
         stock_item.is_shared = false
       end
-      p stock_item
+      p stock_item.save
     end
   end
 end
