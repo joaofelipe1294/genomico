@@ -36,6 +36,7 @@
       <th class="h5">Uso por teste</th>
       <th class="h5">Primeiro aviso</th>
       <th class="h5">Segundo aviso</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -50,6 +51,9 @@
         <td><%= stock_product.first_warn_at %></td>
         <td><%= stock_product.danger_warn_at %></td>
         <td><%= stock_product.unit_of_measurement.name %></td>
+        <td>
+          <%= link_to "Editar", edit_stock_product_path(stock_product), class: "btn btn-sm btn-outline-warning edit-stock-product" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -2,7 +2,7 @@ class StockProductsController < ApplicationController
   before_action :set_stock_product, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
   include InstanceVariableSetter
-  before_action :set_instance_variables, only: [:new]
+  before_action :set_instance_variables, only: [:new, :edit]
 
   # GET /stock_products
   # GET /stock_products.json

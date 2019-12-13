@@ -1,6 +1,12 @@
-<h1>Editing Stock Product</h1>
+<%= render 'layouts/user_navbar' %>
 
-<%= render 'form', stock_product: @stock_product %>
-
-<%= link_to 'Show', @stock_product %> |
-<%= link_to 'Back', stock_products_path %>
+<div class="card col-8 p-0 offset-2 mt-5 mb-5">
+  <div class="card-header bg-secondary">
+    <h4 class="text-center text-white">
+      Editar produto
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form', stock_product: @stock_product %>
+  </div>
+</div>
