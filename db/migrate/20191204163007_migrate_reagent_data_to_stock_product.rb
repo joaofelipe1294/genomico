@@ -11,6 +11,7 @@ class MigrateReagentDataToStockProduct < ActiveRecord::Migration[5.2]
         mv_code: reagent.mv_code,
         unit_of_measurement: reagent.unit_of_measurement,
         field: reagent.field,
+        id: reagent.id
       })
       if reagent.field.nil?
         stock_item.is_shared = true
