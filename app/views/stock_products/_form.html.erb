@@ -20,13 +20,13 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label :field_id %>
-    <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    <%= form.label :is_shared %>
+    <%= form.check_box :is_shared, id: "is-shared" %>
   </div>
 
-  <div class="field form-group">
-    <%= form.label :is_shared %>
-    <%= form.check_box :is_shared %>
+  <div class="field form-group" id="fields-div">
+    <%= form.label :field_id %>
+    <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">
@@ -40,11 +40,6 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label :total_aviable %>
-    <%= form.number_field :total_aviable, class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
     <%= form.label :first_warn_at %>
     <%= form.number_field :first_warn_at, class: "form-control" %>
   </div>
@@ -54,7 +49,18 @@
     <%= form.number_field :danger_warn_at, class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
 <% end %>
+
+<script>
+  $("#is-shared").change(() => {
+    let current_value = $('#is-shared')
+    let is_checked = $("#is-shared").is(":checked")
+    if(is_checked)
+      $("#fields-div").hide()
+    else
+      $("#fields-div").toggle()
+  })
+</script>

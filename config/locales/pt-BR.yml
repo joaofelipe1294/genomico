@@ -216,3 +216,4 @@
   new_release_success: "Release cadastrada com sucesso."
   new_stock_entry_success: "Entrada de estoque cadastrada com sucesso."
   edit_stock_entry_success: "Entrada de estoque editada com sucesso."
+  new_stock_product_success: "Produto cadastrado com sucesso."
