@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   validates_with ProductShelfDateValidator
   validates_with ProductAmountValidator
   validates :amount, :lot, :current_state, :location, :brand, :stock_product, presence: true
+  before_validation :set_stock_product
 
   private
 
@@ -40,6 +41,11 @@ class Product < ApplicationRecord
         counter = Product.joins(:stock_product).where("stock_products.field_id = ?", self.stock_product.field_id).where(has_tag: true).size + 1
       end
       self.tag = "#{field_identifier}#{counter}"
+    end
+
+    def set_stock_product
+      return if self.stock_entry.nil?
+      self.stock_product = self.stock_entry.stock_product if self.stock_entry.stock_product
     end
 
 end

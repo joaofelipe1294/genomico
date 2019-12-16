@@ -13,9 +13,23 @@
     <%= @units_of_measurement.to_json %>
   </label>
 
-  <label hidden id="reagents-relation">
-    <%= @reagent_relation.to_json %>
+  <label hidden id="stock-products-relation">
+    <%= @stock_product_relation.to_json %>
   </label>
+
+  <div class="field form-group">
+    <%= form.label :responsible_id %>
+    <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :entry_date %>
+    <% if @stock_entry.entry_date %>
+      <%= form.date_field :entry_date, class: "form-control", value: @stock_entry.entry_date %>
+    <% else %>
+      <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+    <% end %>
+  </div>
 
   <div class="field form-group">
     <label>Área</label>
@@ -30,73 +44,64 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label :reagent_id %>
-    <%= form.select :reagent_id, [], {}, class: "form-control", id: "reagents-select" %>
+    <%= form.label :stock_product_id %>
+    <%= form.select :stock_product_id, [], {}, class: "form-control", id: "stock-product-select" %>
   </div>
 
-  <div class="field form-group">
-    <%= form.label :lot %>
-    <%= form.text_field :lot, class: "form-control" %>
-  </div>
+  <%= form.fields_for :product do |product_fields| %>
 
-  <div class="field form-group">
-     <%= form.label :has_shelf_life %><br />
-     <%= form.label :has_shelf_life, "Sim", :value => "true" %>
-     <%= form.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
-     <%= form.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
-     <%= form.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
-   </div>
-
-  <% if @stock_entry.has_shelf_life == false %>
-    <div class="field form-group" id="shelf-life-group" hidden>
-  <% else %>
-    <div class="field form-group" id="shelf-life-group">
-  <% end %>
-    <%= form.label :shelf_life %>
-    <% if @stock_entry.shelf_life %>
-      <%= form.date_field :shelf_life, class: "form-control", value: @stock_entry.shelf_life %>
-    <% else %>
-      <%= form.date_field :shelf_life, class: "form-control", value: Date.current %>
-    <% end %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :amount %> (<span id="unit-of-measurement"></span>)
-    <%= form.number_field :amount, class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :entry_date %>
-    <% if @stock_entry.entry_date %>
-      <%= form.date_field :entry_date, class: "form-control", value: @stock_entry.entry_date %>
-    <% else %>
-      <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
-    <% end %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :current_state_id %>
-    <%= form.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: CurrentState.STOCK.id), {}, class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :location %>
-    <%= form.text_field :location, class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :responsible_id %>
-    <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
-  </div>
-
-  <% unless @stock_entry.id %>
     <div class="field form-group">
-       <%= form.label "Gerar identificador" %><br />
-       <%= form.label :has_tag, "Sim", :value => "true" %>
-       <%= form.radio_button :has_tag, true,  checked: true %>
-       <%= form.label :has_tag, "Não", :value => "false", class: "ml-4" %>
-       <%= form.radio_button :has_tag, false  %>
-     </div>
+      <%= product_fields.label :brand_id %>
+      <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= product_fields.label :lot %>
+      <%= product_fields.text_field :lot, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= product_fields.label :has_shelf_life %><br />
+      <%= product_fields.label :has_shelf_life, "Sim", :value => "true" %>
+      <%= product_fields.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
+      <%= product_fields.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
+      <%= product_fields.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
+    </div>
+
+    <div class="field form-group" id="shelf-life-group">
+      <%= product_fields.label :shelf_life %>
+      <% if @stock_entry.product.shelf_life %>
+        <%= product_fields.date_field :shelf_life, class: "form-control", value: @stock_entry.product.shelf_life %>
+      <% else %>
+        <%= product_fields.date_field :shelf_life, class: "form-control", value: Date.current %>
+      <% end %>
+    </div>
+
+    <div class="field form-group">
+      <%= product_fields.label :amount %> (<span id="unit-of-measurement"></span>)
+      <%= product_fields.number_field :amount, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= product_fields.label :current_state_id %>
+      <%= product_fields.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: CurrentState.STOCK.id), {}, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= product_fields.label :location %>
+      <%= product_fields.text_field :location, class: "form-control" %>
+    </div>
+
+    <% unless @stock_entry.id %>
+      <div class="field form-group">
+        <%= product_fields.label "Gerar identificador" %><br />
+        <%= product_fields.label :has_tag, "Sim", :value => "true" %>
+        <%= product_fields.radio_button :has_tag, true,  checked: true %>
+        <%= product_fields.label :has_tag, "Não", :value => "false", class: "ml-4" %>
+        <%= product_fields.radio_button :has_tag, false  %>
+      </div>
+    <% end %>
+
   <% end %>
 
   <button id="btn-save" class="btn btn-outline-primary float-right">
@@ -114,14 +119,14 @@
 
   function set_reagents(){
     const selected_field = $("#fields-select").val()
-    let reagents_relation = $('#reagents-relation').text()
-    reagents_relation = JSON.parse(reagents_relation)
-    const reagents = reagents_relation[selected_field]
-    $(".reagent").remove()
-    reagents.forEach(reagent => {
-      $("#reagents-select").append(`
-        <option value="${reagent.id}" class="reagent">
-          ${reagent.name}
+    let stock_products_relation = $('#stock-products-relation').text()
+    stock_products_relation = JSON.parse(stock_products_relation)
+    const stock_products = stock_products_relation[selected_field]
+    $(".stock-product").remove()
+    stock_products.forEach(stock_product => {
+      $("#stock-product-select").append(`
+        <option value="${stock_product.id}" class="stock-product">
+          ${stock_product.name}
         </option>
       `)
       set_unit_of_mesurement()
@@ -129,18 +134,18 @@
   }
 
   function set_unit_of_mesurement(){
-    const current_reagent_id = $("#reagents-select").val()
+    const stock_product_reagent_id = $("#stock-product-select").val()
     const units_of_measurement = JSON.parse($("#units-of-measurement").text())
-    const reagents_relation = JSON.parse($("#reagents-relation").text())
-    const reagents = reagents_relation[$("#fields-select").val()]
-    let current_reagent = null
-    reagents.forEach(reagent => {
-      if (reagent.id == current_reagent_id)
-        current_reagent = reagent
+    const stock_products_relation = JSON.parse($("#stock-products-relation").text())
+    const stock_products = stock_products_relation[$("#fields-select").val()]
+    let current_stock_product = null
+    stock_products.forEach(stock_product => {
+      if (stock_product.id == stock_product_reagent_id)
+        current_stock_product = stock_product
     })
     let unit_of_measurement = null
     units_of_measurement.forEach(unit => {
-      if (current_reagent.unit_of_measurement_id == unit.id)
+      if (current_stock_product.unit_of_measurement_id == unit.id)
         unit_of_measurement = unit
     })
     $("#unit-of-measurement").text(unit_of_measurement.name)
@@ -148,7 +153,7 @@
 
   set_reagents()
   $("#fields-select").change(() => set_reagents())
-  $("#reagents-select").change(() => set_unit_of_mesurement())
+  $("#stock-product-select").change(() => set_unit_of_mesurement())
   $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
   $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
 

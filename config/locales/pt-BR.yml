@@ -23,6 +23,7 @@
       internal_code: Código interno
       reagent: Reagente
       brand: Marca
+      product: Produto
     attributes:
       user_kind:
         name: Nome
@@ -172,6 +173,8 @@
         tag: Identificação
         has_shelf_life: Possui data de validade
         has_tag: Possui identificador
+        stock_product: Produto
+        stock_product_id: Produto
       stock_product:
         name: Nome
         usage_per_test: Uso por teste
@@ -184,6 +187,21 @@
         field: Setor
         field_id: Setor
         is_shared: É compartilhado
+      product:
+        brand_id: Marca
+        brand: Marca
+        lot: Lote
+        shelf_life: Data de validade
+        is_expired: Está vencido
+        amount: Quantidade
+        current_state: Estado atual
+        current_state_id: Estado atual
+        location: Localização
+        tag: Identificação
+        has_shelf_life: Possui data de validade
+        has_tag: Possui identificador
+        stock_product: Produto
+        stock_product_id: Produto
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
