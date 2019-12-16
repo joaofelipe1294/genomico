@@ -3,7 +3,8 @@
 <table class="table text-center mt-5">
   <thead class="bg-dark text-white">
     <tr>
-      <th>Reagente</th>
+      <th>Produto</th>
+      <th>Marca</th>
       <th>Lote</th>
       <th>Validade</th>
       <th>Quantidade</th>
@@ -21,6 +22,7 @@
     <% @stock_entries.each do |stock_entry| %>
       <tr class="stock-entry">
         <td><%= stock_entry.product.stock_product.name %></td>
+        <td><%= stock_entry.product.brand.name %></td>
         <td><%= stock_entry.product.lot %></td>
         <td class="shelf-life">
           <% if stock_entry.product.has_shelf_life %>
