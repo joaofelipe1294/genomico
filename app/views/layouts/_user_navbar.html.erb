@@ -42,6 +42,10 @@
           Estoque
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdown">
+          <%= link_to "Nova entrada", new_stock_entry_path, class: 'dropdown-item', id: 'stock-entrance' %>
+          <div class="dropdown-divider"></div>
+          <%= link_to "Entradas de estoque", stock_entries_path, class: 'dropdown-item', id: 'stock-entrances' %>
+          <div class="dropdown-divider"></div>
           <%= link_to 'Cadastrar produto', new_stock_product_path, class: 'dropdown-item', id: 'new-stock-product' %>
           <div class="dropdown-divider"></div>
           <%= link_to "Buscar produto", stock_products_path, class: 'dropdown-item', id: 'stock-products' %>
@@ -49,10 +53,6 @@
           <%= link_to "Cadastrar marca", new_brand_path, class: 'dropdown-item', id: 'new-brand' %>
           <div class="dropdown-divider"></div>
           <%= link_to "Buscar marca", brands_path, class: 'dropdown-item', id: 'brands' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Nova entrada", new_stock_entry_path, class: 'dropdown-item', id: 'stock-entrance' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Entradas de estoque", stock_entries_path, class: 'dropdown-item', id: 'stock-entrances' %>
         </div>
       </li>
 

@@ -26,12 +26,20 @@
 
   <div class="field form-group" id="fields-div">
     <%= form.label :field_id %>
-    <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    <% if @stock_product.field %>
+      <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name", selected: @stock_product.field.id), {}, class: "form-control" %>
+    <% else %>
+      <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    <% end %>
   </div>
 
   <div class="field form-group">
     <%= form.label :unit_of_measurement_id %>
-    <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name"), {}, class: "form-control" %>
+    <% if @stock_product.unit_of_measurement %>
+      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name", selected: @stock_product.unit_of_measurement.id), {}, class: "form-control" %>
+    <% else %>
+      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name"), {}, class: "form-control" %>
+    <% end %>
   </div>
 
   <div class="field form-group">
