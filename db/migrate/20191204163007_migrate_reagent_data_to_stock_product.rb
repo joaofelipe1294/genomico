@@ -1,5 +1,7 @@
 class MigrateReagentDataToStockProduct < ActiveRecord::Migration[5.2]
   def change
+    add_column :stock_products, :reagent_id, :integer
+
     Reagent.all.each do |reagent|
       p reagent
       stock_item = StockProduct.new({
@@ -11,7 +13,7 @@ class MigrateReagentDataToStockProduct < ActiveRecord::Migration[5.2]
         mv_code: reagent.mv_code,
         unit_of_measurement: reagent.unit_of_measurement,
         field: reagent.field,
-        id: reagent.id
+        reagent_id: reagent.id
       })
       if reagent.field.nil?
         stock_item.is_shared = true

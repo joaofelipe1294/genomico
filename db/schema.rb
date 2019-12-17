@@ -382,6 +382,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_121625) do
     t.boolean "is_shared"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reagent_id"
     t.index ["field_id"], name: "index_stock_products_on_field_id"
     t.index ["unit_of_measurement_id"], name: "index_stock_products_on_unit_of_measurement_id"
   end

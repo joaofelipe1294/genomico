@@ -47,10 +47,10 @@
         <td><%= stock_product.mv_code %></td>
         <td><%= stock_product.display_field %></td>
         <td><%= stock_product.usage_per_test %></td>
+        <td><%= stock_product.unit_of_measurement.name %></td>
         <td><%= stock_product.total_aviable %></td>
         <td><%= stock_product.first_warn_at %></td>
         <td><%= stock_product.danger_warn_at %></td>
-        <td><%= stock_product.unit_of_measurement.name %></td>
         <td>
           <%= link_to "Editar", edit_stock_product_path(stock_product), class: "btn btn-sm btn-outline-warning edit-stock-product" %>
         </td>
