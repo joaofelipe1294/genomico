@@ -109,9 +109,9 @@
   </button>
 <% end %>
 
-<% if @stock_entry.reagent %>
-  <span id="edit-reagent" hidden>
-    <%= @stock_entry.reagent.to_json %>
+<% if @stock_entry.stock_product_id %>
+  <span id="edit-product" hidden>
+    <%= @stock_entry.stock_product.to_json %>
   </span>
 <% end %>
 
@@ -157,11 +157,14 @@
   $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
   $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
 
-  if( $("#edit-reagent").text() !== "" ){
-    let current_reagent = JSON.parse($("#edit-reagent").text())
-    $("#fields-select").val(current_reagent.field_id)
+  if( $("#edit-product").text() !== "" ){
+    let current_product = JSON.parse($("#edit-product").text())
+    if (current_product.is_shared)
+      $("fields-select").val("0")
+    else
+      $("#fields-select").val(current_product.field_id)
     set_reagents()
-    $("#reagents-select").val(current_reagent.id)
+    $("#stock-product-select").val(current_product.id)
     set_unit_of_mesurement()
     $("#tag-field").attr("hidden", "hidden")
   }

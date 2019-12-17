@@ -6,7 +6,7 @@ class MigrateReagentsToStockProducts < ActiveRecord::Migration[5.2]
     StockEntry.all.each do |stock_entry|
 
       product = Product.create({
-        stock_product_id: stock_entry.reagent_id,
+        # reagent_id: stock_entry.reagent_id,
         lot: stock_entry.lot,
         shelf_life: stock_entry.shelf_life,
         is_expired: stock_entry.is_expired,
