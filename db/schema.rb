@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_25_150152) do
+ActiveRecord::Schema.define(version: 2019_12_10_121625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,31 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
     t.index ["name"], name: "index_patients_on_name"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.bigint "reagent_id"
+    t.string "lot"
+    t.date "shelf_life"
+    t.boolean "is_expired"
+    t.integer "amount"
+    t.bigint "current_state_id"
+    t.string "location"
+    t.string "tag"
+    t.boolean "has_shelf_life"
+    t.boolean "has_tag"
+    t.date "open_at"
+    t.date "finished_at"
+    t.bigint "stock_entry_id"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "stock_product_id"
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["current_state_id"], name: "index_products_on_current_state_id"
+    t.index ["reagent_id"], name: "index_products_on_reagent_id"
+    t.index ["stock_entry_id"], name: "index_products_on_stock_entry_id"
+    t.index ["stock_product_id"], name: "index_products_on_stock_product_id"
+  end
+
   create_table "qubit_reports", id: :serial, force: :cascade do |t|
     t.float "concentration"
     t.integer "subsample_id"
@@ -336,9 +361,30 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
     t.datetime "updated_at", null: false
     t.boolean "has_shelf_life"
     t.boolean "has_tag"
+    t.bigint "product_id"
+    t.bigint "stock_product_id"
     t.index ["current_state_id"], name: "index_stock_entries_on_current_state_id"
+    t.index ["product_id"], name: "index_stock_entries_on_product_id"
     t.index ["reagent_id"], name: "index_stock_entries_on_reagent_id"
     t.index ["responsible_id"], name: "index_stock_entries_on_responsible_id"
+    t.index ["stock_product_id"], name: "index_stock_entries_on_stock_product_id"
+  end
+
+  create_table "stock_products", force: :cascade do |t|
+    t.string "name"
+    t.integer "usage_per_test"
+    t.integer "total_aviable"
+    t.integer "first_warn_at"
+    t.integer "danger_warn_at"
+    t.string "mv_code"
+    t.bigint "unit_of_measurement_id"
+    t.bigint "field_id"
+    t.boolean "is_shared"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "reagent_id"
+    t.index ["field_id"], name: "index_stock_products_on_field_id"
+    t.index ["unit_of_measurement_id"], name: "index_stock_products_on_unit_of_measurement_id"
   end
 
   create_table "subsample_kinds", id: :serial, force: :cascade do |t|
@@ -424,6 +470,10 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
   add_foreign_key "offered_exams", "fields"
   add_foreign_key "offered_exams", "offered_exam_groups"
   add_foreign_key "patients", "hospitals"
+  add_foreign_key "products", "brands"
+  add_foreign_key "products", "current_states"
+  add_foreign_key "products", "reagents"
+  add_foreign_key "products", "stock_entries"
   add_foreign_key "qubit_reports", "subsamples"
   add_foreign_key "reagents", "unit_of_measurements"
   add_foreign_key "release_checks", "releases"
@@ -434,6 +484,8 @@ ActiveRecord::Schema.define(version: 2019_11_25_150152) do
   add_foreign_key "stock_entries", "current_states"
   add_foreign_key "stock_entries", "reagents"
   add_foreign_key "stock_entries", "users", column: "responsible_id"
+  add_foreign_key "stock_products", "fields"
+  add_foreign_key "stock_products", "unit_of_measurements"
   add_foreign_key "subsamples", "patients"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"

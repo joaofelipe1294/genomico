@@ -4,6 +4,8 @@ RSpec.describe WorkMap, type: :model do
 
 	context 'Validations' do
 
+		before(:each) { Rails.application.load_seed }
+
 		it 'correct' do
 			work_map = create(:work_map)
 			expect(work_map).to be_valid
@@ -29,7 +31,7 @@ RSpec.describe WorkMap, type: :model do
 		end
 
 	end
-
+	
 	context 'Relations' do
 
 		it { should have_and_belong_to_many :attendances }

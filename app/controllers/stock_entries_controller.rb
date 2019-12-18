@@ -9,7 +9,7 @@ class StockEntriesController < ApplicationController
   def index
     @stock_entries = StockEntry
                                 .all
-                                .includes(:reagent, :current_state, :responsible)
+                                .includes(:product, :responsible)
                                 .order(entry_date: :desc)
                                 .page params[:page]
   end
@@ -21,7 +21,7 @@ class StockEntriesController < ApplicationController
 
   # GET /stock_entries/new
   def new
-    @stock_entry = StockEntry.new
+    @stock_entry = StockEntry.new(product: Product.new)
   end
 
   # GET /stock_entries/1/edit
@@ -34,8 +34,8 @@ class StockEntriesController < ApplicationController
     @stock_entry = StockEntry.new(stock_entry_params)
     if @stock_entry.save
       flash[:success] = I18n.t :new_stock_entry_success
-      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.has_tag
-      return redirect_to stock_entries_path if @stock_entry.has_tag == false
+      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.product.has_tag
+      return redirect_to stock_entries_path if @stock_entry.product.has_tag == false
     else
       set_instance_variables
       render :new
@@ -78,18 +78,21 @@ class StockEntriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_entry_params
       params.require(:stock_entry).permit(
-        :reagent_id,
-        :lot,
-        :shelf_life,
+        :stock_product_id,
         :is_expired,
-        :amount,
         :entry_date,
-        :current_state_id,
-        :location,
         :responsible_id,
-        :tag,
-        :has_shelf_life,
-        :has_tag
+        product_attributes: [
+          :lot,
+          :amount,
+          :current_state_id,
+          :brand_id,
+          :location,
+          :tag,
+          :has_shelf_life,
+          :has_tag,
+          :shelf_life
+        ]
       )
     end
 
@@ -98,13 +101,14 @@ class StockEntriesController < ApplicationController
       @units_of_measurement = UnitOfMeasurement.all.order(:name)
       @current_states = CurrentState.all.order(:name)
       @users = User.where(user_kind: UserKind.USER).order(:login)
-      @reagent_relation = {
-        0.to_s =>  Reagent.where(field: nil).order(:name),
-        Field.BIOMOL.id.to_s => Reagent.where(field: Field.BIOMOL).order(:name),
-        Field.IMUNOFENO.id.to_s => Reagent.where(field: Field.IMUNOFENO).order(:name),
-        Field.FISH.id.to_s => Reagent.where(field: Field.FISH).order(:name),
-        Field.CYTOGENETIC.id.to_s => Reagent.where(field: Field.CYTOGENETIC).order(:name),
-        Field.ANATOMY.id.to_s => Reagent.where(field: Field.ANATOMY).order(:name),
+      @brands = Brand.all.order(:name)
+      @stock_product_relation = {
+        0.to_s =>  StockProduct.where(field: nil).order(:name),
+        Field.BIOMOL.id.to_s => StockProduct.where(field: Field.BIOMOL).order(:name),
+        Field.IMUNOFENO.id.to_s => StockProduct.where(field: Field.IMUNOFENO).order(:name),
+        Field.FISH.id.to_s => StockProduct.where(field: Field.FISH).order(:name),
+        Field.CYTOGENETIC.id.to_s => StockProduct.where(field: Field.CYTOGENETIC).order(:name),
+        Field.ANATOMY.id.to_s => StockProduct.where(field: Field.ANATOMY).order(:name),
       }
     end
 end

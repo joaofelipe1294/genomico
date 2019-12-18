@@ -1,66 +1,92 @@
 require 'rails_helper'
 
-RSpec.feature "User::StockEntry::Edits", type: :feature do
+RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
   include UserLogin
+  include ValidationChecks
 
-  before :each do
+  def setup
     Rails.application.load_seed
-    reagent = create(:reagent, field: Field.IMUNOFENO)
-    create(:user)
-    stock_entry = create(:stock_entry, reagent: reagent)
-    create(:reagent, field: Field.IMUNOFENO)
-    create(:reagent, field: Field.BIOMOL)
-    biomol_user_do_login
-    visit edit_stock_entry_path(stock_entry)
+    create(:user, user_kind: UserKind.USER)
+    create(:brand)
+    create(:brand)
+    stock_product = create(:stock_product, field: Field.IMUNOFENO)
+    product = create(:product)
+    stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
+    product = create(:product)
+    stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
+    product = create(:product)
+    stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
+    biomol_stock_product = create(:stock_product, field: Field.BIOMOL)
+    product = create(:product, stock_product: biomol_stock_product)
+    stock_entry = create(:stock_entry, product: product, stock_product: biomol_stock_product)
+    imunofeno_user_do_login
+    click_link id: "stock-dropdown"
+    click_link id: "stock-entries"
+    click_link class: "edit-stock-entry", match: :first
   end
 
-  def success_check
-    click_button id: "btn-save"
-    expect(page).to have_current_path stock_entries_path
-    expect(find(id: "success-warning").text).to eq I18n.t :edit_stock_entry_success
+  it "navigate to", js: false do
+    setup
+    expect(page).to have_current_path edit_stock_entry_path(StockEntry.all.order(entry_date: :desc).first)
   end
 
-  def error_check param_name
-    click_button "btn-save"
-    expect(find(class: "error", match: :first).text).to eq "#{param_name} não pode ficar em branco"
-  end
+  context "correct changes" do
 
-  it "correct edit", js: true do
-    select(Field.BIOMOL.name, from: "fields-select").select_option
-    success_check
+    before(:each) { setup }
+    after(:each) { success_check stock_entries_path, :edit_stock_entry_success }
+
+    it "change responsible" do
+      select(User.where(user_kind: UserKind.USER).sample.login, from: "stock_entry[responsible_id]").select_option
+    end
+
+    it "change entry date" do
+      fill_in "stock_entry[entry_date]", with: 5.days.ago
+    end
+
+    it "change product" do
+      select(Field.BIOMOL.name, from: "fields-select").select_option
+      select(StockProduct.where(field: Field.BIOMOL).last.name, from: "stock_entry[stock_product_id]").select_option
+    end
+
+    it "change brand" do
+      select(Brand.all.sample.name, from: "stock_entry[product_attributes][brand_id]").select_option
+    end
+
+    it "change lot" do
+      fill_in "stock_entry[product_attributes][lot]", with: "some123new123lot"
+    end
+
+    it "without shelf_life" do
+      choose "stock_entry[product_attributes][has_shelf_life]", option: "false"
+    end
+
+    it "change amount" do
+      fill_in "stock_entry[product_attributes][amount]", with: "3"
+    end
+
+    it "change location" do
+      fill_in "stock_entry[product_attributes][location]", with: "Some uda location"
+    end
+
   end
 
   it "without lot" do
-    fill_in "stock_entry[lot]", with: ""
-    # click_button "btn-save"
-    # expect(find(class: "error", match: :first).text).to eq "Lote não pode ficar em branco"
-    error_check "Lote"
-  end
-
-  it "change lot" do
-    fill_in "stock_entry[lot]", with: "871623kjasb"
-    success_check
-  end
-
-  it "with shelf_life" do
-    choose "stock_entry[has_shelf_life]", option: "true"
-    fill_in "stock_entry[shelf_life]", with: 3.months.from_now
-    success_check
-  end
-
-  it "without shelf_life" do
-    choose "stock_entry[has_shelf_life]", option: "false"
-    success_check
+    setup
+    fill_in "stock_entry[product_attributes][lot]", with: ""
+    without_value "Lote"
   end
 
   it "without amount" do
-    fill_in "stock_entry[amount]", with: ""
-    error_check "Quantidade"
+    setup
+    fill_in "stock_entry[product_attributes][amount]", with: ""
+    without_value "Quantidade"
   end
 
-  it "change current_state" do
-    select(CurrentState.IN_USE.name, from: "stock_entry[current_state_id]").select_option
-    success_check
+  it "without location" do
+    setup
+    fill_in "stock_entry[product_attributes][location]", with: ""
+    without_value "Localização"
   end
+
 
 end

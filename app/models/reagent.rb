@@ -5,7 +5,7 @@ class Reagent < ApplicationRecord
   validates :product_description, :name, :product_code, uniqueness: true
   belongs_to :brand
   paginates_per 15
-  validates_with ReagentMvCodeUniquenessValidator
+  # validates_with ReagentMvCodeUniquenessValidator
   belongs_to :unit_of_measurement
 
   def display_field

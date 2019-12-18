@@ -5,36 +5,36 @@ RSpec.feature "User::StockEntry::Indices", type: :feature do
 
   before :each do
     Rails.application.load_seed
-    reagent = create(:reagent)
-    biomol_user_do_login
+    create(:user)
+    create(:brand)
+    create(:stock_product)
+    product = build(:product)
+    create(:stock_entry, product: product)
   end
 
-  def navigate_to_stock_entrances
+  def navigate
+    imunofeno_user_do_login
     click_link id: "stock-dropdown"
-    click_link id: "stock-entrances"
+    click_link id: "stock-entries"
   end
 
-  it "one entry" do
-    create(:stock_entry)
-    navigate_to_stock_entrances
+  it "Navigate to stock entries" do
+    navigate
+    expect(page).to have_current_path stock_entries_path
+  end
+
+  it "with one stock_entry" do
+    navigate
     expect(find_all(class: "stock-entry").size).to eq 1
   end
 
-  it "zero entrances" do
-    navigate_to_stock_entrances
-    expect(find_all(class: "stock_entry").size).to eq 0
-  end
-
-  it "without shelf date" do
-    create(:stock_entry, has_shelf_life: false)
-    navigate_to_stock_entrances
-    expect(find(class: "shelf-life").text).to eq '-'
-  end
-
-  it "with shelf-life" do
-    create(:stock_entry, has_shelf_life: true, shelf_life: 2.years.from_now)
-    navigate_to_stock_entrances
-    expect(find(class: "shelf-life").text).to eq I18n.l(2.years.from_now.to_date)
+  it "with three stock_entries" do
+    product = build(:product)
+    create(:stock_entry, product: product)
+    product = build(:product)
+    create(:stock_entry, product: product)
+    navigate
+    expect(find_all(class: "stock-entry").size).to eq 3
   end
 
 end
