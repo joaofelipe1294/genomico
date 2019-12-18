@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :user_filter
+
   def in_use
   end
 
