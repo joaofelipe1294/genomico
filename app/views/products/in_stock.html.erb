@@ -1,0 +1,51 @@
+<%= render "layouts/user_navbar" %>
+<table class="table table-bordered mt-5 text-center table-sm">
+  <thead class="bg-dark text-white">
+    <th class="h4">Nome</th>
+    <th class="h4">Marca</th>
+    <th class="h4">Lote</th>
+    <th class="h4">Validade</th>
+    <th class="h4">Quantidade</th>
+    <th class="h4">Medida</th>
+    <th class="h4">Localização</th>
+    <th class="h4">Área</th>
+    <th class="h4">Identificação</th>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td>
+          <%= product.stock_product.name %>
+        </td>
+        <td>
+          <%= product.brand.name %>
+        </td>
+        <td>
+          <%= product.lot %>
+        </td>
+        <td>
+          <% if product.has_shelf_life %>
+            <%= l product.shelf_life %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td>
+          <%= product.amount %>
+        </td>
+        <td>
+          <%= product.stock_product.unit_of_measurement.name %>
+        </td>
+        <td>
+          <%= product.location %>
+        </td>
+        <td>
+          <%= product.stock_product.display_field %>
+        </td>
+        <td>
+          <%= product.display_tag %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

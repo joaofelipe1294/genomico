@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'products/in_use'
+  get 'products/in_stock'
   resources :stock_products
   get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
   resources :stock_entries

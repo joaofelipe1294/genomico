@@ -11,6 +11,11 @@ class Product < ApplicationRecord
   validates :amount, :lot, :current_state, :location, :brand, :stock_product, presence: true
   before_validation :set_stock_product
 
+  def display_tag
+    return self.tag if self.has_tag
+    "-"
+  end
+
   private
 
     def default_is_expired
