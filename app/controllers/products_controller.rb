@@ -3,6 +3,6 @@ class ProductsController < ApplicationController
   end
 
   def in_stock
-    @products = Product.includes(:brand, :stock_product).where(current_state: CurrentState.STOCK)
+    @products = Product.includes(:brand, :stock_product).where(current_state: CurrentState.STOCK).page params[:page]
   end
 end

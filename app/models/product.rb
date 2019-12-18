@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   validates_with ProductAmountValidator
   validates :amount, :lot, :current_state, :location, :brand, :stock_product, presence: true
   before_validation :set_stock_product
+  paginates_per 17
 
   def display_tag
     return self.tag if self.has_tag
