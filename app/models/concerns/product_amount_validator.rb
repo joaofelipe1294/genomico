@@ -1,4 +1,4 @@
-class StockEntryAmountValidator < ActiveModel::Validator
+class ProductAmountValidator < ActiveModel::Validator
   def validate(record)
     return if record.amount.nil?
     if record.amount <= 0

@@ -1,0 +1,79 @@
+<%= form_with(model: stock_product, local: true) do |form| %>
+  <% if stock_product.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+      <% stock_product.errors.full_messages.each do |message| %>
+        <li class="error"><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :mv_code %>
+    <%= form.text_field :mv_code, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :is_shared %>
+    <%= form.check_box :is_shared, id: "is-shared", checked: @stock_product.is_shared %>
+  </div>
+
+  <div class="field form-group" id="fields-div">
+    <%= form.label :field_id %>
+    <% if @stock_product.field %>
+      <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name", selected: @stock_product.field.id), {}, class: "form-control" %>
+    <% else %>
+      <%= form.select :field_id, options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    <% end %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :unit_of_measurement_id %>
+    <% if @stock_product.unit_of_measurement %>
+      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name", selected: @stock_product.unit_of_measurement.id), {}, class: "form-control" %>
+    <% else %>
+      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name"), {}, class: "form-control" %>
+    <% end %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :usage_per_test %>
+    <%= form.number_field :usage_per_test, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :first_warn_at %>
+    <%= form.number_field :first_warn_at, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :danger_warn_at %>
+    <%= form.number_field :danger_warn_at, class: "form-control" %>
+  </div>
+
+  <button id="btn-save" class="btn btn-outline-primary float-right">
+    Salvar
+  </button>
+<% end %>
+
+<script>
+
+  if ($("#is-shared").is(":checked"))
+    $("#fields-div").hide()
+
+  $("#is-shared").change(() => {
+    let current_value = $('#is-shared')
+    let is_checked = $("#is-shared").is(":checked")
+    if(is_checked)
+      $("#fields-div").hide()
+    else
+      $("#fields-div").toggle()
+  })
+
+</script>

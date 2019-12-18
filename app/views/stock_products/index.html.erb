@@ -1,0 +1,64 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="mt-3">
+  <div class="col-5 d-inline-block border-right offset-1">
+    <%= form_with url: stock_products_path, method: :get do |form| %>
+      <div class="form-group">
+        <%= form.text_field :name, class: 'form-control', placeholder: "Buscar produto por nome" %>
+      </div>
+      <button id="btn-search-by-name" class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+  <div class="col-5 d-inline-block">
+    <%= form_with url: stock_products_path, method: :get do |form| %>
+      <div class="form-group">
+        <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name"), {}, class: 'form-control'%>
+      </div>
+      <button id="btn-search-by-field" class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<table class="table table-bordered table-sm text-center mt-4">
+  <thead class="bg-dark text-white">
+    <tr>
+      <th class="h5">Nome</th>
+      <th class="h5">Código MV</th>
+      <th class="h5">Área</th>
+      <th class="h5">Total disponível</th>
+      <th class="h5">Medido em</th>
+      <th class="h5">Uso por teste</th>
+      <th class="h5">Primeiro aviso</th>
+      <th class="h5">Segundo aviso</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_products.each do |stock_product| %>
+      <tr class="stock-product">
+        <td><%= stock_product.name %></td>
+        <td><%= stock_product.mv_code %></td>
+        <td><%= stock_product.display_field %></td>
+        <td><%= stock_product.usage_per_test %></td>
+        <td><%= stock_product.unit_of_measurement.name %></td>
+        <td><%= stock_product.total_aviable %></td>
+        <td><%= stock_product.first_warn_at %></td>
+        <td><%= stock_product.danger_warn_at %></td>
+        <td>
+          <%= link_to "Editar", edit_stock_product_path(stock_product), class: "btn btn-sm btn-outline-warning edit-stock-product" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="container pagination justify-content-center" >
+  <%= paginate @stock_products , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
+</div>
