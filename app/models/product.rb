@@ -11,13 +11,29 @@ class Product < ApplicationRecord
   validates :amount, :lot, :current_state, :location, :brand, :stock_product, presence: true
   before_validation :set_stock_product
   paginates_per 17
+  before_validation :current_state_default
+
+  def change_to_in_use params
+    return false unless params[:open_at].present?
+    if self.update params
+      self.current_state = CurrentState.IN_USE
+      return true
+    else
+      false
+    end
+  end
 
   def display_tag
     return self.tag if self.has_tag
     "-"
   end
 
+
   private
+
+    def current_state_default
+      self.current_state = CurrentState.STOCK if self.current_state.nil?
+    end
 
     def default_is_expired
       return if self.shelf_life.nil?

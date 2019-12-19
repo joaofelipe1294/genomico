@@ -1,0 +1,41 @@
+<%= render "layouts/user_navbar"%>
+
+<div class="card mt-5 col-6 offset-3 p-0">
+  <div class="card-header bg-info">
+    <h3 class="text-center text-white">
+      Abrir produto
+    </h3>
+  </div>
+  <div class="card-body">
+    <%= form_with model: @product, url: open_product_path(@product), method: :patch do |form| %>
+
+      <% if @product.errors.any? %>
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label "Produto" %>
+        <%= form.text_field "name", value: @product.stock_product.name, class: "form-control", disabled: true %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :open_at %>
+        <%= form.date_field :open_at, value: Date.current, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :location %>
+        <%= form.text_field :location, value: @product.location, class: "form-control" %>
+      </div>
+
+      <button id="btn-save" class="btn btn-outline-primary float-right">
+        Salvar
+      </button>
+
+    <% end %>
+  </div>
+</div>

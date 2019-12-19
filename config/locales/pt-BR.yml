@@ -202,6 +202,7 @@
         has_tag: Possui identificador
         stock_product: Produto
         stock_product_id: Produto
+        open_at: Data de abertura
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
@@ -236,3 +237,4 @@
   edit_stock_entry_success: "Entrada de estoque editada com sucesso."
   new_stock_product_success: "Produto cadastrado com sucesso."
   edit_stock_product_success: "Produto editado com sucesso."
+  open_product_success: "Produto alterado para em uso com sucesso."
