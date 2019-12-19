@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'products/open-product/:id', to: 'products#new_open_product', as: :new_open_product
+  patch 'products/open-product/:id', to: 'products#open_product', as: :open_product
+  get 'products/in_use'
+  get 'products/in_stock'
   resources :stock_products
   get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
   resources :stock_entries

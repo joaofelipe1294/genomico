@@ -29,11 +29,7 @@ RSpec.describe Product, type: :model do
       it "lot" do
         @product.lot = ""
       end
-
-      it "current_state" do
-        @product.current_state = nil
-      end
-
+      
       it "location" do
         @product.location = ""
       end
@@ -152,6 +148,40 @@ RSpec.describe Product, type: :model do
 
       it "with zero on amount value" do
         @product = build(:product, amount: 0)
+      end
+
+    end
+
+    it "default current_state" do
+      product = build(:product, current_state: nil)
+      expect(product).to be_valid
+      expect(product.current_state).to eq CurrentState.STOCK
+    end
+
+    context "method change_to_in_use validations" do
+
+      it "correct" do
+        product = create(:product)
+        params = ActionController::Parameters.new( { product: { location: "new_location", open_at: Date.current } }).require(:product).permit(:location, :open_at)
+        result = product.change_to_in_use params
+        expect(result).to be_truthy
+        expect(product.current_state).to eq CurrentState.IN_USE
+      end
+
+      it "without location" do
+        product = create(:product)
+        params = { location: "", open_at: Date.current }
+        result = product.change_to_in_use params
+        expect(result).to be_falsey
+        expect(product.current_state).to eq CurrentState.STOCK
+      end
+
+      it "without open_at" do
+        product = create(:product)
+        params = { location: "some other location", open_at: nil}
+        result = product.change_to_in_use params
+        expect(result).to be_falsey
+        expect(product.current_state).to eq CurrentState.STOCK
       end
 
     end
