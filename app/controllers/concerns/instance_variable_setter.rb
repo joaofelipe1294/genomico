@@ -25,4 +25,8 @@ module InstanceVariableSetter
     @unit_of_measurements = UnitOfMeasurement.all.order(:name)
   end
 
+  def set_current_states
+    @current_states = CurrentState.all.order(:name)
+  end
+
 end
