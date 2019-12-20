@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
   get 'products/open-product/:id', to: 'products#new_open_product', as: :new_open_product
   patch 'products/open-product/:id', to: 'products#open_product', as: :open_product
   get 'products/in_use'

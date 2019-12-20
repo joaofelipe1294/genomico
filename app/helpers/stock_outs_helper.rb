@@ -1,0 +1,2 @@
+module StockOutsHelper
+end
