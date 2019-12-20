@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_121625) do
+ActiveRecord::Schema.define(version: 2019_12_20_131435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -370,6 +370,18 @@ ActiveRecord::Schema.define(version: 2019_12_10_121625) do
     t.index ["stock_product_id"], name: "index_stock_entries_on_stock_product_id"
   end
 
+  create_table "stock_outs", force: :cascade do |t|
+    t.bigint "stock_product_id"
+    t.bigint "product_id"
+    t.date "date"
+    t.bigint "responsible_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_stock_outs_on_product_id"
+    t.index ["responsible_id"], name: "index_stock_outs_on_responsible_id"
+    t.index ["stock_product_id"], name: "index_stock_outs_on_stock_product_id"
+  end
+
   create_table "stock_products", force: :cascade do |t|
     t.string "name"
     t.integer "usage_per_test"
@@ -484,6 +496,9 @@ ActiveRecord::Schema.define(version: 2019_12_10_121625) do
   add_foreign_key "stock_entries", "current_states"
   add_foreign_key "stock_entries", "reagents"
   add_foreign_key "stock_entries", "users", column: "responsible_id"
+  add_foreign_key "stock_outs", "products"
+  add_foreign_key "stock_outs", "stock_products"
+  add_foreign_key "stock_outs", "users", column: "responsible_id"
   add_foreign_key "stock_products", "fields"
   add_foreign_key "stock_products", "unit_of_measurements"
   add_foreign_key "subsamples", "patients"
