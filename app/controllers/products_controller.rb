@@ -2,12 +2,17 @@ class ProductsController < ApplicationController
   before_action :user_filter
   before_action :set_product, only: [:new_open_product, :open_product]
 
+  # GET products/in_use
   def in_use
+    @products = Product.includes(:brand, :stock_product).where(current_state: CurrentState.IN_USE).page params[:page]
   end
 
   # GET products/in_stock
   def in_stock
-    @products = Product.includes(:brand, :stock_product).where(current_state: CurrentState.STOCK).page params[:page]
+    @products = Product
+                        .includes(:brand, :stock_product)
+                        .where(current_state: CurrentState.STOCK)
+                        .page params[:page]
   end
 
   # GET products/open-product/1

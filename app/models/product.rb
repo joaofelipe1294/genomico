@@ -15,10 +15,11 @@ class Product < ApplicationRecord
 
   def change_to_in_use params
     return false unless params[:open_at].present?
+    params[:current_state] = CurrentState.IN_USE
     if self.update params
-      self.current_state = CurrentState.IN_USE
       return true
     else
+      self.current_state = CurrentState.STOCK
       false
     end
   end
@@ -28,6 +29,16 @@ class Product < ApplicationRecord
     "-"
   end
 
+  def display_shelf_life
+    expired_message = "<span class='text-danger'>#{I18n.localize self.shelf_life}</span>".html_safe
+    return expired_message if self.is_expired
+    if self.shelf_life < Date.current
+      self.update(is_expired: true)
+      return expired_message
+    else
+      return "<span>#{I18n.localize self.shelf_life}</span>".html_safe
+    end
+  end
 
   private
 

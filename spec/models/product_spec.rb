@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
       it "lot" do
         @product.lot = ""
       end
-      
+
       it "location" do
         @product.location = ""
       end
@@ -184,6 +184,16 @@ RSpec.describe Product, type: :model do
         expect(product.current_state).to eq CurrentState.STOCK
       end
 
+    end
+
+    it "expired" do
+      product = create(:product, shelf_life: 2.months.ago)
+      expect(product.display_shelf_life).to eq "<span class='text-danger'>#{I18n.l product.shelf_life}</span>".html_safe
+    end
+
+    it "in time" do
+      product = create(:product, shelf_life: 2.months.from_now)
+      expect(product.display_shelf_life).to eq "<span>#{I18n.l product.shelf_life}</span>".html_safe
     end
 
 end

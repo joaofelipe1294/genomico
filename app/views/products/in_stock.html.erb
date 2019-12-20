@@ -1,4 +1,5 @@
 <%= render "layouts/user_navbar" %>
+
 <table class="table table-bordered mt-5 text-center table-sm">
   <thead class="bg-dark text-white">
     <th class="h4">Nome</th>
@@ -26,7 +27,7 @@
         </td>
         <td>
           <% if product.has_shelf_life %>
-            <%= l product.shelf_life %>
+            <%= product.display_shelf_life %>
           <% else %>
             -
           <% end %>
