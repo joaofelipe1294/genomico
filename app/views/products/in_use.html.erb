@@ -48,7 +48,7 @@
           <%= product.display_tag %>
         </td>
         <td>
-          <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger", data: { confirm: "Tem certeza ?" } %>
+          <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>
         </td>
       </tr>
     <% end %>
