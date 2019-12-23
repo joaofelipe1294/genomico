@@ -36,4 +36,13 @@ RSpec.describe StockOut, type: :model do
     expect(stock_out).to be_invalid
   end
 
+  it "check if prouct status is changed before save" do
+    expect(@product.current_state).to eq CurrentState.STOCK
+    @product.current_state = CurrentState.IN_USE
+    expect(@product.current_state).to eq CurrentState.IN_USE
+    stock_out = create(:stock_out, product: @product)
+    expect(stock_out).to be_valid
+    expect(stock_out.product.current_state).to eq CurrentState.OUT
+  end
+
 end

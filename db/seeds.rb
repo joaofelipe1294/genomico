@@ -364,5 +364,6 @@ UnitOfMeasurement.create([
 
 CurrentState.create([
 	{name: "Estoque"},
-	{name: "Em uso"}
+	{name: "Em uso"},
+	{name: "Concluído"}
 	])
