@@ -1,0 +1,36 @@
+<%= render "layouts/user_navbar" %>
+
+<h2 class="text-center mt-3">
+  Baixas de estoque
+</h2>
+
+<hr>
+
+<table class="table text-center mt-3">
+  <thead class="bg-dark text-white">
+    <th class="h4">Produto</th>
+    <th class="h4">Identificador</th>
+    <th class="h4">Data</th>
+    <th class="h4">Responsável</th>
+  </thead>
+  <tbody>
+    <% @stock_outs.each do |stock_out| %>
+      <tr class="stock-out">
+        <td>
+          <%= stock_out.stock_product.name %>
+        </td>
+        <td>
+          <%= stock_out.product.display_tag %>
+        </td>
+        <td>
+          <%= l stock_out.date %>
+        </td>
+        <td>
+          <%= stock_out.responsible.login %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render "layouts/table_footer", elements: @stock_outs %>

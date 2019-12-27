@@ -1,0 +1,39 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="card col-8 offset-2 mt-5 p-0">
+  <div class="card-header bg-primary">
+    <h3 class="text-center text-white">
+      Próximo produto a ser aberto
+    </h3>
+  </div>
+  <div class="card-body">
+
+    <div class="form-group">
+      <label>Produto</label>
+      <input class="form-control" value="<%= @product.stock_product.name %>" disabled>
+    </div>
+
+    <div class="form-group">
+      <label>Identificação</label>
+      <input class="form-control" value="<%= @product.tag %>" disabled>
+    </div>
+
+    <div class="form-group">
+      <label>Produtos em estoque</label>
+      <input class="form-control" value="<%= @remaining_products %>" disabled>
+    </div>
+
+    <div class="form-group">
+      <label>Localizalção</label>
+      <input class="form-control" value="<%= @product.location %>" disabled>
+    </div>
+
+    <div class="form-group">
+      <label>Data de validade</label>
+      <input class="form-control" value="<%= l @product.shelf_life %>" disabled>
+    </div>
+
+    <%= link_to "Abrir", new_open_product_path(@product), class: 'btn btn-outline-primary float-right' %>
+
+  </div>
+</div>

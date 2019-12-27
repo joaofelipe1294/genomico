@@ -10,4 +10,8 @@ class CurrentState < ApplicationRecord
     CurrentState.find_by name: "Em uso"
   end
 
+  def self.OUT
+    CurrentState.find_by name: "Concluído"
+  end
+
 end
