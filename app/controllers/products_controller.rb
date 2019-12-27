@@ -32,6 +32,7 @@ class ProductsController < ApplicationController
   # GET products/next-product-to-open/:id
   def next_product_to_open
     @product = Product.includes(:stock_product).find params[:id]
+    @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
   end
 
   private
