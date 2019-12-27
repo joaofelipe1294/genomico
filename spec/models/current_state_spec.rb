@@ -30,6 +30,10 @@ RSpec.describe CurrentState, type: :model do
       expect(CurrentState.IN_USE).to eq CurrentState.find_by name: "Em uso"
     end
 
+    it "out" do
+      expect(CurrentState.OUT).to eq CurrentState.find_by name: "Concluído"
+    end
+
   end
 
 

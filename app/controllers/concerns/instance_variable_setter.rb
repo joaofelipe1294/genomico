@@ -29,4 +29,8 @@ module InstanceVariableSetter
     @current_states = CurrentState.all.order(:name)
   end
 
+  def set_users
+    @users = User.where(user_kind: UserKind.USER).order(:login)
+  end
+
 end
