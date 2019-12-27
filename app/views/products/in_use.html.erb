@@ -17,6 +17,7 @@
     <th class="h4">Localização</th>
     <th class="h4">Área</th>
     <th class="h4">Identificação</th>
+    <th class="h4">Aberto em</th>
     <th></th>
   </thead>
   <tbody>
@@ -52,6 +53,9 @@
         </td>
         <td>
           <%= product.display_tag %>
+        </td>
+        <td>
+          <%= l product.open_at %>
         </td>
         <td>
           <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>
