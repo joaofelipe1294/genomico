@@ -29,6 +29,11 @@ class ProductsController < ApplicationController
     end
   end
 
+  # GET products/next-product-to-open/:id
+  def next_product_to_open
+    @product = Product.includes(:stock_product).find params[:id]
+  end
+
   private
 
     def set_product

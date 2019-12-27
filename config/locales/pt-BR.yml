@@ -244,3 +244,4 @@
   edit_stock_product_success: "Produto editado com sucesso."
   open_product_success: "Produto alterado para em uso com sucesso."
   new_stock_out_success: "Baixa de estoque cadastrada com sucesso."
+  without_product_to_open_in_stock: "Não existe outro produto deste tipo em estoque."

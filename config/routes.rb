@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
   get 'stock_outs', to: 'stock_outs#index', as: :stock_outs
   post 'stock_outs/create', to: 'stock_outs#create', as: :create_stock_out
   get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
