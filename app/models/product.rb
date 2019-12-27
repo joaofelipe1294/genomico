@@ -10,7 +10,7 @@ class Product < ApplicationRecord
   validates_with ProductAmountValidator
   validates :amount, :lot, :current_state, :location, :brand, :stock_product, presence: true
   before_validation :set_stock_product
-  paginates_per 17
+  paginates_per 15
   before_validation :current_state_default
 
   def change_to_in_use params
