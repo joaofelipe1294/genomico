@@ -196,4 +196,42 @@ RSpec.describe Product, type: :model do
       expect(product.display_shelf_life).to eq "<span>#{I18n.l product.shelf_life}</span>".html_safe
     end
 
+    context "find_next_in_stock method" do
+
+      before :each do
+        @stock_product = StockProduct.all.last
+        @first_product = create(:product, stock_product: @stock_product, tag: nil)
+      end
+
+      it "with next" do
+        second_product = create(:product, stock_product: @stock_product, tag: nil)
+        @first_product.change_to_in_use({ open_at: Date.current })
+        next_product = @first_product.find_next_in_stock
+        expect(next_product).to eq second_product
+      end
+
+      it "without next product" do
+        @first_product.change_to_in_use({ open_at: Date.current })
+        next_product = @first_product.find_next_in_stock
+        expect(next_product).to eq nil
+      end
+
+      it "find closest shelf_life" do
+        @first_product.update({has_shelf_life: true, shelf_life: Date.current})
+        second_product = create(:product, stock_product: @stock_product, has_shelf_life: true, shelf_life: 2.years.from_now, tag: nil)
+        third_product = create(:product, stock_product: @stock_product, has_shelf_life: true, shelf_life: 3.months.from_now, tag: nil)
+        next_product = @first_product.find_next_in_stock
+        expect(next_product).to eq third_product
+      end
+
+      it "find closest without shelf_life" do
+        @first_product.update({has_shelf_life: false})
+        second_product = create(:product, stock_product: @stock_product, has_shelf_life: false, tag: nil)
+        third_product = create(:product, stock_product: @stock_product, has_shelf_life: false, tag: nil)
+        next_product = @first_product.find_next_in_stock
+        expect(next_product).to eq second_product
+      end
+
+    end
+
 end

@@ -13,6 +13,19 @@ class Product < ApplicationRecord
   paginates_per 15
   before_validation :current_state_default
 
+  def find_next_in_stock
+    products = Product
+                      .where(current_state: CurrentState.STOCK)
+                      .where(stock_product_id: self.stock_product_id)
+                      .where.not(id: self.id)
+    if self.has_shelf_life
+      next_product = products.order(shelf_life: :asc).first
+    else
+      next_product = products.order(tag: :asc).first
+    end
+    next_product
+  end
+
   def change_to_in_use params
     return false unless params[:open_at].present?
     params[:current_state] = CurrentState.IN_USE
