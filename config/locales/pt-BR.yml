@@ -203,6 +203,11 @@
         stock_product: Produto
         stock_product_id: Produto
         open_at: Data de abertura
+      stock_out:
+        date: Data
+        responsible: Responsável
+        product: Produto
+        product_id: Produto
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
