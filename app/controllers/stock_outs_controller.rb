@@ -3,7 +3,7 @@ class StockOutsController < ApplicationController
   before_action :user_filter
 
   def index
-    @stock_outs = StockOut.all.order(:date).page params[:page]
+    @stock_outs = StockOut.all.order(date: :desc).page params[:page]
   end
 
   def new
@@ -34,7 +34,7 @@ class StockOutsController < ApplicationController
       if next_product
         return redirect_to next_product_to_open_path(next_product)
       else
-        flash[:error] = I18n.t :without_product_to_open_in_stock
+        flash[:warning] = I18n.t :without_product_to_open_in_stock
         return redirect_to stock_outs_path
       end
     end
