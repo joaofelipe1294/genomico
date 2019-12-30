@@ -21,4 +21,8 @@ module ValidationChecks
     expect(find(id: "danger-warning").text).to eq I18n.t :wrong_credentials_message
   end
 
+  def check_count css: "classe", count: 1
+    expect(find_all(class: css).size).to eq count
+  end
+
 end

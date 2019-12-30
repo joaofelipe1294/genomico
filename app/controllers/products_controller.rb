@@ -9,10 +9,18 @@ class ProductsController < ApplicationController
 
   # GET products/in_stock
   def in_stock
-    @products = Product
-                        .includes(:brand, :stock_product)
+    if params[:name].present?
+      products = Product
+                                  .includes(:brand)
+                                  .where(current_state: CurrentState.STOCK)
+                                  .joins(:stock_product)
+                                  .where("stock_products.name ILIKE ?", "%#{params[:name]}%")
+    else
+      products = Product
+                        .includes(:stock_product, :brand)
                         .where(current_state: CurrentState.STOCK)
-                        .page params[:page]
+    end
+    @products = products.page params[:page]
   end
 
   # GET products/open-product/1

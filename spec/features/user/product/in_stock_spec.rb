@@ -8,12 +8,14 @@ RSpec.feature "User::Product::InStocks", type: :feature do
     stock_product = create(:stock_product)
     product = create(:product, stock_product: stock_product, current_state: state)
     stock_entry = create(:stock_entry, product: product)
+    stock_entry
   end
 
-  def check_count expected
-    imunofeno_user_do_login
-    visit products_in_stock_path
-    expect(find_all(class: "product").size).to eq expected
+  def setup
+    Rails.application.load_seed
+    create(:user)
+    create(:brand)
+    generate_stock_entry CurrentState.STOCK
   end
 
   it "navigate with login" do
@@ -31,20 +33,19 @@ RSpec.feature "User::Product::InStocks", type: :feature do
 
   context "product count validations" do
 
-    before :each do
-      Rails.application.load_seed
-      create(:user)
-      create(:brand)
-      generate_stock_entry CurrentState.STOCK
-    end
+    before(:each) { setup }
 
     it "with one product" do
-      check_count 1
+      imunofeno_user_do_login
+      visit products_in_stock_path
+      check_count css: "product", count: 1
     end
 
-    it "with in stock and in use product" do
+    it "with in stock and in use product", js: false do
       generate_stock_entry CurrentState.IN_USE
-      check_count 1
+      imunofeno_user_do_login
+      visit products_in_stock_path
+      check_count css: "product", count: 1
     end
 
     it "with many products 3 in stock and 2 in use" do
@@ -52,10 +53,36 @@ RSpec.feature "User::Product::InStocks", type: :feature do
       generate_stock_entry CurrentState.STOCK
       generate_stock_entry CurrentState.IN_USE
       generate_stock_entry CurrentState.IN_USE
-      check_count 3
+      imunofeno_user_do_login
+      visit products_in_stock_path
+      check_count css: "product", count: 3
     end
 
   end
 
+  context "search by name" do
+
+    before :each do
+      setup
+      @stock_entry = generate_stock_entry CurrentState.STOCK
+      generate_stock_entry CurrentState.STOCK
+      generate_stock_entry CurrentState.STOCK
+      imunofeno_user_do_login
+      visit products_in_stock_path
+      check_count css: "product", count: 4
+    end
+
+    it "with results" do
+      fill_in "name", with: @stock_entry.product.stock_product.name
+      click_button id: "btn-search-by-name"
+      check_count css: "product", count: 1
+    end
+
+    it "without results" do
+      click_button id: "btn-search-by-name"
+      check_count css: "product", count: 4
+    end
+
+  end
 
 end
