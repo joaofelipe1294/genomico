@@ -6,7 +6,6 @@ class ProductsController < ApplicationController
 
   # GET products/in_use
   def in_use
-    # @products = Product.includes(:brand, :stock_product).where(current_state: CurrentState.IN_USE).page params[:page]
     products = find_products CurrentState.IN_USE
     @products = products.page params[:page]
   end
@@ -50,15 +49,13 @@ class ProductsController < ApplicationController
     def find_by_field status
       if params[:field_id] == "Compartilhado"
         products = Product
-                          .includes(:brand)
                           .where(current_state: status)
-                          .joins(:stock_product)
+                          .joins(:stock_product, :brand)
                           .where("stock_products.is_shared = true")
       else
         products = Product
-                          .includes(:brand)
                           .where(current_state: status)
-                          .joins(:stock_product)
+                          .joins(:stock_product, :brand)
                           .where("stock_products.field_id = ?", params[:field_id])
       end
       products
@@ -66,9 +63,8 @@ class ProductsController < ApplicationController
 
     def find_by_name status
       Product
-            .includes(:brand)
+            .joins(:stock_product, :brand)
             .where(current_state: status)
-            .joins(:stock_product)
             .where("stock_products.name ILIKE ?", "%#{params[:name]}%")
     end
 
