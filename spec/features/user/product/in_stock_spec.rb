@@ -95,7 +95,7 @@ RSpec.feature "User::Product::InStocks", type: :feature do
       biomol_user_do_login
       visit products_in_stock_path
       check_count css: "product", count: 2
-      select(Field.all.sample.name, from: "field_id").select_option
+      select(Field.BIOMOL.name, from: "field_id").select_option
       click_button id: "btn-search-by-field"
       check_count css: "product", count: 0
       select("Compartilhado", from: "field_id").select_option
