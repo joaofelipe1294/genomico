@@ -6,8 +6,10 @@
 
 <hr>
 
-<div style="overflow: auto;">
-  <%= form_with method: :get, url: products_in_stock_path do |form| %>
+<div class="row pl-5 pr-5">
+
+  <div style="overflow: auto;" class="col-6 border-right">
+    <%= form_with method: :get, url: products_in_stock_path do |form| %>
     <div class="form-group">
       <%= form.label "Nome" %>
       <%= form.text_field "name", class: "form-control" %>
@@ -15,7 +17,22 @@
     <button id="btn-search-by-name" class="btn btn-outline-info float-right">
       Buscar
     </button>
-  <% end %>
+    <% end %>
+  </div>
+
+  <div class="col-6" style="overflow: auto;">
+    <%= form_with method: :get, url: products_in_stock_path do |form| %>
+
+    <div class="form-group">
+      <%= form.label "Área" %>
+      <%= form.select "field_id", options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name"), {}, class: "form-control" %>
+    </div>
+    <button id="btn-search-by-field" class="btn btn-outline-info float-right">
+      Buscar
+    </button>
+    <% end %>
+  </div>
+
 </div>
 
 <hr>
