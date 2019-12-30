@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
+  include InstanceVariableSetter
   before_action :user_filter
   before_action :set_product, only: [:new_open_product, :open_product]
+  before_action :set_fields, only: [:in_stock]
 
   # GET products/in_use
   def in_use
@@ -9,10 +11,34 @@ class ProductsController < ApplicationController
 
   # GET products/in_stock
   def in_stock
-    @products = Product
-                        .includes(:brand, :stock_product)
+    if params[:name].present?
+      products = find_by_name
+      # products = Product
+      #                   .includes(:brand)
+      #                   .where(current_state: CurrentState.STOCK)
+      #                   .joins(:stock_product)
+      #                   .where("stock_products.name ILIKE ?", "%#{params[:name]}%")
+    elsif params[:field_id].present?
+      products = find_by_field
+      # if params[:field_id] == "Compartilhado"
+      #   products = Product
+      #                     .includes(:brand)
+      #                     .where(current_state: CurrentState.STOCK)
+      #                     .joins(:stock_product)
+      #                     .where("stock_products.is_shared = true")
+      # else
+      #   products = Product
+      #                     .includes(:brand)
+      #                     .where(current_state: CurrentState.STOCK)
+      #                     .joins(:stock_product)
+      #                     .where("stock_products.field_id = ?", params[:field_id])
+      # end
+    else
+      products = Product
+                        .includes(:stock_product, :brand)
                         .where(current_state: CurrentState.STOCK)
-                        .page params[:page]
+    end
+    @products = products.page params[:page]
   end
 
   # GET products/open-product/1
@@ -43,6 +69,31 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:location, :open_at)
+    end
+
+    def find_by_field
+      if params[:field_id] == "Compartilhado"
+        products = Product
+                          .includes(:brand)
+                          .where(current_state: CurrentState.STOCK)
+                          .joins(:stock_product)
+                          .where("stock_products.is_shared = true")
+      else
+        products = Product
+                          .includes(:brand)
+                          .where(current_state: CurrentState.STOCK)
+                          .joins(:stock_product)
+                          .where("stock_products.field_id = ?", params[:field_id])
+      end
+      products
+    end
+
+    def find_by_name
+      Product
+            .includes(:brand)
+            .where(current_state: CurrentState.STOCK)
+            .joins(:stock_product)
+            .where("stock_products.name ILIKE ?", "%#{params[:name]}%")
     end
 
 end

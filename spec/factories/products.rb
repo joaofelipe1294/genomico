@@ -7,7 +7,7 @@ FactoryBot.define do
     amount { 1 }
     current_state { CurrentState.STOCK }
     location { "Santuario" }
-    tag { "BIO1" }
+    tag { nil }
     has_shelf_life { true }
     has_tag { true }
     open_at { 3.months.ago }
