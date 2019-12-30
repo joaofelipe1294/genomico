@@ -6,6 +6,10 @@
 
 <hr>
 
+<%= render "products/search_fields" %>
+
+<hr>
+
 <table class="table table-bordered mt-3 text-center table-sm">
   <thead class="bg-dark text-white">
     <th class="h4">Nome</th>
@@ -61,6 +65,4 @@
   </tbody>
 </table>
 
-<div class="container pagination justify-content-center" >
-  <%= paginate @products , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
-</div>
+<%= render "layouts/table_footer", elements: @products %>
