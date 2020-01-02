@@ -1,28 +1,15 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+After clone the project execute vagrant up to install a vm with Ruby, Rails, PostgreSQL, Redis and Chrome in a Ubuntu 18.04 VM.
 
-Things you may want to cover:
+* Ruby version: 2.5.5
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
+* The first time run the backup ou restore must run "mkdir public/backups/"
 
 * How to run the test suite
+  Most of the test suite run without need of any JS, but at this time all tests that use js are been migrating from a real browser running that (Firefox) to a headless browser (chrome with gem cuprite)
 
-* Services (job queues, cache servers, search engines, etc.)
+* Some tasks that are used constantly:
 
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+  - rails backup:do -> generate a file backup.zip with all files uploaded and data from the database.
+  - rails backup:restore file.zip -> receives a zip file generated with backup:do and restore the database status and files
