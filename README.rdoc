@@ -8,7 +8,11 @@ After clone the project execute vagrant up to install a vm with Ruby, Rails, Pos
 
 * The first time run the backup ou restore must run "mkdir public/backups/"
 
-* After create the virtual machine run "crontab -e" and add "@reboot /usr/local/bin/redis-server /opt/redis/redis-5.0.5/redis.conf" to redis start each time
+* After create the virtual machine
+  1 - run "crontab -e"
+  2 - add "@reboot /usr/local/bin/redis-server /home/vagrant/redis/redis-5.0.5/redis.conf"
+  3 - run "sudo nano ~/redis/redis-5.0.5/redis.conf"
+  4 - change "daemonize no" to "daemonize yes"
 
 * How to run the test suite
   Most of the test suite run without need of any JS, but at this time all tests that use js are been migrating from a real browser running that (Firefox) to a headless browser (chrome with gem cuprite)
