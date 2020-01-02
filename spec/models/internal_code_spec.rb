@@ -22,9 +22,7 @@ RSpec.describe InternalCode, type: :model do
 
   it "with duplicated code" do
     internal_code = create(:internal_code, field: Field.IMUNOFENO)
-    new_internal_code = create(:internal_code, field: Field.IMUNOFENO)
-    internal_code.delete
-    duplicated = build(:internal_code, field: Field.IMUNOFENO)
+    duplicated = build(:internal_code, field: Field.IMUNOFENO, code: internal_code.code)
     expect(duplicated).to be_invalid
   end
 
