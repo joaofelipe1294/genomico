@@ -1,0 +1,48 @@
+---
+- hosts: all
+  tasks:
+    - name: 'Instala o Postgres'
+      apt:
+        name: [postgresql, postgresql-contrib]
+        state: latest
+      become: yes
+
+    - name: Alterando senha do usuario postgres
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: postgres
+        password: '1234'
+        encrypted: yes
+
+    - name: Criando usuario deploy
+      become: true
+      become_user: postgres
+      postgresql_user:
+        name: deploy
+        password: lab_genomico_HPP_2106
+        role_attr_flags: CREATEDB,NOSUPERUSER
+        encrypted: yes
+
+    - name: 'Instala pré requisitos do Ruby'
+      apt:
+        name: [autoconf,bison,build-essential,libssl1.0-dev,libyaml-dev,libreadline-dev,zlib1g-dev,libncurses5-dev,libffi-dev,libgdbm-dev,build-essential,tcl]
+        state: latest
+      become: yes
+
+    - name: Instalando Nodejs
+      apt:
+        name: nodejs
+        state: present
+      become: yes
+
+    - name: Instalando Ruby 2.5.5
+      command: bash /vagrant/vagrant_files/shell_scripts/ruby_install.sh >> ruby_install_log.txt
+
+    - name: Instalando Bundler 2.0.2
+      command: bash /vagrant/vagrant_files/shell_scripts/bundler_install.sh >> bundler_install_log.txt
+
+    - name: Instalando pacotes utilizados pelo projeto
+      become: yes
+      apt:
+        name: zip
