@@ -31,7 +31,7 @@ RSpec.configure do |config|
 
   # config.use_transactional_fixtures = true
   #
-  config.before(:suite) do
+  config.before(:suite) do # FIXME: REMOVER ESTE TREIXO JUNTO COM OS MODULOS DE CONTROLLER QUE UTILIZAM ESTES METODOS
     Rails.application.load_seed
     Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
     Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)

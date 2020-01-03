@@ -1,7 +1,10 @@
 require 'rails_helper'
-require 'helpers/admin'
+# require 'helpers/admin'
 
 RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
+	include UserLogin
+
+	before(:each) { Rails.application.load_seed }
 
 	context 'Valid Navigations' do
 
@@ -63,7 +66,7 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 
 		it 'navigate to admin home' do
 			admin_do_login
-			click_link(id: 'user-dropdow')
+			click_link(id: 'user-dropdown')
 			click_link(id: 'new-user')
 			click_link(id: 'home-admin')
 			expect(page).to have_current_path(home_admin_index_path)
@@ -77,7 +80,7 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 			visit(home_admin_index_path)
 			expect(page).to have_current_path(root_path)
 			error_message = find(id: 'danger-warning').text
-			expect(error_message).to eq("Credenciais inválidas.")	
+			expect(error_message).to eq("Credenciais inválidas.")
 		end
 
 		it 'New::User' do
