@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Brand::Edits", type: :feature do
+  include UserLogin
 
   context "edit" do
 
@@ -42,10 +42,5 @@ RSpec.feature "User::Brand::Edits", type: :feature do
     end
 
   end
-
-
-
-
-
-
+  
 end
