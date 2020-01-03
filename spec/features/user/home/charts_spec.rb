@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
 
 def setup_attendance_with_no_exams
   patient = create(:patient)
@@ -16,7 +15,7 @@ def setup_attendance_with_no_exams
   })
 end
 
-def reload_constants
+def reload_constants # FIXME: Remover este bloco quando os modulos com constantes forem removidos
   Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
   Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
   load 'app/models/concerns/exam_status_kinds.rb'
@@ -24,6 +23,7 @@ def reload_constants
 end
 
 RSpec.feature "User::Home::Charts", type: :feature do
+  include UserLogin
 
   before :each do
     Rails.application.load_seed

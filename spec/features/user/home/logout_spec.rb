@@ -1,10 +1,11 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Home::Logouts", type: :feature do
+  include UserLogin
 
   it "user logout" do
-    user_do_login_with_seeds
+    Rails.application.load_seed
+    biomol_user_do_login
     expect(page).to have_current_path home_user_index_path
     click_link id: 'logout-link'
     expect(page).to have_current_path root_path
