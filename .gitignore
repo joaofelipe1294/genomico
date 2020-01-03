@@ -19,3 +19,7 @@ public/system/
 public/assets
 public/backups
 coverage/
+
+*.log
+*.retry
+.vagrant/
