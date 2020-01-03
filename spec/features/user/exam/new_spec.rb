@@ -1,8 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 RSpec.feature "User::Exam::News", type: :feature do
+  include UserLogin
 
   context "navigations" do
 
