@@ -1,6 +1,6 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
+# require 'helpers/user'
+# require 'helpers/attendance'
 
 def work_map_setup
   Rails.application.load_seed
@@ -16,6 +16,8 @@ def work_map_setup
 end
 
 RSpec.feature "User::WorkMap::News", type: :feature do
+  include UserLogin
+  include DataGenerator
 
   context "navigation" do
 
@@ -120,9 +122,10 @@ RSpec.feature "User::WorkMap::News", type: :feature do
 
   it "with invalid internal code", js: true do
     work_map_setup
+    page.driver.browser.accept_confirm
     fill_in "internal-code", with: '1231223123'
     click_button id: 'btn-search'
-    page.driver.browser.switch_to.alert.accept
+    # page.driver.browser.switch_to.alert.accept
     expect(find_all(class: 'internal-code').size).to eq 0
   end
 
