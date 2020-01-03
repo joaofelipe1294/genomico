@@ -12,10 +12,10 @@ RSpec.feature "User::StockEntry::News", type: :feature, js: true do
     biomol_user_do_login
     click_link id: "stock-dropdown"
     click_link id: "new-stock-entry"
-    fill_in "stock_entry[entry_date]", with: 3.days.ago
+    fill_in "stock_entry[entry_date]", with: Date.current.to_s
     select(stock_product.field.name, from: "fields-select").select_option
     fill_in "stock_entry[product_attributes][lot]", with: "981273kjasbd"
-    fill_in "stock_entry[product_attributes][shelf_life]", with: 2.months.from_now
+    fill_in "stock_entry[product_attributes][shelf_life]", with: Date.current.to_s
     fill_in "stock_entry[product_attributes][amount]", with: "2"
     fill_in "stock_entry[product_attributes][location]", with: "Some locale"
   end
