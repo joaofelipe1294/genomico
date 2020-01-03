@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Workflow::Exam::ChangeStatuses", type: :feature, js: true do
+  include UserLogin
 
     context "change exam status IMUNOFENO" do
 
@@ -42,8 +42,8 @@ RSpec.feature "User::Workflow::Exam::ChangeStatuses", type: :feature, js: true d
       it "complete exam without report" do
         visit current_path
         click_button 'exam_nav'
+        page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        page.driver.browser.switch_to.alert.accept
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE_WITHOUT_REPORT.name}."
         expect(page).to have_current_path add_report_to_exam_path(@attendance.exams.first)
       end
@@ -51,8 +51,8 @@ RSpec.feature "User::Workflow::Exam::ChangeStatuses", type: :feature, js: true d
       it "complete exam with report" do
         visit current_path
         click_button 'exam_nav'
+        page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        page.driver.browser.switch_to.alert.accept
         attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
         click_button id: "btn-save"
         expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
@@ -102,8 +102,8 @@ RSpec.feature "User::Workflow::Exam::ChangeStatuses", type: :feature, js: true d
       it "complete exam without report" do
         visit current_path
         click_button 'exam_nav'
+        page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        page.driver.browser.switch_to.alert.accept
         expect(find(id: 'success-warning').text).to eq "Status de exame alterado para #{ExamStatusKind.COMPLETE_WITHOUT_REPORT.name}."
         expect(page).to have_current_path add_report_to_exam_path(@attendance.exams.first)
       end
@@ -111,8 +111,8 @@ RSpec.feature "User::Workflow::Exam::ChangeStatuses", type: :feature, js: true d
       it "complete exam with report" do
         visit current_path
         click_button 'exam_nav'
+        page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        page.driver.browser.switch_to.alert.accept
         attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
         click_button id: "btn-save"
         expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})

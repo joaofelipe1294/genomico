@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 def select_first_exam
   @first_exam =  @attendance.exams
@@ -29,6 +27,8 @@ def setup_partial_released
 end
 
 RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
+  include DataGenerator
+  include UserLogin
 
   before :each do
     Rails.application.load_seed
@@ -57,6 +57,7 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       imunofeno_user_do_login
       click_link class: 'attendance-code', match: :first
       click_button id: 'exam_nav'
+      current_attendance = current_path
       select_first_exam
       generate_internal_code
       click_button id: 'exam_nav'
@@ -65,17 +66,10 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
       click_button id: 'exam_nav'
       visit current_path
       click_button 'exam_nav'
+      page.driver.browser.accept_confirm
       click_link class: 'change-to-complete', match: :first
-      page.driver.browser.switch_to.alert.accept
-      visit current_path
+      visit current_attendance
       click_button id: 'exam_nav'
-    end
-
-    it "navigate to add report to exam" do
-      expect(find_all(class: 'add-report').size).to eq Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
-      click_link class: 'add-report', match: :first
-      exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).first
-      expect(page).to have_current_path add_report_to_exam_path(exam)
     end
 
     it "add report to exam" do
@@ -158,8 +152,9 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
         click_button id: 'exam_nav'
         click_link class: 'start-exam', match: :first
         click_button id: 'btn-save'
+        page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        page.driver.browser.switch_to.alert.accept
+        # page.driver.browser.switch_to.alert.accept
         attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
         click_button id: 'btn-save'
         click_button id: 'report_nav'

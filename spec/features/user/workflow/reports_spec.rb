@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'helpers/attendance'
-require 'helpers/user'
 
 RSpec.feature "User::Workflow::Reports", type: :feature, js: true do
+  include DataGenerator
+  include UserLogin
 
   before :each do
     Rails.application.load_seed
@@ -16,6 +16,7 @@ RSpec.feature "User::Workflow::Reports", type: :feature, js: true do
     create_attendance
     imunofeno_user_do_login
     click_link class: 'attendance-code', match: :first
+    current_attendance = current_path
     click_button id: 'exam_nav'
     @first_exam =  @attendance.exams
                                     .joins(:offered_exam)
@@ -29,9 +30,9 @@ RSpec.feature "User::Workflow::Reports", type: :feature, js: true do
     click_button id: 'exam_nav'
     visit current_path
     click_button 'exam_nav'
+    page.driver.browser.accept_confirm
     click_link class: 'change-to-complete', match: :first
-    page.driver.browser.switch_to.alert.accept
-    visit current_path
+    visit current_attendance
     click_button id: 'exam_nav'
     click_link class: 'add-report', match: :first
     attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
@@ -50,8 +51,8 @@ RSpec.feature "User::Workflow::Reports", type: :feature, js: true do
     imunofeno_user_do_login
     visit workflow_path(exam.attendance)
     click_button id: 'report_nav'
+    page.driver.browser.accept_confirm
     click_link class: 'remove-report', match: :first
-    page.driver.browser.switch_to.alert.accept
     expect(page).to have_current_path workflow_path(exam.attendance), ignore_query: true
     expect(find(id: "success-warning").text).to eq I18n.t :remove_report_success
     click_button id: "report_nav"

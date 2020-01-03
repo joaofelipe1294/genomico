@@ -123,7 +123,6 @@ RSpec.feature "User::WorkMap::News", type: :feature do
     page.driver.browser.accept_confirm
     fill_in "internal-code", with: '1231223123'
     click_button id: 'btn-search'
-    # page.driver.browser.switch_to.alert.accept
     expect(find_all(class: 'internal-code').size).to eq 0
   end
 

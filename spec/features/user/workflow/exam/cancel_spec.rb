@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'helpers/attendance'
-require 'helpers/user'
 
 RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
+  include UserLogin
+  include DataGenerator
 
   def get_exam
     attendance = Attendance.all.last
@@ -34,8 +34,8 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
     after :each do
       visit current_path
       click_button id: "exam_nav"
+      page.driver.browser.accept_confirm
       click_link class: 'cancel-exam', match: :first
-      page.driver.browser.switch_to.alert.accept
       expect(page).to have_current_path(workflow_path(Attendance.all.last), ignore_query: true)
       expect(find_all(class: "text-danger").size).to eq 1
     end

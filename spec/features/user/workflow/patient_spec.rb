@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 RSpec.feature "User::Workflow::Patients", type: :feature, js: true do
+  include UserLogin
+  include DataGenerator
 
   it "edit patient observations" do
     Rails.application.load_seed

@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 def complete_exam
   @first_exam = @attendance.exams
@@ -8,6 +6,7 @@ def complete_exam
                             .where("offered_exams.field_id = ?", Field.IMUNOFENO.id)
                             .order("offered_exams.name ASC").first
   click_button id: 'sample_nav'
+  current_attendance = current_path
   click_link class: 'new-internal-code', match: :first
   click_button id: 'exam_nav'
   click_link class: 'start-exam', match: :first
@@ -15,12 +14,14 @@ def complete_exam
   click_button id: 'exam_nav'
   visit current_path
   click_button 'exam_nav'
+  page.driver.browser.accept_confirm
   click_link class: 'change-to-complete', match: :first
-  page.driver.browser.switch_to.alert.accept
-  visit current_path
+  visit current_attendance
 end
 
 RSpec.feature "User::Workflow::FinishAttendances", type: :feature, js: true do
+  include UserLogin
+  include DataGenerator
 
   before :each do
     Rails.application.load_seed

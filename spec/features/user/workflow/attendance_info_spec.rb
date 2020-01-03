@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 def visit_workflow
   create_attendance
@@ -10,6 +8,8 @@ def visit_workflow
 end
 
 RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do
+  include DataGenerator
+  include UserLogin
 
   before :each do
     Rails.application.load_seed
@@ -91,12 +91,6 @@ RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do
       expect(find(class: 'error').text).to eq "Código LisNet já está em uso"
     end
 
-
   end
-
-
-
-
-
 
 end
