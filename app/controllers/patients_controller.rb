@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
   def create
     @patient = Patient.new(patient_params)
       if @patient.save
-        flash[:success] = 'Paciente cadastrado com sucesso.'
+        flash[:success] = I18n.t :new_patient_success
         redirect_to new_attendance_path(@patient.id)
       else
         set_hospitals

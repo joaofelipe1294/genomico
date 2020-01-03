@@ -48,5 +48,4 @@ module DataGenerator
     })
   end
 
-
 end
