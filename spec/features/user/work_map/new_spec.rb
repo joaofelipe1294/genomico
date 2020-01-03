@@ -1,6 +1,4 @@
 require 'rails_helper'
-# require 'helpers/user'
-# require 'helpers/attendance'
 
 def work_map_setup
   Rails.application.load_seed
