@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::OfferedExam::News", type: :feature do
+  include UserLogin
 
   context "offered_exam validations" do
 
