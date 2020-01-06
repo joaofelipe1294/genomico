@@ -154,7 +154,6 @@ RSpec.feature "User::Workflow::Exams", type: :feature, js: true do
         click_button id: 'btn-save'
         page.driver.browser.accept_confirm
         click_link class: 'change-to-complete', match: :first
-        # page.driver.browser.switch_to.alert.accept
         attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
         click_button id: 'btn-save'
         click_button id: 'report_nav'

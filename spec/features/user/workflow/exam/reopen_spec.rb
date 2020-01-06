@@ -31,7 +31,6 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
       visit workflow_path(attendance, {tab: "exams"})
       page.driver.browser.accept_confirm
       click_link class: "reopen-exam", match: :first
-      # page.driver.browser.switch_to.alert.accept
       expect(page).to have_current_path workflow_path(attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :exam_reopen_success
       updated_exam = Exam.find(exam.id)
@@ -60,7 +59,6 @@ RSpec.feature "User::Workflow::Exam::Reopens", type: :feature, js: true do
       visit workflow_path(attendance, {tab: "exams"})
       page.driver.browser.accept_confirm
       click_link class: "reopen-exam", match: :first
-      # page.driver.browser.switch_to.alert.accept
       expect(page).to have_current_path workflow_path(attendance, {tab: "exams"})
       expect(find(id: 'success-warning').text).to eq I18n.t :exam_reopen_success
       updated_exam = Exam.find(exam.id)

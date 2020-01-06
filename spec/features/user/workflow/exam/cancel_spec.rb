@@ -4,32 +4,20 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
   include UserLogin
   include DataGenerator
 
-  def get_exam
+  def setup
+    Rails.application.load_seed
+    create_attendance
     attendance = Attendance.all.last
-    exam = attendance.exams.first
-    exam
-  end
-
-  def reload_constants
-    Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
-    Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
-    load 'app/models/concerns/exam_status_kinds.rb'
-    load 'app/models/concerns/attendance_status_kinds.rb'
+    attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
+    Exam.all.sample.delete
+    imunofeno_user_do_login
+    click_link class: 'attendance-code', match: :first
+    @exam = attendance.exams.last
   end
 
   context "Canceled" do
 
-    before :each do
-      Rails.application.load_seed
-      reload_constants
-      create_attendance
-      attendance = Attendance.all.last
-      attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
-      Exam.all.sample.delete
-      imunofeno_user_do_login
-      click_link class: 'attendance-code', match: :first
-      @exam = get_exam
-    end
+    before(:each) { setup }
 
     after :each do
       visit current_path
@@ -60,15 +48,7 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
   context "verify render" do
 
     it "complete exam" do
-      Rails.application.load_seed
-      reload_constants
-      create_attendance
-      attendance = Attendance.all.last
-      attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
-      Exam.all.sample.delete
-      imunofeno_user_do_login
-      click_link class: 'attendance-code', match: :first
-      @exam = get_exam
+      setup
       @exam.update(exam_status_kind: ExamStatusKind.COMPLETE)
       visit current_path
       click_button id: "exam_nav"
