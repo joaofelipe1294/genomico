@@ -29,44 +29,44 @@
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
         <% if @tab == 'attendance' %>
-          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), id: "attendance-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), id: "attendance-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
       <li class="nav-item">
         <% if @tab == 'exams' %>
-          <%= link_to "Exames", workflow_path({tab: 'exams'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Exames", workflow_path({tab: 'exams'}), id: "exams-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Exames", workflow_path({tab: 'exams'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Exames", workflow_path({tab: 'exams'}), id: "exams-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
       <li class="nav-item">
         <% if @tab == 'samples' %>
-          <%= link_to "Amostras", workflow_path({tab: 'samples'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Amostras", workflow_path({tab: 'samples'}), id: "samples-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Amostras", workflow_path({tab: 'samples'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Amostras", workflow_path({tab: 'samples'}), id: "samples-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
       <li class="nav-item">
         <% if @tab == 'work_maps' %>
-          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), id: "work-maps-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), id: "work-maps-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
       <li class="nav-item">
         <% if @tab == 'reports' %>
-          <%= link_to "Laudos", workflow_path({tab: 'reports'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Laudos", workflow_path({tab: 'reports'}), id: "reports-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Laudos", workflow_path({tab: 'reports'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Laudos", workflow_path({tab: 'reports'}), id: "reports-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
       <li class="nav-item">
         <% if @tab == 'patient'%>
-          <%= link_to "Paciente", workflow_path({tab: 'patient'}), class: "btn nav-link border w-75 active" %>
+          <%= link_to "Paciente", workflow_path({tab: 'patient'}), id: "patient-nav", class: "btn nav-link border w-75 active" %>
         <% else %>
-          <%= link_to "Paciente", workflow_path({tab: 'patient'}), class: "btn nav-link border w-75" %>
+          <%= link_to "Paciente", workflow_path({tab: 'patient'}), id: "patient-nav", class: "btn nav-link border w-75" %>
         <% end %>
       </li>
     </ul>

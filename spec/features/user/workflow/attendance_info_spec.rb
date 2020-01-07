@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-def visit_workflow
-  create_attendance
-  imunofeno_user_do_login
-  click_link class: 'attendance-code', match: :first
-  click_button id: 'attendance_nav'
-end
-
-RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do
+RSpec.feature "User::Workflow::AttendanceInfos", type: :feature do
   include DataGenerator
   include UserLogin
 
   before :each do
     Rails.application.load_seed
+  end
+
+  def visit_workflow
+    create_attendance
+    imunofeno_user_do_login
+    click_link class: 'attendance-code', match: :first
+    click_link id: "attendance-nav"
   end
 
   context "success updates" do
@@ -81,14 +81,14 @@ RSpec.feature "User::Workflow::AttendanceInfos", type: :feature, js: true do
     it "without lis_code" do
       fill_in "attendance[lis_code]", with: ""
       click_button id: 'btn-save'
-      expect(find(class: 'error', match: :first).text).to eq "Código LisNet não pode ficar em branco"
+      expect(find(id: 'danger-warning').text).to eq "Código LisNet não pode ficar em branco"
     end
 
     it "duplicated lis_code" do
       duplicated = create(:attendance)
       fill_in "attendance[lis_code]", with: duplicated.lis_code
       click_button id: 'btn-save'
-      expect(find(class: 'error').text).to eq "Código LisNet já está em uso"
+      expect(find(id: 'danger-warning').text).to eq "Código LisNet já está em uso"
     end
 
   end

@@ -51,7 +51,8 @@ class AttendancesController < ApplicationController
         redirect_to workflow_path(@attendance)
       else
         set_desease_stages_and_health_ensurances
-        render :workflow
+        flash[:warning] = @attendance.errors.full_messages.first
+        redirect_to workflow_path(@attendance, {tab: params[:tab]})
       end
   end
 

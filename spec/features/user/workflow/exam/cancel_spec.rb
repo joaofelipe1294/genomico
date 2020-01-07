@@ -30,31 +30,31 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
     #   expect(find_all(class: "text-danger").size).to eq 1
     # end
 
-    before :each do
-      puts "================================"
-      puts "before seed"
-      p ExamStatusKind.all
-      Rails.application.load_seed
-      puts "after seed"
-      p ExamStatusKind.all
-      puts "================================"
-      create_attendance
-      attendance = Attendance.all.last
-      attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
-      Exam.all.sample.delete
-      imunofeno_user_do_login
-      click_link class: 'attendance-code', match: :first
-      @exam = attendance.exams.last
-    end
+    # before :each do
+      # puts "================================"
+      # puts "before seed"
+      # p ExamStatusKind.all
+      # Rails.application.load_seed
+      # puts "after seed"
+      # p ExamStatusKind.all
+      # puts "================================"
+      # create_attendance
+      # attendance = Attendance.all.last
+      # attendance.exams.joins(:offered_exam).where.not("offered_exams.field_id = ?", Field.IMUNOFENO.id).delete_all
+      # Exam.all.sample.delete
+      # imunofeno_user_do_login
+      # click_link class: 'attendance-code', match: :first
+      # @exam = attendance.exams.last
+    # end
 
-    after :each do
-      visit current_path
-      click_button id: "exam_nav"
-      page.driver.browser.accept_confirm
-      click_link class: 'cancel-exam', match: :first
-      expect(page).to have_current_path(workflow_path(Attendance.all.last), ignore_query: true)
-      expect(find_all(class: "text-danger").size).to eq 1
-    end
+    # after :each do
+    #   visit current_path
+    #   click_button id: "exam_nav"
+    #   page.driver.browser.accept_confirm
+    #   click_link class: 'cancel-exam', match: :first
+    #   expect(page).to have_current_path(workflow_path(Attendance.all.last), ignore_query: true)
+    #   expect(find_all(class: "text-danger").size).to eq 1
+    # end
 
 
     it "cancelar waiting to start" do
@@ -63,7 +63,7 @@ RSpec.feature "User::Workflow::Exam::Cancels", type: :feature, js: true do
       # puts "before seed"
       # p ExamStatusKind.all
       # puts "****************************************"
-      # Rails.application.load_seed
+      Rails.application.load_seed
       # puts "========================================"
       # puts "after seeding"
       # p ExamStatusKind.all
