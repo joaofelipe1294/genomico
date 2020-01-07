@@ -28,173 +28,62 @@
   <div class="border-bottom pb-3">
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='attendance_nav'>Atendimento</button>
+        <% if @tab == 'attendance' %>
+          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Atendimento", workflow_path({tab: 'attendance'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='exam_nav'>Exames</button>
+        <% if @tab == 'exams' %>
+          <%= link_to "Exames", workflow_path({tab: 'exams'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Exames", workflow_path({tab: 'exams'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='sample_nav'>Amostras</button>
+        <% if @tab == 'samples' %>
+          <%= link_to "Amostras", workflow_path({tab: 'samples'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Amostras", workflow_path({tab: 'samples'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='work_map_nav'>Mapa de trabalho</button>
+        <% if @tab == 'work_maps' %>
+          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Mapas de trabalho", workflow_path({tab: 'work_maps'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='report_nav'>Laudo</button>
+        <% if @tab == 'reports' %>
+          <%= link_to "Laudos", workflow_path({tab: 'reports'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Laudos", workflow_path({tab: 'reports'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
       <li class="nav-item">
-        <button class="btn nav-link border w-75" id='patient_nav'>Paciente</button>
+        <% if @tab == 'patient'%>
+          <%= link_to "Paciente", workflow_path({tab: 'patient'}), class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Paciente", workflow_path({tab: 'patient'}), class: "btn nav-link border w-75" %>
+        <% end %>
       </li>
     </ul>
   </div>
   <div class="mt-3">
-  	<div id='attendance_tab' style="display: none;">
-			<%= render 'attendances/forms/attendance'%>
-		</div>
-
-		<div id='exams_tab' style="display: none;">
-			<%= render 'attendances/forms/exams' %>
-		</div>
-
-		<div id='samples_tab' style="display: none;">
-			<%= render 'attendances/forms/samples'%>
-		</div>
-
-    <div id="work_map_tab" style="display: none;">
+    <% if @tab == 'attendance' %>
+  		<%= render 'attendances/forms/attendance'%>
+    <% elsif @tab == 'exams'%>
+      <%= render 'attendances/forms/exams' %>
+    <% elsif @tab == 'samples' %>
+    	<%= render 'attendances/forms/samples'%>
+    <% elsif @tab == 'work_maps' %>
       <%= render 'attendances/forms/work_maps'%>
-    </div>
-
-    <div id='report_tab' style="display: none;">
+    <% elsif @tab == 'reports'%>
       <%= render 'attendances/forms/report' %>
-    </div>
-
-    <div id='patient_tab' style="display: none; overflow: auto;">
+    <% elsif @tab == 'patient' %>
       <%= render 'attendances/forms/patient' %>
-    </div>
-
+    <% end %>
   </div>
 </div>
-
-
-<script>
-
-  $('#attendance_nav').click(event => {
-    event.preventDefault()
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#work_map_tab').css('display', 'none')
-    $('#report_tab').css('display', 'none')
-    $('#patient_tab').css('display', 'none')
-    $('#attendance_tab').fadeToggle()
-    $('#attendance_nav').addClass('active')
-    $('#exam_nav').removeClass('active')
-    $('#sample_nav').removeClass('active')
-    $('#work_map_nav').removeClass('active')
-    $('#report_nav').removeClass('active')
-    $('#patient_nav').removeClass('active')
-  })
-
-  $('#exam_nav').click(event => {
-    event.preventDefault()
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#work_map_tab').css('display', 'none')
-    $('#report_tab').css('display', 'none')
-    $('#patient_tab').css('display', 'none')
-    $('#exams_tab').fadeToggle()
-    $('#attendance_nav').removeClass('active')
-    $('#exam_nav').addClass('active')
-    $('#sample_nav').removeClass('active')
-    $('#work_map_nav').removeClass('active')
-    $('#report_nav').removeClass('active')
-    $('#patient_nav').removeClass('active')
-  })
-
-  $('#sample_nav').click(event => {
-    event.preventDefault()
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#work_map_tab').css('display', 'none')
-    $('#report_tab').css('display', 'none')
-    $('#patient_tab').css('display', 'none')
-    $('#samples_tab').fadeToggle()
-    $('#attendance_nav').removeClass('active')
-    $('#exam_nav').removeClass('active')
-    $('#sample_nav').addClass('active')
-    $('#work_map_nav').removeClass('active')
-    $('#report_nav').removeClass('active')
-    $('#patient_nav').removeClass('active')
-  })
-
-  $('#work_map_nav').click(event => {
-      event.preventDefault()
-      $('#attendance_tab').css('display', 'none')
-      $('#exams_tab').css('display', 'none')
-      $('#samples_tab').css('display', 'none')
-      $('#work_map_tab').css('display', 'none')
-      $('#report_tab').css('display', 'none')
-      $('#patient_tab').css('display', 'none')
-      $('#work_map_tab').fadeToggle()
-      $('#attendance_nav').removeClass('active')
-      $('#exam_nav').removeClass('active')
-      $('#sample_nav').removeClass('active')
-      $('#work_map_nav').removeClass('active')
-      $('#work_map_nav').addClass('active')
-      $('#patient_nav').removeClass('active')
-    })
-
-  $('#report_nav').click(event => {
-      event.preventDefault()
-      $('#attendance_tab').css('display', 'none')
-      $('#exams_tab').css('display', 'none')
-      $('#samples_tab').css('display', 'none')
-      $('#work_map_tab').css('display', 'none')
-      $('#report_tab').css('display', 'none')
-      $('#patient_tab').css('display', 'none')
-      $('#report_tab').fadeToggle()
-      $('#attendance_nav').removeClass('active')
-      $('#exam_nav').removeClass('active')
-      $('#sample_nav').removeClass('active')
-      $('#work_map_nav').removeClass('active')
-      $('#report_nav').addClass('active')
-      $('#patient_nav').removeClass('active')
-    })
-
-    $('#patient_nav').click(event => {
-        event.preventDefault()
-        $('#attendance_tab').css('display', 'none')
-        $('#exams_tab').css('display', 'none')
-        $('#samples_tab').css('display', 'none')
-        $('#work_map_tab').css('display', 'none')
-        $('#report_tab').css('display', 'none')
-        $('#patient_tab').css('display', 'none')
-        $('#patient_tab').fadeToggle()
-        $('#attendance_nav').removeClass('active')
-        $('#exam_nav').removeClass('active')
-        $('#sample_nav').removeClass('active')
-        $('#work_map_nav').removeClass('active')
-        $('#report_nav').removeClass('active')
-        $('#patient_nav').addClass('active')
-      })
-
-</script>
-
-<script>
-  var searchParams = new URLSearchParams(window.location.search)
-  if(searchParams.has('tab')){
-    let tab = searchParams.get('tab')
-    if (tab === 'exams'){
-      $('#exam_nav').addClass('active')
-      $('#exams_tab').removeAttr('style')
-    }else if (tab == 'samples'){
-      $('#sample_nav').addClass('active')
-      $('#samples_tab').removeAttr('style')
-    }
-  }else{
-    $('#attendance_nav').addClass('active')
-    $('#attendance_tab').removeAttr('style')
-  }
-</script>

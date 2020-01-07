@@ -35,6 +35,11 @@ module ChangeExamStatus
   private
 
   def apply_changes
+    puts "------------------------------------"
+    p params
+    puts "************************************"
+    p @exam
+    puts "------------------------------------"
     exam_status_kind = @exam.exam_status_kind
     if @exam.change_status session[:user_id]
       flash[:success] = "Status de exame alterado para #{exam_status_kind.name}."

@@ -58,6 +58,7 @@ class AttendancesController < ApplicationController
   #GET attendances/1
   def workflow
     @attendance = Attendance.includes(:exams, :samples).find params[:id]
+    @tab = params[:tab]
     helpers.check_attendance_status @attendance
   end
 
