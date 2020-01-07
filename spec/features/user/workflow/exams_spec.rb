@@ -31,79 +31,65 @@ RSpec.feature "User::Workflow::Exams", type: :feature do
   include UserLogin
   include AttendanceHelper
 
-
-  context "some context" do
-
-    before(:each) { Rails.application.load_seed }
-
-    it "check how many exams are listed" do
-      # p ExamStatusKind.all
-      attendance = create_raw_imunofeno_attendance
-      imunofeno_user_do_login
-      visit workflow_path(attendance.id, {tab: 'exams'})
-      expect(find_all(class: 'exam').size).to eq 1
-      expect(Exam.where(exam_status_kind: ExamStatusKind.WAITING_START).size).to eq 1
-    end
-
+  it "check how many exams are listed" do
+    Rails.application.load_seed
+    attendance = create_raw_imunofeno_attendance
+    imunofeno_user_do_login
+    visit workflow_path(attendance.id, {tab: 'exams'})
+    expect(find_all(class: 'exam').size).to eq 1
+    expect(Exam.where(exam_status_kind: ExamStatusKind.WAITING_START).size).to eq 1
   end
 
-
-  context "exam report", js: true do
-
-    before :each do
-      Rails.application.load_seed
-      attendance = create_in_progress_imunofeno_attendance
-      imunofeno_user_do_login
-      visit workflow_path(attendance, {tab: "exams"})
-      # puts page.html
-      # click_link id: 'exams-nav'
-      # current_attendance = current_path
-      # select_first_exam
-      # generate_internal_code
-      # click_button id: 'exam_nav'
-      # puts page.html
-      # click_link class: 'start-exam', match: :first
-      # click_button id: 'btn-save'
-      # click_button id: 'exam_nav'
-      # visit current_path
-      # click_button 'exam_nav'
-      # puts page.html
-      page.driver.browser.accept_confirm
-      click_link class: 'change-to-complete', match: :first
-      # visit current_attendance
-      # click_button id: 'exam_nav'
-    end
-
-    it "add report to exam" do
-      # click_link class: 'add-report', match: :first
-      # attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
-      # click_button id: 'btn-save'
-      # expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
-      # expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
-    end
-
-    # it "send without file" do
-    #   click_link class: 'add-report', match: :first
-    #   click_button id: 'btn-save'
-    #   exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).first
-    #   expect(page).to have_current_path add_report_to_exam_path(exam)
-    # end
-    #
-    # it "replace file" do
-    #   click_link class: 'add-report', match: :first
-    #   attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
-    #   click_button id: 'btn-save'
-    #   click_button id: 'exam_nav'
-    #   click_link class: 'see-report', match: :first
-    #   attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF_2.pdf"
-    #   click_button id: 'btn-save'
-    #   expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
-    #   expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
-    #   exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).first
-    #   expect(exam.report_file_name).to eq "PDF_2.pdf"
-    # end
-
-  end
+  # context "exam report", js: true do
+  #
+  #   before :each do
+  #     puts "\n\n\n*****************************\n\n\n"
+  #     Rails.application.load_seed
+  #     # p ExamStatusKind.all
+  #     attendance = create_in_progress_imunofeno_attendance
+  #     # p attendance.exams.first
+  #     imunofeno_user_do_login
+  #     visit workflow_path(attendance, {tab: "exams"})
+  #     # puts page.html
+  #     # visit workflow_path(attendance, {tab: "attendance"})
+  #     puts page.html
+  #     # page.driver.browser.accept_confirm
+  #     # click_link class: 'change-to-complete', match: :first
+  #
+  #     # visit current_attendance
+  #     # click_button id: 'exam_nav'
+  #   end
+  #
+  #   it "add report to exam" do
+  #     # click_link class: 'add-report', match: :first
+  #     # attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
+  #     # click_button id: 'btn-save'
+  #     # expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
+  #     # expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
+  #   end
+  #
+  #   # it "send without file" do
+  #   #   click_link class: 'add-report', match: :first
+  #   #   click_button id: 'btn-save'
+  #   #   exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).first
+  #   #   expect(page).to have_current_path add_report_to_exam_path(exam)
+  #   # end
+  #   #
+  #   # it "replace file" do
+  #   #   click_link class: 'add-report', match: :first
+  #   #   attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
+  #   #   click_button id: 'btn-save'
+  #   #   click_button id: 'exam_nav'
+  #   #   click_link class: 'see-report', match: :first
+  #   #   attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF_2.pdf"
+  #   #   click_button id: 'btn-save'
+  #   #   expect(page).to have_current_path workflow_path(@attendance, {tab: "exams"})
+  #   #   expect(find(id: 'success-warning').text).to eq I18n.t :add_report_to_exam_success
+  #   #   exam = Exam.where(exam_status_kind: ExamStatusKind.COMPLETE).first
+  #   #   expect(exam.report_file_name).to eq "PDF_2.pdf"
+  #   # end
+  #
+  # end
 
   # context "partial released" do
   #
