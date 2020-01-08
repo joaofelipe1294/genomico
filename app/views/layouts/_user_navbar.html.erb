@@ -2,110 +2,20 @@
   <%= link_to 'Genômico', home_user_index_path, class: 'navbar-brand', id: 'home-link' %>
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="patient-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Paciente
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_patient_path, {class: 'dropdown-item', id: 'new-patient'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', patients_path, {class: 'dropdown-item', id: 'patients'} %>
-        </div>
-      </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="samples-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Amostras
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Imunofenotipagem', imunofeno_internal_codes_path, class: 'dropdown-item', id: 'samples-imunofeno' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Biologia Molecular', biomol_internal_codes_path, class: 'dropdown-item', id: 'samples-biomol' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'FISH', fish_internal_codes_path, class: 'dropdown-item', id: 'samples-fish' %>
-        </div>
-      </li>
+      <%= render 'layouts/user_dropdowns/patient' %>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="work-map-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Mapas de trabalho
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Novo', new_work_map_path, class: 'dropdown-item', id: 'new-work-map' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Buscar', work_maps_path, class: 'dropdown-item', id: 'work-maps' %>
-        </div>
-      </li>
+      <%= render 'layouts/user_dropdowns/samples' %>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="stock-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Estoque
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdown">
-          <%= link_to "Nova entrada", new_stock_entry_path, class: 'dropdown-item', id: 'new-stock-entry' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Entradas de estoque", stock_entries_path, class: 'dropdown-item', id: 'stock-entries' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Produtos em estoque", products_in_stock_path, class: "dropdown-item", id: "in-stock-products" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Produtos em uso", products_in_use_path, class: "dropdown-item", id: "in-use-product" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Baixas de estoque", stock_outs_path, class: "dropdown-item", id: "stock-outs"%>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Cadastrar produto', new_stock_product_path, class: 'dropdown-item', id: 'new-stock-product' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Buscar produto", stock_products_path, class: 'dropdown-item', id: 'stock-products' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Cadastrar marca", new_brand_path, class: 'dropdown-item', id: 'new-brand' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Buscar marca", brands_path, class: 'dropdown-item', id: 'brands' %>
-        </div>
-      </li>
+      <%= render 'layouts/user_dropdowns/work_map' %>
 
-      <li class="nav-item dropdown">
-      	<a class="nav-link dropdown-toggle" href="#" id="offered-exam-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      		Exames
-      	</a>
-      	<div class="dropdown-menu" aria-labelledby="offered-exam-dropdown">
-      		<%= link_to 'Novo', new_offered_exam_path, class: 'dropdown-item', id: 'new-offered-exam' %>
-      		<div class="dropdown-divider"></div>
-      		<%= link_to 'Buscar', offered_exams_path, class: 'dropdown-item', id: 'offered-exams' %>
-      	</div>
-      </li>
+      <%= render 'layouts/user_dropdowns/stock' %>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="hospital-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Hospital
-        </a>
-        <div class="dropdown-menu" aria-labelledby="hospital-dropdown">
-          <%= link_to 'Novo', new_hospital_path, {class: 'dropdown-item', id: 'new-hospital'} %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Todos', hospitals_path, {class: 'dropdown-item', id: 'hospitals'} %>
-        </div>
-      </li>
+      <%= render 'layouts/user_dropdowns/offered_exams' %>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="indicators-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Indicadores
-        </a>
-        <div class="dropdown-menu" aria-labelledby="dropdown">
-          <%= link_to 'Exames em andamento', exams_in_progress_path, class: 'dropdown-item', id: 'exams-in-progress' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Exames concluídos', concluded_exams_path, class: 'dropdown-item', id: 'concluded-exams' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Exames feitos por plano de saúde', health_ensurances_relation_path, class: 'dropdown-item', id: 'health-ensurances-relation' %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'PCR e qPCR', response_time_path(OfferedExamGroup.PCR), class: 'dropdown-item', id: "pcr" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Sequenciamento', response_time_path(OfferedExamGroup.SEQUENCING), class: 'dropdown-item', id: "sequencing" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'NGS', response_time_path(OfferedExamGroup.NGS), class: 'dropdown-item', id: "ngs" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'Imunofeno', response_time_path(OfferedExamGroup.IMUNOFENO), class: 'dropdown-item', id: "imunofeno" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to 'FISH', response_time_path(OfferedExamGroup.FISH), class: 'dropdown-item', id: "fish" %>
-        </div>
-      </li>
+      <%= render 'layouts/user_dropdowns/hospital' %>
+
+      <%= render 'layouts/user_dropdowns/indicators' %>
 
     </ul>
 
@@ -123,8 +33,8 @@
 
 <%= render 'shared/flash_feedback' %>
 
-<% unless User.find(session[:user_id]).release_checks.where(has_confirmed: false).empty? %>
+<% if @has_release_message %>
   <div class="alert alert-info" role="alert" style="overflow: auto;" id="release-message">
-    <%= display_release_message(User.find(session[:user_id])) %>
+    <%= display_release_message(session[:user_id]) %>
   </div>
 <% end %>

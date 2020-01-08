@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
 
     def user_filter
       user = find_user UserKind.USER
-      wrong_credentials_redirect unless user
+      if user
+        check_release_message
+      else
+        wrong_credentials_redirect
+      end
     end
 
     def generic_filter
@@ -43,6 +47,15 @@ class ApplicationController < ActionController::Base
         user_kind: user_kind,
         is_active: true
       })
+    end
+
+    def check_release_message
+      user = User.find session[:user_id]
+      unless user.release_checks.where(has_confirmed: false).empty?
+        @has_release_message = true
+      else
+        @has_release_message = false
+      end
     end
 
 end

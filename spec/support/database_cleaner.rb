@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -16,7 +16,7 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.append_after(:each) do
     DatabaseCleaner.clean
   end
 

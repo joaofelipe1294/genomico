@@ -33,16 +33,16 @@ module AttendanceHelper
   private
 
     def basic_imunofeno_attendance
-      exam = build(:exam, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
+      exam = build(:exam, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample, start_date: nil, finish_date: nil, exam_status_kind: ExamStatusKind.WAITING_START)
       sample = build(:sample, sample_kind: SampleKind.LIQUOR)
-      attendance = create(:attendance, exams: [exam], samples: [sample])
+      attendance = create(:attendance, exams: [exam], samples: [sample], attendance_status_kind: AttendanceStatusKind.IN_PROGRESS)
       attendance
     end
 
     def basic_biomol_attendance
-      exam = build(:exam, offered_exam: OfferedExam.where(field: Field.BIOMOL).where(is_active: true).sample)
+      exam = build(:exam, offered_exam: OfferedExam.where(field: Field.BIOMOL).where(is_active: true).sample, start_date: nil, finish_date: nil, exam_status_kind: ExamStatusKind.WAITING_START)
       sample = build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD)
-      attendance = create(:attendance, exams: [exam], samples: [sample])
+      attendance = create(:attendance, exams: [exam], samples: [sample], attendance_status_kind: AttendanceStatusKind.IN_PROGRESS)
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.DNA)
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.RNA)
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.VIRAL_DNA)

@@ -40,15 +40,7 @@ Capybara.javascript_driver = :cuprite
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-  # config.use_transactional_fixtures = true
-  #
-  config.before(:suite) do # FIXME: REMOVER ESTE TREIXO JUNTO COM OS MODULOS DE CONTROLLER QUE UTILIZAM ESTES METODOS
-    Rails.application.load_seed
-    Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
-    Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
-    load 'app/models/concerns/exam_status_kinds.rb'
-    load 'app/models/concerns/attendance_status_kinds.rb'
-  end
+  # config.use_transactional_fixtures = false
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
