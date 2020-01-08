@@ -1,5 +1,7 @@
 <%= form_for(@attendance, {method: :patch, action: :attendance_path, html: {style: 'overflow: auto;'}}) do |f| %>
 
+	<%= hidden_field_tag "tab", "attendance" %>
+
 	<% if @attendance.errors.any? %>
 		<div id="error_explanation">
 			<ul>
