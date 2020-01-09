@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.feature "User::Workflow::Exams::Start::Imunofenos", type: :feature do
   include AttendanceHelper
   include UserLogin
-  include ValidationChecks
 
   before :each do
     Rails.application.load_seed
