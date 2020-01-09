@@ -8,14 +8,15 @@ module ExamsHelper
     is_in_progress = @exam_status_kind != ExamStatusKind.COMPLETE_WITHOUT_REPORT && @exam_status_kind != ExamStatusKind.COMPLETE
     if @exam_status_kind == ExamStatusKind.WAITING_START
       options << start_exam_link
+      options << edit_link
     elsif is_in_progress
       options << in_progress_options
+      options << edit_link
     elsif  @exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
       options << add_report_link
     else
       options << complete_options
     end
-    options << edit_link
     options << cancel_exam_link if @exam_status_kind != ExamStatusKind.COMPLETE
     options.html_safe
   end
