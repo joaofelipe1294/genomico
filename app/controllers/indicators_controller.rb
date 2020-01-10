@@ -1,5 +1,4 @@
 class IndicatorsController < ApplicationController
-  include ExamStatusKinds
   include ResponseTimeReport
 
   def exams_per_field

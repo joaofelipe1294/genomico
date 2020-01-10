@@ -1,23 +1,23 @@
 require 'rails_helper'
-require 'helpers/admin'
-
-def setup_change_password
-	create_users
-	admin_do_login
-	click_link(id: 'user-dropdown')
-	click_link(id: 'users')
-	click_link(class: 'btn-outline-secondary', match: :first)
-end
 
 RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
+	include UserLogin
+	include DataGenerator
 
-	it 'navigate to change password', js: false do
-		setup_change_password
+	before :each do
+		Rails.application.load_seed
+		generate_users
+		admin_do_login
+		click_link(id: 'user-dropdown')
+		click_link(id: 'users')
+		click_link(class: 'btn-outline-secondary', match: :first)
+	end
+
+	it 'navigate to change password' do
 		expect(find(class: 'card-header').text).to eq("Alterar senha")
 	end
 
-	it 'change user_password', js: false do
-		setup_change_password
+	it 'change user_password' do
 		new_password = '123456789'
 		fill_in('user_password', with: new_password)
 		fill_in('user_password_confirmation', with: new_password)
@@ -27,8 +27,7 @@ RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
 		expect(message).to eq("Senha alterada com sucesso.")
 	end
 
-	it 'distinct passwords', js: false do
-		setup_change_password
+	it 'distinct passwords' do
 		new_password = '123456789'
 		fill_in('user_password', with: new_password)
 		fill_in('user_password_confirmation', with: '1233')

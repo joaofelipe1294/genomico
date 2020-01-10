@@ -48,16 +48,18 @@ class AttendancesController < ApplicationController
   def update
       if @attendance.update(attendance_params)
         flash[:success] = I18n.t :attendance_update_success
-        redirect_to workflow_path(@attendance)
+        redirect_to workflow_path(@attendance, {tab: params[:tab]})
       else
         set_desease_stages_and_health_ensurances
-        render :workflow
+        flash[:warning] = @attendance.errors.full_messages.first
+        redirect_to workflow_path(@attendance, {tab: params[:tab]})
       end
   end
 
   #GET attendances/1
   def workflow
     @attendance = Attendance.includes(:exams, :samples).find params[:id]
+    @tab = params[:tab]
     helpers.check_attendance_status @attendance
   end
 

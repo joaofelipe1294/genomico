@@ -2,7 +2,6 @@ class HemacounterReport < ApplicationRecord
   belongs_to :subsample
   before_validation :calc_cellularity
   validates :subsample, presence: true
-  # validates_with HemacounterReportRequiredFieldsValidator
   validates_with HemacounterReportCellularityValidator
 
   private

@@ -1,23 +1,23 @@
 module ExamsHelper
-  include ExamStatusKinds
 
   def exam_options_helper exam
     @exam = exam
     @exam_status_kind = @exam.exam_status_kind
     options = ""
-    return "".html_safe if @exam_status_kind == ExamStatusKinds::CANCELED
-    is_in_progress = @exam_status_kind != ExamStatusKinds::COMPLETE_WITHOUT_REPORT && @exam_status_kind != ExamStatusKinds::COMPLETE
-    if @exam_status_kind == ExamStatusKinds::WAITING_START
+    return "".html_safe if @exam_status_kind == ExamStatusKind.CANCELED
+    is_in_progress = @exam_status_kind != ExamStatusKind.COMPLETE_WITHOUT_REPORT && @exam_status_kind != ExamStatusKind.COMPLETE
+    if @exam_status_kind == ExamStatusKind.WAITING_START
       options << start_exam_link
+      options << edit_link
     elsif is_in_progress
       options << in_progress_options
-    elsif  @exam_status_kind == ExamStatusKinds::COMPLETE_WITHOUT_REPORT
+      options << edit_link
+    elsif  @exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
       options << add_report_link
     else
       options << complete_options
     end
-    options << edit_link
-    options << cancel_exam_link if @exam_status_kind != ExamStatusKinds::COMPLETE
+    options << cancel_exam_link if @exam_status_kind != ExamStatusKind.COMPLETE
     options.html_safe
   end
 
@@ -25,10 +25,10 @@ module ExamsHelper
 
     def tecnical_released_link
       link = ""
-      unless @exam_status_kind == ExamStatusKinds::TECNICAL_RELEASED
+      unless @exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
         link = link(
           @exam,
-          new_status: ExamStatusKinds::TECNICAL_RELEASED,
+          new_status: ExamStatusKind.TECNICAL_RELEASED,
           css_class: 'secondary change-to-tecnical-released'
         )
       end
@@ -37,10 +37,10 @@ module ExamsHelper
 
     def in_repeat_link
       link = ""
-      unless @exam_status_kind == ExamStatusKinds::IN_REPEAT
+      unless @exam_status_kind == ExamStatusKind.IN_REPEAT
         link = link(
           @exam,
-          new_status: ExamStatusKinds::IN_REPEAT,
+          new_status: ExamStatusKind.IN_REPEAT,
           css_class: 'warning change-to-in-repeat'
         )
       end
@@ -66,7 +66,7 @@ module ExamsHelper
 
     def complete_link
       link = ""
-      unless @exam_status_kind == ExamStatusKinds::COMPLETE || @exam_status_kind == ExamStatusKinds::COMPLETE_WITHOUT_REPORT
+      unless @exam_status_kind == ExamStatusKind.COMPLETE || @exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
         link = link_to(
           'Concluído',
           change_to_completed_path(@exam),
@@ -115,7 +115,7 @@ module ExamsHelper
     def cancel_exam_link
       link_to(
         "Cancelar",
-        change_exam_status_path(@exam, {new_status: ExamStatusKinds::CANCELED}),
+        change_exam_status_path(@exam, {new_status: ExamStatusKind.CANCELED}),
         data: { confirm: "Tem certeza ?" },
         method: :patch,
         class: "btn btn-sm btn-outline-danger cancel-exam ml-3"

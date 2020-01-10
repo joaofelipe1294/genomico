@@ -1,17 +1,14 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Patient::Lists", type: :feature do
   include UserLogin
+  include PatientHelpers
 
   context 'with registers' do
 
     before :each do
-      create(:patient)
-      create(:patient)
-      create(:patient)
-      # user_do_login
       Rails.application.load_seed
+      generate_patients
 			imunofeno_user_do_login
       click_link(id: 'patient-dropdown')
       click_link(id: 'patients')
@@ -23,8 +20,8 @@ RSpec.feature "User::Patient::Lists", type: :feature do
       expect(patients.size).to eq Patient.all.size
     end
 
-    it 'search by name', js: false do
-      patient = create(:patient, name: 'Nome do paciente')
+    it 'search by name' do
+      patient = create(:patient, name: 'Nome do paciente', hospital: Hospital.HPP)
       fill_in id: 'patient-name', with: patient.name
       click_button id: 'btn-search-by-name'
       patients_found = find_all class: 'patient'
@@ -32,7 +29,7 @@ RSpec.feature "User::Patient::Lists", type: :feature do
     end
 
     it 'search by medical_record' do
-      patient = create(:patient, medical_record: Faker::Number.number(digits: 6).to_s)
+      patient = create(:patient, medical_record: Faker::Number.number(digits: 6).to_s, hospital: Hospital.HPP)
       fill_in 'medical-record', with: patient.medical_record
       click_button 'btn-search-by-medical-record'
       expect(find_all(class: 'patient').size).to eq 1
@@ -43,7 +40,6 @@ RSpec.feature "User::Patient::Lists", type: :feature do
   context 'without records' do
 
     it 'search by invalid medical record' do
-      # user_do_login
       Rails.application.load_seed
 			imunofeno_user_do_login
       click_link(id: 'patient-dropdown')

@@ -41,8 +41,8 @@ class HomeUserController < ApplicationController
 
     def find_delayed_exams
       exams = @issues
-                  .where.not(exam_status_kind: ExamStatusKinds::COMPLETE)
-                  .where.not(exam_status_kind: ExamStatusKinds::CANCELED)
+                  .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
+                  .where.not(exam_status_kind: ExamStatusKind.CANCELED)
       count = 0
       exams_relation = {}
       offered_exams = exams.map { |exam| exam.offered_exam }.uniq

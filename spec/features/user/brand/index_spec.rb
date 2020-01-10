@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Brand::Indices", type: :feature do
+  include UserLogin
 
   context "brands" do
 

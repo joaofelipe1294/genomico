@@ -19,9 +19,9 @@
   			<div class = 'form-group'>
   				<%= f.label "Amostra" %>
   				<% f.select :internal_code_ids, options_from_collection_for_select(@internal_codes, 'id', 'code'), {}, {class: 'form-control'} %>
-          <select class="form-control" name="exam[internal_codes]">
-            <%@internal_codes.each do |internal_code| %>
-              <option value="<%= internal_code.id %>">
+          <select class="form-control" name="exam[internal_codes]" id="sample_select">
+            <% @internal_codes.each do |internal_code| %>
+              <option class = "internal-code-option" value="<%= internal_code.id %>">
                 <% unless internal_code.sample.nil? %>
                   <%= "#{internal_code.code} - #{internal_code.sample.sample_kind.name}" %>
                 <% else %>

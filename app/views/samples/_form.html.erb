@@ -6,11 +6,6 @@
 		<%= f.number_field :attendance_id, {value: @sample.attendance_id, hidden: true} %>
 	<% end %>
 
-	<div class = 'form-group'>
-		<%= f.label :attendance %>
-		<%= f.text_field :attendance, {class: 'form-control', value: @sample.attendance.lis_code, disabled: true} %>
-	</div>
-
 	<% if @sample.refference_label %>
 		<div class = 'form-group'>
 			<%= f.label :refference_label %>

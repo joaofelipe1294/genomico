@@ -1,6 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 def create_imunofeno_internal_codes
   attendance = create_attendance
@@ -17,6 +15,8 @@ def create_imunofeno_internal_codes
 end
 
 RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
+  include UserLogin
+  include DataGenerator
 
   it "navigate to imunofeno internal_codes without login" do
     visit imunofeno_internal_codes_path

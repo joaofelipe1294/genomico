@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'helpers/admin'
 
 def fill_in_fields
 	fill_in('user[name]', with: @user.name) if @user.name
@@ -9,6 +8,7 @@ def fill_in_fields
 end
 
 RSpec.feature "Admin::EditUsers", type: :feature do
+	include UserLogin
 
 	context 'Correct cases' do
 

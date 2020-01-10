@@ -41,6 +41,7 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
 
     it "change entry date" do
       fill_in "stock_entry[entry_date]", with: 5.days.ago
+      click_button id: "btn-save"
     end
 
     it "change product" do
@@ -87,6 +88,5 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
     fill_in "stock_entry[product_attributes][location]", with: ""
     without_value "Localização"
   end
-
 
 end
