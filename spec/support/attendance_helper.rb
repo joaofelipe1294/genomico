@@ -30,6 +30,16 @@ module AttendanceHelper
     attendance
   end
 
+  def create_complete_biomol_attendance
+    attendance = basic_biomol_attendance
+    attendance.exams.first.exam_status_kind = ExamStatusKind.COMPLETE
+    attendance.exams.first.internal_codes << attendance.internal_codes.sample
+    attendance.attendance_status_kind = AttendanceStatusKind.COMPLETE
+    attendance.finish_date = Date.current
+    attendance.save
+    attendance
+  end
+
   private
 
     def basic_imunofeno_attendance
