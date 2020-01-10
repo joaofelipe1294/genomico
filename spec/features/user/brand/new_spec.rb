@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Brand::News", type: :feature do
+  include UserLogin
 
   before :each do
     Rails.application.load_seed

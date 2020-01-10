@@ -25,4 +25,9 @@ module ValidationChecks
     expect(find_all(class: css).size).to eq count
   end
 
+  def location_and_success_message_check message: "", path: root_path
+    expect(page).to have_current_path path
+    expect(find(id: 'success-warning').text).to eq message
+  end
+
 end

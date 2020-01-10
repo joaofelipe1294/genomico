@@ -1,10 +1,11 @@
 require 'rails_helper'
-require 'helpers/user'
 
 RSpec.feature "User::Home::Searches", type: :feature do
+  include UserLogin
 
   before :each do
-    user_do_login_with_seeds
+    Rails.application.load_seed
+    biomol_user_do_login
     create(:patient, name: 'Alien')
     create(:patient, name: 'Smooth ali')
     create(:patient,name: 'Smooth')

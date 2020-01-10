@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="samples-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Amostras
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <%= link_to 'Imunofenotipagem', imunofeno_internal_codes_path, class: 'dropdown-item', id: 'samples-imunofeno' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Biologia Molecular', biomol_internal_codes_path, class: 'dropdown-item', id: 'samples-biomol' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'FISH', fish_internal_codes_path, class: 'dropdown-item', id: 'samples-fish' %>
+  </div>
+</li>

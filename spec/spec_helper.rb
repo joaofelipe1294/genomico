@@ -3,11 +3,22 @@
 #
 # SimpleCov.start
 
-require "capybara/cuprite"
-Capybara.javascript_driver = :cuprite
-Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+# require "capybara/cuprite"
+# Capybara.javascript_driver = :cuprite
+# Capybara.register_driver(:cuprite) do |app|
+#   Capybara::Cuprite::Driver.new(app, window_size: [1200, 800])
+# end
+
+require 'capybara/cuprite'
+Capybara.register_driver :cuprite do |app|
+  Capybara::Cuprite::Driver.new(
+    app,
+    js_errors:       true,
+    window_size:     [1200, 900],
+  )
 end
+
+Capybara.javascript_driver = :cuprite
 
 # Capybara.server_host = '0.0.0.0' # bind to all interfaces
 
@@ -29,15 +40,7 @@ end
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
 
-  # config.use_transactional_fixtures = true
-  #
-  config.before(:suite) do
-    Rails.application.load_seed
-    Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
-    Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
-    load 'app/models/concerns/exam_status_kinds.rb'
-    load 'app/models/concerns/attendance_status_kinds.rb'
-  end
+  # config.use_transactional_fixtures = false
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

@@ -1,8 +1,8 @@
 require 'rails_helper'
-require 'helpers/user'
-require 'helpers/attendance'
 
 RSpec.feature "User::Patient::Shows", type: :feature do
+  include UserLogin
+  include DataGenerator
 
   before :each do
     Rails.application.load_seed

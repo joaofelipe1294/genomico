@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'helpers/user'
 
 def setup_attendance_with_no_exams
   patient = create(:patient)
@@ -16,18 +15,11 @@ def setup_attendance_with_no_exams
   })
 end
 
-def reload_constants
-  Object.send(:remove_const, :ExamStatusKinds) if Module.const_defined?(:ExamStatusKinds)
-  Object.send(:remove_const, :AttendanceStatusKinds) if Module.const_defined?(:AttendanceStatusKinds)
-  load 'app/models/concerns/exam_status_kinds.rb'
-  load 'app/models/concerns/attendance_status_kinds.rb'
-end
-
 RSpec.feature "User::Home::Charts", type: :feature do
+  include UserLogin
 
   before :each do
     Rails.application.load_seed
-    reload_constants
     imunofeno_user_do_login
   end
 
@@ -245,7 +237,6 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
   it "check if canceled exams are displayed on home" do
     Rails.application.load_seed
-    reload_constants
     attendance = setup_attendance_with_no_exams
     first_exam = Exam.new(exam_status_kind: ExamStatusKind.WAITING_START, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)
     second_exam = Exam.new(exam_status_kind: ExamStatusKind.IN_PROGRESS, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).sample)

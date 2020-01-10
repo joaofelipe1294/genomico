@@ -46,10 +46,10 @@ RSpec.feature "User::OfferedExam::Indices", type: :feature do
     end
 
     it "disable" do
+      page.driver.browser.accept_confirm
       create(:offered_exam)
       navigate_to
       click_link class: "disable-offered-exam", match: :first
-      page.driver.browser.switch_to.alert.accept
       expect(page).to have_current_path offered_exams_path
       expect(find(id: "success-warning").text).to eq I18n.t :disable_offered_exam_success
     end

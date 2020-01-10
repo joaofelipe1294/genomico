@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature "Admin::Release::Confirms", type: :feature do
   include UserLogin
 
-  it "confirma new release", js: false do
+  it "confirma new release" do
     Rails.application.load_seed
     biomol_user_do_login
     create(:release)

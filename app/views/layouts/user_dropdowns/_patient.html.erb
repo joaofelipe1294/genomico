@@ -1,0 +1,10 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="patient-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Paciente
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <%= link_to 'Novo', new_patient_path, {class: 'dropdown-item', id: 'new-patient'} %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Buscar', patients_path, {class: 'dropdown-item', id: 'patients'} %>
+  </div>
+</li>
