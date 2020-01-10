@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/admin'
 
 RSpec.feature "Admin::Hospital::News", type: :feature do
+	include UserLogin
 
 	before :each do
     Rails.application.load_seed

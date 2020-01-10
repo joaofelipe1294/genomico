@@ -1,7 +1,7 @@
 require 'rails_helper'
-require 'helpers/admin'
 
 RSpec.feature "Admin::Hospital::Lists", type: :feature do
+	include UserLogin
 
 	it 'list 3 hospitals' do
 		Rails.application.load_seed
