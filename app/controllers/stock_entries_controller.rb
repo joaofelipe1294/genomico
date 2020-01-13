@@ -10,11 +10,11 @@ class StockEntriesController < ApplicationController
     @stock_products = StockProduct.all.order(:name)
     if params[:stock_product_id].present?
       stock_entries = StockEntry
-                                .includes(:product, :responsible)
+                                .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]] )
                                 .where(stock_product_id: params[:stock_product_id])
     else
       stock_entries = StockEntry
-                                .includes(:product, :responsible)
+                                .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]])
                                 .all
     end
     @stock_entries = stock_entries.page params[:page]
@@ -65,20 +65,12 @@ class StockEntriesController < ApplicationController
 
   end
 
-  # DELETE /stock_entries/1
-  # DELETE /stock_entries/1.json
-  # def destroy
-  #   @stock_entry.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to stock_entries_url, notice: 'Stock entry was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_entry
-      @stock_entry = StockEntry.find(params[:id])
+      @stock_entry = StockEntry
+                              .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]] )
+                              .find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -89,6 +81,7 @@ class StockEntriesController < ApplicationController
         :entry_date,
         :responsible_id,
         product_attributes: [
+          :id,
           :lot,
           :amount,
           :current_state_id,
