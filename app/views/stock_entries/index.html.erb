@@ -1,5 +1,19 @@
 <%= render 'layouts/user_navbar' %>
 
+<div class="mt-2 col-6 offset-3">
+  <%= form_with url: stock_entries_path, method: :get, class: "" do |form| %>
+  <%= form.label "Produto", class: "d-inline-block" %>
+    <div class="my-1 d-inline-block">
+      <%= form.select :stock_product_id, options_from_collection_for_select(@stock_products, "id", "name"), {}, class: "form-control d-inline-block mr-4" %>
+    </div>
+    <div class="col-auto d-inline-block">
+      <button id="search-by-stock-product" class="btn btn-outline-info">
+        Buscar
+      </button>
+    </div>
+  <% end %>
+</div>
+
 <h2 class="text-center mt-3">
   Entradas de estoque
 </h2>
@@ -20,7 +34,7 @@
       <th>Responsável</th>
       <th>Área</th>
       <th>Identificação</th>
-      <th></th>
+      <th style="width: 10%;"></th>
     </tr>
   </thead>
 
@@ -46,6 +60,9 @@
         <td><%= stock_entry.product.tag %></td>
         <td>
           <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>
+          <% if stock_entry.product.current_state == CurrentState.STOCK %>
+            <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
+          <% end %>
         </td>
       </tr>
     <% end %>
