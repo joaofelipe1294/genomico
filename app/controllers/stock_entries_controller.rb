@@ -7,11 +7,17 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries
   # GET /stock_entries.json
   def index
-    @stock_entries = StockEntry
-                                .all
+    @stock_products = StockProduct.all.order(:name)
+    if params[:stock_product_id].present?
+      stock_entries = StockEntry
                                 .includes(:product, :responsible)
-                                .order(entry_date: :desc)
-                                .page params[:page]
+                                .where(stock_product_id: params[:stock_product_id])
+    else
+      stock_entries = StockEntry
+                                .includes(:product, :responsible)
+                                .all
+    end
+    @stock_entries = stock_entries.page params[:page]
   end
 
   # GET /stock_entries/1

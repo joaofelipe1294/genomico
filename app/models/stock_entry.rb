@@ -6,16 +6,12 @@ class StockEntry < ApplicationRecord
   belongs_to :stock_product
   accepts_nested_attributes_for :product
   paginates_per 10
-  # before_validation :set_stock_product
   before_validation :set_stock_product_in_product
 
   private
 
-    # def set_stock_product
-    #   self.stock_product = self.product.stock_product if self.product
-    # end
-
     def set_stock_product_in_product
+      return unless self.product
       self.product.stock_product_id = self.stock_product_id if self.stock_product
     end
 
