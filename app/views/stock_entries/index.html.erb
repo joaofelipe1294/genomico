@@ -34,7 +34,7 @@
       <th>Responsável</th>
       <th>Área</th>
       <th>Identificação</th>
-      <th></th>
+      <th style="width: 10%;"></th>
     </tr>
   </thead>
 
@@ -60,6 +60,9 @@
         <td><%= stock_entry.product.tag %></td>
         <td>
           <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>
+          <% if stock_entry.product.current_state == CurrentState.STOCK %>
+            <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
+          <% end %>
         </td>
       </tr>
     <% end %>

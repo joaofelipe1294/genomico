@@ -62,7 +62,16 @@ class StockEntriesController < ApplicationController
       set_instance_variables
       render :edit
     end
+  end
 
+  # DELETE /stock/entries/1
+  def destroy
+    if @stock_entry.destroy
+      flash[:success] = I18n.t :remove_stock_entry_success
+    else
+      flash[:warning] = I18n.t :remove_stock_entry_error
+    end
+    redirect_to stock_entries_path
   end
 
   private

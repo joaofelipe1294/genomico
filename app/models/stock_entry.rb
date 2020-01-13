@@ -2,9 +2,9 @@ class StockEntry < ApplicationRecord
   belongs_to :reagent
   belongs_to :responsible, class_name: :User
   validates :product, :entry_date, :responsible, presence: true
-  has_one :product
+  has_one :product, dependent: :destroy
   belongs_to :stock_product
-  accepts_nested_attributes_for :product
+  accepts_nested_attributes_for :product, allow_destroy: true
   paginates_per 10
   before_validation :set_stock_product_in_product
 
