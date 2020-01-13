@@ -248,3 +248,4 @@
   new_patient_success: "Paciente cadastrado com sucesso."
   remove_stock_entry_success: "Entrada de estoque e produto associado removidos com sucesso."
   remove_stock_entry_error: "Não foi possíver remover a entrada de estoque."
+  without_backups_message: "Não existem backups disponíveis."
