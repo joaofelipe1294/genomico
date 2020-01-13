@@ -17,13 +17,21 @@ class StatusService
   private
 
     def get_backup_disk_usage
-      cmd_result = `ls -lh $(pwd)/public/backups/`
+      if Rails.env == "production"
+        cmd_result = `ls -lh /opt/genomico/public/backups/`
+      else
+        cmd_result = `ls -lh $(pwd)/public/backups/`
+      end
       results = cmd_result.split "\n"
       results.first
     end
 
     def get_logs_disk_usage
-      cmd_result = `ls -lh $(pwd)/log`
+      if Rails.env == "production"
+        cmd_result = `ls -lh /opt/genomico/log`
+      else
+        cmd_result = `ls -lh $(pwd)/log`
+      end
       results = cmd_result.split "\n"
       results.first
     end
