@@ -246,3 +246,5 @@
   new_stock_out_success: "Baixa de estoque cadastrada com sucesso."
   without_product_to_open_in_stock: "Não existe outro produto deste tipo em estoque."
   new_patient_success: "Paciente cadastrado com sucesso."
+  remove_stock_entry_success: "Entrada de estoque e produto associado removidos com sucesso."
+  remove_stock_entry_error: "Não foi possíver remover a entrada de estoque."
