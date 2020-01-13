@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
   end
 
@@ -19,6 +20,11 @@ class HomeController < ApplicationController
   def logout
   	reset_session
   	redirect_to root_path
+  end
+
+  def status
+    status_service = StatusService.new
+    render json: status_service.call(), status: :ok
   end
 
   private
