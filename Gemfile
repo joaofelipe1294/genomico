@@ -67,8 +67,8 @@ gem "hiredis", "~> 0.6.0"
 gem "redis", ">= 3.2.0"
 # In Rubyzip before 1.3.0, a crafted ZIP file can bypass application checks on ZIP entry sizes because data about the uncompressed size can be spoofed. This allows attackers to cause a denial of service (disk consumption).
 gem "rubyzip", ">= 1.3.0"
-
 gem "cuprite", group: :test
+gem "puma", "4.3.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -96,7 +96,7 @@ group :test do
   gem 'database_cleaner'
   # gem 'selenium-webdriver'
   # gem 'webdrivers', '~> 4.0'
-  gem 'puma'
+  # gem 'puma'
   gem 'listen'
   # gem 'geckodriver-helper'
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites
