@@ -14,16 +14,7 @@ class Product < ApplicationRecord
   before_validation :current_state_default
 
   def find_next_in_stock
-    products = Product
-                      .where(current_state: CurrentState.STOCK)
-                      .where(stock_product_id: self.stock_product_id)
-                      .where.not(id: self.id)
-    if self.has_shelf_life
-      next_product = products.order(shelf_life: :asc).first
-    else
-      next_product = products.order(tag: :asc).first
-    end
-    next_product
+    ProductFinderService.new(self).call
   end
 
   def change_to_in_use params
@@ -37,26 +28,10 @@ class Product < ApplicationRecord
     end
   end
 
-  def display_tag
-    return self.tag if self.has_tag
-    "-"
-  end
-
-  def display_shelf_life
-    expired_message = "<span class='text-danger'>#{I18n.localize self.shelf_life}</span>".html_safe
-    return expired_message if self.is_expired
-    if self.shelf_life < Date.current
-      self.update(is_expired: true)
-      return expired_message
-    else
-      return "<span>#{I18n.localize self.shelf_life}</span>".html_safe
-    end
-  end
-
   private
 
     def current_state_default
-      self.current_state = CurrentState.STOCK if self.current_state.nil?
+      self.current_state = CurrentState.STOCK unless self.current_state
     end
 
     def default_is_expired

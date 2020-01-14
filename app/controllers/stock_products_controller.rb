@@ -72,6 +72,13 @@ class StockProductsController < ApplicationController
   end
 
   def base_report
+    @stock_products = []
+    # StockProduct.includes(:stock_entries).all.each do |stock_entry|
+    #   puts "Tcholo"
+    # end
+    stock_product_redundant_ids = StockEntry.all.map { |stock_entry| stock_entry.stock_product_id }
+    stock_product_ids = stock_product_redundant_ids.uniq
+    
   end
 
   private

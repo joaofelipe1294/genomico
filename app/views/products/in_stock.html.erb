@@ -39,7 +39,7 @@
         </td>
         <td>
           <% if product.has_shelf_life %>
-            <%= product.display_shelf_life %>
+            <%= display_shelf_life product %>
           <% else %>
             -
           <% end %>
@@ -57,7 +57,7 @@
           <%= product.stock_product.display_field %>
         </td>
         <td>
-          <%= product.display_tag %>
+          <%= display_tag product %>
         </td>
         <td>
           <%= link_to "Colocar em uso", new_open_product_path(product), class: "btn btn-sm btn-outline-info open-product" %>

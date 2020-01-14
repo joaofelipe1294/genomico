@@ -38,7 +38,7 @@
         </td>
         <td>
           <% if product.has_shelf_life %>
-            <%= product.display_shelf_life %>
+            <%= display_shelf_life product %>
           <% else %>
             -
           <% end %>
@@ -56,7 +56,7 @@
           <%= product.stock_product.display_field %>
         </td>
         <td>
-          <%= product.display_tag %>
+          <%= display_tag product %>
         </td>
         <td>
           <%= product.open_at %>
