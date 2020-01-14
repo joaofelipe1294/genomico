@@ -93,49 +93,6 @@ RSpec.describe Product, type: :model do
 
     end
 
-    context "tag generation" do
-
-      before(:each) { setup }
-
-      it "ok" do
-        create(:stock_product, field: Field.BIOMOL)
-        product = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
-        expect(product).to be_valid
-        expect(product.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
-      end
-
-      it "without stock_product" do
-        product = build(:product, stock_product: nil)
-        expect(product).to be_invalid
-      end
-
-      it "distinct fields" do
-        create(:stock_product, field: Field.BIOMOL)
-        product_biomol = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
-        create(:stock_product, field: Field.IMUNOFENO)
-        product_imunofeno = create(:product, stock_product: StockProduct.where(field: Field.IMUNOFENO).first, has_tag: true, tag: nil)
-        create(:stock_product, field: nil)
-        product_shared = create(:product, stock_product: StockProduct.where(field: nil).first, has_tag: true, tag: nil)
-        expect(product_biomol).to be_valid
-        expect(product_imunofeno).to be_valid
-        expect(product_shared).to be_valid
-        expect(product_biomol.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
-        expect(product_imunofeno.tag).to eq "#{Field.IMUNOFENO.name[0,3]}#{1}"
-        expect(product_shared.tag).to eq "ALL#{1}"
-      end
-
-      it "same area entries" do
-        stock_product = create(:stock_product, field: Field.BIOMOL)
-        first_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
-        second_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
-        expect(first_product).to be_valid
-        expect(second_product).to be_valid
-        expect(first_product.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{1}"
-        expect(second_product.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{2}"
-      end
-
-    end
-
     context "amount validation" do
 
       before(:each) { setup }

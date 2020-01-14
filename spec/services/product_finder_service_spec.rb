@@ -1,7 +1,7 @@
 require 'rails_helper'
 require './app/services/product_finder_service'
 
-describe 'status_service' do
+describe 'ProductFinderService' do
 
   before :each do
     Rails.application.load_seed

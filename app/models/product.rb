@@ -35,38 +35,25 @@ class Product < ApplicationRecord
     end
 
     def default_is_expired
-      return if self.shelf_life.nil?
-      if self.has_shelf_life
-        if self.shelf_life < Date.current
-          self.is_expired = true
-        else
-          self.is_expired = false
-        end
+      shelf_life = self.shelf_life
+      return unless shelf_life
+      if self.has_shelf_life && shelf_life < Date.current
+        self.is_expired = true
       else
         self.is_expired = false
       end
     end
 
     def genertate_tag
-      return if self.stock_product.nil?
-      return if self.tag
-      return if self.has_tag == false
-      if self.stock_product.field
-        field_identifier = self.stock_product.field.name[0, 3]
-      else
-        field_identifier = "ALL"
-      end
-      if self.stock_product.field.nil?
-        counter = Product.joins(:stock_product).where("stock_products.field_id IS NULL").where(has_tag: true).size + 1
-      else
-        counter = Product.joins(:stock_product).where("stock_products.field_id = ?", self.stock_product.field_id).where(has_tag: true).size + 1
-      end
-      self.tag = "#{field_identifier}#{counter}"
+      tag = ProductTagGeneratorService.new(self).call
+      self.tag = tag if tag
     end
 
     def set_stock_product
-      return if self.stock_entry.nil?
-      self.stock_product = self.stock_entry.stock_product if self.stock_entry.stock_product
+      stock_entry = self.stock_entry
+      return unless stock_entry
+      stock_product = stock_entry.stock_product
+      self.stock_product = stock_product if stock_product
     end
 
 end
