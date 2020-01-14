@@ -2,7 +2,7 @@
 
 <%= render 'layouts/stock_navbar' %>
 
-<table class="table table-bordered text-center mt-5 col-6 offset-3">
+<table class="table table-bordered text-center mt-5 col-6 offset-3 table-sm">
   <thead class="bg-dark text-white">
     <th class="h3">
       Marca
@@ -22,3 +22,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= render "layouts/table_footer", elements: @brands %>
