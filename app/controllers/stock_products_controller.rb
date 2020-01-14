@@ -71,6 +71,9 @@ class StockProductsController < ApplicationController
     end
   end
 
+  def base_report
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_product

@@ -1,0 +1,10 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="stock-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Prodcuto
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdown">
+    <%= link_to 'Cadastrar produto', new_stock_product_path, class: 'dropdown-item', id: 'new-stock-product' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to "Buscar produto", stock_products_path, class: 'dropdown-item', id: 'stock-products' %>
+  </div>
+</li>
