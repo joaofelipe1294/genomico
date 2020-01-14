@@ -10,7 +10,8 @@ RSpec.feature "User::StockEntry::News", type: :feature, js: true do
     create(:brand)
     stock_product = create(:stock_product)
     biomol_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "stock-entries-dropdown"
     click_link id: "new-stock-entry"
     fill_in "stock_entry[entry_date]", with: Date.current.to_s
     select(stock_product.field.name, from: "fields-select").select_option

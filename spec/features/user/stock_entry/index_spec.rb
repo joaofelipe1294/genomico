@@ -18,7 +18,8 @@ RSpec.feature "User::StockEntry::Indices", type: :feature do
       end
 
       it "Navigate to stock entries" do
-        click_link id: "stock-dropdown"
+        click_link id: "stock"
+        click_link id: "stock-entries-dropdown"
         click_link id: "stock-entries"
         expect(page).to have_current_path stock_entries_path
       end

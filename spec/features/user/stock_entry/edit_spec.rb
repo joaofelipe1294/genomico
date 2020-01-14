@@ -20,7 +20,8 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
     product = create(:product, stock_product: biomol_stock_product)
     stock_entry = create(:stock_entry, product: product, stock_product: biomol_stock_product)
     imunofeno_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "stock-entries-dropdown"
     click_link id: "stock-entries"
     click_link class: "edit-stock-entry", match: :first
   end
