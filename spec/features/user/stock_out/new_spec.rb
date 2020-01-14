@@ -21,7 +21,8 @@ RSpec.feature "User::StockOut::News", type: :feature do
   it "new stock_out", js: true do
     page.driver.browser.accept_confirm
     imunofeno_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "products-dropdown"
     click_link id: "in-stock-products"
     click_link class: "open-product", match: :first
     click_button id: "btn-save"
@@ -32,7 +33,6 @@ RSpec.feature "User::StockOut::News", type: :feature do
     expect(find(id: "success-warning").text).to eq I18n.t :new_stock_out_success
     visit products_in_use_path
     expect(find_all(class: "product").size).to eq 0
-    click_link id: "stock-dropdown"
     click_link id: "stock-outs"
     expect(page).to have_current_path stock_outs_path
     expect(find_all(class: "stock-out").size).to eq 1
