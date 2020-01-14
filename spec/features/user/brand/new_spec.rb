@@ -6,7 +6,8 @@ RSpec.feature "User::Brand::News", type: :feature do
   before :each do
     Rails.application.load_seed
     imunofeno_user_do_login
-    click_link id: 'stock-dropdown'
+    click_link id: "stock"
+    click_link id: 'brands-dropdown'
     click_link id: 'new-brand'
   end
 

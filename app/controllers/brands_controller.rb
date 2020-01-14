@@ -7,11 +7,6 @@ class BrandsController < ApplicationController
     @brands = Brand.all.order name: :asc
   end
 
-  # GET /brands/1
-  # GET /brands/1.json
-  def show
-  end
-
   # GET /brands/new
   def new
     @brand = Brand.new
