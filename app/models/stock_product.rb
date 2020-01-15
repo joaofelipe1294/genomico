@@ -8,15 +8,6 @@ class StockProduct < ApplicationRecord
   validates_with StockProductMvCodeUniquenessValidator
   paginates_per 15
 
-  def display_field
-    if self.field
-      content = self.field.name
-    else
-      content = "Compartilhado"
-    end
-    "<label>#{content}</label>".html_safe
-  end
-
   private
 
     def set_total_aviable

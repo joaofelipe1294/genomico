@@ -2,4 +2,31 @@
 
 <%= render 'layouts/stock_navbar' %>
 
-aqui vem a base do estoque !!!
+<table class="table table-sm text-center mt-3">
+  <thead class="bg-dark text-white">
+    <th class="h4">Produto</th>
+    <th class="h4">Área</th>
+    <th class="h4">Quantidade em estoque</th>
+    <th class="h4">Quantidade em uso</th>
+  </thead>
+  <tbody>
+    <% @stock_products.each do |stock_product| %>
+      <tr>
+        <td>
+          <%= stock_product.name %>
+        </td>
+        <td>
+          <%= display_field stock_product %>
+        </td>
+        <td>
+          <%= stock_product.total_aviable %>
+        </td>
+        <td>
+          <%= stock_product.total_in_use %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render "layouts/table_footer", elements: @stock_products %>

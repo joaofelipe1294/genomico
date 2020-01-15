@@ -56,10 +56,10 @@
         </td>
         <td><%= stock_entry.product.amount %></td>
         <td><%= l stock_entry.entry_date %></td>
-        <td><%= stock_entry.product.current_state.name %></td>
+        <td><%= display_current_state stock_entry.product %></td>
         <td><%= stock_entry.product.location %></td>
         <td><%= stock_entry.responsible.login %></td>
-        <td><%= stock_entry.product.stock_product.display_field %></td>
+        <td><%= display_field stock_entry.product.stock_product %></td>
         <td><%= stock_entry.product.tag %></td>
         <td>
           <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>

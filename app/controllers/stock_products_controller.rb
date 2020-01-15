@@ -53,7 +53,11 @@ class StockProductsController < ApplicationController
   end
 
   def base_report
-    # TODO: Implementar logica de exibição
+    @stock_products = StockProduct
+                                  .includes(:field)
+                                  .where("total_in_use > 0 OR total_in_use > 0")
+                                  .order(:name)
+                                  .page params[:page]
   end
 
   private

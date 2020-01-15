@@ -80,22 +80,4 @@ RSpec.describe StockProduct, type: :model do
 
   it { should belong_to :field }
 
-  context "display_field" do
-
-    before :all do
-      Rails.application.load_seed
-    end
-
-    it "display_field" do
-      stock_product = build(:stock_product, field: Field.IMUNOFENO)
-      expect(stock_product.display_field).to eq "<label>#{Field.IMUNOFENO.name}</label>".html_safe
-    end
-
-    it "display_field without field" do
-      stock_product = build(:stock_product, field: nil)
-      expect(stock_product.display_field).to eq "<label>Compartilhado</label>".html_safe
-    end
-
-  end
-
 end

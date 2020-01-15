@@ -16,4 +16,15 @@ module ProductsHelper
     "-"
   end
 
+  def display_current_state stock_product
+    current_state = stock_product.current_state
+    if current_state == CurrentState.STOCK
+      "<label>#{CurrentState.STOCK.name}</label>".html_safe
+    elsif current_state == CurrentState.IN_USE
+      "<label class='text-info'>#{CurrentState.IN_USE.name}</label>".html_safe
+    else
+      "<label class='text-danger'>#{CurrentState.OUT.name}</label>".html_safe
+    end
+  end
+
 end
