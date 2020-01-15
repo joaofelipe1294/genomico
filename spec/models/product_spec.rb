@@ -143,4 +143,34 @@ RSpec.describe Product, type: :model do
 
     end
 
+  describe "when creating a new product" do
+
+    before :each do
+      Rails.application.load_seed
+      create(:brand)
+      @stock_product = create(:stock_product)
+    end
+
+    context "when product status is stock" do
+
+      it "is expected to keep open_at as nil" do
+        product = create(:product, stock_product: @stock_product, current_state: CurrentState.STOCK, open_at: nil)
+        expect(product).to be_valid
+        expect(product.open_at).to be_nil
+      end
+
+    end
+
+    context "when product status is in_use" do
+
+      it "is expected to have current date as open_at" do
+        product = create(:product, stock_product: @stock_product, current_state: CurrentState.IN_USE, open_at: nil)
+        expect(product).to be_valid
+        expect(product.open_at).to match Date.current
+      end
+
+    end
+
+  end
+
 end
