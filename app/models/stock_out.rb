@@ -6,6 +6,7 @@ class StockOut < ApplicationRecord
   validates :product, :date, :responsible, :stock_product, presence: true
   paginates_per 14
   before_save :change_product_current_status
+  after_create :update_stock_product_aviable
 
   private
 
@@ -16,6 +17,12 @@ class StockOut < ApplicationRecord
     def set_stock_product
       return if self.product.nil?
       self.stock_product = self.product.stock_product unless self.stock_product
+    end
+
+    def update_stock_product_aviable
+      service = StockProductAmountManagerService.new(self.product, :stock_out)
+      updated_stock_amounts = service.call
+      self.stock_product.update updated_stock_amounts
     end
 
 end

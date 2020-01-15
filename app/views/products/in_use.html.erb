@@ -59,7 +59,7 @@
           <%= display_tag product %>
         </td>
         <td>
-          <%= product.open_at %>
+          <%= l product.open_at %>
         </td>
         <td>
           <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>

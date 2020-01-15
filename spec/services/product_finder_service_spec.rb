@@ -1,5 +1,4 @@
 require 'rails_helper'
-require './app/services/product_finder_service'
 
 describe 'ProductFinderService' do
 

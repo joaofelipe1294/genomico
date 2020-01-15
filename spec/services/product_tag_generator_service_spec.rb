@@ -1,5 +1,4 @@
 require 'rails_helper'
-require './app/services/product_tag_generator_service'
 
 describe 'status_service' do
 
