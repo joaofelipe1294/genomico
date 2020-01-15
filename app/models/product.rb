@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  attr_accessor :amount_cache
   belongs_to :stock_product
   belongs_to :current_state
   belongs_to :stock_entry
@@ -12,7 +13,6 @@ class Product < ApplicationRecord
   paginates_per 12
   before_validation :current_state_default
   after_create :set_open_at_value
-  after_create :update_stock_product_aviable
 
   def find_next_in_stock
     ProductFinderService.new(self).call
@@ -22,7 +22,6 @@ class Product < ApplicationRecord
     return false unless params[:open_at].present?
     params[:current_state] = CurrentState.IN_USE
     if self.update params
-      update_stock_product_aviable operation: :change_to_in_use
       return true
     else
       self.current_state = CurrentState.STOCK
@@ -60,12 +59,6 @@ class Product < ApplicationRecord
       return unless stock_entry
       stock_product = stock_entry.stock_product
       self.stock_product = stock_product if stock_product
-    end
-
-    def update_stock_product_aviable operation: :add_to_stock
-      service = StockProductAmountManagerService.new(self, operation)
-      stock_values_updated = service.call
-      self.stock_product.update stock_values_updated
     end
 
 end

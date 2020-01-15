@@ -8,8 +8,9 @@ class StockProductsController < ApplicationController
   # GET /stock_products
   # GET /stock_products.json
   def index
-    if params[:name].present?
-      stock_products = StockProduct.where("name ILIKE ?", "%#{params[:name]}%")
+    search_name = params[:name]
+    if search_name.present?
+      stock_products = StockProduct.where("name ILIKE ?", "%#{search_name}%")
     elsif params[:field_id].present?
       stock_products = search_by_stock_product
     else
@@ -52,12 +53,10 @@ class StockProductsController < ApplicationController
     end
   end
 
+  # GET /stock_products/reports/base-report
   def base_report
-    @stock_products = StockProduct
-                                  .includes(:field)
-                                  .where("total_in_use > 0 OR total_in_use > 0")
-                                  .order(:name)
-                                  .page params[:page]
+    stock_products = StockProduct.products_base_report
+    @stock_products = Kaminari.paginate_array(stock_products).page(params[:page]).per(15)
   end
 
   private
