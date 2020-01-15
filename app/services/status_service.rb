@@ -27,7 +27,7 @@ class StatusService
 
     def get_disk_usage path
       if Rails.env == "production"
-        cmd_result = `ls -lh /opt/genomivo/#{path}`
+        cmd_result = `ls -lh /opt/genomico/#{path}`
       else
         cmd_result = `ls -lh $(pwd)/#{path}`
       end
