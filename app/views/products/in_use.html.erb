@@ -1,5 +1,7 @@
 <%= render "layouts/user_navbar" %>
 
+<%= render "layouts/stock_navbar" %>
+
 <h2 class="text-center mt-3">
   Produtos em uso
 </h2>
@@ -36,7 +38,7 @@
         </td>
         <td>
           <% if product.has_shelf_life %>
-            <%= product.display_shelf_life %>
+            <%= display_shelf_life product %>
           <% else %>
             -
           <% end %>
@@ -51,13 +53,13 @@
           <%= product.location %>
         </td>
         <td>
-          <%= product.stock_product.display_field %>
+          <%= display_field product.stock_product %>
         </td>
         <td>
-          <%= product.display_tag %>
+          <%= display_tag product %>
         </td>
         <td>
-          <%= product.open_at %>
+          <%= l product.open_at %>
         </td>
         <td>
           <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>

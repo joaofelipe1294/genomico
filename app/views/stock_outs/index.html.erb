@@ -1,5 +1,7 @@
 <%= render "layouts/user_navbar" %>
 
+<%= render "layouts/stock_navbar" %>
+
 <h2 class="text-center mt-3">
   Baixas de estoque
 </h2>
@@ -20,7 +22,7 @@
           <%= stock_out.stock_product.name %>
         </td>
         <td>
-          <%= stock_out.product.display_tag %>
+          <%= display_tag stock_out.product %>
         </td>
         <td>
           <%= l stock_out.date %>

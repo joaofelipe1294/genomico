@@ -1,5 +1,4 @@
 require 'rails_helper'
-require './app/services/status_service'
 
 describe 'status_service' do
 

@@ -11,7 +11,8 @@ RSpec.feature "User::Product::InUses", type: :feature do
     product = create(:product)
     create(:stock_entry, product: product)
     biomol_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "products-dropdown"
     click_link id: "in-stock-products"
     expect(page).to have_current_path products_in_stock_path
     click_link class: "open-product", match: :first
@@ -27,7 +28,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     create(:stock_entry, product: product)
     expect(product.current_state).to eq CurrentState.IN_USE
     imunofeno_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
     click_link id: "in-use-product"
     check_count css: "product", count: 1
   end

@@ -9,7 +9,8 @@ RSpec.feature "User::StockProduct::Searches", type: :feature do
   end
 
   def navigate_to
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "stock-products-dropdown"
     click_link id: "stock-products"
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_23_132045) do
+ActiveRecord::Schema.define(version: 2020_01_15_150653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -385,7 +385,7 @@ ActiveRecord::Schema.define(version: 2019_12_23_132045) do
   create_table "stock_products", force: :cascade do |t|
     t.string "name"
     t.integer "usage_per_test"
-    t.integer "total_aviable"
+    t.float "total_aviable"
     t.integer "first_warn_at"
     t.integer "danger_warn_at"
     t.string "mv_code"
@@ -395,6 +395,7 @@ ActiveRecord::Schema.define(version: 2019_12_23_132045) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "reagent_id"
+    t.float "total_in_use"
     t.index ["field_id"], name: "index_stock_products_on_field_id"
     t.index ["unit_of_measurement_id"], name: "index_stock_products_on_unit_of_measurement_id"
   end

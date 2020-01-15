@@ -1,30 +1,22 @@
 class StockProductsController < ApplicationController
-  before_action :set_stock_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_stock_product, only: [:edit, :update]
   before_action :user_filter
   include InstanceVariableSetter
   before_action :set_instance_variables, only: [:new, :edit]
+  before_action :set_fields, only: [:index]
 
   # GET /stock_products
   # GET /stock_products.json
   def index
-    set_fields
-    if params[:name].present?
-      stock_products = StockProduct.where("name ILIKE ?", "%#{params[:name]}%")
+    search_name = params[:name]
+    if search_name.present?
+      stock_products = StockProduct.where("name ILIKE ?", "%#{search_name}%")
     elsif params[:field_id].present?
-      if params[:field_id] == "Compartilhado"
-        stock_products = StockProduct.where(field: nil)
-      else
-        stock_products = StockProduct.where(field_id: params[:field_id])
-      end
+      stock_products = search_by_stock_product
     else
       stock_products = StockProduct.all
     end
     @stock_products = stock_products.order(:name).page params[:page]
-  end
-
-  # GET /stock_products/1
-  # GET /stock_products/1.json
-  def show
   end
 
   # GET /stock_products/new
@@ -61,14 +53,10 @@ class StockProductsController < ApplicationController
     end
   end
 
-  # DELETE /stock_products/1
-  # DELETE /stock_products/1.json
-  def destroy
-    @stock_product.destroy
-    respond_to do |format|
-      format.html { redirect_to stock_products_url, notice: 'Stock product was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  # GET /stock_products/reports/base-report
+  def base_report
+    stock_products = StockProduct.products_base_report
+    @stock_products = Kaminari.paginate_array(stock_products).page(params[:page]).per(15)
   end
 
   private
@@ -85,5 +73,14 @@ class StockProductsController < ApplicationController
     def set_instance_variables
       set_fields
       set_units_of_measurement
+    end
+
+    def search_by_stock_product
+      field_id = params[:field_id]
+      if field_id == "Compartilhado"
+        StockProduct.where(field: nil)
+      else
+        StockProduct.where(field_id: field_id)
+      end
     end
 end

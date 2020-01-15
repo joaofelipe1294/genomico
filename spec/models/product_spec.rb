@@ -93,49 +93,6 @@ RSpec.describe Product, type: :model do
 
     end
 
-    context "tag generation" do
-
-      before(:each) { setup }
-
-      it "ok" do
-        create(:stock_product, field: Field.BIOMOL)
-        product = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
-        expect(product).to be_valid
-        expect(product.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
-      end
-
-      it "without stock_product" do
-        product = build(:product, stock_product: nil)
-        expect(product).to be_invalid
-      end
-
-      it "distinct fields" do
-        create(:stock_product, field: Field.BIOMOL)
-        product_biomol = create(:product, stock_product: StockProduct.where(field: Field.BIOMOL).first, has_tag: true, tag: nil)
-        create(:stock_product, field: Field.IMUNOFENO)
-        product_imunofeno = create(:product, stock_product: StockProduct.where(field: Field.IMUNOFENO).first, has_tag: true, tag: nil)
-        create(:stock_product, field: nil)
-        product_shared = create(:product, stock_product: StockProduct.where(field: nil).first, has_tag: true, tag: nil)
-        expect(product_biomol).to be_valid
-        expect(product_imunofeno).to be_valid
-        expect(product_shared).to be_valid
-        expect(product_biomol.tag).to eq "#{Field.BIOMOL.name[0,3]}#{1}"
-        expect(product_imunofeno.tag).to eq "#{Field.IMUNOFENO.name[0,3]}#{1}"
-        expect(product_shared.tag).to eq "ALL#{1}"
-      end
-
-      it "same area entries" do
-        stock_product = create(:stock_product, field: Field.BIOMOL)
-        first_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
-        second_product = create(:product, stock_product: stock_product, has_tag: true, tag: nil)
-        expect(first_product).to be_valid
-        expect(second_product).to be_valid
-        expect(first_product.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{1}"
-        expect(second_product.tag).to eq "#{Field.BIOMOL.name[0, 3]}#{2}"
-      end
-
-    end
-
     context "amount validation" do
 
       before(:each) { setup }
@@ -186,52 +143,34 @@ RSpec.describe Product, type: :model do
 
     end
 
-    it "expired" do
-      product = create(:product, shelf_life: 2.months.ago)
-      expect(product.display_shelf_life).to eq "<span class='text-danger'>#{I18n.l product.shelf_life}</span>".html_safe
+  describe "when creating a new product" do
+
+    before :each do
+      Rails.application.load_seed
+      create(:brand)
+      @stock_product = create(:stock_product)
     end
 
-    it "in time" do
-      product = create(:product, shelf_life: 2.months.from_now)
-      expect(product.display_shelf_life).to eq "<span>#{I18n.l product.shelf_life}</span>".html_safe
-    end
+    context "when product status is stock" do
 
-    context "find_next_in_stock method" do
-
-      before :each do
-        @stock_product = StockProduct.all.last
-        @first_product = create(:product, stock_product: @stock_product, tag: nil)
-      end
-
-      it "with next" do
-        second_product = create(:product, stock_product: @stock_product, tag: nil)
-        @first_product.change_to_in_use({ open_at: Date.current })
-        next_product = @first_product.find_next_in_stock
-        expect(next_product).to eq second_product
-      end
-
-      it "without next product" do
-        @first_product.change_to_in_use({ open_at: Date.current })
-        next_product = @first_product.find_next_in_stock
-        expect(next_product).to eq nil
-      end
-
-      it "find closest shelf_life" do
-        @first_product.update({has_shelf_life: true, shelf_life: Date.current})
-        second_product = create(:product, stock_product: @stock_product, has_shelf_life: true, shelf_life: 2.years.from_now, tag: nil)
-        third_product = create(:product, stock_product: @stock_product, has_shelf_life: true, shelf_life: 3.months.from_now, tag: nil)
-        next_product = @first_product.find_next_in_stock
-        expect(next_product).to eq third_product
-      end
-
-      it "find closest without shelf_life" do
-        @first_product.update({has_shelf_life: false})
-        second_product = create(:product, stock_product: @stock_product, has_shelf_life: false, tag: nil)
-        third_product = create(:product, stock_product: @stock_product, has_shelf_life: false, tag: nil)
-        next_product = @first_product.find_next_in_stock
-        expect(next_product).to eq second_product
+      it "is expected to keep open_at as nil" do
+        product = create(:product, stock_product: @stock_product, current_state: CurrentState.STOCK, open_at: nil)
+        expect(product).to be_valid
+        expect(product.open_at).to be_nil
       end
 
     end
+
+    context "when product status is in_use" do
+
+      it "is expected to have current date as open_at" do
+        product = create(:product, stock_product: @stock_product, current_state: CurrentState.IN_USE, open_at: nil)
+        expect(product).to be_valid
+        expect(product.open_at).to match Date.current
+      end
+
+    end
+
+  end
 
 end

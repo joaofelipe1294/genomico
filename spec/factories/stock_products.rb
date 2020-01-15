@@ -9,5 +9,6 @@ FactoryBot.define do
     unit_of_measurement { UnitOfMeasurement.all.sample }
     field { Field.all.sample }
     is_shared { false }
+    total_in_use { 0 }
   end
 end

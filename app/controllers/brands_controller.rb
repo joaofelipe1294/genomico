@@ -4,12 +4,7 @@ class BrandsController < ApplicationController
   # GET /brands
   # GET /brands.json
   def index
-    @brands = Brand.all.order name: :asc
-  end
-
-  # GET /brands/1
-  # GET /brands/1.json
-  def show
+    @brands = Brand.all.order(name: :asc).page params[:page]
   end
 
   # GET /brands/new

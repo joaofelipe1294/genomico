@@ -15,7 +15,8 @@ RSpec.feature "User::Brand::Edits", type: :feature do
         {name: 'Play'},
         {name: 'Grails'},
       ])
-      click_link id: 'stock-dropdown'
+      click_link id: "stock"
+      click_link id: 'brands-dropdown'
       click_link id: 'brands'
       click_link class: 'edit-brand', match: :first
     end
@@ -42,5 +43,5 @@ RSpec.feature "User::Brand::Edits", type: :feature do
     end
 
   end
-  
+
 end

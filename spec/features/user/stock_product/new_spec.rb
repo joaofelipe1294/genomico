@@ -6,7 +6,8 @@ RSpec.feature "User::StockProduct::News", type: :feature do
   before :each do
     Rails.application.load_seed
     biomol_user_do_login
-    click_link id: "stock-dropdown"
+    click_link id: "stock"
+    click_link id: "stock-products-dropdown"
     click_link id: "new-stock-product"
     @duplicated = create(:stock_product)
     fill_fields
