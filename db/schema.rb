@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_150653) do
+ActiveRecord::Schema.define(version: 2020_01_16_124529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,7 +246,6 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.bigint "reagent_id"
     t.string "lot"
     t.date "shelf_life"
     t.boolean "is_expired"
@@ -265,7 +264,6 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
     t.bigint "stock_product_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["current_state_id"], name: "index_products_on_current_state_id"
-    t.index ["reagent_id"], name: "index_products_on_reagent_id"
     t.index ["stock_entry_id"], name: "index_products_on_stock_entry_id"
     t.index ["stock_product_id"], name: "index_products_on_stock_product_id"
   end
@@ -277,26 +275,6 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_qubit_reports_on_id"
     t.index ["subsample_id"], name: "index_qubit_reports_on_subsample_id"
-  end
-
-  create_table "reagents", force: :cascade do |t|
-    t.string "product_description"
-    t.string "name"
-    t.integer "stock_itens"
-    t.integer "usage_per_test"
-    t.integer "total_aviable"
-    t.bigint "field_id"
-    t.integer "first_warn_at"
-    t.integer "danger_warn_at"
-    t.string "mv_code"
-    t.string "product_code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "brand_id"
-    t.bigint "unit_of_measurement_id"
-    t.index ["brand_id"], name: "index_reagents_on_brand_id"
-    t.index ["field_id"], name: "index_reagents_on_field_id"
-    t.index ["unit_of_measurement_id"], name: "index_reagents_on_unit_of_measurement_id"
   end
 
   create_table "release_checks", force: :cascade do |t|
@@ -347,25 +325,13 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
   end
 
   create_table "stock_entries", force: :cascade do |t|
-    t.bigint "reagent_id"
-    t.string "lot"
-    t.date "shelf_life"
-    t.boolean "is_expired"
-    t.integer "amount"
     t.date "entry_date"
-    t.bigint "current_state_id"
-    t.string "location"
     t.bigint "responsible_id"
-    t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "has_shelf_life"
-    t.boolean "has_tag"
     t.bigint "product_id"
     t.bigint "stock_product_id"
-    t.index ["current_state_id"], name: "index_stock_entries_on_current_state_id"
     t.index ["product_id"], name: "index_stock_entries_on_product_id"
-    t.index ["reagent_id"], name: "index_stock_entries_on_reagent_id"
     t.index ["responsible_id"], name: "index_stock_entries_on_responsible_id"
     t.index ["stock_product_id"], name: "index_stock_entries_on_stock_product_id"
   end
@@ -394,7 +360,6 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
     t.boolean "is_shared"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "reagent_id"
     t.float "total_in_use"
     t.index ["field_id"], name: "index_stock_products_on_field_id"
     t.index ["unit_of_measurement_id"], name: "index_stock_products_on_unit_of_measurement_id"
@@ -485,17 +450,13 @@ ActiveRecord::Schema.define(version: 2020_01_15_150653) do
   add_foreign_key "patients", "hospitals"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "current_states"
-  add_foreign_key "products", "reagents"
   add_foreign_key "products", "stock_entries"
   add_foreign_key "qubit_reports", "subsamples"
-  add_foreign_key "reagents", "unit_of_measurements"
   add_foreign_key "release_checks", "releases"
   add_foreign_key "release_checks", "users"
   add_foreign_key "samples", "attendances"
   add_foreign_key "samples", "patients"
   add_foreign_key "samples", "sample_kinds"
-  add_foreign_key "stock_entries", "current_states"
-  add_foreign_key "stock_entries", "reagents"
   add_foreign_key "stock_entries", "users", column: "responsible_id"
   add_foreign_key "stock_outs", "products"
   add_foreign_key "stock_outs", "stock_products"
