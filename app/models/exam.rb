@@ -1,5 +1,4 @@
 class Exam < ActiveRecord::Base
-  attr_accessor :refference_label
   validates :exam_status_kind, :offered_exam, presence: true
   belongs_to :offered_exam
   belongs_to :exam_status_kind
@@ -34,15 +33,16 @@ class Exam < ActiveRecord::Base
   end
 
   def is_late?
-    days_took = (self.created_at.to_date..Date.current).select { |d| (1..5).include?(d.wday) }.size
+    days_took = ValidDaysCounterService.new(self.created_at.to_date, Date.current).call
     days_took > self.offered_exam.refference_date
   end
 
   def verify_if_was_late
-    days_took = (self.created_at.to_date..self.finish_date).select { |d| (1..5).include?(d.wday) }.size
-    if days_took > self.offered_exam.refference_date
+    refference_date = self.offered_exam.refference_date
+    days_took = ValidDaysCounterService.new(self.created_at.to_date, self.finish_date).call
+    if days_took > refference_date
       self.was_late = true
-      self.lag_time = days_took - self.offered_exam.refference_date
+      self.lag_time = days_took - refference_date
     end
   end
 
@@ -59,14 +59,8 @@ class Exam < ActiveRecord::Base
   end
 
   def treat_two_internal_codes_case
-    attendance = self.attendance
-    internal_codes = self.internal_code_ids
-    biomol_internal_codes = attendance.internal_codes.where(field: Field.BIOMOL).joins(:subsample) if attendance
-    if internal_codes.empty? && biomol_internal_codes.size >= 2
-      internal_codes << biomol_internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.DNA.id).first
-      internal_codes << biomol_internal_codes.where("subsamples.subsample_kind_id = ?", SubsampleKind.RNA.id).first
-      self.internal_codes = internal_codes
-    end
+    compose_internal_codes = ComposeInternalCodeGeneratorService.new(self).call
+    self.internal_codes = compose_internal_codes if compose_internal_codes
   end
 
 end
