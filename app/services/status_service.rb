@@ -6,7 +6,7 @@ class StatusService
         backups: get_disk_usage("public/backups/"),
         logs: get_disk_usage("log/")
       },
-      backup: last_backup_date,
+      backup: last_backups,
       patients: Patient.all.size,
       attendances: Attendance.all.size,
       exams: Exam.all.size
@@ -16,10 +16,10 @@ class StatusService
 
   private
 
-    def last_backup_date
-      backup = Backup.all.order(created_at: :desc).first
-      if backup
-        backup.generated_at.utc.strftime('%H:%M  -  %d/%m/%Y')
+    def last_backups
+      backups = Backup.all.order(created_at: :desc).limit(10)
+      unless backups.empty?
+        backups.map { |backup| backup.generated_at.utc.strftime('%H:%M  -  %d/%m/%Y') }
       else
         I18n.t :without_backups_message
       end
