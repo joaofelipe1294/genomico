@@ -1,5 +1,5 @@
 class ReleasesController < ApplicationController
-  before_action :set_release, only: [:show, :edit, :update, :destroy]
+  before_action :set_release, only: [:destroy]
   before_action :admin_filter, except: [:confirm]
 
   # GET /releases
@@ -8,18 +8,9 @@ class ReleasesController < ApplicationController
     @releases = Release.all.order(created_at: :asc)
   end
 
-  # GET /releases/1
-  # GET /releases/1.json
-  def show
-  end
-
   # GET /releases/new
   def new
     @release = Release.new
-  end
-
-  # GET /releases/1/edit
-  def edit
   end
 
   # POST /releases
@@ -31,20 +22,6 @@ class ReleasesController < ApplicationController
       redirect_to releases_path
     else
       render :new
-    end
-  end
-
-  # PATCH/PUT /releases/1
-  # PATCH/PUT /releases/1.json
-  def update
-    respond_to do |format|
-      if @release.update(release_params)
-        format.html { redirect_to @release, notice: 'Release was successfully updated.' }
-        format.json { render :show, status: :ok, location: @release }
-      else
-        format.html { render :edit }
-        format.json { render json: @release.errors, status: :unprocessable_entity }
-      end
     end
   end
 
