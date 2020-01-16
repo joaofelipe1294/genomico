@@ -71,7 +71,6 @@ Rails.application.routes.draw do
   get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
 
   resources :brands
-  resources :reagents
   resources :work_maps
   resources :hospitals
   resources :subsamples
