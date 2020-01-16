@@ -16,8 +16,12 @@ class InternalCode < ApplicationRecord
   private
 
   def set_attendance
-    self.attendance_id = self.sample.attendance_id if self.sample.nil? == false && self.attendance.nil? == true
-    self.attendance_id = self.subsample.attendance_id if self.subsample.nil? == false && self.attendance.nil? == true
+    sample = self.sample
+    subsample = self.subsample
+    unless self.attendance
+      self.attendance_id = sample.attendance_id if sample
+      self.attendance_id = subsample.attendance_id if subsample
+    end
   end
 
   def set_internal_code
