@@ -1,7 +1,7 @@
 class OfferedExamsController < ApplicationController
   include InstanceVariableSetter
   before_action :set_offered_exam, only: [:show, :edit, :update, :destroy, :active_exam]
-  before_action :generic_filter, except: [:exams_per_field]
+  before_action :user_filter
   before_action :set_fields, only: [:new, :edit, :index]
 
   # GET /offered_exams
@@ -34,7 +34,7 @@ class OfferedExamsController < ApplicationController
     @offered_exam = OfferedExam.new(offered_exam_params)
     if @offered_exam.save
       flash[:success] = I18n.t :new_offered_exam_success
-      redirect_to_home
+      redirect_to offered_exams_path
     else
       set_fields
       render :new

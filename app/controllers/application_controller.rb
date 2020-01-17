@@ -18,20 +18,6 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def generic_filter
-      admin = find_user UserKind.ADMIN
-      user = find_user UserKind.USER
-      wrong_credentials_redirect unless user || admin
-    end
-
-    def redirect_to_home
-      if User.find(session[:user_id]).user_kind == UserKind.ADMIN
-        redirect_to home_admin_index_path
-      else
-        redirect_to home_user_index_path
-      end
-    end
-
     private
 
     def wrong_credentials_redirect
