@@ -67,7 +67,7 @@ class StockProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_product_params
-      params.require(:stock_product).permit(:name, :usage_per_test, :total_aviable, :first_warn_at, :danger_warn_at, :mv_code, :unit_of_measurement_id, :field_id, :is_shared)
+      params.require(:stock_product).permit(:name, :total_aviable, :first_warn_at, :danger_warn_at, :mv_code, :unit_of_measurement_id, :field_id, :is_shared)
     end
 
     def set_instance_variables
