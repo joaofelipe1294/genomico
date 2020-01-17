@@ -1,6 +1,6 @@
 class HospitalsController < ApplicationController
   before_action :set_hospital, only: [:show, :edit, :update, :destroy]
-  before_action :generic_filter
+  before_action :user_filter
 
 
   # GET /hospitals
@@ -29,7 +29,7 @@ class HospitalsController < ApplicationController
     @hospital = Hospital.new(hospital_params)
     if @hospital.save
       flash[:success] = 'Hospital cadastrado com sucesso.'
-      redirect_to_home
+      redirect_to hospitals_path
     else
       render :new
     end
@@ -40,7 +40,7 @@ class HospitalsController < ApplicationController
   def update
     if @hospital.update(hospital_params)
       flash[:success] = 'Hospital editado com sucesso.'
-      redirect_to_home
+      redirect_to hospitals_path
     else
       render :new
     end
@@ -49,7 +49,7 @@ class HospitalsController < ApplicationController
   # DELETE /hospitals/1
   # DELETE /hospitals/1.json
   def destroy
-    redirect_to_home
+    redirect_to hospitals_path
   end
 
   private
