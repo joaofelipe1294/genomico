@@ -18,7 +18,7 @@ RSpec.feature "User::OfferedExam::News", type: :feature do
 
     it "complete" do
       click_button id: "btn-save"
-      expect(page).to have_current_path home_user_index_path
+      expect(page).to have_current_path offered_exams_path
       expect(find(id: "success-warning").text).to eq I18n.t :new_offered_exam_success
     end
 
@@ -41,7 +41,7 @@ RSpec.feature "User::OfferedExam::News", type: :feature do
       it "mnemonyc" do
         fill_in "offered_exam[mnemonyc]", with: ""
         click_button id: "btn-save"
-        expect(page).to have_current_path home_user_index_path
+        expect(page).to have_current_path offered_exams_path
         expect(find(id: "success-warning").text).to eq I18n.t :new_offered_exam_success
       end
 
