@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :stock_product do
     name { Faker::Name.name }
-    usage_per_test { nil }
     total_aviable { 0 }
     first_warn_at { nil }
     danger_warn_at { nil }

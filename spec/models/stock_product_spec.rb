@@ -25,11 +25,6 @@ RSpec.describe StockProduct, type: :model do
       expect(stock_product.total_aviable).to eq 0
     end
 
-    it "usage_per_test" do
-      stock_product = build(:stock_product, usage_per_test: nil)
-      expect(stock_product).to be_valid
-    end
-
     it "field" do
       stock_product = build(:stock_product, field: nil)
       expect(stock_product).to be_valid
