@@ -35,7 +35,6 @@
       <th class="h5">Área</th>
       <th class="h5">Total disponível</th>
       <th class="h5">Medido em</th>
-      <th class="h5">Uso por teste</th>
       <th class="h5">Primeiro aviso</th>
       <th class="h5">Segundo aviso</th>
       <th></th>
@@ -48,9 +47,8 @@
         <td><%= stock_product.name %></td>
         <td><%= stock_product.mv_code %></td>
         <td><%= display_field stock_product %></td>
-        <td><%= stock_product.usage_per_test %></td>
-        <td><%= stock_product.unit_of_measurement.name %></td>
         <td><%= stock_product.total_aviable %></td>
+        <td><%= stock_product.unit_of_measurement.name %></td>
         <td><%= stock_product.first_warn_at %></td>
         <td><%= stock_product.danger_warn_at %></td>
         <td>
