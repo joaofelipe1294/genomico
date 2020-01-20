@@ -1,13 +1,16 @@
 namespace :maintenance do
-  desc "TODO"
+  desc "Start maintenance mode, redirecting all requests to a maintenance page"
   task start: :environment do
     ActionController::Base.cache_store.write("maintenance", true)
   end
 
-  desc "TODO"
+  desc "Stop maintenance mode and restar server case enviroment is production"
   task stop: :environment do
     ActionController::Base.cache_store.write("maintenance", false)
-    `bundle exec pumactl -P /opt/genomico/tmp/pids/server.pid restart`
+    if Rails.env == "production"
+      `kill  $(cat #{Rails.root}/tmp/pids/server.pid)`
+      `rails s -b 0.0.0.0 -e production -d`
+    end
   end
 
 end
