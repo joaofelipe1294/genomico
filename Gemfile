@@ -70,6 +70,9 @@ gem "rubyzip", ">= 1.3.0"
 gem "cuprite", group: :test
 gem "puma", "4.3.1"
 
+# Turnout makes it easy to put Rack apps into maintenance mode
+gem 'turnout'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
