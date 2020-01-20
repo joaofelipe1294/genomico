@@ -52,7 +52,7 @@
 
     <div class="field form-group">
       <%= product_fields.label :brand_id %>
-      <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
+      <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name", selected: @stock_entry.product.brand_id), {}, class: "form-control" %>
     </div>
 
     <div class="field form-group">
