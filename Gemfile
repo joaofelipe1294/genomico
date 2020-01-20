@@ -52,9 +52,6 @@ gem 'rails-i18n', '~> 4.0'
 
 gem "paperclip", "~> 5.3.0"
 
-# Cron jobs in Ruby
-gem 'whenever', require: false
-
 gem 'bootsnap', require: false
 
 # Create beautiful JavaScript charts with one line of Ruby. No more fighting with charting libraries!
@@ -69,9 +66,6 @@ gem "redis", ">= 3.2.0"
 gem "rubyzip", ">= 1.3.0"
 gem "cuprite", group: :test
 gem "puma", "4.3.1"
-
-# Turnout makes it easy to put Rack apps into maintenance mode
-gem 'turnout'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :exam_status_color_helper
+  before_action :check_maintenance_status, except: [:maintenance]
 
   def admin_filter
       user = find_user UserKind.ADMIN
@@ -42,6 +43,10 @@ class ApplicationController < ActionController::Base
       else
         @has_release_message = false
       end
+    end
+
+    def check_maintenance_status
+      return redirect_to maintenance_path if ActionController::Base.cache_store.read("maintenance")
     end
 
 end
