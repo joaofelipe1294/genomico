@@ -21,6 +21,8 @@ After clone the project execute vagrant up to install a vm with Ruby, Rails, Pos
 
   - rails backup:do -> generate a file backup.zip with all files uploaded and data from the database.
   - rails backup:restore file.zip -> receives a zip file generated with backup:do and restore the database status and files
+  - rails maintenance:start -> change app to maintenance mode.
+  - rake maintenance:end -> end maintenance mode.
 
 * Infrastructure dependencies
   - PostgreSQL: 10.10
