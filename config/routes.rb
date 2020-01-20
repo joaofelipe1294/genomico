@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'maintenance/maintenance', to: 'maintenance#maintenance', as: :maintenance
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
   get '/status', to: 'home#status', as: :status
   get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open

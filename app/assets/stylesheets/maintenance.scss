@@ -1,0 +1,30 @@
+// Place all the styles related to the maintenance controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body, html {
+  height: 100%;
+  margin: 0px;
+}
+
+.bg {
+  /* The image used */
+  // background-image: url("");
+
+  /* Full height */
+  width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+label {
+  z-index: 3;
+  position: absolute;
+  top: 100px;
+  right: 330px;
+  color: white;
+  font-family: Roboto;
+  font-size: 2em;
+}
