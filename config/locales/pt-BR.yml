@@ -175,6 +175,7 @@
         has_tag: Possui identificador
         stock_product: Produto
         stock_product_id: Produto
+        product_amount: Quantidade de entradas
       stock_product:
         name: Nome
         usage_per_test: Uso por teste
