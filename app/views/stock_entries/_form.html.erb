@@ -51,17 +51,17 @@
   <%= form.fields_for :product do |product_fields| %>
 
     <div class="field form-group">
-      <%= product_fields.label :brand_id %>
+      <%= product_fields.label "Marca" %>
       <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name", selected: @stock_entry.product.brand_id), {}, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= product_fields.label :lot %>
+      <%= product_fields.label "Lote" %>
       <%= product_fields.text_field :lot, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= product_fields.label :has_shelf_life %><br />
+      <%= product_fields.label "Possúi data de validade" %><br />
       <%= product_fields.label :has_shelf_life, "Sim", :value => "true" %>
       <%= product_fields.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
       <%= product_fields.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="field form-group" id="shelf-life-group">
-      <%= product_fields.label :shelf_life %>
+      <%= product_fields.label "Data de validade" %>
       <% if @stock_entry.product.shelf_life %>
         <%= product_fields.date_field :shelf_life, class: "form-control", value: @stock_entry.product.shelf_life %>
       <% else %>
@@ -78,21 +78,22 @@
     </div>
 
     <div class="field form-group">
-      <%= product_fields.label :amount %> (<span id="unit-of-measurement"></span>)
+      <%= product_fields.label "Quantidade" %> (<span id="unit-of-measurement"></span>)
       <%= product_fields.number_field :amount, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= product_fields.label :current_state_id %>
+      <%= product_fields.label "Estado atual" %>
       <%= product_fields.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: CurrentState.STOCK.id), {}, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= product_fields.label :location %>
+      <%= product_fields.label "Localização atual" %>
       <%= product_fields.text_field :location, class: "form-control" %>
     </div>
 
     <% unless @stock_entry.id %>
+
       <div class="field form-group">
         <%= product_fields.label "Gerar identificador" %><br />
         <%= product_fields.label :has_tag, "Sim", :value => "true" %>
@@ -100,9 +101,15 @@
         <%= product_fields.label :has_tag, "Não", :value => "false", class: "ml-4" %>
         <%= product_fields.radio_button :has_tag, false  %>
       </div>
+
     <% end %>
 
   <% end %>
+
+  <div class="field form-group">
+    <%= form.label "Número de entradas" %>
+    <%= form.number_field :product_amount, class: "form-control", value: "1" %>
+  </div>
 
   <button id="btn-save" class="btn btn-outline-primary float-right">
     Salvar
@@ -168,5 +175,10 @@
     set_unit_of_mesurement()
     $("#tag-field").attr("hidden", "hidden")
   }
+
+  $('#with-multiple-products').on('click', () => $('#products-amount-div').removeAttr("hidden"))
+
+  $('#single-product').on('click', () => $('#products-amount-div').attr("hidden", "true"))
+
 
 </script>

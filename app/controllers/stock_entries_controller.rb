@@ -44,6 +44,7 @@ class StockEntriesController < ApplicationController
       return redirect_to stock_entries_path if @stock_entry.product.has_tag == false
     else
       set_instance_variables
+      @stock_entry.product = Product.new
       render :new
     end
   end
@@ -89,7 +90,8 @@ class StockEntriesController < ApplicationController
         :is_expired,
         :entry_date,
         :responsible_id,
-        product_attributes: [
+        :product_amount,
+        product: [
           :id,
           :lot,
           :amount,
@@ -99,7 +101,7 @@ class StockEntriesController < ApplicationController
           :tag,
           :has_shelf_life,
           :has_tag,
-          :shelf_life
+          :shelf_life,
         ]
       )
     end
