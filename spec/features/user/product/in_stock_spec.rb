@@ -6,7 +6,7 @@ RSpec.feature "User::Product::InStocks", type: :feature do
 
   def generate_stock_entry state
     stock_product = create(:stock_product)
-    product = create(:product, stock_product: stock_product, current_state: state)
+    product = build(:product, stock_product: stock_product, current_state: state)
     stock_entry = create(:stock_entry, product: product)
     stock_entry
   end
@@ -91,7 +91,7 @@ RSpec.feature "User::Product::InStocks", type: :feature do
     it "Compartilhado" do
       setup
       stock_product = create(:stock_product, is_shared: true)
-      product = create(:product, stock_product: stock_product, current_state: CurrentState.STOCK)
+      product = build(:product, stock_product: stock_product, current_state: CurrentState.STOCK)
       stock_entry = create(:stock_entry, product: product)
       biomol_user_do_login
       visit products_in_stock_path

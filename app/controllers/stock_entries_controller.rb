@@ -40,8 +40,8 @@ class StockEntriesController < ApplicationController
     @stock_entry = StockEntry.new(stock_entry_params)
     if @stock_entry.save
       flash[:success] = I18n.t :new_stock_entry_success
-      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.product.has_tag
-      return redirect_to stock_entries_path if @stock_entry.product.has_tag == false
+      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.first_product.has_tag
+      return redirect_to stock_entries_path if @stock_entry.first_product.has_tag == false
     else
       set_instance_variables
       @stock_entry.product = Product.new

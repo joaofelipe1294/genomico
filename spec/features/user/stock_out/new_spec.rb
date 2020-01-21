@@ -14,8 +14,9 @@ RSpec.feature "User::StockOut::News", type: :feature do
     create(:user, user_kind: UserKind.USER)
     create(:brand)
     @stock_product = create(:stock_product)
-    @product = create(:product, stock_product: @stock_product)
+    @product = build(:product, stock_product: @stock_product)
     @stock_entry = create(:stock_entry, product: @product)
+    @product = @stock_entry.first_product
   end
 
   it "new stock_out", js: true do
@@ -40,10 +41,10 @@ RSpec.feature "User::StockOut::News", type: :feature do
 
   it "with one product in stock" do
     imunofeno_user_do_login
-    second_product = create(:product, stock_product: @stock_product, shelf_life: 2.weeks.from_now)
-    create(:stock_entry, product: second_product)
+    second_product = build(:product, stock_product: @stock_product, shelf_life: 2.weeks.from_now)
+    second_stock_entry = create(:stock_entry, product: second_product)
     do_stock_out_on_first_product
-    expect(page).to have_current_path next_product_to_open_path(second_product)
+    expect(page).to have_current_path next_product_to_open_path(second_stock_entry.reload.first_product)
   end
 
   it "without stock_product" do
