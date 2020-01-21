@@ -52,7 +52,7 @@
 
     <div class="field form-group">
       <%= product_fields.label "Marca" %>
-      <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name", selected: @stock_entry.product.brand_id), {}, class: "form-control" %>
+      <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name"), {}, class: "form-control" %>
     </div>
 
     <div class="field form-group">
@@ -63,18 +63,14 @@
     <div class="field form-group">
       <%= product_fields.label "Possúi data de validade" %><br />
       <%= product_fields.label :has_shelf_life, "Sim", :value => "true" %>
-      <%= product_fields.radio_button :has_shelf_life, true,  checked: true, id: "has-shelf-life" %>
+      <%= product_fields.radio_button :has_shelf_life, true,  checked: true %>
       <%= product_fields.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
-      <%= product_fields.radio_button :has_shelf_life, false, id: "hasnt-shelf-life"  %>
+      <%= product_fields.radio_button :has_shelf_life, false, id: "hasnt-shelf-life" %>
     </div>
 
     <div class="field form-group" id="shelf-life-group">
       <%= product_fields.label "Data de validade" %>
-      <% if @stock_entry.product.shelf_life %>
-        <%= product_fields.date_field :shelf_life, class: "form-control", value: @stock_entry.product.shelf_life %>
-      <% else %>
-        <%= product_fields.date_field :shelf_life, class: "form-control", value: Date.current %>
-      <% end %>
+      <%= product_fields.date_field :shelf_life, class: "form-control", value: Date.current %>
     </div>
 
     <div class="field form-group">
@@ -91,18 +87,6 @@
       <%= product_fields.label "Localização atual" %>
       <%= product_fields.text_field :location, class: "form-control" %>
     </div>
-
-    <% unless @stock_entry.id %>
-
-      <div class="field form-group">
-        <%= product_fields.label "Gerar identificador" %><br />
-        <%= product_fields.label :has_tag, "Sim", :value => "true" %>
-        <%= product_fields.radio_button :has_tag, true,  checked: true %>
-        <%= product_fields.label :has_tag, "Não", :value => "false", class: "ml-4" %>
-        <%= product_fields.radio_button :has_tag, false  %>
-      </div>
-
-    <% end %>
 
   <% end %>
 
@@ -175,10 +159,6 @@
     set_unit_of_mesurement()
     $("#tag-field").attr("hidden", "hidden")
   }
-
-  $('#with-multiple-products').on('click', () => $('#products-amount-div').removeAttr("hidden"))
-
-  $('#single-product').on('click', () => $('#products-amount-div').attr("hidden", "true"))
 
 
 </script>

@@ -9,11 +9,15 @@ class StockEntry < ApplicationRecord
   validates_with StockEntryProductAmountValidator
   validates_with StockEntryProductValidator
   after_create :create_products
-  after_initialize :set_product
+  before_validation :convert_has_product_in_object
+
+  def first_product
+    self.products.first
+  end
 
   private
 
-    def set_product
+    def convert_has_product_in_object
       return unless self.product
       self.product = Product.new(self.product) if self.product.is_a? Hash
       self.product.stock_product = self.stock_product

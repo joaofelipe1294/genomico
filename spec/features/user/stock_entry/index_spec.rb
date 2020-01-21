@@ -61,12 +61,12 @@ RSpec.feature "User::StockEntry::Indices", type: :feature do
       biomol_user_do_login
       create(:brand)
       @stock_product = create(:stock_product, name: "Some weird name ...")
-      first = product = create(:product, stock_product: @stock_product)
-      first_stock_entry = create(:stock_entry, product: product)
-      second_product = create(:product, stock_product: @stock_product)
+      first_product = build(:product, stock_product: @stock_product)
+      first_stock_entry = create(:stock_entry, product: first_product)
+      second_product = build(:product, stock_product: @stock_product)
       second_stock_entry = create(:stock_entry, product: second_product)
       @second_stock_product = create(:stock_product, name: "Other strange name")
-      third_product = create(:product, stock_product: @second_stock_product)
+      third_product = build(:product, stock_product: @second_stock_product)
       stock_entry = create(:stock_entry, product: third_product)
     end
 

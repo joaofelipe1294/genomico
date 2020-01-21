@@ -44,26 +44,32 @@
   <tbody>
     <% @stock_entries.each do |stock_entry| %>
       <tr class="stock-entry">
-        <td><%= stock_entry.product.stock_product.name %></td>
-        <td><%= stock_entry.product.brand.name %></td>
-        <td><%= stock_entry.product.lot %></td>
+        <td><%= stock_entry.products.first.stock_product.name %></td>
+        <td><%= stock_entry.products.first.brand.name %></td>
+        <td><%= stock_entry.products.first.lot %></td>
         <td class="shelf-life">
-          <% if stock_entry.product.has_shelf_life %>
-            <%= l stock_entry.product.shelf_life %>
+          <% if stock_entry.products.first.has_shelf_life %>
+            <%= l stock_entry.products.first.shelf_life %>
           <% else %>
             -
           <% end %>
         </td>
-        <td><%= stock_entry.product.amount %></td>
+        <td><%= stock_entry.products.first.amount %></td>
         <td><%= l stock_entry.entry_date %></td>
-        <td><%= display_current_state stock_entry.product %></td>
-        <td><%= stock_entry.product.location %></td>
+        <td><%= display_current_state stock_entry.products.first %></td>
+        <td><%= stock_entry.products.first.location %></td>
         <td><%= stock_entry.responsible.login %></td>
-        <td><%= display_field stock_entry.product.stock_product %></td>
-        <td><%= stock_entry.product.tag %></td>
+        <td><%= display_field stock_entry.products.first.stock_product %></td>
+        <td>
+          <% if stock_entry.products.size > 1 %>
+            Existem muitas tags para serem exibidas
+          <% else %>
+            <%= stock_entry.products.first.tag %>
+          <% end %>
+        </td>
         <td>
           <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>
-          <% if stock_entry.product.current_state == CurrentState.STOCK %>
+          <% if stock_entry.products.where(current_state: CurrentState.IN_USE).size == 0 %>
             <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
           <% end %>
         </td>

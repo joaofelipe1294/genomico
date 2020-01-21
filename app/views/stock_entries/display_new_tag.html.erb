@@ -3,13 +3,13 @@
 
 <h3 class="text-center">
   <% if @stock_entry.products.size == 1 %>
-    Código gerado: <span class="text-primary"><%= @stock_entry.products.last.tag %></span>
+    Código gerado: <span class="text-primary tag"><%= @stock_entry.products.last.tag %></span>
   <% else %>
     Códigos gerados:
     <ul>
       <% @stock_entry.products.each do |product| %>
         <li>
-          <span class="text-primary"><%= product.tag %></span>
+          <span class="text-primary tag"><%= product.tag %></span>
         </li>
       <% end %>
     </ul>
