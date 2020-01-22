@@ -52,7 +52,9 @@
           <% if stock_entry.can_remove? %>
             <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
           <% end %>
-          <button type="button" name="button">Bais informaçoes</button>
+          <% if stock_entry.products.size > 1 %>
+            <%= link_to 'Produtos', stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-info show-products" %>
+          <% end %>
         </td>
       </tr>
     <% end %>

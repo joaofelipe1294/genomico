@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
-  before_action :set_product, only: [:new_open_product, :open_product]
+  before_action :set_product, only: [:new_open_product, :open_product, :delete]
   before_action :set_fields, only: [:in_stock, :in_use]
 
   # GET products/in_use
@@ -34,6 +34,15 @@ class ProductsController < ApplicationController
   def next_product_to_open
     @product = Product.includes(:stock_product).find params[:id]
     @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
+  end
+
+  def delete
+    if @product.destroy
+      flash[:success] = I18n.t :product_destroyed_success
+    else
+      flash[:warning] = @product.errors.full_messages.first
+    end
+    redirect_to stock_entry_path(@product.stock_entry)
   end
 
   private

@@ -1,54 +1,42 @@
-<p id="notice"><%= notice %></p>
+<%= render 'layouts/user_navbar' %>
+<%= render 'layouts/stock_navbar' %>
 
-<p>
-  <strong>Reagent:</strong>
-  <%= @stock_entry.reagent %>
-</p>
-
-<p>
-  <strong>Lot:</strong>
-  <%= @stock_entry.lot %>
-</p>
-
-<p>
-  <strong>Shelf life:</strong>
-  <%= @stock_entry.shelf_life %>
-</p>
-
-<p>
-  <strong>Is expired:</strong>
-  <%= @stock_entry.is_expired %>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @stock_entry.amount %>
-</p>
-
-<p>
-  <strong>Entry date:</strong>
-  <%= @stock_entry.entry_date %>
-</p>
-
-<p>
-  <strong>Current state:</strong>
-  <%= @stock_entry.current_state %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @stock_entry.location %>
-</p>
-
-<p>
-  <strong>Responsible:</strong>
-  <%= @stock_entry.responsible %>
-</p>
-
-<p>
-  <strong>Tag:</strong>
-  <%= @stock_entry.tag %>
-</p>
-
-<%= link_to 'Edit', edit_stock_entry_path(@stock_entry) %> |
-<%= link_to 'Back', stock_entries_path %>
+<div class="card mt-4 col-10 offset-1 p-0">
+  <div class="card-header text-center text-white bg-dark">
+    <h4>
+      Entrada de estoque (<%= l @stock_entry.entry_date %>)
+    </h4>
+  </div>
+  <div class="card-body pl-0 pr-0">
+    <table class="table table-sm text-center">
+      <thead class="text-white bg-secondary">
+        <th class="h4">Produto</th>
+        <th class="h4">Marca</th>
+        <th class="h4">Lote</th>
+        <th class="h4">Quantidade</th>
+        <th class="h4">Estado atual</th>
+        <th class="h4">Localização</th>
+        <th class="h4">Identificador</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @stock_entry.products.each do |product| %>
+          <tr>
+            <td><%= product.stock_product.name %></td>
+            <td><%= product.brand.name %></td>
+            <td><%= product.lot %></td>
+            <td><%= "#{product.amount} (#{product.stock_product.unit_of_measurement.name})" %></td>
+            <td><%= display_current_state product%></td>
+            <td><%= product.location %></td>
+            <td><%= display_tag product %></td>
+            <td>
+              <% if product.current_state == CurrentState.STOCK %>
+                <%= link_to "Remover", delete_product_path(product), method: :delete, class: "btn btn-sm btn-outline-danger remove-product", data: {confirm: "Tem certeza ?"} %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
