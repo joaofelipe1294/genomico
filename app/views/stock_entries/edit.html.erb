@@ -105,20 +105,7 @@
           <%= product_fields.text_field :location, class: "form-control", value: @stock_entry.first_product.location %>
         </div>
 
-        <div class="field form-group">
-          <%= product_fields.label "Gerar identificador" %><br />
-          <%= product_fields.label :has_tag, "Sim", :value => "true" %>
-          <%= product_fields.radio_button :has_tag, true,  checked: true %>
-          <%= product_fields.label :has_tag, "Não", :value => "false", class: "ml-4" %>
-          <%= product_fields.radio_button :has_tag, false  %>
-        </div>
-
       <% end %>
-
-      <div class="field form-group">
-        <%= form.label "Número de entradas" %>
-        <%= form.number_field :product_amount, class: "form-control", value: "1" %>
-      </div>
 
       <button id="btn-save" class="btn btn-outline-primary float-right">
         Salvar
