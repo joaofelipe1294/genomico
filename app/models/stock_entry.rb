@@ -15,6 +15,10 @@ class StockEntry < ApplicationRecord
     self.products.first
   end
 
+  def can_remove?
+    self.products.where(current_state: CurrentState.IN_USE).empty?
+  end
+
   private
 
     def convert_has_product_in_object
