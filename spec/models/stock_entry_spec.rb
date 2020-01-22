@@ -125,6 +125,50 @@ RSpec.describe StockEntry, type: :model do
 
     end
 
+    describe "can_remove?" do
+
+      context "when stock_entry has many products" do
+
+        it "and none is in use is expected to return true" do
+          @product.current_state = CurrentState.STOCK
+          @stock_entry.product_amount = 20
+          @stock_entry.save
+          expect(@stock_entry.reload.products.size).to match 20
+          expect(@stock_entry.can_remove?).to be_truthy
+        end
+
+        it "and at least one is in use is expected to return false" do
+          @stock_entry.product_amount = 3
+          @stock_entry.save
+          product = @stock_entry.reload.products.sample
+          product.update current_state: CurrentState.IN_USE
+          expect(@stock_entry.reload.can_remove?).to be_falsey
+        end
+
+      end
+
+      context "when stock_entry has only one product" do
+
+        before :each do
+          @stock_entry.product_amount = 1
+          @stock_entry.save
+          @product = @stock_entry.reload.first_product
+        end
+
+        it "is expected to return false if it is in use" do
+          @product.update current_state: CurrentState.IN_USE
+          expect(@stock_entry.reload.can_remove?).to be_falsey
+        end
+
+        it "is expected to return true is product is in stock" do
+          @product.update current_state: CurrentState.STOCK
+          expect(@stock_entry.reload.can_remove?).to be_truthy
+        end
+
+      end
+
+    end
+
   end
 
 end
