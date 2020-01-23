@@ -175,6 +175,7 @@
         has_tag: Possui identificador
         stock_product: Produto
         stock_product_id: Produto
+        product_amount: Quantidade de entradas
       stock_product:
         name: Nome
         usage_per_test: Uso por teste
@@ -249,3 +250,4 @@
   remove_stock_entry_success: "Entrada de estoque e produto associado removidos com sucesso."
   remove_stock_entry_error: "Não foi possíver remover a entrada de estoque."
   without_backups_message: "Não existem backups disponíveis."
+  product_destroyed_success: "Produto removido com sucesso."

@@ -7,7 +7,7 @@ RSpec.describe StockOut, type: :model do
     create(:user)
     create(:brand)
     create(:stock_product)
-    @product = create(:product)
+    @product = build(:product)
     create(:stock_entry, product: @product)
   end
 

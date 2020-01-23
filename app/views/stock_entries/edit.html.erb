@@ -9,6 +9,170 @@
     </h4>
   </div>
   <div class="card-body">
-    <%= render 'form', stock_entry: @stock_entry %>
+    <!-- <%# <%= render 'form', stock_entry: @stock_entry %> %> -->
+
+    <%= form_with(model: @stock_entry, local: true, method: :patch) do |form| %>
+      <% if @stock_entry.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @stock_entry.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <label id="units-of-measurement" hidden>
+        <%= @units_of_measurement.to_json %>
+      </label>
+
+      <label hidden id="stock-products-relation">
+        <%= @stock_product_relation.to_json %>
+      </label>
+
+      <div class="field form-group">
+        <%= form.label :responsible_id %>
+        <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "login", selected: User.find(session[:user_id]).id), {}, class: "form-control" %>
+      </div>
+
+      <div class="field form-group">
+        <%= form.label :entry_date %>
+        <% if @stock_entry.entry_date %>
+          <%= form.date_field :entry_date, class: "form-control", value: @stock_entry.entry_date %>
+        <% else %>
+          <%= form.date_field :entry_date, class: "form-control", value: Date.current %>
+        <% end %>
+      </div>
+
+      <div class="field form-group">
+        <label>Área</label>
+        <select class="form-control" id="fields-select">
+          <option value="0">Compartilhado</option>
+          <% @fields.each do |field| %>
+            <option value="<%= field.id%>">
+              <%= field.name %>
+            </option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="field form-group">
+        <%= form.label :stock_product_id %>
+        <%= form.select :stock_product_id, [], {}, class: "form-control", id: "stock-product-select" %>
+      </div>
+
+      <%= form.fields_for :product do |product_fields| %>
+
+        <div class="field form-group">
+          <%= product_fields.label "Marca" %>
+          <%= product_fields.select :brand_id, options_from_collection_for_select(@brands, "id", "name", selected: @stock_entry.first_product.brand_id), {}, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= product_fields.label "Lote" %>
+          <%= product_fields.text_field :lot, class: "form-control", value: @stock_entry.first_product.lot %>
+        </div>
+
+        <div class="field form-group">
+          <%= product_fields.label "Possúi data de validade" %><br />
+          <%= product_fields.label :has_shelf_life, "Sim", :value => "true" %>
+          <%= product_fields.radio_button :has_shelf_life, true,  checked: (@stock_entry.first_product.has_shelf_life == true), id: "has-shelf-life" %>
+          <%= product_fields.label :has_shelf_life, "Não", :value => "false", class: "ml-4" %>
+          <%= product_fields.radio_button :has_shelf_life, false, id: "hasnt-shelf-life", checked: (@stock_entry.first_product.has_shelf_life == false)  %>
+        </div>
+
+        <div class="field form-group" id="shelf-life-group">
+          <%= product_fields.label "Data de validade" %>
+          <% if @stock_entry.first_product.shelf_life %>
+            <%= product_fields.date_field :shelf_life, class: "form-control", value: @stock_entry.first_product.shelf_life %>
+          <% else %>
+            <%= product_fields.date_field :shelf_life, class: "form-control", value: Date.current %>
+          <% end %>
+        </div>
+
+        <div class="field form-group">
+          <%= product_fields.label "Quantidade" %> (<span id="unit-of-measurement"></span>)
+          <%= product_fields.number_field :amount, class: "form-control", value: @stock_entry.first_product.amount %>
+        </div>
+
+        <% if @stock_entry.can_update_or_remove? %>
+
+          <div class="field form-group">
+            <%= product_fields.label "Localização atual" %>
+            <%= product_fields.text_field :location, class: "form-control", value: @stock_entry.first_product.location %>
+          </div>
+
+        <% end %>
+
+      <% end %>
+
+      <button id="btn-save" class="btn btn-outline-primary float-right">
+        Salvar
+      </button>
+    <% end %>
+
+    <% if @stock_entry.stock_product_id %>
+      <span id="edit-product" hidden>
+        <%= @stock_entry.stock_product.to_json %>
+      </span>
+    <% end %>
+
+    <script>
+
+      function set_reagents(){
+        const selected_field = $("#fields-select").val()
+        let stock_products_relation = $('#stock-products-relation').text()
+        stock_products_relation = JSON.parse(stock_products_relation)
+        const stock_products = stock_products_relation[selected_field]
+        $(".stock-product").remove()
+        stock_products.forEach(stock_product => {
+          $("#stock-product-select").append(`
+            <option value="${stock_product.id}" class="stock-product">
+              ${stock_product.name}
+            </option>
+          `)
+          set_unit_of_mesurement()
+        })
+      }
+
+      function set_unit_of_mesurement(){
+        const stock_product_reagent_id = $("#stock-product-select").val()
+        const units_of_measurement = JSON.parse($("#units-of-measurement").text())
+        const stock_products_relation = JSON.parse($("#stock-products-relation").text())
+        const stock_products = stock_products_relation[$("#fields-select").val()]
+        let current_stock_product = null
+        stock_products.forEach(stock_product => {
+          if (stock_product.id == stock_product_reagent_id)
+            current_stock_product = stock_product
+        })
+        let unit_of_measurement = null
+        units_of_measurement.forEach(unit => {
+          if (current_stock_product.unit_of_measurement_id == unit.id)
+            unit_of_measurement = unit
+        })
+        $("#unit-of-measurement").text(unit_of_measurement.name)
+      }
+
+      set_reagents()
+      $("#fields-select").change(() => set_reagents())
+      $("#stock-product-select").change(() => set_unit_of_mesurement())
+      $("#has-shelf-life").click(() => $("#shelf-life-group").removeAttr("hidden"))
+      $("#hasnt-shelf-life").click(() => $("#shelf-life-group").attr("hidden", "hidden"))
+
+      if( $("#edit-product").text() !== "" ){
+        let current_product = JSON.parse($("#edit-product").text())
+        if (current_product.is_shared)
+          $("fields-select").val("0")
+        else
+          $("#fields-select").val(current_product.field_id)
+        set_reagents()
+        $("#stock-product-select").val(current_product.id)
+        set_unit_of_mesurement()
+        $("#tag-field").attr("hidden", "hidden")
+      }
+
+
+    </script>
+
   </div>
 </div>
