@@ -10,6 +10,16 @@ class StockEntry < ApplicationRecord
   validates_with StockEntryProductValidator
   after_create :create_products
   before_validation :convert_has_product_in_object
+  after_update :update_stock_products
+  # before_validation :set_product_before_validation
+  # before_update :some_method
+
+  def full_update attributes
+    product_attributes = attributes[:product]
+    stock_entry_attributes = attributes.except :product
+    self.update stock_entry_attributes
+    self.products.each { |product| product.update(product_attributes) }
+  end
 
   def first_product
     self.products.first
@@ -20,6 +30,12 @@ class StockEntry < ApplicationRecord
   end
 
   private
+
+    # def some_method
+    #   puts "****************************"
+    #   puts attributes
+    #   puts "****************************"
+    # end
 
     def convert_has_product_in_object
       return unless self.product
@@ -34,6 +50,15 @@ class StockEntry < ApplicationRecord
         attributes[:stock_product] = self.stock_product
         Product.create attributes
       end
+    end
+
+    # def set_product_before_validation
+    #   return if self.products.empty?
+    #   self.product = self.first_product
+    # end
+
+    def update_stock_products
+      self.products.each { |product_to_update| product_to_update.update(stock_product: self.stock_product) }
     end
 
 end

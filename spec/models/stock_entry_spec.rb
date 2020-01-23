@@ -171,4 +171,55 @@ RSpec.describe StockEntry, type: :model do
 
   end
 
+  describe "when updating a stock entry it is needed to call method " do
+
+    it "is expected to change only stock_entry values when call method update" do
+      @stock_entry.product_amount = 1
+      @stock_entry.save
+      new_stock_product = create(:stock_product)
+      new_user = create(:user, user_kind: UserKind.USER)
+      new_field = Field.all.sample
+      @stock_entry.update({
+        stock_product: new_stock_product,
+        responsible: new_user,
+        entry_date: Date.current,
+      })
+      first_product = @stock_entry.reload.first_product
+      expect(first_product.stock_product).to match new_stock_product
+      expect(@stock_entry.reload.responsible).to match new_user
+      expect(@stock_entry.reload.entry_date).to match Date.current
+    end
+
+    it "is expected to update all stock_entry products when full_update method is called" do
+      @stock_entry.product_amount = 5
+      @stock_entry.save
+      new_brand = create(:brand)
+      new_lot = "77717"
+      new_stock_product = create(:stock_product)
+      new_shelf_life = 2.months.from_now.to_date
+      new_amount = 150
+      attributes = {
+        stock_product: new_stock_product,
+        product: {
+          brand: new_brand,
+          lot: new_lot,
+          has_shelf_life: true,
+          shelf_life: new_shelf_life,
+          amount: new_amount
+        }
+      }
+      @stock_entry.full_update attributes
+      expect(@stock_entry.reload.stock_product).to match new_stock_product
+      @stock_entry.reload.products.each do |product|
+        expect(product.brand).to match new_brand
+        expect(product.lot).to match new_lot
+        expect(product.has_shelf_life).to be_truthy
+        expect(product.shelf_life).to match new_shelf_life
+        expect(product.amount).to match new_amount
+        expect(product.stock_product).to match new_stock_product
+      end
+    end
+
+  end
+
 end
