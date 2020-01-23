@@ -125,7 +125,7 @@ RSpec.describe StockEntry, type: :model do
 
     end
 
-    describe "can_remove?" do
+    describe "can_update_or_remove?" do
 
       context "when stock_entry has many products" do
 
@@ -134,7 +134,7 @@ RSpec.describe StockEntry, type: :model do
           @stock_entry.product_amount = 20
           @stock_entry.save
           expect(@stock_entry.reload.products.size).to match 20
-          expect(@stock_entry.can_remove?).to be_truthy
+          expect(@stock_entry.can_update_or_remove?).to be_truthy
         end
 
         it "and at least one is in use is expected to return false" do
@@ -142,7 +142,7 @@ RSpec.describe StockEntry, type: :model do
           @stock_entry.save
           product = @stock_entry.reload.products.sample
           product.update current_state: CurrentState.IN_USE
-          expect(@stock_entry.reload.can_remove?).to be_falsey
+          expect(@stock_entry.reload.can_update_or_remove?).to be_falsey
         end
 
       end
@@ -157,12 +157,12 @@ RSpec.describe StockEntry, type: :model do
 
         it "is expected to return false if it is in use" do
           @product.update current_state: CurrentState.IN_USE
-          expect(@stock_entry.reload.can_remove?).to be_falsey
+          expect(@stock_entry.reload.can_update_or_remove?).to be_falsey
         end
 
         it "is expected to return true is product is in stock" do
           @product.update current_state: CurrentState.STOCK
-          expect(@stock_entry.reload.can_remove?).to be_truthy
+          expect(@stock_entry.reload.can_update_or_remove?).to be_truthy
         end
 
       end

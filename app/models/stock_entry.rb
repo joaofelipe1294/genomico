@@ -11,8 +11,6 @@ class StockEntry < ApplicationRecord
   after_create :create_products
   before_validation :convert_has_product_in_object
   after_update :update_stock_products
-  # before_validation :set_product_before_validation
-  # before_update :some_method
 
   def full_update attributes
     product_attributes = attributes[:product]
@@ -25,17 +23,11 @@ class StockEntry < ApplicationRecord
     self.products.first
   end
 
-  def can_remove?
+  def can_update_or_remove?
     self.products.where(current_state: CurrentState.IN_USE).empty?
   end
 
   private
-
-    # def some_method
-    #   puts "****************************"
-    #   puts attributes
-    #   puts "****************************"
-    # end
 
     def convert_has_product_in_object
       return unless self.product
@@ -51,11 +43,6 @@ class StockEntry < ApplicationRecord
         Product.create attributes
       end
     end
-
-    # def set_product_before_validation
-    #   return if self.products.empty?
-    #   self.product = self.first_product
-    # end
 
     def update_stock_products
       self.products.each { |product_to_update| product_to_update.update(stock_product: self.stock_product) }

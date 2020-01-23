@@ -95,15 +95,14 @@
           <%= product_fields.number_field :amount, class: "form-control", value: @stock_entry.first_product.amount %>
         </div>
 
-        <div class="field form-group">
-          <%= product_fields.label "Estado atual" %>
-          <%= product_fields.select :current_state_id, options_from_collection_for_select(@current_states, "id", "name", selected: @stock_entry.first_product.current_state.id), {}, class: "form-control" %>
-        </div>
+        <% if @stock_entry.can_update_or_remove? %>
 
-        <div class="field form-group">
-          <%= product_fields.label "Localização atual" %>
-          <%= product_fields.text_field :location, class: "form-control", value: @stock_entry.first_product.location %>
-        </div>
+          <div class="field form-group">
+            <%= product_fields.label "Localização atual" %>
+            <%= product_fields.text_field :location, class: "form-control", value: @stock_entry.first_product.location %>
+          </div>
+
+        <% end %>
 
       <% end %>
 

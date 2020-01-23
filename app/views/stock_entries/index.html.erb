@@ -49,7 +49,7 @@
         <td><%= display_field stock_entry.first_product.stock_product %></td>
         <td>
           <%= link_to 'Editar', edit_stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-warning edit-stock-entry" %>
-          <% if stock_entry.can_remove? %>
+          <% if stock_entry.can_update_or_remove? %>
             <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
           <% end %>
           <% if stock_entry.products.size > 1 %>
