@@ -19,12 +19,6 @@ RSpec.describe StockProduct, type: :model do
       expect(stock_product).to be_invalid
     end
 
-    it "total_aviable" do
-      stock_product = build(:stock_product, total_aviable: nil)
-      expect(stock_product).to be_valid
-      expect(stock_product.total_aviable).to eq 0
-    end
-
     it "field" do
       stock_product = build(:stock_product, field: nil)
       expect(stock_product).to be_valid

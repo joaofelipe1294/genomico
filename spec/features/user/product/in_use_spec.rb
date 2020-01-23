@@ -8,7 +8,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     Rails.application.load_seed
     create(:brand)
     create(:stock_product, field: Field.IMUNOFENO, name: "Azuka Langley")
-    product = create(:product)
+    product = build(:product)
     create(:stock_entry, product: product)
     biomol_user_do_login
     click_link id: "stock"
@@ -18,13 +18,13 @@ RSpec.feature "User::Product::InUses", type: :feature do
     click_link class: "open-product", match: :first
     click_button id: "btn-save"
   end
-  #
+  
   it "navigate" do
     Rails.application.load_seed
     create(:brand)
     create(:user)
     create(:stock_product)
-    product = create(:product, current_state: CurrentState.IN_USE)
+    product = build(:product, current_state: CurrentState.IN_USE)
     create(:stock_entry, product: product)
     expect(product.current_state).to eq CurrentState.IN_USE
     imunofeno_user_do_login
@@ -42,7 +42,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
   it "check name search", js: false do
     open_product_and_navigate
     stock_product = create(:stock_product, is_shared: true, name: "Other name")
-    product = create(:product, stock_product: stock_product)
+    product = build(:product, stock_product: stock_product)
     create(:stock_entry, product: product)
     product.change_to_in_use({open_at: Date.current})
     visit products_in_use_path
@@ -55,7 +55,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
   it "check field search" do
     open_product_and_navigate
     stock_product = create(:stock_product, is_shared: true, name: "Other name")
-    product = create(:product, stock_product: stock_product)
+    product = build(:product, stock_product: stock_product)
     create(:stock_entry, product: product)
     product.change_to_in_use({open_at: Date.current})
     visit products_in_use_path

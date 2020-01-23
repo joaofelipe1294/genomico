@@ -6,13 +6,14 @@ describe 'ProductFinderService' do
     Rails.application.load_seed
     brand = create(:brand)
     stock_product = create(:stock_product)
-    @product = create(:product, stock_product: stock_product)
+    @product = build(:product, stock_product: stock_product)
   end
 
   context "when there is no products in stock" do
 
     it "is expected to return nil" do
       stock_entry = create(:stock_entry, product: @product)
+      @product = stock_entry.reload.first_product
       service = ProductFinderService.new(@product)
       next_product = service.call
       expect(next_product).to be_nil

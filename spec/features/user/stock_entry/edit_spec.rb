@@ -10,14 +10,14 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
     create(:brand)
     create(:brand)
     stock_product = create(:stock_product, field: Field.IMUNOFENO)
-    product = create(:product)
+    product = build(:product)
     @stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
-    product = create(:product)
+    product = build(:product)
     stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
-    product = create(:product)
+    product = build(:product)
     stock_entry = create(:stock_entry, product: product, stock_product: stock_product)
     biomol_stock_product = create(:stock_product, field: Field.BIOMOL)
-    product = create(:product, stock_product: biomol_stock_product)
+    product = build(:product, stock_product: biomol_stock_product)
     stock_entry = create(:stock_entry, product: product, stock_product: biomol_stock_product)
     imunofeno_user_do_login
     click_link id: "stock"
@@ -49,39 +49,39 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
     end
 
     it "change brand" do
-      select(Brand.all.sample.name, from: "stock_entry[product_attributes][brand_id]").select_option
+      select(Brand.all.sample.name, from: "stock_entry[product][brand_id]").select_option
     end
 
     it "change lot" do
-      fill_in "stock_entry[product_attributes][lot]", with: "some123new123lot"
+      fill_in "stock_entry[product][lot]", with: "some123new123lot"
     end
 
     it "without shelf_life" do
-      choose "stock_entry[product_attributes][has_shelf_life]", option: "false"
+      choose "stock_entry[product][has_shelf_life]", option: "false"
     end
 
     it "change amount" do
-      fill_in "stock_entry[product_attributes][amount]", with: "3"
+      fill_in "stock_entry[product][amount]", with: "3"
     end
 
     it "change location" do
-      fill_in "stock_entry[product_attributes][location]", with: "Some uda location"
+      fill_in "stock_entry[product][location]", with: "Some uda location"
     end
 
   end
 
   it "without lot" do
-    fill_in "stock_entry[product_attributes][lot]", with: ""
+    fill_in "stock_entry[product][lot]", with: ""
     without_value "Lote"
   end
 
   it "without amount" do
-    fill_in "stock_entry[product_attributes][amount]", with: ""
+    fill_in "stock_entry[product][amount]", with: ""
     without_value "Quantidade"
   end
 
   it "without location" do
-    fill_in "stock_entry[product_attributes][location]", with: ""
+    fill_in "stock_entry[product][location]", with: ""
     without_value "Localização"
   end
 

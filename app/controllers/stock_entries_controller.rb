@@ -10,11 +10,11 @@ class StockEntriesController < ApplicationController
     @stock_products = StockProduct.all.order(:name)
     if params[:stock_product_id].present?
       stock_entries = StockEntry
-                                .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]] )
+                                .includes(:responsible, products: [:current_state, :brand, :stock_product => [:field]] )
                                 .where(stock_product_id: params[:stock_product_id])
     else
       stock_entries = StockEntry
-                                .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]])
+                                .includes(:responsible, products: [:current_state, :brand, :stock_product => [:field]])
                                 .all
     end
     @stock_entries = stock_entries.page params[:page]
@@ -40,10 +40,11 @@ class StockEntriesController < ApplicationController
     @stock_entry = StockEntry.new(stock_entry_params)
     if @stock_entry.save
       flash[:success] = I18n.t :new_stock_entry_success
-      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.product.has_tag
-      return redirect_to stock_entries_path if @stock_entry.product.has_tag == false
+      return redirect_to display_new_tag_path(@stock_entry) if @stock_entry.first_product.has_tag
+      return redirect_to stock_entries_path if @stock_entry.first_product.has_tag == false
     else
       set_instance_variables
+      @stock_entry.product = Product.new
       render :new
     end
   end
@@ -78,7 +79,7 @@ class StockEntriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_entry
       @stock_entry = StockEntry
-                              .includes(:responsible, product: [:current_state, :brand, :stock_product => [:field]] )
+                              .includes(:responsible, products: [:current_state, :brand, :stock_product => [:field]] )
                               .find(params[:id])
     end
 
@@ -89,7 +90,8 @@ class StockEntriesController < ApplicationController
         :is_expired,
         :entry_date,
         :responsible_id,
-        product_attributes: [
+        :product_amount,
+        product: [
           :id,
           :lot,
           :amount,
@@ -99,7 +101,7 @@ class StockEntriesController < ApplicationController
           :tag,
           :has_shelf_life,
           :has_tag,
-          :shelf_life
+          :shelf_life,
         ]
       )
     end

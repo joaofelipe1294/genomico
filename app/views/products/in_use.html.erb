@@ -17,7 +17,6 @@
     <th class="h4">Lote</th>
     <th class="h4">Validade</th>
     <th class="h4">Quantidade</th>
-    <th class="h4">Medida</th>
     <th class="h4">Localização</th>
     <th class="h4">Área</th>
     <th class="h4">Identificação</th>
@@ -44,10 +43,7 @@
           <% end %>
         </td>
         <td>
-          <%= product.amount %>
-        </td>
-        <td>
-          <%= product.stock_product.unit_of_measurement.name %>
+          <%= "#{product.amount} (#{product.stock_product.unit_of_measurement.name})" %>
         </td>
         <td>
           <%= product.location %>
