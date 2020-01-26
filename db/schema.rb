@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_205748) do
+ActiveRecord::Schema.define(version: 2020_01_26_213806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -389,6 +389,17 @@ ActiveRecord::Schema.define(version: 2020_01_26_205748) do
     t.index ["subsample_kind_id"], name: "index_subsamples_on_subsample_kind_id"
   end
 
+  create_table "suggestion_progresses", force: :cascade do |t|
+    t.bigint "suggestion_id"
+    t.bigint "responsible_id"
+    t.integer "old_status"
+    t.integer "new_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["responsible_id"], name: "index_suggestion_progresses_on_responsible_id"
+    t.index ["suggestion_id"], name: "index_suggestion_progresses_on_suggestion_id"
+  end
+
   create_table "suggestions", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -476,6 +487,8 @@ ActiveRecord::Schema.define(version: 2020_01_26_205748) do
   add_foreign_key "subsamples", "patients"
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"
+  add_foreign_key "suggestion_progresses", "suggestions"
+  add_foreign_key "suggestion_progresses", "users", column: "responsible_id"
   add_foreign_key "suggestions", "users", column: "requester_id"
   add_foreign_key "users", "user_kinds"
 end

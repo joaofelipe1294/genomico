@@ -3,6 +3,7 @@ class Suggestion < ApplicationRecord
   validates_presence_of :title, :description, :requester, :current_status, :kind
   validates_uniqueness_of :title
   before_validation :set_default_status
+  has_many :suggestion_progresses
   enum current_status: {
     in_line: 0,
     evaluating: 1,
