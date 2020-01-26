@@ -39,4 +39,14 @@ RSpec.describe Suggestion, type: :model do
 
   end
 
+  context "when creating a new suggestion" do
+
+    it "is expected to current_status corresponds to in_line" do
+      suggestion = build(:suggestion)
+      expect(suggestion).to be_valid
+      expect(suggestion.in_line?).to be_truthy
+    end
+
+  end
+
 end

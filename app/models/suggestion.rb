@@ -2,4 +2,20 @@ class Suggestion < ApplicationRecord
   belongs_to :requester, class_name: :User
   validates_presence_of :title, :description, :requester
   validates_uniqueness_of :title
+  before_validation :set_default_status
+  enum current_status: {
+    in_line: 0,
+    evaluating: 1,
+    in_progress: 2,
+    waiting_validation: 3,
+    complete: 4,
+    canceled: 5
+  }
+
+  private
+
+    def set_default_status 
+      self.current_status = :in_line unless self.current_status
+    end
+
 end

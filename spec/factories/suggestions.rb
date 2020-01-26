@@ -3,7 +3,7 @@ FactoryBot.define do
     title { "MyString" }
     description { "MyString" }
     requester { User.where(user_kind: UserKind.USER).sample }
-    current_status { 1 }
+    current_status { nil }
     start_at { "2020-01-26 20:57:48" }
     finish_date { "2020-01-26 20:57:48" }
     kind { 1 }
