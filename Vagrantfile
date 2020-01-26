@@ -5,7 +5,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
   config.vm.network "forwarded_port", guest: 3001, host: 3001
   config.vm.network "forwarded_port", guest: 3000, host: 3000
-  config.vm.network "private_network", ip: '10.0.1.100'
   config.vm.synced_folder "../genomico", "/home/vagrant/genomico"
 
   config.vm.provision "shell",
@@ -21,7 +20,7 @@ Vagrant.configure("2") do |config|
     inline: "apt-get install python libpq-dev python-dev python-pip -y"
 
   config.vm.provision "shell",
-    inline: "sudo pip install --proxy=http://proxy.cdapp.net.br:3128 psycopg2"
+    inline: "sudo pip install psycopg2"
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
