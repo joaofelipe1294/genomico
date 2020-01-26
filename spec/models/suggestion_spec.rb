@@ -25,6 +25,10 @@ RSpec.describe Suggestion, type: :model do
         @suggestion = build(:suggestion, requester: nil)
       end
 
+      it "is invalid when without kind" do
+        @suggestion = build(:suggestion, kind: nil)
+      end
+
     end
 
     context "when using duplicated values" do
@@ -42,7 +46,7 @@ RSpec.describe Suggestion, type: :model do
   context "when creating a new suggestion" do
 
     it "is expected to current_status corresponds to in_line" do
-      suggestion = build(:suggestion)
+      suggestion = build(:suggestion, current_status: nil)
       expect(suggestion).to be_valid
       expect(suggestion.in_line?).to be_truthy
     end
