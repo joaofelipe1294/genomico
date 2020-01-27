@@ -54,6 +54,10 @@ class SuggestionsController < ApplicationController
     end
   end
 
+  def change_status
+    # code
+  end
+
   private
 
     def set_suggestion

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :suggestions
+  resources :suggestions do
+    patch 'change-status', to: 'suggestions#change_status', as: :change_status
+  end
   delete 'products/:id', to: 'products#delete', as: :delete_product
   get 'maintenance/maintenance', to: 'maintenance#maintenance', as: :maintenance
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
