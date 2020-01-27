@@ -1,4 +1,7 @@
 "pt-BR":
+  time:
+    formats:
+      default: '%d/%m/%y %H:%M'
   activerecord:
     models:
       user_kind: Tipo de usuário

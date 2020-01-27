@@ -3,6 +3,14 @@ class SuggestionsController < ApplicationController
   before_action :user_filter
 
   def index
+    if params[:kind].present?
+      if params[:kind] == "in-progress"
+        @suggestions = Suggestion
+                                .includes(:requester)
+                                .where.not(current_status: [:canceled, :complete])
+                                .order(:created_at)
+      end
+    end
   end
 
   def new
