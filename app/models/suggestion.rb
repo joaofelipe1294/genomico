@@ -4,6 +4,7 @@ class Suggestion < ApplicationRecord
   validates_uniqueness_of :title
   before_validation :set_default_status
   has_many :suggestion_progresses
+  paginates_per 12
   enum current_status: {
     in_line: 0,
     evaluating: 1,

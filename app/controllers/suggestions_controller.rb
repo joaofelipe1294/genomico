@@ -11,13 +11,18 @@ class SuggestionsController < ApplicationController
                                 .includes(:requester)
                                 .where.not(current_status: [:canceled, :complete])
                                 .order(:created_at)
+                                .page params[:page]
         else
-          @suggestions = []
+          @suggestions = Suggestion
+                                  .includes(:requester)
+                                  .order(:created_at)
+                                  .page params[:page]
       end
     else
       @suggestions = Suggestion
                               .includes(:requester)
                               .order(:created_at)
+                              .page params[:page]
     end
   end
 
