@@ -13,17 +13,17 @@ RSpec.feature "User::Suggestions::Navigations", type: :feature do
 
     it "is expected to be on new_suggestion with path param kind=new-feature" do
       click_link id: "new-feature"
-      expect(page).to have_current_path new_suggestion_path(kind: 'new-feature')
+      expect(page).to have_current_path new_suggestion_path(kind: 'new_feature')
     end
 
     it "is expected to be on new with path param kind=bug" do
       click_link id: "bug-report"
-      expect(page).to have_current_path new_suggestion_path({kind: 'bug-report'})
+      expect(page).to have_current_path new_suggestion_path({kind: 'bug_report'})
     end
 
     it "is expected to be on new_suggestion with path param kind=new-improvement" do
       click_link id: "new-improvement"
-      expect(page).to have_current_path new_suggestion_path(kind: 'new-improvement')
+      expect(page).to have_current_path new_suggestion_path(kind: 'feature_improvement')
     end
 
     it "is expected to go to index with path param inprogress" do

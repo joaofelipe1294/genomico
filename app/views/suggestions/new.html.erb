@@ -1,2 +1,39 @@
-<h1>Suggestions#new</h1>
-<p>Find me in app/views/suggestions/new.html.erb</p>
+<%= render 'layouts/user_navbar' %>
+
+<div class="card mt-5 col-8 offset-2 p-0">
+  <%= suggestion_header @suggestion %>
+  <div class="card-body">
+    <%= form_with model: @suggestion, local: true do |form| %>
+
+      <% if @suggestion.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+          <% @suggestion.errors.full_messages.each do |message| %>
+            <li class="error"><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.text_field :title, value: @suggestion.kind, hidden: true %>
+
+      <div class="form-group">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: "form-control", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :description %>
+        <%= form.text_area :description, class: "form-control", required: true, placeholder: "Descreva com o máximo de detalhes ;)"%>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :responsible_id %>
+        <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "name", selected: session[:user_id]), {}, class: "form-control" %>
+      </div>
+
+      <%= suggestion_button @suggestion %>
+
+    <% end %>
+  </div>
+</div>

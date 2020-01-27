@@ -14,9 +14,9 @@ class Suggestion < ApplicationRecord
   }
   after_create :generate_initial_progress
   enum kind: {
-    bug: 0,
+    bug_report: 0,
     new_feature: 1,
-    upgrade_feature: 2
+    feature_improvement: 2
   }
 
   def change_status new_status, user

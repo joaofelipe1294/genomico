@@ -3,11 +3,11 @@
     Funcionalidades
   </a>
   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <%= link_to 'Nova funcionalidade', new_suggestion_path(kind: "new-feature"), class: 'dropdown-item', id: 'new-feature' %>
+    <%= link_to 'Nova funcionalidade', new_suggestion_path(kind: "new_feature"), class: 'dropdown-item', id: 'new-feature' %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Reportar bug', new_suggestion_path(kind: "bug-report"), class: 'dropdown-item', id: 'bug-report' %>
+    <%= link_to 'Reportar bug', new_suggestion_path(kind: "bug_report"), class: 'dropdown-item', id: 'bug-report' %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Melhoria', new_suggestion_path(kind: "new-improvement"), class: 'dropdown-item', id: 'new-improvement' %>
+    <%= link_to 'Melhoria', new_suggestion_path(kind: "feature_improvement"), class: 'dropdown-item', id: 'new-improvement' %>
     <div class="dropdown-divider"></div>
     <%= link_to 'Solicitados', suggestions_path(kind: "in-progress"), class: 'dropdown-item', id: 'suggestions-in-progress' %>
     <div class="dropdown-divider"></div>
