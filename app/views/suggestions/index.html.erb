@@ -40,8 +40,8 @@
           <% end %>
         </td>
         <td>
-          <% unless suggestion.complete? %>
-            <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm" %>
+          <% unless suggestion.complete? || suggestion.canceled? %>
+            <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
           <% end %>
         </td>
       </tr>

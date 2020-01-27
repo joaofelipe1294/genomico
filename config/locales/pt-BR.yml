@@ -259,3 +259,4 @@
   without_backups_message: "Não existem backups disponíveis."
   product_destroyed_success: "Produto removido com sucesso."
   new_suggestion_success: "Requisição cadastrada com sucesso."
+  edit_suggestion_success: "Requisição editada com sucesso."

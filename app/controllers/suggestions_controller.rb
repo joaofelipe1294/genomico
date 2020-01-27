@@ -1,6 +1,8 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
+  before_action :set_users, only: [:new, :edit, :create, :update]
+  before_action :set_suggestion, only: [:edit, :update]
 
   def index
     if params[:kind].present?
@@ -9,7 +11,13 @@ class SuggestionsController < ApplicationController
                                 .includes(:requester)
                                 .where.not(current_status: [:canceled, :complete])
                                 .order(:created_at)
+        else
+          @suggestions = []
       end
+    else
+      @suggestions = Suggestion
+                              .includes(:requester)
+                              .order(:created_at)
     end
   end
 
@@ -17,7 +25,6 @@ class SuggestionsController < ApplicationController
     @suggestion = Suggestion.new({
       kind: params[:kind]
       })
-      set_users
   end
 
   def create
@@ -26,17 +33,27 @@ class SuggestionsController < ApplicationController
       flash[:success] = I18n.t :new_suggestion_success
       redirect_to suggestions_path
     else
-      set_users
       render :new
     end
   end
 
   def edit
-    @suggestion = Suggestion.find params[:id]
-    set_users
+  end
+
+  def update
+    if @suggestion.update suggestion_params
+      flash[:success] = I18n.t :edit_suggestion_success
+      redirect_to suggestions_path
+    else
+      render :edit
+    end
   end
 
   private
+
+    def set_suggestion
+      @suggestion = Suggestion.find params[:id]
+    end
 
     def suggestion_params
       params.require(:suggestion).permit(:title, :description, :kind, :requester_id)
