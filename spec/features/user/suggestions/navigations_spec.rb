@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "User::Suggestions::Navigations", type: :feature do
   include UserLogin
+  include ValidationChecks
 
   context "when navigating to suggestion views from home user" do
 
@@ -41,6 +42,11 @@ RSpec.feature "User::Suggestions::Navigations", type: :feature do
       expect(page).to have_current_path suggestions_path(from_user: true)
     end
 
+  end
+
+  it "is expected to be redirected to home when user is not logged in" do
+    visit new_suggestion_path
+    wrong_credentials_check
   end
 
 end

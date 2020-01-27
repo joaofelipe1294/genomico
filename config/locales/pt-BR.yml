@@ -255,3 +255,4 @@
   remove_stock_entry_error: "Não foi possíver remover a entrada de estoque."
   without_backups_message: "Não existem backups disponíveis."
   product_destroyed_success: "Produto removido com sucesso."
+  new_suggestion_success: "Requisição cadastrada com sucesso."

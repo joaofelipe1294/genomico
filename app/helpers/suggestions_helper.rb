@@ -20,7 +20,7 @@ module SuggestionsHelper
   def suggestion_button suggestion
     suggestion_config = SUGGESTION_OPTIONS[suggestion.kind.to_sym]
     %Q(
-      <button class='btn btn-outline-#{suggestion_config[:color]}'>
+      <button class='btn btn-outline-#{suggestion_config[:color]}' id='btn-save'>
         Salvar
       </button>
     ).html_safe

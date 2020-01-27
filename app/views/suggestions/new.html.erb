@@ -15,7 +15,7 @@
         </div>
       <% end %>
 
-      <%= form.text_field :title, value: @suggestion.kind, hidden: true %>
+      <%= form.text_field :kind, value: @suggestion.kind, hidden: true %>
 
       <div class="form-group">
         <%= form.label :title %>
@@ -29,7 +29,7 @@
 
       <div class="form-group">
         <%= form.label :requester_id %>
-        <%= form.select :requester_id, options_from_collection_for_select(@users, "id", "name", selected: session[:user_id]), {}, class: "form-control" %>
+        <%= form.select :requester_id, options_from_collection_for_select(@users, "id", "login", selected: session[:user_id]), {}, class: "form-control" %>
       </div>
 
       <%= suggestion_button @suggestion %>
