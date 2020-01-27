@@ -32,6 +32,8 @@ class SuggestionsController < ApplicationController
   end
 
   def edit
+    @suggestion = Suggestion.find params[:id]
+    set_users
   end
 
   private
