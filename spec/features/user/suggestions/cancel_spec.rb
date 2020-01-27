@@ -5,7 +5,6 @@ RSpec.feature "User::Suggestions::Cancels", type: :feature do
 
   before :each do
     Rails.application.load_seed
-    create(:user)
     biomol_user_do_login
   end
 
@@ -39,6 +38,16 @@ RSpec.feature "User::Suggestions::Cancels", type: :feature do
 
         it "is expected that status change to canceled" do
           expect(@suggestion.reload.canceled?).to be_truthy
+        end
+
+        it "is expected to suggestion_progress status to eq canceled" do
+          progress = @suggestion.reload.suggestion_progresses.order(:id).last
+          expect(progress.new_status.to_sym).to match :canceled
+        end
+
+        it "is expected to current user to be responsible for the action" do
+          progress = @suggestion.reload.suggestion_progresses.order(:id).last
+          expect(progress.responsible).to match User.all.last
         end
 
       end
