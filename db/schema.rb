@@ -392,8 +392,8 @@ ActiveRecord::Schema.define(version: 2020_01_26_213806) do
   create_table "suggestion_progresses", force: :cascade do |t|
     t.bigint "suggestion_id"
     t.bigint "responsible_id"
-    t.integer "old_status"
-    t.integer "new_status"
+    t.string "old_status"
+    t.string "new_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["responsible_id"], name: "index_suggestion_progresses_on_responsible_id"
