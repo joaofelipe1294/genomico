@@ -19,6 +19,10 @@ class Suggestion < ApplicationRecord
     upgrade_feature: 2
   }
 
+  def change_status new_status, user
+    generate_new_suggestion_progress(user) if self.update(current_status: new_status)
+  end
+
   private
 
     def set_default_status
@@ -31,6 +35,15 @@ class Suggestion < ApplicationRecord
         new_status: :in_line,
         responsible: self.requester,
         suggestion: self
+        })
+    end
+
+    def generate_new_suggestion_progress user
+      SuggestionProgress.create({
+        old_status: self.current_status_before_last_save,
+        new_status: self.current_status,
+        suggestion: self,
+        responsible: user
         })
     end
 
