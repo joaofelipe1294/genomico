@@ -1,0 +1,18 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="suggestions-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Funcionalidades
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <%= link_to 'Nova funcionalidade', new_suggestion_path(kind: "new-feature"), class: 'dropdown-item', id: 'new-feature' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Reportar bug', new_suggestion_path(kind: "bug-report"), class: 'dropdown-item', id: 'bug-report' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Melhoria', new_suggestion_path(kind: "new-improvement"), class: 'dropdown-item', id: 'new-improvement' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Solicitados', suggestions_path(kind: "in-progress"), class: 'dropdown-item', id: 'suggestions-in-progress' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Concluídos', suggestions_path(kind: "complete"), class: 'dropdown-item', id: 'suggestions-complete' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Minhas solicitações', suggestions_path(from_user: true), class: 'dropdown-item', id: 'suggestions-user' %>
+  </div>
+</li>
