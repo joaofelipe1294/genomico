@@ -28,8 +28,8 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :responsible_id %>
-        <%= form.select :responsible_id, options_from_collection_for_select(@users, "id", "name", selected: session[:user_id]), {}, class: "form-control" %>
+        <%= form.label :requester_id %>
+        <%= form.select :requester_id, options_from_collection_for_select(@users, "id", "name", selected: session[:user_id]), {}, class: "form-control" %>
       </div>
 
       <%= suggestion_button @suggestion %>

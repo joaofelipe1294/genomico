@@ -209,6 +209,10 @@
         responsible: Responsável
         product: Produto
         product_id: Produto
+      suggestion:
+        title: Título
+        description: Descrição
+        requester_id: Solocitante
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
