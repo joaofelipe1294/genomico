@@ -1,6 +1,6 @@
 <%= render 'layouts/user_navbar' %>
 
-<table class="table table-sm text-center mt-4">
+<table class="table table-sm text-center mt-5">
   <thead class="bg-dark text-white">
     <th>Título</th>
     <th>Tipo</th>
@@ -13,7 +13,7 @@
   </thead>
   <tbody>
     <% @suggestions.each do |suggestion| %>
-      <tr>
+      <tr class="suggestion">
         <td>
           <%= suggestion.title %>
         </td>
@@ -44,8 +44,8 @@
             <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
           <% end %>
 
-          <% unless suggestion.complete? %>
-            <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger", data: {confirm: "Temc erteza ?"} %>
+          <% unless suggestion.complete? || suggestion.canceled? %>
+            <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Temc erteza ?"} %>
           <% end %>
         </td>
       </tr>

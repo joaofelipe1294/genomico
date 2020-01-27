@@ -55,7 +55,11 @@ class SuggestionsController < ApplicationController
   end
 
   def change_status
-    # code
+    @suggestion = Suggestion.find params[:suggestion_id]
+    if @suggestion.change_status params[:new_status], User.find(session[:user_id])
+      flash[:success] = I18n.t :suggest_status_change_success
+    end
+    redirect_to suggestions_path
   end
 
   private
