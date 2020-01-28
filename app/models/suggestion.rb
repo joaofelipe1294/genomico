@@ -24,6 +24,15 @@ class Suggestion < ApplicationRecord
     generate_new_suggestion_progress(user) if self.update(current_status: new_status)
   end
 
+  def change_to_development user, time_forseen
+    params = {
+      start_at: DateTime.current,
+      current_status: :development,
+      time_forseen: time_forseen
+    }
+    generate_new_suggestion_progress user if self.update params
+  end
+
   def self.in_progress
     self
         .includes(:requester)

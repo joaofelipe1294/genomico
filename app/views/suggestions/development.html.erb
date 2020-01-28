@@ -7,11 +7,11 @@
     </h4>
   </div>
   <div class="card-body">
-    <%= form_with model: @suggestion, method: :patch, url: suggestion_in_progress_path(@suggestion) do |form| %>
+    <%= form_with model: @suggestion, method: :patch, url: change_suggestion_to_development_path(@suggestion) do |form| %>
 
       <div class="form-group">
         <%= form.label :time_forseen %>
-        <%= form.text_field :tome_forseen, class: "form-control" %>
+        <%= form.text_field :time_forseen, class: "form-control" %>
       </div>
 
       <button id="btn-save" class="btn btn-outline-primary">

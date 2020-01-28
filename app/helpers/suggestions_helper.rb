@@ -30,7 +30,7 @@ module SuggestionsHelper
     states_hash = {
       in_line: {name: "Na fila", color: "dark"},
       evaluating: {name: "Em análise", color: "secondary"},
-      in_progress: {name: "Em desenvolvimento", color: "info"},
+      development: {name: "Em desenvolvimento", color: "info"},
       waiting_validation: {name: "Aguardando validação", color: "primary"},
       complete: {name: "Concluído", color: "success"},
       canceled: {name: "Cancelado", color: "danger"}
