@@ -55,6 +55,10 @@ class Suggestion < ApplicationRecord
     self.includes(:requester).where(current_status: :complete)
   end
 
+  def self.from_user user
+    self.includes(:requester).where(requester: user).where.not(current_status: [:complete, :canceled])
+  end
+
   private
 
     def set_default_status

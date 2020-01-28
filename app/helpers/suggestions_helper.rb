@@ -73,4 +73,14 @@ module SuggestionsHelper
     ).html_safe
   end
 
+  def suggestions_from_user_bedge
+    current_user = User.find session[:user_id]
+    suggestions = Suggestion.from_user(current_user).size
+    if suggestions > 0
+      %Q(
+        <span class="badge badge-success">#{suggestions}</span>
+      ).html_safe
+    end
+  end
+
 end
