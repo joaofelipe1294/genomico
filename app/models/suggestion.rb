@@ -33,6 +33,14 @@ class Suggestion < ApplicationRecord
     generate_new_suggestion_progress user if self.update params
   end
 
+  def change_to_complete
+    params = {
+      finish_date: DateTime.current,
+      current_status: :complete,
+    }
+    generate_new_suggestion_progress self.requester if self.update params
+  end
+
   def self.in_progress
     self
         .includes(:requester)

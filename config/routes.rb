@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
   patch 'suggestions/:id/development', to: 'suggestions#change_to_development', as: :change_suggestion_to_development
   get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
   get 'suggestions/:id/development', to: 'suggestions#development', as: :suggestion_to_development

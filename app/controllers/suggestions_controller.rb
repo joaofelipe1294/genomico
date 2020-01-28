@@ -1,8 +1,9 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, only: [:index, :new, :create, :edit, :update]
+  # include Feedback
+  before_action :user_filter, only: [:index, :new, :create, :edit, :update, :change_to_complete]
   before_action :set_users, only: [:new, :edit, :create, :update]
-  before_action :set_suggestion, only: [:edit, :update, :development, :change_to_development]
+  before_action :set_suggestion, only: [:edit, :update, :development, :change_to_development, :complete]
   before_action :admin_filter, only: [:index_admin, :development, :change_to_development]
   before_action :filter_suggestions, only: [:index, :index_admin]
   before_action :set_user, only: [:change_status, :change_to_development]
@@ -64,6 +65,15 @@ class SuggestionsController < ApplicationController
       flash[:warning] = @suggestion.errors.full_messages.first
       redirect_to suggestions_index_admin_path(kind: :in_line)
     end
+  end
+
+  def complete
+    if @suggestion.change_to_complete
+      flash[:success] = I18n.t :success
+    else
+      flash[:warning] = model.errors.full_messages.first
+    end
+    redirect_to suggestions_path
   end
 
   private

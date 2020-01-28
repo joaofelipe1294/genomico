@@ -263,3 +263,4 @@
   edit_suggestion_success: "Requisição editada com sucesso."
   suggest_status_change_success: "Requisição alterada por sucesso."
   suggestion_change_to_development_success: "Requisição alterada para desenvolvimento."
+  complete_suggestion_success: "Requisição concluída com sucesso."
