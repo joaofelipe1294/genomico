@@ -28,13 +28,8 @@ RSpec.feature "User::Suggestions::Navigations", type: :feature do
     end
 
     it "is expected to go to index with path param inprogress" do
-      click_link id: "suggestions-in-progress"
-      expect(page).to have_current_path suggestions_path(kind: 'in-progress')
-    end
-
-    it "is expected to go to index with path param inprogress" do
-      click_link id: "suggestions-complete"
-      expect(page).to have_current_path suggestions_path(kind: 'complete')
+      click_link id: "suggestions"
+      expect(page).to have_current_path suggestions_path
     end
 
     it "is expected to go to index with user solicitations" do
