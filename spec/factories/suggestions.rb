@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :suggestion do
-    title { "MyString" }
+    title { Faker::Name.name }
     description { "MyString" }
     requester { User.where(user_kind: UserKind.USER).sample }
     current_status { nil }

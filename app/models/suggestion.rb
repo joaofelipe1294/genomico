@@ -24,6 +24,20 @@ class Suggestion < ApplicationRecord
     generate_new_suggestion_progress(user) if self.update(current_status: new_status)
   end
 
+  def self.in_progress
+    self
+        .includes(:requester)
+        .where.not(current_status: [:complete, :canceled, :in_line])
+  end
+
+  def self.in_line
+    self.includes(:requester).where(current_status: :in_line)
+  end
+
+  def self.complete
+    self.includes(:requester).where(current_status: :complete)
+  end
+
   private
 
     def set_default_status

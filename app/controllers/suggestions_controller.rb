@@ -4,22 +4,9 @@ class SuggestionsController < ApplicationController
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update]
   before_action :admin_filter, only: [:index_admin]
+  before_action :filter_suggestions, only: [:index, :index_admin]
 
   def index
-    if params[:kind].present?
-      if params[:kind] == "in-progress"
-        suggestions = Suggestion
-                                .includes(:requester)
-                                .where.not(current_status: [:canceled, :complete])
-        else
-          suggestions = Suggestion.includes(:requester)
-      end
-    else
-      suggestions = Suggestion.includes(:requester)
-    end
-    @suggestions = suggestions
-                              .order(:created_at)
-                              .page params[:page]
   end
 
   def new
@@ -59,25 +46,6 @@ class SuggestionsController < ApplicationController
   end
 
   def index_admin
-    if params[:kind].present?
-      if params[:kind] == "in_progress"
-        suggestions = Suggestion
-                                .includes(:requester)
-                                .where.not(current_status: [:complete, :canceled, :in_line])
-
-      elsif params[:kind] == "in_line"
-        suggestions = Suggestion
-                                .includes(:requester)
-                                .where(current_status: :in_line)
-      else
-        suggestions = Suggestion.includes(:requester).where(current_status: :complete)
-      end
-    else
-      suggestions = Suggestion.includes(:requester).all
-    end
-    @suggestions = suggestions
-                              .order(:id)
-                              .page params[:page]
   end
 
   private
@@ -88,6 +56,16 @@ class SuggestionsController < ApplicationController
 
     def suggestion_params
       params.require(:suggestion).permit(:title, :description, :kind, :requester_id)
+    end
+
+    def filter_suggestions
+      kind = params[:kind]
+      if kind
+        suggestions = SuggestionFinderService.new(kind).call
+      else
+        suggestions = Suggestion.includes(:requester).all
+      end
+      @suggestions = suggestions.order(:id).page params[:page]
     end
 
 end
