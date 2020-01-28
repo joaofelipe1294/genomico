@@ -1,6 +1,6 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, except: [:index_admin]
+  before_action :user_filter, except: [:index_admin, :change_status]
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update]
   before_action :admin_filter, only: [:index_admin]
@@ -39,10 +39,15 @@ class SuggestionsController < ApplicationController
 
   def change_status
     @suggestion = Suggestion.find params[:suggestion_id]
-    if @suggestion.change_status params[:new_status], User.find(session[:user_id])
+    user = User.find(session[:user_id])
+    if @suggestion.change_status params[:new_status], user
       flash[:success] = I18n.t :suggest_status_change_success
     end
-    redirect_to suggestions_path
+    if user.user_kind == UserKind.USER
+      redirect_to suggestions_path
+    else
+      redirect_to suggestions_index_admin_path
+    end
   end
 
   def index_admin

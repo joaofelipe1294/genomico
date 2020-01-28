@@ -1,6 +1,5 @@
 <%= render 'layouts/admin_navbar' %>
 
-
 <table class="table table-sm text-center mt-5">
   <thead class="bg-dark text-white">
     <th>Título</th>
@@ -41,12 +40,8 @@
           <% end %>
         </td>
         <td>
-          <% unless suggestion.complete? || suggestion.canceled? %>
-            <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
-          <% end %>
-
-          <% unless suggestion.complete? || suggestion.canceled? %>
-            <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Temc erteza ?"} %>
+          <% if suggestion.in_line? %>
+            <%= link_to "Colocar em avaliação", suggestion_change_status_path(suggestion, new_status: :evaluating), method: :patch, class: "btn btn-sm btn-outline-secondary change-to-evaluating" %>
           <% end %>
         </td>
       </tr>
