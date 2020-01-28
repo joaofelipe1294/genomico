@@ -1,0 +1,23 @@
+<%= render 'layouts/admin_navbar' %>
+
+<div class="card mt-5 col-6 offset-3 p-0">
+  <div class="card-header bg-primary">
+    <h4 class="text-white text-center">
+      Colocar "<%= @suggestion.title %>" em desenvolvimento
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= form_with model: @suggestion, method: :patch, url: suggestion_in_progress_path(@suggestion) do |form| %>
+
+      <div class="form-group">
+        <%= form.label :time_forseen %>
+        <%= form.text_field :tome_forseen, class: "form-control" %>
+      </div>
+
+      <button id="btn-save" class="btn btn-outline-primary">
+        Salvar
+      </button>
+
+    <% end %>
+  </div>
+</div>

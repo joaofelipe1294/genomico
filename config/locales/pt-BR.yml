@@ -216,6 +216,7 @@
         title: Título
         description: Descrição
         requester_id: Solocitante
+        time_forseen: Tempo estimado
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
@@ -260,3 +261,4 @@
   product_destroyed_success: "Produto removido com sucesso."
   new_suggestion_success: "Requisição cadastrada com sucesso."
   edit_suggestion_success: "Requisição editada com sucesso."
+  suggest_status_change_success: "Requisição alterada por sucesso."

@@ -1,9 +1,9 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, except: [:index_admin, :change_status]
+  before_action :user_filter, except: [:index_admin, :change_status, :in_progress, :change_to_in_progress]
   before_action :set_users, only: [:new, :edit, :create, :update]
-  before_action :set_suggestion, only: [:edit, :update]
-  before_action :admin_filter, only: [:index_admin]
+  before_action :set_suggestion, only: [:edit, :update, :in_progress]
+  before_action :admin_filter, only: [:index_admin, :in_progress, :change_to_in_progress]
   before_action :filter_suggestions, only: [:index, :index_admin]
 
   def index
@@ -51,6 +51,12 @@ class SuggestionsController < ApplicationController
   end
 
   def index_admin
+  end
+
+  def in_ptogress
+  end
+
+  def change_to_in_progress
   end
 
   private
