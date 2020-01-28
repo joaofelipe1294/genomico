@@ -1,0 +1,16 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="suggestions-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Funcionalidades <%= suggestions_from_user_bedge %>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <%= link_to 'Nova funcionalidade', new_suggestion_path(kind: "new_feature"), class: 'dropdown-item', id: 'new-feature' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Reportar bug', new_suggestion_path(kind: "bug_report"), class: 'dropdown-item', id: 'bug-report' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Melhoria', new_suggestion_path(kind: "feature_improvement"), class: 'dropdown-item', id: 'new-improvement' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Minhas solicitações', suggestions_path(from_user: true), class: 'dropdown-item', id: 'suggestions-user' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Solicitados', suggestions_path, class: 'dropdown-item', id: 'suggestions' %>
+  </div>
+</li>

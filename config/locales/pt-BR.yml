@@ -1,4 +1,7 @@
 "pt-BR":
+  time:
+    formats:
+      default: '%d/%m/%y %H:%M'
   activerecord:
     models:
       user_kind: Tipo de usuário
@@ -209,6 +212,11 @@
         responsible: Responsável
         product: Produto
         product_id: Produto
+      suggestion:
+        title: Título
+        description: Descrição
+        requester_id: Solocitante
+        time_forseen: Tempo estimado
   wrong_login_message: 'Login ou senha inválidos.'
   wrong_credentials_message: 'Credenciais inválidas.'
   attendance_update_success: 'Atendimento atualizado com sucesso.'
@@ -251,3 +259,8 @@
   remove_stock_entry_error: "Não foi possíver remover a entrada de estoque."
   without_backups_message: "Não existem backups disponíveis."
   product_destroyed_success: "Produto removido com sucesso."
+  new_suggestion_success: "Requisição cadastrada com sucesso."
+  edit_suggestion_success: "Requisição editada com sucesso."
+  suggest_status_change_success: "Requisição alterada por sucesso."
+  suggestion_change_to_development_success: "Requisição alterada para desenvolvimento."
+  complete_suggestion_success: "Requisição concluída com sucesso."

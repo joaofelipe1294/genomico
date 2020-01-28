@@ -1,5 +1,5 @@
 class BrandsController < ApplicationController
-  before_action :set_brand, only: [:show, :edit, :update, :destroy]
+  before_action :set_brand, only: [:edit, :update, :destroy]
 
   # GET /brands
   # GET /brands.json
@@ -36,16 +36,6 @@ class BrandsController < ApplicationController
       redirect_to home_user_index_path
     else
       render :edit
-    end
-  end
-
-  # DELETE /brands/1
-  # DELETE /brands/1.json
-  def destroy
-    @brand.destroy
-    respond_to do |format|
-      format.html { redirect_to brands_url, notice: 'Brand was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

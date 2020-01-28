@@ -1,0 +1,20 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="suggestion-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Funcionalidades
+  </a>
+  <div class="dropdown-menu" aria-labelledby="user-dropdown">
+    <%= link_to suggestions_index_admin_path(kind: 'in_progress'), class: 'dropdown-item', id: 'suggestions-in-progress' do %>
+      Em desenvolvimento <%= in_progress_suggestions_bedge %>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <%= link_to suggestions_index_admin_path(kind: 'in_line'), class: 'dropdown-item', id: 'suggestions-in-line' do %>
+      Na fila <%= in_line_suggestions_bedge %>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <%= link_to suggestions_index_admin_path(kind: 'complete'), {class: 'dropdown-item', id: 'suggestions-complete'} do %>
+      Concluídos <%= suggestions_complete_bedge %>
+    <% end %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Todos', suggestions_index_admin_path, {class: 'dropdown-item', id: 'all-suggestions'} %>
+  </div>
+</li>

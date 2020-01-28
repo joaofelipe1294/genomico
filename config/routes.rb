@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
+  patch 'suggestions/:id/development', to: 'suggestions#change_to_development', as: :change_suggestion_to_development
+  get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
+  get 'suggestions/:id/development', to: 'suggestions#development', as: :suggestion_to_development
+  resources :suggestions do
+    patch 'change-status', to: 'suggestions#change_status', as: :change_status
+  end
   delete 'products/:id', to: 'products#delete', as: :delete_product
   get 'maintenance/maintenance', to: 'maintenance#maintenance', as: :maintenance
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
