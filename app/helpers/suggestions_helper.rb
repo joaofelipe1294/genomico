@@ -61,4 +61,16 @@ module SuggestionsHelper
     end
   end
 
+  def in_progress_suggestions_bedge
+    %Q(
+      <span class="badge badge-dark">#{Suggestion.in_progress.size}</span>
+    ).html_safe
+  end
+
+  def in_line_suggestions_bedge
+    %Q(
+      <span class="badge badge-dark">#{Suggestion.in_line.size}</span>
+    ).html_safe
+  end
+
 end
