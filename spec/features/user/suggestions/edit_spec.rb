@@ -5,7 +5,7 @@ RSpec.feature "User::Suggestion::Edits", type: :feature do
 
   before :each do
     Rails.application.load_seed
-    create(:user)
+    @user = create(:user)
     biomol_user_do_login
   end
 
@@ -13,7 +13,7 @@ RSpec.feature "User::Suggestion::Edits", type: :feature do
 
     context "when suggestion is complete" do
       it "is expected not to render edit button" do
-        suggestion = create(:suggestion, current_status: :complete)
+        suggestion = create(:suggestion, current_status: :complete, requester: @user)
         visit suggestions_path
         expect(find_all(class: "edit-suggestion").size).to match 0
       end
@@ -21,7 +21,7 @@ RSpec.feature "User::Suggestion::Edits", type: :feature do
 
     context "when suggestion isn't complete or canceled" do
       it "is expected to render edit button" do
-        suggestion = create(:suggestion)
+        suggestion = create(:suggestion, requester: @user)
         visit suggestions_path
         expect(find_all(class: "edit-suggestion").size).to match 1
       end
@@ -32,7 +32,7 @@ RSpec.feature "User::Suggestion::Edits", type: :feature do
   context "when editing suggestion" do
 
     before :each do
-      @suggestion = create(:suggestion)
+      @suggestion = create(:suggestion, requester: @user)
       @other_user = create(:user, user_kind: UserKind.USER)
       visit edit_suggestion_path(@suggestion)
     end

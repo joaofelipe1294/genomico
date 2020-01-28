@@ -13,7 +13,8 @@ RSpec.feature "User::Suggestions::Cancels", type: :feature do
     context "when suggestion isn't complete or canceled" do
 
       before :each do
-        @suggestion = create(:suggestion, current_status: :in_line)
+        user = User.where(user_kind: UserKind.USER).last
+        @suggestion = create(:suggestion, current_status: :in_line, requester: user)
         visit suggestions_path
       end
 
