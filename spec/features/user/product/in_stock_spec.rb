@@ -86,24 +86,4 @@ RSpec.feature "User::Product::InStocks", type: :feature do
 
   end
 
-  context "search by field" do
-
-    it "Compartilhado" do
-      setup
-      stock_product = create(:stock_product, is_shared: true)
-      product = build(:product, stock_product: stock_product, current_state: CurrentState.STOCK)
-      stock_entry = create(:stock_entry, product: product)
-      biomol_user_do_login
-      visit products_in_stock_path
-      check_count css: "product", count: 2
-      select(Field.BIOMOL.name, from: "field_id").select_option
-      click_button id: "btn-search-by-field"
-      check_count css: "product", count: 0
-      select("Compartilhado", from: "field_id").select_option
-      click_button id: "btn-search-by-field"
-      check_count css: "product", count: 1
-    end
-
-  end
-
 end
