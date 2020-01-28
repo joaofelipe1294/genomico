@@ -89,7 +89,7 @@ class SuggestionsController < ApplicationController
       if kind
         suggestions = SuggestionFinderService.new(kind).call
       elsif params[:from_user].present?
-        suggestions = Suggestion.where(requester: current_user)
+        suggestions = Suggestion.from_user current_user
       else
         suggestions = Suggestion.all
       end

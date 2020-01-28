@@ -11,7 +11,9 @@
       Na fila <%= in_line_suggestions_bedge %>
     <% end %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Concluídos', suggestions_index_admin_path(kind: 'complete'), {class: 'dropdown-item', id: 'suggestions-complete'} %>
+    <%= link_to suggestions_index_admin_path(kind: 'complete'), {class: 'dropdown-item', id: 'suggestions-complete'} do %>
+      Concluídos <%= suggestions_complete_bedge %>
+    <% end %>
     <div class="dropdown-divider"></div>
     <%= link_to 'Todos', suggestions_index_admin_path, {class: 'dropdown-item', id: 'all-suggestions'} %>
   </div>

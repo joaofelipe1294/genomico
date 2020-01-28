@@ -69,18 +69,31 @@ module SuggestionsHelper
 
   def in_line_suggestions_bedge
     %Q(
-      <span class="badge badge-dark">#{Suggestion.in_line.size}</span>
+      <span class="badge badge-primary" title="Novas funcionalidades">#{Suggestion.where(current_status: :in_line).where(kind: :new_feature).size}</span>
+      <span class="badge badge-danger" title="Bugs encontrados">#{Suggestion.where(current_status: :in_line).where(kind: :bug_report).size}</span>
+      <span class="badge badge-info" title="Melhorias">#{Suggestion.where(current_status: :in_line).where(kind: :feature_improvement).size}</span>
     ).html_safe
   end
 
   def suggestions_from_user_bedge
     current_user = User.find session[:user_id]
-    suggestions = Suggestion.from_user(current_user).size
-    if suggestions > 0
-      %Q(
-        <span class="badge badge-success">#{suggestions}</span>
-      ).html_safe
-    end
+    suggestions = Suggestion.from_user current_user
+    in_line = suggestions.where(current_status: :in_line).size
+    evaluating = suggestions.where(current_status: :evaluating).size
+    development = suggestions.where(current_status: :development).size
+    waiting_validation = suggestions.where(current_status: :waiting_validation).size
+    bedges = ""
+    bedges << "<span class='badge badge-light mr-1' text='Em espera'>#{in_line}</span>" if in_line > 0
+    bedges << "<span class='badge badge-secondary mr-1' text='Em avaliação'>#{evaluating}</span>" if evaluating > 0
+    bedges << "<span class='badge badge-info mr-1' text='Em desenvolvimento'>#{development}</span>" if development > 0
+    bedges << "<span class='badge badge-primary' text='Aguardando validação'>#{waiting_validation}</span>" if waiting_validation > 0
+    bedges.html_safe
+  end
+
+  def suggestions_complete_bedge
+    %Q(
+      <span class="badge badge-success">#{Suggestion.complete.size}</span>
+    ).html_safe
   end
 
 end
