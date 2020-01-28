@@ -1,1 +1,56 @@
 <%= render 'layouts/admin_navbar' %>
+
+
+<table class="table table-sm text-center mt-5">
+  <thead class="bg-dark text-white">
+    <th>Título</th>
+    <th>Tipo</th>
+    <th>Solicitante</th>
+    <th>Estado atual</th>
+    <th>Solicitado em</th>
+    <th>Tempo estimado</th>
+    <th>Concluído em</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @suggestions.each do |suggestion| %>
+      <tr class="suggestion">
+        <td>
+          <%= suggestion.title %>
+        </td>
+        <td>
+          <%= show_suggestion_kind suggestion %>
+        </td>
+        <td>
+          <%= suggestion.requester.login %>
+        </td>
+        <td>
+          <%= show_current_state suggestion %>
+        </td>
+        <td>
+          <%= l suggestion.created_at %>
+        </td>
+        <td>
+          <%= show_time_forseen suggestion %>
+        </td>
+        <td>
+          <% if suggestion.complete? %>
+            <%= l suggestion.finish_date %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td>
+          <% unless suggestion.complete? || suggestion.canceled? %>
+            <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
+          <% end %>
+
+          <% unless suggestion.complete? || suggestion.canceled? %>
+            <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Temc erteza ?"} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+</table>
+
+<%= render 'layouts/table_footer', elements: @suggestions %>

@@ -8,23 +8,18 @@ class SuggestionsController < ApplicationController
   def index
     if params[:kind].present?
       if params[:kind] == "in-progress"
-        @suggestions = Suggestion
+        suggestions = Suggestion
                                 .includes(:requester)
                                 .where.not(current_status: [:canceled, :complete])
-                                .order(:created_at)
-                                .page params[:page]
         else
-          @suggestions = Suggestion
-                                  .includes(:requester)
-                                  .order(:created_at)
-                                  .page params[:page]
+          suggestions = Suggestion.includes(:requester)
       end
     else
-      @suggestions = Suggestion
-                              .includes(:requester)
+      suggestions = Suggestion.includes(:requester)
+    end
+    @suggestions = suggestions
                               .order(:created_at)
                               .page params[:page]
-    end
   end
 
   def new
@@ -64,6 +59,25 @@ class SuggestionsController < ApplicationController
   end
 
   def index_admin
+    if params[:kind].present?
+      if params[:kind] == "in_progress"
+        suggestions = Suggestion
+                                .includes(:requester)
+                                .where.not(current_status: [:complete, :canceled, :in_line])
+
+      elsif params[:kind] == "in_line"
+        suggestions = Suggestion
+                                .includes(:requester)
+                                .where(current_status: :in_line)
+      else
+        suggestions = Suggestion.includes(:requester).where(current_status: :complete)
+      end
+    else
+      suggestions = Suggestion.includes(:requester).all
+    end
+    @suggestions = suggestions
+                              .order(:id)
+                              .page params[:page]
   end
 
   private
