@@ -8,7 +8,7 @@ describe 'suggestion_finder_service' do
     create(:suggestion, current_status: :in_line)
     create(:suggestion, current_status: :in_line)
     create(:suggestion, current_status: :evaluating)
-    create(:suggestion, current_status: :in_progress)
+    create(:suggestion, current_status: :development)
     create(:suggestion, current_status: :waiting_validation)
     create(:suggestion, current_status: :complete)
     create(:suggestion, current_status: :complete)
