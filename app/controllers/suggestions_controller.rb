@@ -1,12 +1,10 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  # include Feedback
   before_action :user_filter, only: [:index, :new, :create, :edit, :update, :change_to_complete]
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update, :development, :change_to_development, :complete]
   before_action :admin_filter, only: [:index_admin, :development, :change_to_development]
   before_action :filter_suggestions, only: [:index, :index_admin]
-  before_action :set_user, only: [:change_status, :change_to_development]
 
   def index
   end
@@ -41,10 +39,10 @@ class SuggestionsController < ApplicationController
 
   def change_status
     @suggestion = Suggestion.find params[:suggestion_id]
-    if @suggestion.change_status params[:new_status], @user
+    if @suggestion.change_status params[:new_status], current_user
       flash[:success] = I18n.t :suggest_status_change_success
     end
-    if @user.user_kind == UserKind.USER
+    if current_user.user_kind == UserKind.USER
       redirect_to suggestions_path
     else
       redirect_to suggestions_index_admin_path
@@ -58,7 +56,7 @@ class SuggestionsController < ApplicationController
   end
 
   def change_to_development
-    if @suggestion.change_to_development(@user, suggestion_params[:time_forseen])
+    if @suggestion.change_to_development(current_user, suggestion_params[:time_forseen])
       flash[:success] = I18n.t :suggestion_change_to_development_success
       redirect_to suggestions_index_admin_path(kind: :in_progress)
     else
@@ -82,10 +80,6 @@ class SuggestionsController < ApplicationController
       @suggestion = Suggestion.find params[:id]
     end
 
-    def set_user
-      @user = User.find session[:user_id]
-    end
-
     def suggestion_params
       params.require(:suggestion).permit(:title, :description, :kind, :requester_id, :time_forseen)
     end
@@ -94,10 +88,12 @@ class SuggestionsController < ApplicationController
       kind = params[:kind]
       if kind
         suggestions = SuggestionFinderService.new(kind).call
+      elsif params[:from_user].present?
+        suggestions = Suggestion.where(requester: current_user)
       else
-        suggestions = Suggestion.includes(:requester).all
+        suggestions = Suggestion.all
       end
-      @suggestions = suggestions.order(:id).page params[:page]
+      @suggestions = suggestions.includes(:requester).order(created_at: :desc).page params[:page]
     end
 
 end

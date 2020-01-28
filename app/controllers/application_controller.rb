@@ -6,20 +6,24 @@ class ApplicationController < ActionController::Base
   before_action :check_maintenance_status, except: [:maintenance]
 
   def admin_filter
-      user = find_user UserKind.ADMIN
-      wrong_credentials_redirect unless user
-    end
+    user = find_user UserKind.ADMIN
+    wrong_credentials_redirect unless user
+  end
 
-    def user_filter
-      user = find_user UserKind.USER
-      if user
-        check_release_message
-      else
-        wrong_credentials_redirect
-      end
+  def user_filter
+    user = find_user UserKind.USER
+    if user
+      check_release_message
+    else
+      wrong_credentials_redirect
     end
+  end
 
-    private
+  def current_user
+    User.find session[:user_id]
+  end
+
+  private
 
     def wrong_credentials_redirect
       reset_session
