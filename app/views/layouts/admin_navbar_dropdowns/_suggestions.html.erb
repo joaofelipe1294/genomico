@@ -3,12 +3,12 @@
     Funcionalidades
   </a>
   <div class="dropdown-menu" aria-labelledby="user-dropdown">
-    <%= link_to 'Novo', new_user_path, {class: 'dropdown-item', id: 'new-user'} %>
+    <%= link_to 'Em desenvolvimento', suggestions_index_admin_path(kind: 'in_progress'), class: 'dropdown-item', id: 'suggestions-in-progress' %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Usuários', users_path({kind: 'user'}), {class: 'dropdown-item', id: 'users'} %>
+    <%= link_to 'Na fila', suggestions_index_admin_path(kind: 'in_line'), class: 'dropdown-item', id: 'suggestions-in-line' %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Administradores', users_path({kind: 'admin'}), {class: 'dropdown-item', id: 'admins'} %>
+    <%= link_to 'Concluídos', suggestions_index_admin_path(kind: 'complete'), {class: 'dropdown-item', id: 'suggestions-complete'} %>
     <div class="dropdown-divider"></div>
-    <%= link_to 'Todos', users_path, {class: 'dropdown-item', id: 'all-users'} %>
+    <%= link_to 'Todos', suggestions_index_admin_path, {class: 'dropdown-item', id: 'all-suggestions'} %>
   </div>
 </li>

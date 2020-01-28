@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
   resources :suggestions do
     patch 'change-status', to: 'suggestions#change_status', as: :change_status
   end

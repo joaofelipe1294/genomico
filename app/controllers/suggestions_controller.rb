@@ -1,8 +1,9 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter
+  before_action :user_filter, except: [:index_admin]
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update]
+  before_action :admin_filter, only: [:index_admin]
 
   def index
     if params[:kind].present?
@@ -60,6 +61,9 @@ class SuggestionsController < ApplicationController
       flash[:success] = I18n.t :suggest_status_change_success
     end
     redirect_to suggestions_path
+  end
+
+  def index_admin
   end
 
   private
