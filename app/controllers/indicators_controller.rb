@@ -2,9 +2,6 @@ class IndicatorsController < ApplicationController
   include ResponseTimeReport
   before_action :set_exams, only: [:exams_in_progress, :concluded_exams, :health_ensurances_relation]
 
-  def exams_per_field
-  end
-
   def exams_in_progress
     exams = Exam.joins(offered_exam: [:field]).where.not(exam_status_kind: [ExamStatusKind.CANCELED, ExamStatusKind.COMPLETE])
     @exams_in_progress_count = exams.size
