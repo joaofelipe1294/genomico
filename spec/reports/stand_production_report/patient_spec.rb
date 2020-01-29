@@ -4,26 +4,26 @@ describe 'StandProductionReport#exams' do
 
   before :each do
     Rails.application.load_seed
-    create(:patient)
-    create(:patient)
-    first_attendance = create(:biomol_attendance)
+    first_patient = create(:patient)
+    second_patient = create(:patient)
+    first_attendance = create(:biomol_attendance, patient: first_patient)
     first_attendance.exams.first.update created_at: 20.days.ago
-    second_attendance = create(:biomol_attendance)
-    third_attendance = create(:imunofeno_attendance)
+    second_attendance = create(:biomol_attendance, patient: first_patient)
+    third_attendance = create(:imunofeno_attendance, patient: second_patient)
   end
 
-  describe "#exam_count" do
+  describe "#patient_count" do
     context "when searching without a date" do
       it "is expected to return all exams of olny one field" do
         report = StandProductionReport.new field: Field.BIOMOL
-        count = report.exam_count
-        expect(count).to match 2
+        count = report.patient_count
+        expect(count).to match 1
       end
     end
     context "when searchin by date" do
       it "is expected to return all exams created between  start_date and finish_date" do
         report = StandProductionReport.new field: Field.BIOMOL, start_date: 1.day.ago, finish_date: 1.day.from_now
-        count = report.exam_count
+        count = report.patient_count
         expect(count).to match 1
       end
     end

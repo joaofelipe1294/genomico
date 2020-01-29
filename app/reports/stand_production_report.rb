@@ -6,22 +6,30 @@ class StandProductionReport
     @finish_date = params[:finish_date]
   end
 
-  def exams_count
-    exams.size
+  def exam_count
+    exams_from_field.size
   end
 
-  def exams_relation
-    exams.group("offered_exams.name").count
+  def exam_relation
+    exams_from_field.group("offered_exams.name").count
+  end
+
+  def attendance_count
+    exams_from_field.pluck(:attendance_id).uniq.size
+  end
+
+  def patient_count
+    exams_from_field.includes(:attendance).pluck(:patient_id).uniq.size
   end
 
   private
 
-    def exams
-      exams_from_field = Exam.from_field @field
+    def exams_from_field
+      exams = Exam.from_field @field
       if @start_date && @finish_date
-        exams_from_field = exams_from_field.where("exams.created_at BETWEEN ? AND ?", @start_date, @finish_date)
+        exams = exams.where("exams.created_at BETWEEN ? AND ?", @start_date, @finish_date)
       end
-      exams_from_field
+      exams
     end
 
 end
