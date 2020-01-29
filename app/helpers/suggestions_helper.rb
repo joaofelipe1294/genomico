@@ -96,4 +96,10 @@ module SuggestionsHelper
     ).html_safe
   end
 
+  def suggestions_to_do_bedge
+    %Q(
+      <span class="badge badge-dark">#{Suggestion.where.not(current_status: [:complete, :canceled]).size}</span>
+    ).html_safe
+  end
+
 end

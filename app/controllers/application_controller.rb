@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :exam_status_color_helper
   before_action :check_maintenance_status, except: [:maintenance]
+  helper_method :current_user
 
   def admin_filter
     user = find_user UserKind.ADMIN

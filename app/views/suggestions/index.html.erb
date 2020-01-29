@@ -40,6 +40,7 @@
           <% end %>
         </td>
         <td>
+          <%= link_to "Exibir", suggestion, class: "btn btn-sm btn-outline-info show-suggestion" %>
           <% if suggestion.requester_id == session[:user_id] %>
 
             <% if suggestion.waiting_validation? %>
