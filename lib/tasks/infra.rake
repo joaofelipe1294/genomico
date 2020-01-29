@@ -2,7 +2,6 @@ namespace :infra do
   desc "será chamado pelo hook fazendo o deploy de forma automatizada"
   task deploy: :environment do
     `export RAILS_ENV=production`
-    `rails backup:do RAILS_ENV=production`
     puts "Kill server"
     `kill kill $(cat tmp/pids/server.pid)`
     puts "Kill server [OK]"
