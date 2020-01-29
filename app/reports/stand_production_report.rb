@@ -17,11 +17,11 @@ class StandProductionReport
   private
 
     def exams
-      exams = Exam.joins(:offered_exam).where("offered_exams.field_id = ?", @field.id)
+      exams_from_field = Exam.from_field @field
       if @start_date && @finish_date
-        exams = exams.where("exams.created_at BETWEEN ? AND ?", @start_date, @finish_date)
+        exams_from_field = exams_from_field.where("exams.created_at BETWEEN ? AND ?", @start_date, @finish_date)
       end
-      exams
+      exams_from_field
     end
 
 end
