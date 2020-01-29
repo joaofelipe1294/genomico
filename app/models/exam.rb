@@ -50,6 +50,10 @@ class Exam < ActiveRecord::Base
     self.joins(:offered_exam).where("offered_exams.field_id = ?", field.id)
   end
 
+  def self.complete
+    self.where(exam_status_kind: ExamStatusKind.COMPLETE)
+  end
+
   private
 
     def default_values

@@ -21,14 +21,10 @@ class IndicatorsController < ApplicationController
   end
 
   def health_ensurances_relation
-    complete_exams = Exam.joins(:attendance).where(exam_status_kind: ExamStatusKind.COMPLETE)
-    complete_exams = filter_by_date complete_exams
-    @concluded_exams_cont = complete_exams.size
-    @exams_relation = {}
-    HealthEnsurance.all.order(:name).each do |health_ensurance|
-      amount_by_health_ensurance = complete_exams.where("attendances.health_ensurance_id = ?", health_ensurance.id).size
-      @exams_relation[health_ensurance.name] = amount_by_health_ensurance if amount_by_health_ensurance > 0
-    end
+    exams = Exam.complete.joins(:attendance)
+    exams = exams.where("exams.finish_date BETWEEN ? AND ?", params[:start_date], params[:end_date]) if filter_by_date
+    @concluded_exams_cont = exams.size
+    @exams_relation = exams.joins(attendance: [:health_ensurance]).complete.group("health_ensurances.name").count
   end
 
   private
@@ -49,6 +45,10 @@ class IndicatorsController < ApplicationController
       exams_relation[field.name] = amount if amount > 0
     end
     exams_relation
+  end
+
+  def filter_by_date
+    params[:start_date].present? && params[:end_date].present?
   end
 
 end
