@@ -59,6 +59,12 @@ class Suggestion < ApplicationRecord
     self.includes(:requester).where(requester: user).where.not(current_status: [:complete, :canceled])
   end
 
+  def show_kind
+    return "Bug" if self.bug_report?
+    return "Nova funcionalidade" if self.new_feature?
+    return "Melhoria" if self.feature_improvement?
+  end
+
   private
 
     def set_default_status
