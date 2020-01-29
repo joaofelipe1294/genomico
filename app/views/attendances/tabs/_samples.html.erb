@@ -22,7 +22,11 @@
 
   <div class="form-group">
     <%= label_tag Sample.human_attribute_name :storage_location %>
-    <%= text_field_tag :storage_location, '', class: 'form-control' %>
+    <% if current_user.field == Field.IMUNOFENO %>
+      <%= text_field_tag :storage_location, 'T. ambiente', class: 'form-control' %>
+    <% else %>
+      <%= text_field_tag :storage_location, '', class: 'form-control' %>
+    <% end %>
   </div>
 
   <button id="btn_add_sample" class="btn btn-outline-info float-right">

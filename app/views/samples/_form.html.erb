@@ -38,7 +38,11 @@
 
 	<div class = 'form-group'>
 		<%= f.label :storage_location %>
-		<%= f.text_field :storage_location, {class: 'form-control'} %>
+		<% if current_user.field == Field.IMUNOFENO %>
+			<%= f.text_field :storage_location, value: "T. ambiente", class: 'form-control' %>
+		<% else %>
+			<%= f.text_field :storage_location, class: 'form-control' %>
+		<% end %>
 	</div>
 
 	<button class = 'btn btn-outline-primary float-right' id="btn-save">

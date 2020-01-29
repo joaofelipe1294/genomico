@@ -7,8 +7,15 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :fields
   has_many :release_checks
 
+  def field
+    self.fields.first
+  end
+
+  private
+
   def default_values
     self.is_active = true if self.is_active.nil?
   end
+
 
 end

@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    User.find session[:user_id]
+    User.includes(:fields).find session[:user_id]
   end
 
   private
