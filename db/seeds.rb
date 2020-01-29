@@ -140,6 +140,9 @@ HealthEnsurance.create({name: 'UOPECCAN'})
 DeseaseStage.create({name: 'Diagnóstico'})
 DeseaseStage.create({name: 'Recaída'})
 DeseaseStage.create({name: 'DRM'})
+DeseaseStage.create({name: "Subpopulação"})
+DeseaseStage.create({name: "Subpopulação com RET"})
+DeseaseStage.create({name: "Perfil Imune"})
 
 # puts 'Criando DeseaseStage [OK]'
 
