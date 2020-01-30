@@ -1,18 +1,11 @@
 class ResponseTimeReport
+  include ExamReport
 
   def initialize params
     @offered_exam_group = params[:offered_exam_group]
     @start_date = params[:start_date]
     @end_date = params[:finish_date]
-    @exams = exams
-  end
-
-  def exams_count
-    @exams.size
-  end
-
-  def patient_count
-    @exams.pluck(:patient_id).uniq.size
+    @exams = filter_by_date exams
   end
 
   def complete_with_delay
@@ -33,8 +26,8 @@ class ResponseTimeReport
 
   def chart
     {
-      "Em tempo": complete_in_time(),
-      "Atrasados": complete_with_delay()
+      "Em tempo": complete_in_time,
+      "Atrasados": complete_with_delay
     }
   end
 
@@ -60,14 +53,10 @@ class ResponseTimeReport
   private
 
     def exams
-      exams_found = Exam
-                        .joins(:attendance, offered_exam: [:offered_exam_group])
-                        .where(exam_status_kind: ExamStatusKind.COMPLETE)
-                        .where("offered_exams.offered_exam_group_id = ? ", @offered_exam_group)
-      if @start_date && @finish_date
-        exams_found = exams_found.where("exams.created_at BETWEEN ? AND ?", @start_date, @finish_date)
-      end
-      exams_found
+      Exam
+          .joins(:attendance, offered_exam: [:offered_exam_group])
+          .where(exam_status_kind: ExamStatusKind.COMPLETE)
+          .where("offered_exams.offered_exam_group_id = ? ", @offered_exam_group)
     end
 
 end
