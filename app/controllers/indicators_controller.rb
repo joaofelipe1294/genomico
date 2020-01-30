@@ -36,6 +36,10 @@ class IndicatorsController < ApplicationController
     stand = params[:stand].to_sym
     if stand == :biomol
       exams = Exam.from_field Field.BIOMOL
+    elsif stand == :imunofeno
+      exams = Exam.from_field Field.IMUNOFENO
+    elsif stand == :cyto
+      exams = Exam.from_field Field.FISH
     end
     @report = StandProductionReport.new({exams: exams, start_date: params[:start_date], finish_date: params[:end_date]})
   end

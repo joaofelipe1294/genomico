@@ -1,6 +1,10 @@
 <%= render 'layouts/user_navbar' %>
 
-<div class="row text-center mt-5">
+<div class="mt-5">
+  <%= render 'indicators/date_search_form', locals: {search_route: production_per_stand_path(stand: params[:stand])} %>
+</div>
+
+<div class="row text-center mt-4">
   <h3 class="col-4">
     Exames: <%= @report.exam_count %>
   </h3>
