@@ -32,6 +32,14 @@ class IndicatorsController < ApplicationController
     ]
   end
 
+  def production_per_stand
+    stand = params[:stand].to_sym
+    if stand == :biomol
+      exams = Exam.from_field Field.BIOMOL
+    end
+    @report = StandProductionReport.new({exams: exams, start_date: params[:start_date], finish_date: params[:end_date]})
+  end
+
   private
 
   def set_exams

@@ -1,0 +1,40 @@
+<%= render 'layouts/user_navbar' %>
+
+<div class="row text-center mt-5">
+  <h3 class="col-4">
+    Exames: <%= @report.exam_count %>
+  </h3>
+  <h3 class="col-4 border-right border-left">
+    Atendimentos: <%= @report.attendance_count %>
+  </h3>
+  <h3 class="col-4">
+    Pacientes: <%= @report.patient_count %>
+  </h3>
+</div>
+
+<hr>
+
+<div style="">
+  <%= column_chart @report.exam_relation_menmonyc %>
+</div>
+
+<hr>
+
+<table class="table table-striped table-sm text-center col-8 offset-2">
+  <thead class="text-white bg-dark">
+    <th class="h3">Exame</th>
+    <th class="h3">Entradas</th>
+  </thead>
+  <tbody>
+    <% @report.exam_relation.each do |relation| %>
+      <tr>
+        <td class="col-8">
+          <%= relation.first %>
+        </td>
+        <td class="col-4">
+          <%= relation.last %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'indicators/production_per_stand/:stand', to: 'indicators#production_per_stand', as: :production_per_stand
   patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
   patch 'suggestions/:id/development', to: 'suggestions#change_to_development', as: :change_suggestion_to_development
   get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
