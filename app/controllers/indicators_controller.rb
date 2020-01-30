@@ -22,15 +22,6 @@ class IndicatorsController < ApplicationController
   def response_time
     @offered_exam_group = OfferedExamGroup.find params[:id]
     @report = ResponseTimeReport.new({offered_exam_group: @offered_exam_group, start_date: params[:start_date], finish_date: params[:end_date]})
-    @pie_chart = {
-      "Em tempo": @report.complete_in_time,
-      "Atrasados": @report.complete_with_delay
-    }
-    @exams_relation = [
-      { name: "Em tempo", data: @report.complete_in_time_relation },
-      { name: "Com atraso", data: @report.complete_with_delay_relation }
-    ]
-    # TODO: extrair para variavel report ...
   end
 
   def production_per_stand

@@ -31,6 +31,20 @@ class ResponseTimeReport
     @exams.where(was_late: false).group("offered_exams.mnemonyc").count
   end
 
+  def chart
+    {
+      "Em tempo": complete_in_time(),
+      "Atrasados": complete_with_delay()
+    }
+  end
+
+  def exams_relation
+    [
+      { name: "Em tempo", data: complete_in_time_relation },
+      { name: "Com atraso", data: complete_with_delay_relation }
+    ]
+  end
+
   def statistics
     exam_info = []
     offered_exams = OfferedExam.where(offered_exam_group: @offered_exam_group)

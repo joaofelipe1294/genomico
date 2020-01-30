@@ -33,7 +33,7 @@
   </div>
   <div class="col-4 d-inline-block border-left">
     <h3>Relação de exames concluídos em tempo e atrasados</h3>
-    <%= pie_chart @pie_chart, width: "250px", height: "250px", legend: false %>
+    <%= pie_chart @report.chart, width: "250px", height: "250px", legend: false %>
   </div>
 </div>
 
@@ -43,7 +43,7 @@
   Relação de exames atrasados
 </h1>
 
-<%= column_chart @exams_relation, stacked: true %>
+<%= column_chart @report.exams_relation, stacked: true %>
 
 <hr>
 
