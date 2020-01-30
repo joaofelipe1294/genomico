@@ -4,7 +4,8 @@ RSpec.feature "User::Indicators::ExamsInProgresses", type: :feature do
   include UserLogin
 
   def navigate_to
-    click_link id: "indicators-dropdown"
+    click_link id: "indicators"
+    click_link id: "exams-indicators-dropdown"
     click_link id: "exams-in-progress"
   end
 

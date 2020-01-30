@@ -8,7 +8,8 @@ RSpec.feature "User::Indicators::ResponseTimes", type: :feature do
     before :each do
       Rails.application.load_seed
       imunofeno_user_do_login
-      click_link id: "indicators-dropdown"
+      click_link id: "indicators"
+      click_link id: "response-time-dropdown"
     end
 
     it "pcr" do
@@ -41,7 +42,8 @@ RSpec.feature "User::Indicators::ResponseTimes", type: :feature do
   context "data validation" do
 
     def navigate_to
-      click_link id: "indicators-dropdown"
+      click_link id: "indicators"
+      click_link id: "response-time-dropdown"
       click_link id: "pcr"
     end
 

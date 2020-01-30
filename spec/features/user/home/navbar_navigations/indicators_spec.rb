@@ -6,15 +6,17 @@ RSpec.feature "User::Home::NavbarNavigations::Indicators", type: :feature do
   before :each do
     Rails.application.load_seed
     biomol_user_do_login
-    click_link 'indicators-dropdown'
+    click_link id: 'indicators'
   end
 
   it "exams-in-progress" do
-    click_link 'exams-in-progress'
+    click_link id: "exams-indicators-dropdown"
+    click_link id: 'exams-in-progress'
     expect(page).to have_current_path exams_in_progress_path
   end
 
   it "concluded-exams" do
+    click_link id: "exams-indicators-dropdown"
     click_link 'concluded-exams'
     expect(page).to have_current_path concluded_exams_path
   end

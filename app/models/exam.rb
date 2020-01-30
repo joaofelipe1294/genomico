@@ -46,21 +46,29 @@ class Exam < ActiveRecord::Base
     end
   end
 
+  def self.from_field field
+    self.joins(:offered_exam).where("offered_exams.field_id = ?", field.id)
+  end
+
+  def self.complete
+    self.where(exam_status_kind: ExamStatusKind.COMPLETE)
+  end
+
   private
 
-  def default_values
-  	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
-    self.was_late = false unless self.was_late
-    self.lag_time = 0 unless  self.lag_time
-  end
+    def default_values
+    	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
+      self.was_late = false unless self.was_late
+      self.lag_time = 0 unless  self.lag_time
+    end
 
-  def reload_issues_cache
-    self.offered_exam.field.set_issues_in_cache
-  end
+    def reload_issues_cache
+      self.offered_exam.field.set_issues_in_cache
+    end
 
-  def treat_two_internal_codes_case
-    compose_internal_codes = ComposeInternalCodeGeneratorService.new(self).call
-    self.internal_codes = compose_internal_codes if compose_internal_codes
-  end
+    def treat_two_internal_codes_case
+      compose_internal_codes = ComposeInternalCodeGeneratorService.new(self).call
+      self.internal_codes = compose_internal_codes if compose_internal_codes
+    end
 
 end

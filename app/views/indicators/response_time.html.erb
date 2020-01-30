@@ -1,5 +1,7 @@
 <%= render 'layouts/user_navbar' %>
 
+<%= render 'layouts/indicators_navbar' %>
+
 <div class="mt-4">
   <%= render 'date_search_form', locals: {search_route: response_time_path(params[:id])} %>
 </div>
@@ -17,23 +19,23 @@
 <div class="row">
   <div class="d-inline-block col-4 border-right">
     <h2 class="text-center mt-5">
-      Pacientes: <span id="patients-count"><%= @patients %></span>
+      Pacientes: <span id="patients-count"><%= @report.patient_count %></span>
     </h2>
     <h2 class="text-center mt-2">
-      Exames: <span id="exams-count"><%= @exams_done %></span>
+      Exames: <span id="exams-count"><%= @report.exam_count %></span>
     </h2>
   </div>
   <div class="col-4 d-inline-block">
     <h2 class="text-center mt-5">
-      Em tempo: <span id="total-in-time"><%= @total_in_time %></span>
+      Em tempo: <span id="total-in-time"><%= @report.complete_in_time %></span>
     </h2>
     <h2 class="text-center mt-2">
-      Atrasados: <span id="total-late"><%= @total_late %></span>
+      Atrasados: <span id="total-late"><%= @report.complete_with_delay %></span>
     </h2>
   </div>
   <div class="col-4 d-inline-block border-left">
     <h3>Relação de exames concluídos em tempo e atrasados</h3>
-    <%= pie_chart @pie_chart, width: "250px", height: "250px", legend: false %>
+    <%= pie_chart @report.chart, width: "250px", height: "250px", legend: false %>
   </div>
 </div>
 
@@ -43,7 +45,7 @@
   Relação de exames atrasados
 </h1>
 
-<%= column_chart @exams_relation, stacked: true %>
+<%= column_chart @report.exams_relation, stacked: true %>
 
 <hr>
 
@@ -57,7 +59,7 @@
     <th>Total concluídos</th>
   </thead>
   <tbody>
-    <% @exams_info.each do |exam_info| %>
+    <% @report.statistics.each do |exam_info| %>
 
       <tr>
         <td>
