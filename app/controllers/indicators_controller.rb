@@ -24,6 +24,9 @@ class IndicatorsController < ApplicationController
     @report = StandProductionReport.new({stand: params[:stand], start_date: params[:start_date], finish_date: params[:end_date]})
   end
 
+  def global_production
+  end
+
   private
 
     def set_exams

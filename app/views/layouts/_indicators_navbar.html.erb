@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to "Indicadores", stock_products_base_report_path, class: "navbar-brand" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+
+      <%= render 'layouts/indicators_dropdowns/production' %>
+
+      <%= render 'layouts/stock_dropdowns/products' %>
+
+      <%= link_to "Baixas de estoque", stock_outs_path, class: "nav-link", id: "stock-outs"%>
+
+      <%= render 'layouts/stock_dropdowns/stock_products' %>
+
+      <%= render 'layouts/stock_dropdowns/brands'%>
+
+    </ul>
+  </div>
+</nav>

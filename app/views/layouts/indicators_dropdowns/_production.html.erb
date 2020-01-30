@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="production-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Produção
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdown">
+    <%= link_to "Biomol", production_per_stand_path(stand: :biomol), class: 'dropdown-item', id: 'production-biomol' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to "Imunofeno", production_per_stand_path(stand: :imunofeno), class: 'dropdown-item', id: 'production-imunofeno' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to "Cito", production_per_stand_path(stand: :cyto), class: 'dropdown-item', id: 'production-cito' %>
+  </div>
+</li>
