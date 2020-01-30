@@ -1,10 +1,10 @@
 <%= render 'layouts/user_navbar' %>
 
 <h1 class="text-center mt-5 mb-5 border-bottom">
-  Exames realizados por plano de saúde (<span id="total"><%= @concluded_exams_cont %></span>)
+  Exames realizados por plano de saúde (<span id="total"><%= @exams.size %></span>)
 </h1>
 
-<%= pie_chart( @exams_relation ) %>
+<%= pie_chart( @relation ) %>
 
 <hr>
 
