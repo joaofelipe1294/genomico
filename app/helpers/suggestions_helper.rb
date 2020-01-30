@@ -8,9 +8,9 @@ module SuggestionsHelper
 
   def suggestion_header suggestion
     %Q(
-      <div class='card-header bg-#{suggestion_config[:color]}'>
+      <div class='card-header bg-#{SUGGESTION_OPTIONS[suggestion.kind.to_sym][:color]}'>
         <h4 class='text-center text-white'>
-          #{suggestion_config[:name]}
+          #{SUGGESTION_OPTIONS[suggestion.kind.to_sym][:name]}
         </h4>
       </div>
     ).html_safe
