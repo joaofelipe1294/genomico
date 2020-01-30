@@ -1,0 +1,10 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="exams-indicators-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Exames
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdown">
+    <%= link_to 'Exames em andamento', exams_in_progress_path, class: 'dropdown-item', id: 'exams-in-progress' %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Exames concluídos', concluded_exams_path, class: 'dropdown-item', id: 'concluded-exams' %>
+  </div>
+</li>

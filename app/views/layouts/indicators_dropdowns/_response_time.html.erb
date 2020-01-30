@@ -1,0 +1,16 @@
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="response-time-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Tempo de resposta
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdown">
+    <%= link_to 'PCR e qPCR', response_time_path(session[:indicators]["PCR"]), class: 'dropdown-item', id: "pcr" %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Sequenciamento', response_time_path(session[:indicators]["SEQUENCING"]), class: 'dropdown-item', id: "sequencing" %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'NGS', response_time_path(session[:indicators]["NGS"]), class: 'dropdown-item', id: "ngs" %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'Imunofeno', response_time_path(session[:indicators]["IMUNOFENO"]), class: 'dropdown-item', id: "imunofeno" %>
+    <div class="dropdown-divider"></div>
+    <%= link_to 'FISH', response_time_path(session[:indicators]["FISH"]), class: 'dropdown-item', id: "fish" %>
+  </div>
+</li>
