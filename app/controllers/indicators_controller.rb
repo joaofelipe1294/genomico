@@ -1,5 +1,4 @@
 class IndicatorsController < ApplicationController
-  include ResponseTimeReport
   before_action :set_exams, only: [:exams_in_progress, :concluded_exams, :health_ensurances_relation]
 
   def exams_in_progress
@@ -18,6 +17,19 @@ class IndicatorsController < ApplicationController
     exams = set_exams
     @concluded_exams_cont = exams.size
     @exams_relation = exams.joins(attendance: [:health_ensurance]).complete.group("health_ensurances.name").count
+  end
+
+  def response_time
+    @offered_exam_group = OfferedExamGroup.find params[:id]
+    @report = ResponseTimeReport.new({offered_exam_group: @offered_exam_group, start_date: params[:start_date], finish_date: params[:end_date]})
+    @pie_chart = {
+      "Em tempo": @report.complete_in_time,
+      "Atrasados": @report.complete_with_delay
+    }
+    @exams_relation = [
+      { name: "Em tempo", data: @report.complete_in_time_relation },
+      { name: "Com atraso", data: @report.complete_with_delay_relation }
+    ]
   end
 
   private
