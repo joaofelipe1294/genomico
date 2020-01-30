@@ -18,11 +18,11 @@
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-secondary">
         <%= link_to "Exames aguardando início", home_user_index_path({exam_status_kind: "waiting_start"}), class: "h4 text-secondary" %>
-        <span id="waiting-exams-number"><%= @waiting_exams[:count] %></span>
+        <span id="waiting-exams-number"><%= @report.waiting_exams_count %></span>
       </h4>
       <div id="exams-waiting-chart">
-        <% if @waiting_exams[:count] > 0 %>
-          <%= pie_chart @waiting_exams[:relation], legend: false, colors: chart_colors[:waiting_start], id: 'waiting-exams-chart' %>
+        <% if @report.waiting_exams_count > 0 %>
+          <%= pie_chart @report.waiting_exams_relation, legend: false, colors: chart_colors[:waiting_start], id: 'waiting-exams-chart' %>
         <% end %>
       </div>
     </div>
@@ -30,11 +30,11 @@
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
         <%= link_to "Exames em andamento", home_user_index_path({exam_status_kind: "in_progress"}), class: "h4 text-primary" %>
-        <span id="in-progress-exams-number"><%= @exams_in_progress[:count] %></span>
+        <span id="in-progress-exams-number"><%= @report.in_progress_count %></span>
       </h4>
       <div>
-        <% if @exams_in_progress[:count] > 0 %>
-          <%= pie_chart @exams_in_progress[:relation], legend: false, colors: chart_colors[:in_progress], id: 'in-progress-exams-chart' %>
+        <% if @report.in_progress_count > 0 %>
+          <%= pie_chart @report.in_progress_relation, legend: false, colors: chart_colors[:in_progress], id: 'in-progress-exams-chart' %>
         <% end %>
       </div>
     </div>
@@ -42,11 +42,11 @@
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-danger">
         <%= link_to "Exames atrasados", home_user_index_path({exam_status_kind: "late"}), class: "h4 text-danger" %>
-        <span id="delayed-exams-number"><%= @delayed_exams[:count] %></span>
+        <span id="delayed-exams-number"><%= @report.delayed_exams_count %></span>
       </h4>
       <div>
-        <% if @delayed_exams[:count] > 0 %>
-          <%= pie_chart @delayed_exams[:relation], legend: false, colors: chart_colors[:delayed], id: 'delayed-exams-chart' %>
+        <% if @report.delayed_exams_count > 0 %>
+          <%= pie_chart @report.delayed_exams_relation, legend: false, colors: chart_colors[:delayed], id: 'delayed-exams-chart' %>
         <% end %>
       </div>
     </div>
