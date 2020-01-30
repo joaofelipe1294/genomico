@@ -3,7 +3,9 @@ class StandProductionReport
   def initialize params
     @start_date = params[:start_date]
     @finish_date = params[:finish_date]
-    @exams = filter_by_date params[:exams]
+    @stand = params[:stand].to_sym
+    stand_exams = exams_per_stand
+    @exams = filter_by_date stand_exams
   end
 
   def exam_count
@@ -27,6 +29,17 @@ class StandProductionReport
   end
 
   private
+
+    def exams_per_stand
+      if @stand == :biomol
+        exams = Exam.from_field Field.BIOMOL
+      elsif @stand == :imunofeno
+        exams = Exam.from_field Field.IMUNOFENO
+      elsif @stand == :cyto
+        exams = Exam.from_field Field.FISH
+      end
+      exams
+    end
 
     def filter_by_date exams
       if @start_date && @finish_date

@@ -1,5 +1,5 @@
 class IndicatorsController < ApplicationController
-  before_action :set_exams, only: [:exams_in_progress, :concluded_exams, :health_ensurances_relation]
+  before_action :user_filter
 
   def exams_in_progress
     exams = Exam.joins(offered_exam: [:field]).where.not(exam_status_kind: [ExamStatusKind.CANCELED, ExamStatusKind.COMPLETE])
@@ -30,18 +30,11 @@ class IndicatorsController < ApplicationController
       { name: "Em tempo", data: @report.complete_in_time_relation },
       { name: "Com atraso", data: @report.complete_with_delay_relation }
     ]
+    # TODO: extrair para variavel report ...
   end
 
   def production_per_stand
-    stand = params[:stand].to_sym
-    if stand == :biomol
-      exams = Exam.from_field Field.BIOMOL
-    elsif stand == :imunofeno
-      exams = Exam.from_field Field.IMUNOFENO
-    elsif stand == :cyto
-      exams = Exam.from_field Field.FISH
-    end
-    @report = StandProductionReport.new({exams: exams, start_date: params[:start_date], finish_date: params[:end_date]})
+    @report = StandProductionReport.new({stand: params[:stand], start_date: params[:start_date], finish_date: params[:end_date]})
   end
 
   private
