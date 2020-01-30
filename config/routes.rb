@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'indicators/global_production', to: 'indicators#global_production', as: :global_production
+  get 'indicators/production_per_stand/:stand', to: 'indicators#production_per_stand', as: :production_per_stand
   patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
   patch 'suggestions/:id/development', to: 'suggestions#change_to_development', as: :change_suggestion_to_development
   get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
@@ -39,7 +41,6 @@ Rails.application.routes.draw do
   post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
   get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
-  get 'indicators/exams_per_field'
   get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress
   post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download

@@ -4,7 +4,7 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
   include UserLogin
 
   def navigate_to
-    click_link id: 'indicators-dropdown'
+    click_link id: 'indicators'
     click_link id: 'health-ensurances-relation'
   end
 

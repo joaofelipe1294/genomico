@@ -1,7 +1,9 @@
 <%= render 'layouts/user_navbar' %>
 
+<%= render 'layouts/indicators_navbar' %>
+
 <h1 class="text-center mt-5 mb-5 border-bottom">
-  Exames em andamento (<span id="total"><%= @exams_in_progress_count %></span>)
+  Exames em andamento (<span id="total"><%= @exams.size %></span>)
 </h1>
 
-<%= pie_chart(@exams_relation) %>
+<%= pie_chart @relation %>
