@@ -1,3 +1,5 @@
+require './app/reports/exam_report'
+
 class StandProductionReport
   include ExamReport
 
