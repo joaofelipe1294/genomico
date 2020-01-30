@@ -1,19 +1,5 @@
 module HomeUserHelper
 
-  # def exams_in_progress exams
-  #   exams_in_progress = exams
-  #                           .where.not(exam_status_kind: ExamStatusKind.WAITING_START)
-  #                           .where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-  #                           .where.not(exam_status_kind: ExamStatusKind.CANCELED)
-  #   exams_in_progress_count = exams_in_progress.size
-  #   exams_relation = exams_in_progress.group(:offered_exam).size
-  #   relation = {}
-  #   exams_relation.keys.each do |offered_exam|
-  #     relation[offered_exam.name] = exams_relation[offered_exam]
-  #   end
-  #   { count: exams_in_progress_count , relation: relation }
-  # end
-
   def chart_colors
     {
       waiting_start: ["#c6d9ec", "#b3b3ff", "#eeeedd", "#e0ebeb", "#e5e5cc", "#e0ebeb", "#c6d9ec","#9fbfdf", "#6666ff", "#d4d4aa", "#a3c2c2", "#cccc99", "#a3c2c2", "#8cb3d9"],
