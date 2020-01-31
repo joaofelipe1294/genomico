@@ -6,8 +6,7 @@ module UsersHelper
     else
       color = :secondary
     end
-    name = I18n.t "enums.user.kinds.#{user.kind}"
-    %Q(<span class="text-#{color}">#{name}</span>).html_safe
+    %Q(<span class="text-#{color}">#{user.kind_name}</span>).html_safe
   end
 
   def show_is_active is_active

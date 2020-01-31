@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include InstanceVariableSetter
   before_action :set_user, only: [:show, :edit, :update, :destroy, :change_password, :change_password_view]
   before_action :admin_filter
-  before_action :set_fields, only: [:new, :edit, :create, :update]
+  before_action :set_fields, only: [:new, :edit, :create, :update, :activate]
 
   # GET /users
   # GET /users.json
@@ -97,18 +97,20 @@ class UsersController < ApplicationController
           :kind,
           :fields
         )
-      permited_params[:fields] = params[:user][:fields].map { |field_id| Field.find field_id.to_i } if params[:user][:fields]
+      fields = params[:user][:fields]
+      permited_params[:fields] = fields.map { |field_id| Field.find field_id.to_i } if fields
       permited_params
     end
 
     def set_users
       user_kind_id = params[:kind]
       unless user_kind_id.present?
-        @users = User.all.order(:kind)
+        users = User.all
       else
-        @users = User.where(kind: :admin) if user_kind_id == 'admin'
-        @users = User.where(kind: :user) if user_kind_id == 'user'
+        users = User.where(kind: :admin) if user_kind_id == 'admin'
+        users = User.where(kind: :user) if user_kind_id == 'user'
       end
+      @users = users.order(:name)
     end
 
 end

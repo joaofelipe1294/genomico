@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   private
 
   def default_values
-    self.is_active = true unless self.is_active
+    self.is_active = true if self.is_active.nil?
   end
 
 end
