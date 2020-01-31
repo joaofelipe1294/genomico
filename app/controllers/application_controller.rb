@@ -7,12 +7,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def admin_filter
-    user = find_user UserKind.ADMIN
+    user = find_user :admin
     wrong_credentials_redirect unless user
   end
 
   def user_filter
-    user = find_user UserKind.USER
+    user = find_user :user
     if user
       check_release_message
     else
@@ -32,11 +32,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
 
-    def find_user user_kind
+    def find_user kind
       User.find_by({
         id: session[:user_id],
         login: session[:user_login],
-        user_kind: user_kind,
+        kind: kind,
         is_active: true
       })
     end

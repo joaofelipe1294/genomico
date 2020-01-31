@@ -8,7 +8,7 @@ module UserLogin
   		name: Faker::Name.name,
   		is_active: true,
   		fields: [field],
-  		user_kind: UserKind.USER
+  		kind: :user
   	})
   	login
   end
@@ -21,7 +21,7 @@ module UserLogin
   		name: Faker::Name.name,
   		is_active: true,
   		fields: [field],
-  		user_kind: UserKind.USER
+  		kind: :user
   	})
   	login
   end
@@ -38,7 +38,7 @@ module UserLogin
   		login: 'admin',
   		name: 'root',
   		password: '1234',
-  		user_kind: UserKind.ADMIN
+  		kind: :admin
   	})
   	login
   end
