@@ -9,7 +9,7 @@ RSpec.feature "User::Suggestions::Completes", type: :feature do
       Rails.application.load_seed
       biomol_user_do_login
       user = User.all.last
-      @admin = User.where(user_kind: UserKind.ADMIN).last
+      @admin = User.where(kind: :admin).last
       @suggestion = create(:suggestion, requester: user)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       @suggestion.change_status :evaluating, @admin
@@ -63,7 +63,6 @@ RSpec.feature "User::Suggestions::Completes", type: :feature do
 
       end
     end
-
 
   end
 

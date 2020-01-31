@@ -26,7 +26,7 @@ module InstanceVariableSetter
   end
 
   def set_users
-    @users = User.where(user_kind: UserKind.USER).order(:login)
+    @users = User.where(kind: :user).order(:login)
   end
 
 end
