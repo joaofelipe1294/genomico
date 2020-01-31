@@ -105,10 +105,10 @@ class UsersController < ApplicationController
     def set_users
       user_kind_id = params[:kind]
       unless user_kind_id.present?
-        @users = User.all.joins(:user_kind).order("user_kinds.name ASC")
+        @users = User.all.order(:kind)
       else
-        @users = User.includes(:user_kind).where({ user_kind: UserKind.ADMIN }) if user_kind_id == 'admin'
-        @users = User.includes(:user_kind).where({ user_kind: UserKind.USER }) if user_kind_id == 'user'
+        @users = User.where(kind: :admin) if user_kind_id == 'admin'
+        @users = User.where(kind: :user) if user_kind_id == 'user'
       end
     end
 
