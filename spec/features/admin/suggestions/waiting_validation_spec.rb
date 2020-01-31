@@ -7,7 +7,7 @@ RSpec.feature "Admin::Suggestions::WaitingValidations", type: :feature do
 
     before :each do
       Rails.application.load_seed
-      create(:user, user_kind: UserKind.USER)
+      create(:user, kind: :user)
       @suggestion = create(:suggestion)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       admin_do_login
@@ -23,7 +23,7 @@ RSpec.feature "Admin::Suggestions::WaitingValidations", type: :feature do
     context "when there is in development suggestion" do
 
       before :each do
-        admin = User.where(user_kind: UserKind.ADMIN).first
+        admin = User.where(kind: :admin).first
         @suggestion.change_status :evaluating, admin
         expect(@suggestion.reload.suggestion_progresses.size).to match 2
         @suggestion.change_to_development admin, 5

@@ -18,7 +18,7 @@ RSpec.feature "Admin::Release::Indices", type: :feature do
       login: "azuka_langley",
       name: "azuka lagley",
       password: "02_unity",
-      user_kind: UserKind.USER
+      kind: :user
       })
     create(:release)
     create(:release, name: "BeTa", tag: "1.0.2")

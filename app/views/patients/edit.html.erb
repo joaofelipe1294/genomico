@@ -1,3 +1,12 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= render 'shared/card', locals: {title: 'Editar paciente', action: :edit, form: 'patients/form'} %>
+<div class="card mt-5 col-8 p-0 offset-2">
+  <div class="card-header">
+    <h4 class="text-center">
+      Editar paciente
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form' %>
+  </div>
+</div>

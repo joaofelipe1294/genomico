@@ -1,3 +1,12 @@
-<%= render 'shared/navbar' %>
+<%= render 'layouts/user_navbar' %>
 
-<%= render 'shared/card', locals: {title: 'Novo exame ofertado', form: 'offered_exams/form', action: :new} %>
+<div class="card col-8 offset-2 p-0 mt-5">
+  <div class="card-header bg-info">
+    <h4 class="text-center text-white">
+      Novo exame ofertado
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render "form" %>
+  </div>
+</div>

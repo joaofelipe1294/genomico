@@ -13,10 +13,6 @@ module InstanceVariableSetter
     @sample_kinds = SampleKind.all.order name: :asc
   end
 
-  def set_user_kinds
-    @user_kinds = UserKind.all.order name: :desc
-  end
-
   def set_hospitals
     @hospitals = Hospital.all.order :name
   end
@@ -30,7 +26,7 @@ module InstanceVariableSetter
   end
 
   def set_users
-    @users = User.where(user_kind: UserKind.USER).order(:login)
+    @users = User.where(kind: :user).order(:login)
   end
 
 end

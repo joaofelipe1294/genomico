@@ -1,12 +1,3 @@
-# puts 'Criando Tipos de usuário ...'
-
-UserKind.create([
-	{name: 'user'},
-	{name: 'admin'}
-])
-
-# puts 'Criando Tipos de usuário [OK]'
-
 ############################################################
 
 # puts 'Criando Admin para teste ...'
@@ -15,24 +6,12 @@ User.create({
 	login: 'admin',
 	password: '1234',
 	name: 'root',
-	user_kind: UserKind.find_by({name: 'admin'})
+	kind: :admin
 })
 
 # puts 'Criando Admin para teste [OK]'
 
 ############################################################
-
-# puts 'Criando Usuário para teste ...'
-
-User.create({
-	login: 'user',
-	password: '1234',
-	name: 'usuário_incial',
-	user_kind: UserKind.find_by({name: 'user'})
-})
-
-# puts 'Criando Usuário para teste [OK]'
-
 
 ############################################################
 

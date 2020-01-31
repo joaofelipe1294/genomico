@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_30_140552) do
+ActiveRecord::Schema.define(version: 2020_01_31_122009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -420,25 +420,16 @@ ActiveRecord::Schema.define(version: 2020_01_30_140552) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_kinds", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_user_kinds_on_id"
-    t.index ["name"], name: "index_user_kinds_on_name"
-  end
-
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "login"
     t.string "password_digest"
     t.string "name"
     t.boolean "is_active"
-    t.integer "user_kind_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_login_at"
+    t.integer "kind"
     t.index ["id"], name: "index_users_on_id"
-    t.index ["user_kind_id"], name: "index_users_on_user_kind_id"
   end
 
   create_table "work_maps", id: :serial, force: :cascade do |t|
@@ -490,5 +481,4 @@ ActiveRecord::Schema.define(version: 2020_01_30_140552) do
   add_foreign_key "suggestion_progresses", "suggestions"
   add_foreign_key "suggestion_progresses", "users", column: "responsible_id"
   add_foreign_key "suggestions", "users", column: "requester_id"
-  add_foreign_key "users", "user_kinds"
 end

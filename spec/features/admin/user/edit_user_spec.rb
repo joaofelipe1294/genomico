@@ -3,7 +3,7 @@ require 'rails_helper'
 def fill_in_fields
 	fill_in('user[name]', with: @user.name) if @user.name
 	fill_in('user[login]', with: @user.login) if @user.login
-	select(@user.user_kind.name, from: "user[user_kind_id]").select_option if @user.user_kind
+	select(@user.kind_name, from: "user[kind]").select_option if @user.kind
 	click_button(id: 'btn-save')
 end
 
@@ -14,11 +14,12 @@ RSpec.feature "Admin::EditUsers", type: :feature do
 
 		before :each do
 			Rails.application.load_seed
+			create(:user, kind: :user)
 			admin_do_login
 			click_link(id: 'user-dropdown')
 			click_link(id: 'users')
 			click_link(class: 'edit-user', match: :first)
-			@user = User.new({login: 'user_editado', name: 'nome_editado', user_kind: UserKind.USER})
+			@user = User.new({login: 'user_editado', name: 'nome_editado', kind: :user})
 		end
 
 		it 'edit user_name', js: false do
@@ -27,11 +28,11 @@ RSpec.feature "Admin::EditUsers", type: :feature do
 		end
 
 		it 'change user to admin', js: false do
-			@user.user_kind = UserKind.ADMIN
+			@user.kind = :admin
 			fill_in_fields
 			expect(page).to have_current_path(home_admin_index_path)
-			user_kind = User.find_by({login: @user.login}).user_kind
-			expect(user_kind.name).to eq('admin')
+			user = User.find_by({login: @user.login})
+			expect(user.kind).to match "admin"
 		end
 
 	end
@@ -40,11 +41,12 @@ RSpec.feature "Admin::EditUsers", type: :feature do
 
 		before :each do
 			Rails.application.load_seed
+			create(:user, kind: :user)
 			admin_do_login
 			click_link(id: 'user-dropdown')
 			click_link(id: 'users')
 			click_link(class: 'edit-user', match: :first)
-			@user = User.new({login: 'user_editado', name: 'nome_editado', user_kind: UserKind.USER})
+			@user = User.new({login: 'user_editado', name: 'nome_editado', kind: :user})
 		end
 
 		it 'without name', js: false do
@@ -66,7 +68,7 @@ RSpec.feature "Admin::EditUsers", type: :feature do
 				name: 'Some name',
 				login: 'jon.doe',
 				password: '123123123',
-				user_kind: UserKind.USER
+				kind: :user
 			})
 			@user = User.new({login: duplicated.login})
 			fill_in_fields

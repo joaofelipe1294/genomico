@@ -177,7 +177,7 @@ RSpec.describe StockEntry, type: :model do
       @stock_entry.product_amount = 1
       @stock_entry.save
       new_stock_product = create(:stock_product)
-      new_user = create(:user, user_kind: UserKind.USER)
+      new_user = create(:user, kind: :user)
       new_field = Field.all.sample
       @stock_entry.update({
         stock_product: new_stock_product,

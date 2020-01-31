@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include InstanceVariableSetter
   before_action :set_user, only: [:show, :edit, :update, :destroy, :change_password, :change_password_view]
   before_action :admin_filter
-  before_action :set_fields_and_user_kinds, only: [:new, :edit]
+  before_action :set_fields, only: [:new, :edit, :create, :update, :activate]
 
   # GET /users
   # GET /users.json
@@ -24,10 +24,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = 'Usuário cadastrado com sucesso.'
+      flash[:success] = I18n.t :new_user_success
       redirect_to home_admin_index_path
     else
-      set_fields_and_user_kinds
       render :new
     end
   end
@@ -36,10 +35,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update user_params
-      flash[:success] = 'Usuário editado com sucesso.'
+      flash[:success] = :edit_user_success
       redirect_to home_admin_index_path
     else
-      set_fields_and_user_kinds
       render :edit
     end
   end
@@ -96,26 +94,23 @@ class UsersController < ApplicationController
           :password,
           :password_confirmation,
           :name,
-          :user_kind_id,
+          :kind,
           :fields
         )
-      permited_params[:fields] = params[:user][:fields].map { |field_id| Field.find field_id.to_i } if params[:user][:fields]
+      fields = params[:user][:fields]
+      permited_params[:fields] = fields.map { |field_id| Field.find field_id.to_i } if fields
       permited_params
     end
 
     def set_users
       user_kind_id = params[:kind]
       unless user_kind_id.present?
-        @users = User.all.joins(:user_kind).order("user_kinds.name ASC")
+        users = User.all
       else
-        @users = User.includes(:user_kind).where({ user_kind: UserKind.ADMIN }) if user_kind_id == 'admin'
-        @users = User.includes(:user_kind).where({ user_kind: UserKind.USER }) if user_kind_id == 'user'
+        users = User.where(kind: :admin) if user_kind_id == 'admin'
+        users = User.where(kind: :user) if user_kind_id == 'user'
       end
-    end
-
-    def set_fields_and_user_kinds
-      set_fields
-      set_user_kinds
+      @users = users.order(:name)
     end
 
 end

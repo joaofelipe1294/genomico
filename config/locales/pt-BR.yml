@@ -1,4 +1,9 @@
 "pt-BR":
+  enums:
+    user:
+      kinds:
+        admin: Administrador
+        user: Usuário
   time:
     formats:
       default: '%d/%m/%y %H:%M'
@@ -28,16 +33,17 @@
       brand: Marca
       product: Produto
     attributes:
-      user_kind:
-        name: Nome
       user:
         login: Login
         password: Senha
         password_confirmation: Confirmação de senha
         name: Nome
         is_active: Ativo
-        user_kind: Tipo de usuário
+        kind: Tipo de usuário
         fields: Áreas
+        kinds:
+          user: Usuário
+          admin: Administrador
       field:
         name: Nome
       offered_exam:
@@ -264,3 +270,5 @@
   suggest_status_change_success: "Requisição alterada por sucesso."
   suggestion_change_to_development_success: "Requisição alterada para desenvolvimento."
   complete_suggestion_success: "Requisição concluída com sucesso."
+  new_user_success: "Usuário cadastrado com sucesso."
+  edit_user_success: "Usuário editado com sucesso."

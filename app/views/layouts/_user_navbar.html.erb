@@ -33,7 +33,7 @@
     <%= link_to 'Logout', home_logout_path,{method: :post, class: 'btn btn-sm btn-outline-light', id: 'logout-link'} %>
 </nav>
 
-<%= render 'shared/flash_feedback' %>
+<%= render 'layouts/flash_feedback' %>
 
 <% if @has_release_message %>
   <div class="alert alert-info" role="alert" style="overflow: auto;" id="release-message">
