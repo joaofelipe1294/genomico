@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include InstanceVariableSetter
   before_action :set_user, only: [:show, :edit, :update, :destroy, :change_password, :change_password_view]
   before_action :admin_filter
-  before_action :set_fields, only: [:new, :edit, :create]
+  before_action :set_fields, only: [:new, :edit, :create, :update]
 
   # GET /users
   # GET /users.json
@@ -38,7 +38,6 @@ class UsersController < ApplicationController
       flash[:success] = :edit_user_success
       redirect_to home_admin_index_path
     else
-      set_fields_and_user_kinds
       render :edit
     end
   end

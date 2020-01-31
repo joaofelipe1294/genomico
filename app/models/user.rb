@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def kind_name
+    I18n.t("enums.user.kinds.#{self.kind}")
+  end
+
   private
 
   def default_values
