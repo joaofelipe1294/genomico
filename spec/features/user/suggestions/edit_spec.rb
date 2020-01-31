@@ -33,7 +33,7 @@ RSpec.feature "User::Suggestion::Edits", type: :feature do
 
     before :each do
       @suggestion = create(:suggestion, requester: @user)
-      @other_user = create(:user, user_kind: UserKind.USER)
+      @other_user = create(:user, kind: :user)
       visit edit_suggestion_path(@suggestion)
     end
 

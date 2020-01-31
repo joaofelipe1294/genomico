@@ -7,7 +7,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
 
     before :each do
       Rails.application.load_seed
-      create(:user, user_kind: UserKind.USER)
+      create(:user, kind: :user)
       @suggestion = create(:suggestion)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       admin_do_login
@@ -26,7 +26,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
 
     it "is expected to generate progress with right user" do
       progress = @suggestion.reload.suggestion_progresses.last
-      admin = User.where(user_kind: UserKind.ADMIN).first
+      admin = User.where(kind: :admin).first
       expect(progress.responsible).to match admin
     end
 
@@ -43,8 +43,6 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
     it "is expected to redirect to suggestion in development" do
       expect(page).to have_current_path suggestions_index_admin_path(kind: :in_progress)
     end
-
-
 
   end
 

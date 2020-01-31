@@ -11,7 +11,7 @@ RSpec.feature "User::StockOut::News", type: :feature do
 
   before :each do
     Rails.application.load_seed
-    create(:user, user_kind: UserKind.USER)
+    create(:user, kind: :user)
     create(:brand)
     @stock_product = create(:stock_product)
     @product = build(:product, stock_product: @stock_product)

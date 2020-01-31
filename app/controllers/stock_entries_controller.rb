@@ -8,15 +8,6 @@ class StockEntriesController < ApplicationController
   # GET /stock_entries.json
   def index
     @stock_products = StockProduct.all.order(:name)
-    if params[:stock_product_id].present?
-      stock_entries = StockEntry
-                                .includes(:responsible, products: [:current_state, :brand, :stock_product => [:field]] )
-                                .where(stock_product_id: params[:stock_product_id])
-    else
-      stock_entries = StockEntry
-                                .includes(:responsible, products: [:current_state, :brand, :stock_product => [:field]])
-                                .all
-    end
     @stock_entries = stock_entries.page params[:page]
   end
 
@@ -110,7 +101,7 @@ class StockEntriesController < ApplicationController
       set_fields
       @units_of_measurement = UnitOfMeasurement.all.order(:name)
       @current_states = CurrentState.all.order(:name)
-      @users = User.where(user_kind: UserKind.USER).order(:login)
+      @users = User.where(kind: :user).order(:login)
       @brands = Brand.all.order(:name)
       @stock_product_relation = {
         0.to_s =>  StockProduct.where(field: nil).order(:name),
@@ -121,4 +112,16 @@ class StockEntriesController < ApplicationController
         Field.ANATOMY.id.to_s => StockProduct.where(field: Field.ANATOMY).order(:name),
       }
     end
+
+    def stock_entries
+      stock_product_id = params[:stock_product_id]
+      stock_entries = StockEntry.include_dependencies
+      if stock_product_id
+        stock_entries = stock_entries.where(stock_product_id: stock_product_id)
+      else
+        stock_entries = stock_entries.all
+      end
+      stock_entries
+    end
+
 end

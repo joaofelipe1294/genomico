@@ -1,4 +1,4 @@
-<% if current_user.user_kind == UserKind.ADMIN %>
+<% if current_user.admin? %>
   <%= render 'layouts/admin_navbar' %>
 <% else %>
   <%= render 'layouts/user_navbar' %>

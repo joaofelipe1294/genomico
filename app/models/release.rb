@@ -1,6 +1,6 @@
 class Release < ApplicationRecord
-  validates :name, :tag, :message, presence: true
-  validates :name, :tag, uniqueness: true
+  validates_presence_of :name, :tag, :message
+  validates_uniqueness_of :name, :tag
   before_validation :set_is_active
   has_many :release_checks
   after_create :add_release_checks
@@ -8,13 +8,11 @@ class Release < ApplicationRecord
   private
 
     def set_is_active
-      self.is_active = true if self.is_active.nil?
+      self.is_active = true unless self.is_active
     end
 
     def add_release_checks
-      users = User
-                  .where(user_kind: UserKind.USER)
-                  .where(is_active: true)
+      users = User.where(kind: :user).where(is_active: true)
       users.each do |user|
         ReleaseCheck.create({
           user: user,

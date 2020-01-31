@@ -39,7 +39,7 @@ RSpec.describe SuggestionProgress, type: :model do
   context "when changing status a suggestion" do
 
     before :each do
-      @second_user = create(:user, user_kind: UserKind.ADMIN)
+      @second_user = create(:user, kind: :admin)
       @suggestion = create(:suggestion)
       @suggestion.change_status :evaluating, @second_user
       @suggestion_progress = @suggestion.reload.suggestion_progresses.order(:created_at).last
