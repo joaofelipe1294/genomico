@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
   after_initialize :default_values
   has_and_belongs_to_many :fields
   has_many :release_checks
+  enum kind: {
+    user: 1,
+    admin: 2
+  }
 
   def field
     self.fields.first
