@@ -6,7 +6,7 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
 
   before :each do
     Rails.application.load_seed
-    create(:user, user_kind: UserKind.USER)
+    create(:user, kind: :user)
     create(:brand)
     create(:brand)
     stock_product = create(:stock_product, field: Field.IMUNOFENO)
@@ -35,7 +35,7 @@ RSpec.feature "User::StockEntry::Edits", type: :feature, js: true do
     after(:each) { success_check stock_entries_path, :edit_stock_entry_success }
 
     it "change responsible" do
-      select(User.where(user_kind: UserKind.USER).sample.login, from: "stock_entry[responsible_id]").select_option
+      select(User.where(kind: :user).sample.login, from: "stock_entry[responsible_id]").select_option
     end
 
     it "change entry date" do

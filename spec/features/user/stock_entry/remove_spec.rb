@@ -48,7 +48,6 @@ RSpec.feature "User::Workflow::StockEntry::Removes", type: :feature do
 
     end
 
-
   end
 
   describe "when removing a product from a stock_entry" do

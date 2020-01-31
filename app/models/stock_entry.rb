@@ -27,6 +27,10 @@ class StockEntry < ApplicationRecord
     self.products.where(current_state: CurrentState.IN_USE).empty?
   end
 
+  def self.include_dependencies
+    self.includes(:responsible, products: [:current_state, :brand, stock_product: [:field]] )
+  end
+
   private
 
     def convert_has_product_in_object
