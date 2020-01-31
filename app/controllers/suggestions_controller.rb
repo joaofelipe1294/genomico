@@ -42,7 +42,7 @@ class SuggestionsController < ApplicationController
     if @suggestion.change_status params[:new_status], current_user
       flash[:success] = I18n.t :suggest_status_change_success
     end
-    if current_user.user_kind == UserKind.USER
+    if current_user.user?
       redirect_to suggestions_path
     else
       redirect_to suggestions_index_admin_path
