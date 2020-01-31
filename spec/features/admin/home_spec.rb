@@ -1,5 +1,4 @@
 require 'rails_helper'
-# require 'helpers/admin'
 
 RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 	include UserLogin

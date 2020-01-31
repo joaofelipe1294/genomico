@@ -14,6 +14,15 @@ class User < ActiveRecord::Base
     self.fields.first
   end
 
+  def self.kinds_for_select
+    kinds.map do |kind, _|
+      [
+        I18n.t("activerecord.attributes.#{model_name.i18n_key}.kinds.#{kind}"),
+        kind
+      ]
+    end
+  end
+
   private
 
   def default_values
