@@ -41,8 +41,6 @@ RSpec.describe User, type: :model do
 			expect(duplicated).to be_invalid
 		end
 
-		it { should belong_to(:user_kind) }
-
 	end
 
 	context 'properties validations' do
