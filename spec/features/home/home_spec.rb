@@ -38,7 +38,7 @@ RSpec.feature "Home_page", type: :feature, js: false do
 		end
 
 		it 'login with inactive user' do
-			user = create(:user, user_kind: UserKind.USER, is_active: false)
+			user = create(:user, kind: :user, is_active: false)
 			fill_in 'login', with: user.login
 			fill_in 'password', with: user.password
 			click_button 'btn-login'
@@ -72,7 +72,7 @@ RSpec.feature "Home_page", type: :feature, js: false do
 					name: 'Azuka Langley',
 					login: 'azuka',
 					password: 'NERV',
-					user_kind: UserKind.ADMIN
+					kind: :admin
 					})
 				end
 	end

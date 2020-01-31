@@ -1,3 +1,12 @@
 <%= render 'layouts/admin_navbar' %>
 
-<%= render 'shared/card', locals: {form: 'users/form', action: :edit, title: 'Editar usuário'} %>
+<div class="card offset-2 col-8 mt-5 p-0">
+  <div class="card-header">
+    <h4 class="text-center">
+      Editar usuário
+    </h4>
+  </div>
+  <div class="card-body">
+    <%= render 'form' %>
+  </div>
+</div>
