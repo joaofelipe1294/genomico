@@ -4,7 +4,7 @@ RSpec.describe Suggestion, type: :model do
 
   before :each do
     Rails.application.load_seed
-    create(:user, user_kind: UserKind.USER)
+    create(:user, kind: :user)
   end
 
   context "suggestion is invalid when" do
