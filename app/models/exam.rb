@@ -54,6 +54,10 @@ class Exam < ActiveRecord::Base
     self.where(exam_status_kind: ExamStatusKind.COMPLETE)
   end
 
+  def self.waiting_start
+    self.where(exam_status_kind: ExamStatusKind.WAITING_START)
+  end
+
   private
 
     def default_values

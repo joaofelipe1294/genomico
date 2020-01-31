@@ -8,6 +8,12 @@ class OfferedExam < ActiveRecord::Base
   paginates_per 10
   validates_with MnemonycUniquenessCheck
 
+  def self.from_field field
+    self
+        .where(field: field)
+        .where(is_active: true)
+  end
+
   def show_name
     return self.mnemonyc if self.mnemonyc != "" && self.mnemonyc
     self.name
