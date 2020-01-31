@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature "Home_page", type: :feature, js: false do
+	include UserLogin
+
 
 	before :each do
 		visit root_path
@@ -26,18 +28,12 @@ RSpec.feature "Home_page", type: :feature, js: false do
 		end
 
 		it 'login with correct user credentials ADMIN' do
-			admin = create(:user, user_kind: UserKind.ADMIN)
-			fill_in 'login', with: admin.login
-			fill_in 'password', with: admin.password
-			click_button 'btn-login'
+			admin_do_login
 			expect(page).to have_current_path home_admin_index_path
 		end
 
 		it 'login with correct USER credential' do
-			user = create(:user, user_kind: UserKind.USER)
-			fill_in 'login', with: user.login
-			fill_in 'password', with: user.password
-			click_button 'btn-login'
+			biomol_user_do_login
 			expect(page).to have_current_path home_user_index_path
 		end
 
@@ -68,13 +64,8 @@ RSpec.feature "Home_page", type: :feature, js: false do
 		end
 
 		it "check if last_login_at is updated USER" do
-			@user = User.create({
-				name: 'Azuka Langley',
-				login: 'azuka',
-				password: 'NERV',
-				user_kind: UserKind.USER
-				})
-			end
+			imunofeno_user_do_login
+		end
 
 			it "check if last_login_at is updated, ADMIN" do
 				@user = User.create({
