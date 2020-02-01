@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_01_143457) do
+ActiveRecord::Schema.define(version: 2020_02_01_191208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,12 +194,6 @@ ActiveRecord::Schema.define(version: 2020_02_01_143457) do
     t.index ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id"
   end
 
-  create_table "offered_exam_groups", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "offered_exams", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "field_id"
@@ -207,11 +201,10 @@ ActiveRecord::Schema.define(version: 2020_02_01_143457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "refference_date"
-    t.bigint "offered_exam_group_id"
     t.string "mnemonyc"
+    t.integer "group"
     t.index ["field_id"], name: "index_offered_exams_on_field_id"
     t.index ["id"], name: "index_offered_exams_on_id"
-    t.index ["offered_exam_group_id"], name: "index_offered_exams_on_offered_exam_group_id"
   end
 
   create_table "patients", id: :serial, force: :cascade do |t|
@@ -439,7 +432,6 @@ ActiveRecord::Schema.define(version: 2020_02_01_143457) do
   add_foreign_key "internal_codes", "samples"
   add_foreign_key "nanodrop_reports", "subsamples"
   add_foreign_key "offered_exams", "fields"
-  add_foreign_key "offered_exams", "offered_exam_groups"
   add_foreign_key "patients", "hospitals"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "current_states"
