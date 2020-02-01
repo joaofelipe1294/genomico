@@ -133,16 +133,6 @@ SampleKind.create([
 	{name: 'Bloco de parafina.', acronym: 'BP', refference_index: 0},
 ])
 
-# puts "Criando Sample_Kinds [OK]"
-
-OfferedExamGroup.create([
-	{ name: "Imunofenotipagem" },
-	{ name: "FISH" },
-	{ name: "NGS" },
-	{ name: "PCR e qPCR"},
-	{ name: "Sequenciamento"}
-])
-
 #############################################################
 
 # puts "Cirando OfferedExams ..."
