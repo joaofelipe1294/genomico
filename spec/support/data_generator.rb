@@ -37,7 +37,7 @@ module DataGenerator
       desease_stage: DeseaseStage.DRM,
       lis_code: Faker::Number.number(digits: 10).to_s,
       start_date: Date.today,
-      attendance_status_kind: AttendanceStatusKind.IN_PROGRESS,
+      status: :progress,
       doctor_name: Faker::Name.name,
       doctor_crm: Faker::Number.number(digits: 6).to_s,
       observations: Faker::Lorem.sentence,
