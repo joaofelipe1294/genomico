@@ -34,11 +34,15 @@ class Attendance < ActiveRecord::Base
   end
 
   def all_exams_are_complete?
-    self.exams.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED]).empty?
+    self.exams.progress.empty?
   end
 
   def has_pendent_reports?
-    self.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).empty?
+    exams = self.exams
+    pendent_report_exams_count = exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
+    in_progress_exams = exams.progress.size
+    return pendent_report_exams_count == in_progress_exams if in_progress_exams > 0
+    false
   end
 
   def status_name

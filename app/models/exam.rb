@@ -58,6 +58,10 @@ class Exam < ActiveRecord::Base
     self.where(exam_status_kind: ExamStatusKind.WAITING_START)
   end
 
+  def self.progress
+    self.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED])
+  end
+
   private
 
     def default_values
