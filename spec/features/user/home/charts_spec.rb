@@ -10,7 +10,7 @@ def setup_attendance_with_no_exams
     desease_stage: DeseaseStage.DRM,
     lis_code: Faker::Number.number,
     patient: patient,
-    attendance_status_kind: AttendanceStatusKind.IN_PROGRESS,
+    status: :progress,
     samples: [sample]
   })
 end
@@ -218,8 +218,8 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
     it "filter issues" do
       exams = [
-        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).order(id: :asc).first),
-        Exam.new(offered_exam: OfferedExam.where(field: Field.IMUNOFENO).order(id: :asc).last)
+        Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO)),
+        Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO))
       ]
       attendance = create(:attendance, exams: exams)
       visit current_path
