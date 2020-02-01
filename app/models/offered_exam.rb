@@ -1,12 +1,18 @@
 class OfferedExam < ActiveRecord::Base
   belongs_to :field
-  belongs_to :offered_exam_group
   has_many :exams
-  validates :name, uniqueness: true
-  validates :name, :field, :refference_date, presence: true
+  validates_uniqueness_of :name, uniqueness: true
+  validates_presence_of :name, :field, :refference_date, :group
   after_initialize :default_params
   paginates_per 10
   validates_with MnemonycUniquenessCheck
+  enum group: {
+    imunofeno: 1,
+    fish: 2,
+    ngs: 3,
+    pcr: 4,
+    sequencing: 5
+  }
 
   def self.from_field field
     self
