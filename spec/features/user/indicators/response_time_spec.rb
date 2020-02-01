@@ -14,27 +14,27 @@ RSpec.feature "User::Indicators::ResponseTimes", type: :feature do
 
     it "pcr" do
       click_link id: "pcr"
-      expect(page).to have_current_path response_time_path(OfferedExamGroup.PCR.id)
+      expect(page).to have_current_path response_time_path(:pcr)
     end
 
     it "sequencing" do
       click_link id: "sequencing"
-      expect(page).to have_current_path response_time_path(OfferedExamGroup.SEQUENCING.id)
+      expect(page).to have_current_path response_time_path(:sequencing)
     end
 
     it "ngs" do
       click_link id: "ngs"
-      expect(page).to have_current_path response_time_path(OfferedExamGroup.NGS.id)
+      expect(page).to have_current_path response_time_path(:ngs)
     end
 
     it "FISH" do
       click_link id: "fish"
-      expect(page).to have_current_path response_time_path(OfferedExamGroup.FISH.id)
+      expect(page).to have_current_path response_time_path(:fish)
     end
 
     it "Imunofeno" do
       click_link id: "imunofeno"
-      expect(page).to have_current_path response_time_path(OfferedExamGroup.IMUNOFENO.id)
+      expect(page).to have_current_path response_time_path(:imunofeno)
     end
 
   end

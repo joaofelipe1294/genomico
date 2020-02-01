@@ -14,7 +14,14 @@
         drm: DRM
         subpop: Subpopulação
         subpop_ret: Subpopulação RET
-        immune_profile: Perfil imune 
+        immune_profile: Perfil imune
+    offered_exam:
+      groups:
+        imunofeno: Imunofenotipagem
+        fish: FISH
+        ngs: NGS
+        pcr: PCR e qPCR
+        sequencing: Sequenciamento
   time:
     formats:
       default: '%d/%m/%y %H:%M'

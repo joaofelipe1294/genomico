@@ -37,6 +37,11 @@
     <%= f.text_field :mnemonyc, class: "form-control"%>
   </div>
 
+  <div class="form-group">
+    <%= f.label :group %>
+    <%= f.select :group, options_for_select(OfferedExam.groups_for_select, selected: @offered_exam.group), {}, class: "form-control" %>
+  </div>
+
   <button id="btn-save" class="btn btn-outline-primary float-right" >
     Salvar
   </button>
