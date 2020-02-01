@@ -60,7 +60,7 @@ class AttendancesController < ApplicationController
   def workflow
     @attendance = Attendance.includes(:exams, :samples).find params[:id]
     @tab = params[:tab]
-    helpers.check_attendance_status @attendance
+    check_attendance_status
   end
 
   #GET /patient/:id/attendances
@@ -112,6 +112,20 @@ class AttendancesController < ApplicationController
       parameters = parse_list :exams, Exam, parameters
       parameters = parse_list :samples, Sample, parameters
       parameters
+    end
+
+    def check_attendance_status
+      if @attendance.complete?
+        flash[:info] = "Atendimento encerrado em #{I18n.l @attendance.finish_date.to_date}."
+      elsif @attendance.all_exams_are_complete?
+        if @attendance.conclude
+          flash[:success] = I18n.t :complete_attendance_success
+        else
+          flash[:error] = I18n.t :server_error_message
+        end
+      elsif @attendance.has_pendent_reports?
+        flash[:info] = I18n.t :pending_reports_message
+      end
     end
 
 end

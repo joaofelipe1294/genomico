@@ -33,6 +33,14 @@ class Attendance < ActiveRecord::Base
     self.save
   end
 
+  def all_exams_are_complete?
+    self.exams.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED]).empty?
+  end
+
+  def has_pendent_reports?
+    self.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).empty?
+  end
+
   private
 
     def default_values
