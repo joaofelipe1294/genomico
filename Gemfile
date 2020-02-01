@@ -89,14 +89,8 @@ group :development, :test do
 end
 
 group :test do
-  # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing. http://databasecleaner.github.io
-  gem 'database_cleaner'
-  # gem 'selenium-webdriver'
-  # gem 'webdrivers', '~> 4.0'
-  # gem 'puma'
+  gem 'database_rewinder'
   gem 'listen'
-  # gem 'geckodriver-helper'
-  # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites
   gem 'simplecov', require: false
 end
 
