@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ExamStatusKind, type: :model do
 
+	before(:each) { Rails.application.load_seed }
+
 	context 'Validations' do
 
 		it 'Correct' do
@@ -32,10 +34,6 @@ RSpec.describe ExamStatusKind, type: :model do
 	end
 
 	context "constants" do
-
-		before :all do
-			Rails.application.load_seed
-		end
 
 		it "waiting_start" do
 			expect(ExamStatusKind.WAITING_START).to eq ExamStatusKind.find_by name: 'Aguardando início'

@@ -5,7 +5,7 @@ RSpec.feature "User::Exam::News", type: :feature do
 
   context "navigations" do
 
-    before :all do
+    before :each do
       Rails.application.load_seed
       create(:attendance)
     end

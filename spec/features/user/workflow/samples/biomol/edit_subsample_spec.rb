@@ -4,8 +4,9 @@ RSpec.feature "User::Workflow::Samples::Biomol::EditSubsamples", type: :feature 
   include AttendanceHelper
   include UserLogin
 
+  before(:each) { Rails.application.load_seed }
+
   it "edit-subsample count" do
-    Rails.application.load_seed
     attendance = create_raw_biomol_attendance
     biomol_user_do_login
     visit workflow_path(attendance, tab: 'samples')
@@ -14,7 +15,6 @@ RSpec.feature "User::Workflow::Samples::Biomol::EditSubsamples", type: :feature 
   end
 
   it "should not sidplay in complete attendance" do
-    Rails.application.load_seed
     attendance = create_complete_biomol_attendance
     biomol_user_do_login
     visit workflow_path(attendance, tab: 'samples')

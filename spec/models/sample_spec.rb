@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Sample, type: :model do
 
+	before :each do
+		Rails.application.load_seed
+	end
+
 	context 'Validations' do
 
 		it 'Complete' do

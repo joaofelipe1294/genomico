@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Exam, type: :model do
 
-	context 'Validations' do
+	before :each do
+		Rails.application.load_seed
+	end
 
-		before :all do
-			Rails.application.load_seed
-		end
+	context 'Validations' do
 
 		it 'without attendance' do
 			exam = build(:exam)
@@ -58,7 +58,7 @@ RSpec.describe Exam, type: :model do
 	context "before update method " do
 
 		before :each do
-			Rails.application.load_seed
+			# Rails.application.load_seed
 			@sample = build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD)
 			@exam = build(:exam, offered_exam: OfferedExam.where(is_active: true).where(field: Field.BIOMOL).first)
 			@attendance = create(:attendance, exams: [@exam], samples: [@sample])
@@ -125,7 +125,7 @@ RSpec.describe Exam, type: :model do
 			exam.verify_if_was_late
 			expect(exam.was_late).to eq true
 		end
-	
+
 	end
 
 end
