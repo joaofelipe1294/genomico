@@ -6,7 +6,7 @@
 
 <div class="form-group">
   <%= f.label :desease_stage %>
-  <%= f.select :desease_stage_id, options_from_collection_for_select(@desease_stages, "id", "name"), {}, {class: 'form-control'} %>
+  <%= f.select :desease_stage, options_for_select(Attendance.desease_stages_for_select), {}, {class: 'form-control'} %>
 </div>
 
 <div class="form-group">

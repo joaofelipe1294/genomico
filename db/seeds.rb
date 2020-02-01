@@ -103,19 +103,6 @@ HealthEnsurance.create({name: 'HOSPITAL PEQUENO PRINCIPE'})
 
 # puts 'Criando HealthEnsurances [OK]'
 
-############################################################
-
-# puts 'Criando DeseaseStage ...'
-
-DeseaseStage.create({name: 'Diagnóstico'})
-DeseaseStage.create({name: 'Recaída'})
-DeseaseStage.create({name: 'DRM'})
-DeseaseStage.create({name: "Subpopulação"})
-DeseaseStage.create({name: "Subpopulação com RET"})
-DeseaseStage.create({name: "Perfil Imune"})
-
-# puts 'Criando DeseaseStage [OK]'
-
 #############################################################
 
 # puts 'Criando ExamStatusKind ...'

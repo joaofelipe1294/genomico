@@ -34,7 +34,7 @@ module DataGenerator
     ]
     @attendance = Attendance.create({
       patient: create(:patient),
-      desease_stage: DeseaseStage.DRM,
+      desease_stage: :drm,
       lis_code: Faker::Number.number(digits: 10).to_s,
       start_date: Date.today,
       status: :progress,

@@ -7,7 +7,7 @@ def setup_attendance_with_no_exams
      collection_date: Date.today
   })
   @attendance = Attendance.new({
-    desease_stage: DeseaseStage.DRM,
+    desease_stage: :drm,
     lis_code: Faker::Number.number,
     patient: patient,
     status: :progress,

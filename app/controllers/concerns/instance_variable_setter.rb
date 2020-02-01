@@ -29,4 +29,8 @@ module InstanceVariableSetter
     @users = User.where(kind: :user).order(:login)
   end
 
+  def set_health_ensurances
+    @health_ensurances = HealthEnsurance.all.order :name
+  end
+
 end
