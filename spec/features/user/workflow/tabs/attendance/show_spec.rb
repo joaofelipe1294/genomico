@@ -12,7 +12,7 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Shows", type: :feature do
     expect(attendance.patient.name). to eq find(id: "attendance_patient").value
     expect(I18n.l(attendance.start_date.to_date)).to eq find(id: "attendance_start_date").value
     expect(attendance.status_name).to eq find(id: "attendance_status").value
-    expect(attendance.desease_stage.id.to_s).to eq find(id: 'attendance_desease_stage_id').value
+    expect(attendance.desease_stage.to_s).to eq find(id: 'attendance_desease_stage').value
     expect(attendance.cid_code).to eq find(id: "attendance_cid_code").value
     expect(attendance.lis_code).to eq find(id: "attendance_lis_code").value
     expect(attendance.health_ensurance_id.to_s).to eq find(id: "attendance_health_ensurance_id").value

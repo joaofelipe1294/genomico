@@ -1,8 +1,9 @@
 class AttendancesController < ApplicationController
   include JsonParser
+  include InstanceVariableSetter
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
-  before_action :set_desease_stages_and_health_ensurances, only: [:workflow, :new]
+  before_action :set_health_ensurances, only: [:workflow, :new]
 
   # GET /attendances/1
   # GET /attendances/1.json
@@ -37,7 +38,7 @@ class AttendancesController < ApplicationController
       flash[:success] = 'Atendimento cadastrado com sucesso.'
       redirect_to workflow_path(@attendance, {tab: 'samples'})
     else
-      set_desease_stages_and_health_ensurances
+      set_health_ensurances
       set_dependencies
       render :new
     end
@@ -50,7 +51,7 @@ class AttendancesController < ApplicationController
         flash[:success] = I18n.t :attendance_update_success
         redirect_to workflow_path(@attendance, {tab: params[:tab]})
       else
-        set_desease_stages_and_health_ensurances
+        set_health_ensurances
         flash[:warning] = @attendance.errors.full_messages.first
         redirect_to workflow_path(@attendance, {tab: params[:tab]})
       end
@@ -77,7 +78,7 @@ class AttendancesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def attendance_params
       filtered_params = params.require(:attendance).permit(
-        :desease_stage_id,
+        :desease_stage,
         :cid_code,
         :lis_code,
         :start_date,
@@ -95,11 +96,6 @@ class AttendancesController < ApplicationController
         exams_attributes: [:offered_exam_id],
       )
       treat_params filtered_params
-    end
-
-    def set_desease_stages_and_health_ensurances
-      @desease_stages = DeseaseStage.all.order :name
-      @health_ensurances = HealthEnsurance.all.order :name
     end
 
     def set_dependencies

@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_31_195323) do
+ActiveRecord::Schema.define(version: 2020_02_01_143457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendances", id: :serial, force: :cascade do |t|
-    t.integer "desease_stage_id"
     t.string "cid_code"
     t.string "lis_code"
     t.datetime "start_date"
@@ -33,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_195323) do
     t.integer "report_file_size"
     t.datetime "report_updated_at"
     t.integer "status"
-    t.index ["desease_stage_id"], name: "index_attendances_on_desease_stage_id"
+    t.integer "desease_stage"
     t.index ["health_ensurance_id"], name: "index_attendances_on_health_ensurance_id"
     t.index ["id"], name: "index_attendances_on_id"
     t.index ["patient_id"], name: "index_attendances_on_patient_id"
@@ -70,13 +69,6 @@ ActiveRecord::Schema.define(version: 2020_01_31_195323) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "desease_stages", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_desease_stages_on_id"
   end
 
   create_table "exam_status_changes", id: :serial, force: :cascade do |t|
@@ -435,7 +427,6 @@ ActiveRecord::Schema.define(version: 2020_01_31_195323) do
     t.index ["id"], name: "index_work_maps_on_id"
   end
 
-  add_foreign_key "attendances", "desease_stages"
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"
   add_foreign_key "exam_status_changes", "exam_status_kinds"
