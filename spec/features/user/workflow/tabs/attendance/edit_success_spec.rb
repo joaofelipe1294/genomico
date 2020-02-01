@@ -17,10 +17,10 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Edits", type: :feature do
   end
 
   it "change desease_stage" do
-    distinct_desease_stage = DeseaseStage.where.not(id: @attendance.desease_stage_id).sample
-    select(distinct_desease_stage.name, from: "attendance[desease_stage_id]").select_option
+    distinct_desease_stage = "DRM"
+    select(distinct_desease_stage, from: "attendance[desease_stage]").select_option
     click_button id: "btn-save"
-    expect(@attendance.reload.desease_stage).to eq distinct_desease_stage
+    expect(@attendance.reload.desease_stage).to eq :drm.to_s
   end
 
   it "change cid_code" do
