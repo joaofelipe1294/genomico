@@ -5,5 +5,6 @@ FactoryBot.define do
   	is_active { true }
     refference_date { Faker::Number.number(digits: 2) }
     mnemonyc { "" }
+    group { :ngs }
   end
 end
