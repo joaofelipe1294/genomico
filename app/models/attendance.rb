@@ -20,6 +20,14 @@ class Attendance < ActiveRecord::Base
     progress: 1,
     complete: 2
   }
+  enum desease_stage:  {
+    diagnosis: 1,
+    relapse: 2,
+    drm: 3,
+    subpop: 4,
+    subpop_rem: 5,
+    immmune_profile: 6
+  }
 
   def conclude
     self.finish_date = Date.today
