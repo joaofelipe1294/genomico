@@ -27,25 +27,9 @@
 		<% @attendances.each do |attendance| %>
 			<tr>
 				<td><%= attendance.lis_code %></td>
-				<td>
-					<% if attendance.attendance_status_kind == AttendanceStatusKind.find_by(name: 'Em andamento') %>
-						<label class = "text-secondary">
-							<%= attendance.attendance_status_kind.name %>
-						</label>
-					<% else %>
-						<label class = "text-success">
-							<%= attendance.attendance_status_kind.name %>
-						</label>
-					<% end %>
-				</td>
-				<td><%= attendance.start_date.strftime("%d/%m/%Y") %></td>
-				<td>
-					<% if attendance.finish_date.nil? %>
-						-
-					<% else %>
-						<%= attendance.finish_date.strftime("%d/%m/%Y") %>
-					<% end %>
-				</td>
+				<td><%= show_attendance_status attendance %></td>
+				<td><%= l attendance.start_date.to_date %></td>
+				<td><%= show_attendance_finish_date attendance %></td>
 				<td>
 					<%= attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
 				</td>

@@ -41,6 +41,10 @@ class Attendance < ActiveRecord::Base
     self.exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).empty?
   end
 
+  def status_name
+    I18n.t("enums.attendance.statuses.#{self.status}")
+  end
+
   private
 
     def default_values

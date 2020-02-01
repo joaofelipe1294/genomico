@@ -4,6 +4,10 @@
       kinds:
         admin: Administrador
         user: Usuário
+    attendance:
+      statuses:
+        progress: Em andamento
+        complete: Concluído
   time:
     formats:
       default: '%d/%m/%y %H:%M'
