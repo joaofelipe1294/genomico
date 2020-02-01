@@ -24,7 +24,7 @@ RSpec.feature "User::Workflow::Samples::News", type: :feature do
     attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
     click_button id: "btn-save"
     visit workflow_path(attendance, tab: 'samples')
-    expect(attendance.reload.attendance_status_kind).to eq AttendanceStatusKind.COMPLETE
+    expect(attendance.reload.status).to eq :complete.to_s
     expect(page).not_to have_selector("#new-sample")
   end
 

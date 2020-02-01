@@ -23,12 +23,12 @@ class Attendance < ActiveRecord::Base
 
   def conclude
     self.finish_date = Date.today
-    self.attendance_status_kind = AttendanceStatusKind.COMPLETE
+    self.status = :complete
     self.save
   end
 
   def reopen
-    self.attendance_status_kind = AttendanceStatusKind.IN_PROGRESS
+    self.status = :progress
     self.finish_date = nil
     self.save
   end

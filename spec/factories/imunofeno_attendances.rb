@@ -5,7 +5,7 @@ FactoryBot.define do
   	lis_code { Faker::Number.number(digits: 8).to_s }
   	start_date { Date.current }
   	patient { Patient.all.last }
-  	attendance_status_kind { AttendanceStatusKind.IN_PROGRESS }
+  	status { :progress }
   	doctor_name { "Some doctor" }
   	doctor_crm { "871623" }
   	observations { Faker::Lorem.sentence }

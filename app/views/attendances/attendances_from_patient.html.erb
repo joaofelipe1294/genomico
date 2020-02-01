@@ -27,7 +27,7 @@
 		<% @attendances.each do |attendance| %>
 			<tr>
 				<td><%= attendance.lis_code %></td>
-				<td><%= show_attendance_status attendance %></td>
+				<td><%= span condition: attendance.complete?, text: attendance.status_name %></td>
 				<td><%= l attendance.start_date.to_date %></td>
 				<td><%= show_attendance_finish_date attendance %></td>
 				<td>

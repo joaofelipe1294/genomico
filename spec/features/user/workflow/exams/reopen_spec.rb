@@ -15,7 +15,7 @@ RSpec.feature "User::Workflow::Exams::Reopens", type: :feature do
     click_button id: "btn-save"
     page.driver.browser.accept_confirm
     click_link class: "reopen-exam", match: :first
-    expect(attendance.reload.attendance_status_kind).to eq AttendanceStatusKind.IN_PROGRESS
+    expect(attendance.reload.status).to eq :progress.to_s
     exam = attendance.exams.first.reload
     expect(exam.exam_status_kind).to eq ExamStatusKind.IN_PROGRESS
   end
