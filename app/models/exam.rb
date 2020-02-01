@@ -28,7 +28,7 @@ class Exam < ActiveRecord::Base
     self.report = nil
     self.exam_status_kind = ExamStatusKind.IN_PROGRESS
     attendance = self.attendance
-    attendance.reopen if attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE
+    attendance.reopen if attendance.complete?
     self.change_status user_id
   end
 
@@ -56,6 +56,10 @@ class Exam < ActiveRecord::Base
 
   def self.waiting_start
     self.where(exam_status_kind: ExamStatusKind.WAITING_START)
+  end
+
+  def self.progress
+    self.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED])
   end
 
   private

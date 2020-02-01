@@ -10,18 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_31_122009) do
+ActiveRecord::Schema.define(version: 2020_01_31_195323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "attendance_status_kinds", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_attendance_status_kinds_on_id"
-    t.index ["name"], name: "index_attendance_status_kinds_on_name"
-  end
 
   create_table "attendances", id: :serial, force: :cascade do |t|
     t.integer "desease_stage_id"
@@ -30,7 +22,6 @@ ActiveRecord::Schema.define(version: 2020_01_31_122009) do
     t.datetime "start_date"
     t.datetime "finish_date"
     t.integer "patient_id"
-    t.integer "attendance_status_kind_id"
     t.string "doctor_name"
     t.string "doctor_crm"
     t.string "observations"
@@ -41,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_01_31_122009) do
     t.string "report_content_type"
     t.integer "report_file_size"
     t.datetime "report_updated_at"
-    t.index ["attendance_status_kind_id"], name: "index_attendances_on_attendance_status_kind_id"
+    t.integer "status"
     t.index ["desease_stage_id"], name: "index_attendances_on_desease_stage_id"
     t.index ["health_ensurance_id"], name: "index_attendances_on_health_ensurance_id"
     t.index ["id"], name: "index_attendances_on_id"
@@ -444,7 +435,6 @@ ActiveRecord::Schema.define(version: 2020_01_31_122009) do
     t.index ["id"], name: "index_work_maps_on_id"
   end
 
-  add_foreign_key "attendances", "attendance_status_kinds"
   add_foreign_key "attendances", "desease_stages"
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"

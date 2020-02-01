@@ -18,14 +18,14 @@ RSpec.feature "User::Workflow::Exams::Completes", type: :feature do
   end
 
   it "complete exam without report", js: true do
-    expect(@attendance.reload.attendance_status_kind).to eq AttendanceStatusKind.IN_PROGRESS
+    expect(@attendance.reload.status).to eq :progress.to_s
   end
 
   it "complete exam with report", js: true do
     attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"
     click_button id: "btn-save"
     expect(find(id: "success-warning").text).to eq "Atendimento encerrado com sucesso."
-    expect(@attendance.reload.attendance_status_kind).to eq AttendanceStatusKind.COMPLETE
+    expect(@attendance.reload.status).to eq :complete.to_s
     expect(@exam.reload.exam_status_kind).to eq ExamStatusKind.COMPLETE
   end
 
