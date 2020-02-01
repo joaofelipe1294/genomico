@@ -62,6 +62,12 @@ class Attendance < ActiveRecord::Base
     I18n.t("enums.attendance.desease_stages.#{self.status}")
   end
 
+  def self.desease_stages_for_select
+    desease_stages.map do |desease_stage, _|
+      [ I18n.t("enums.attendance.desease_stages.#{desease_stage}"), desease_stage ]
+    end
+  end
+
   private
 
     def default_values
