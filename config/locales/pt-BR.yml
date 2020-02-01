@@ -8,6 +8,13 @@
       statuses:
         progress: Em andamento
         complete: Concluído
+      desease_stages:
+        diagnosis: Diagnóstico
+        relapse: Recaída
+        drm: DRM
+        subpop: Subpopulação
+        subpop_ret: Subpopulação RET
+        immmune_profile: Perfil imune 
   time:
     formats:
       default: '%d/%m/%y %H:%M'

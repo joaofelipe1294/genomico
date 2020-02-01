@@ -26,7 +26,7 @@ class Attendance < ActiveRecord::Base
     relapse: 2,
     drm: 3,
     subpop: 4,
-    subpop_rem: 5,
+    subpop_ret: 5,
     immmune_profile: 6
   }
 
@@ -56,6 +56,10 @@ class Attendance < ActiveRecord::Base
 
   def status_name
     I18n.t("enums.attendance.statuses.#{self.status}")
+  end
+
+  def desease_stage_name
+    I18n.t("enums.attendance.desease_stages.#{self.status}")
   end
 
   private
