@@ -1,5 +1,4 @@
 class Attendance < ActiveRecord::Base
-  belongs_to :desease_stage
   belongs_to :patient
   belongs_to :health_ensurance
   has_many :exams
@@ -16,10 +15,12 @@ class Attendance < ActiveRecord::Base
   paginates_per 10
   has_many :internal_codes
   after_create :update_cache
+
   enum status: {
     progress: 1,
     complete: 2
   }
+
   enum desease_stage:  {
     diagnosis: 1,
     relapse: 2,
