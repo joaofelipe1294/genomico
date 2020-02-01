@@ -11,7 +11,7 @@ module SubsamplesHelper
   private
 
     def add_edit_link subsample
-      if subsample.attendance.attendance_status_kind != AttendanceStatusKind.COMPLETE
+      if subsample.attendance.progress?
         link_to(
           'Editar',
           edit_subsample_path(subsample),

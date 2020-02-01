@@ -1,4 +1,4 @@
-<% unless @attendance.attendance_status_kind == AttendanceStatusKind.find_by({name: 'Concluído'}) %>
+<% unless @attendance.complete? %>
 	<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'new-sample'} %>
 <% end %>
 

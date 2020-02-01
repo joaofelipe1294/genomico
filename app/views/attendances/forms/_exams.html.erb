@@ -1,4 +1,4 @@
-<% unless @attendance.attendance_status_kind == AttendanceStatusKind.COMPLETE %>
+<% unless @attendance.complete? %>
 	<%= link_to "Novo exame", new_exam_path(@attendance), class: "btn btn-lg btn-outline-success float-right mb-2 mr-3", id: 'new-exam'  %>
 <% end %>
 

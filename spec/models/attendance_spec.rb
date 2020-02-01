@@ -61,11 +61,11 @@ RSpec.describe Attendance, type: :model do
 			expect(attendance).to be_invalid
 		end
 
-		it 'without attendance_status_kind' do
-			attendance = build(:attendance, attendance_status_kind: nil)
+		it 'without status' do
+			attendance = build(:attendance, status: nil)
 			attendance.save
 			expect(attendance).to be_valid
-			expect(attendance.attendance_status_kind).to eq(AttendanceStatusKind.IN_PROGRESS)
+			expect(attendance.status).to eq :progress.to_s
 		end
 
 		it 'without doctor_name' do
@@ -109,8 +109,6 @@ RSpec.describe Attendance, type: :model do
 	context 'Relations' do
 
 		it { should belong_to(:patient) }
-
-		it { should belong_to(:attendance_status_kind) }
 
 		it { should belong_to(:health_ensurance) }
 

@@ -11,7 +11,7 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Shows", type: :feature do
     visit workflow_path(attendance, {tab: 'attendance'})
     expect(attendance.patient.name). to eq find(id: "attendance_patient").value
     expect(I18n.l(attendance.start_date.to_date)).to eq find(id: "attendance_start_date").value
-    expect(attendance.attendance_status_kind.name).to eq find(id: "attendance_attendance_status_kind").value
+    expect(attendance.status_name).to eq find(id: "attendance_status").value
     expect(attendance.desease_stage.id.to_s).to eq find(id: 'attendance_desease_stage_id').value
     expect(attendance.cid_code).to eq find(id: "attendance_cid_code").value
     expect(attendance.lis_code).to eq find(id: "attendance_lis_code").value

@@ -6,7 +6,7 @@ FactoryBot.define do
   	start_date { Date.current }
   	finish_date { nil }
   	patient { create(:patient) }
-  	attendance_status_kind { AttendanceStatusKind.IN_PROGRESS }
+  	status { :progress }
   	doctor_name { Faker::Name.name }
   	doctor_crm { Faker::Number.number(digits: 5).to_s }
   	observations { Faker::Lorem.sentence }
