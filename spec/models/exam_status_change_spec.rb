@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ExamStatusChange, type: :model do
 
+	before(:each) { Rails.application.load_seed }
+
 	context 'Validations' do
 
 		it 'correct' do

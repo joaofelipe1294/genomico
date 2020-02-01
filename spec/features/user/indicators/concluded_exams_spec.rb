@@ -9,12 +9,12 @@ RSpec.feature "User::Indicators::ConcludedExams", type: :feature do
     click_link id: "concluded-exams"
   end
 
-  context "count display validation" do
+  before :each do
+    Rails.application.load_seed
+    imunofeno_user_do_login
+  end
 
-    before :each do
-      Rails.application.load_seed
-      imunofeno_user_do_login
-    end
+  context "count display validation" do
 
     it "with zero exams" do
       navigate_to
@@ -49,10 +49,6 @@ RSpec.feature "User::Indicators::ConcludedExams", type: :feature do
   end
 
   context "search by date" do
-
-    before :all do
-      Rails.application.load_seed
-    end
 
     before :each do
       imunofeno_user_do_login

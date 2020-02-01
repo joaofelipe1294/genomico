@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe InternalCode, type: :model do
 
-  before :all do
+  before :each do
     Rails.application.load_seed
   end
 
