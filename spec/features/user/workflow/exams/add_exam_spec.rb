@@ -10,7 +10,6 @@ RSpec.feature "User::Workflow::Exams::AddExams", type: :feature do
     imunofeno_user_do_login
     visit workflow_path(attendance, tab: 'exams')
     click_link id: "new-exam"
-    expect(page).to have_current_path new_exam_path(attendance.exams.last)
     click_button id: "btn-save"
     expect(page).to have_current_path workflow_path(attendance, tab: 'exams')
     expect(find_all(class: "exam").size).to eq 2
