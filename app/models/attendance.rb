@@ -1,4 +1,7 @@
+require './app/models/concerns/desease_stage'
+
 class Attendance < ActiveRecord::Base
+  include DeseaseStage
   belongs_to :patient
   belongs_to :health_ensurance
   has_many :exams
@@ -19,15 +22,6 @@ class Attendance < ActiveRecord::Base
   enum status: {
     progress: 1,
     complete: 2
-  }
-
-  enum desease_stage:  {
-    diagnosis: 1,
-    relapse: 2,
-    drm: 3,
-    subpop: 4,
-    subpop_ret: 5,
-    immmune_profile: 6
   }
 
   def conclude
@@ -56,16 +50,6 @@ class Attendance < ActiveRecord::Base
 
   def status_name
     I18n.t("enums.attendance.statuses.#{self.status}")
-  end
-
-  def desease_stage_name
-    I18n.t("enums.attendance.desease_stages.#{self.status}")
-  end
-
-  def self.desease_stages_for_select
-    desease_stages.map do |desease_stage, _|
-      [ I18n.t("enums.attendance.desease_stages.#{desease_stage}"), desease_stage ]
-    end
   end
 
   private
