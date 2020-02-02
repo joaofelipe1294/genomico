@@ -1,5 +1,4 @@
 class StockProduct < ApplicationRecord
-  # belongs_to :unit_of_measurement
   belongs_to :field
   validates :name, presence: true
   validates :name, uniqueness: true
