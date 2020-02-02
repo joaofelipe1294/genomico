@@ -292,17 +292,6 @@ SubsampleKind.create({name: 'DNA viral', acronym: 'CMV', refference_index: 1})
 
 Hospital.create({name: 'Hospital Pequeno Príncipe'})
 
-# puts 'Criando Hospitals [OK]'
-
-UnitOfMeasurement.create([
-	{ name: "Caixas"} ,
-	{ name: "Microlitros"} ,
-	{ name: "Unidades"} ,
-	{ name: "Kits"} ,
-	{ name: "Reações"} ,
-	{ name: "Extrações"} ,
-])
-
 
 CurrentState.create([
 	{name: "Estoque"},

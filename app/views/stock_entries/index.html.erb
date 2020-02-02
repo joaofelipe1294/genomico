@@ -43,7 +43,7 @@
         <td><%= stock_entry.first_product.stock_product.name %></td>
         <td><%= stock_entry.first_product.brand.name %></td>
         <td><%= stock_entry.products.size %></td>
-        <td><%= stock_entry.first_product.amount %> (<%= stock_entry.first_product.stock_product.unit_of_measurement.name %>)</td>
+        <td><%= stock_entry.first_product.amount %> (<%= stock_entry.first_product.stock_product.unit_of_measurement_name %>)</td>
         <td><%= l stock_entry.entry_date %></td>
         <td><%= stock_entry.responsible.login %></td>
         <td><%= display_field stock_entry.first_product.stock_product %></td>

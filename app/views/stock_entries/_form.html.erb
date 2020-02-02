@@ -10,7 +10,7 @@
   <% end %>
 
   <label id="units-of-measurement" hidden>
-    <%= @units_of_measurement.to_json %>
+    <%= StockProduct.unit_of_measurements_for_select.to_json %>
   </label>
 
   <label hidden id="stock-products-relation">
@@ -144,10 +144,10 @@
     })
     let unit_of_measurement = null
     units_of_measurement.forEach(unit => {
-      if (current_stock_product.unit_of_measurement_id == unit.id)
+      if (current_stock_product.unit_of_measurement == unit[1])
         unit_of_measurement = unit
     })
-    $("#unit-of-measurement").text(unit_of_measurement.name)
+    $("#unit-of-measurement").text(unit_of_measurement[0])
   }
 
   set_reagents()
