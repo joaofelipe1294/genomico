@@ -32,12 +32,12 @@ class StockProduct < ApplicationRecord
     list.sort
   end
 
-  def desease_stage_name
+  def unit_of_measurement_name
     I18n.t("enums.stock_product.units_of_measurement.#{self.unit_of_measurement}")
   end
 
   def self.products_base_report
-    StockProduct.includes(:unit_of_measurement).all.order(:name).select do |stock_product|
+    StockProduct.all.order(:name).select do |stock_product|
       stock_product
                   .products
                   .where("products.current_state_id = ? OR products.current_state_id = ?", CurrentState.STOCK.id, CurrentState.IN_USE.id)

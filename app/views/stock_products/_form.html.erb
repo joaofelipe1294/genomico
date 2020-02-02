@@ -34,12 +34,8 @@
   </div>
 
   <div class="field form-group">
-    <%= form.label :unit_of_measurement_id %>
-    <% if @stock_product.unit_of_measurement %>
-      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name", selected: @stock_product.unit_of_measurement.id), {}, class: "form-control" %>
-    <% else %>
-      <%= form.select :unit_of_measurement_id, options_from_collection_for_select(@unit_of_measurements, "id", "name"), {}, class: "form-control" %>
-    <% end %>
+    <%= form.label :unit_of_measurement %>
+    <%= form.select :unit_of_measurement, options_for_select(StockProduct.unit_of_measurements_for_select, selected: @stock_product.unit_of_measurement), {}, class: "form-control" %>  
   </div>
 
   <div class="field form-group">

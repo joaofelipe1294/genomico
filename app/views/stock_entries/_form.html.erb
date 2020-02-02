@@ -10,7 +10,7 @@
   <% end %>
 
   <label id="units-of-measurement" hidden>
-    <%= @units_of_measurement.to_json %>
+    <%= StockProduct.unit_of_measurements_for_select.to_json %>
   </label>
 
   <label hidden id="stock-products-relation">

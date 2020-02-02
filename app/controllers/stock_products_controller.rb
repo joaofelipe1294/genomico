@@ -2,8 +2,7 @@ class StockProductsController < ApplicationController
   before_action :set_stock_product, only: [:edit, :update]
   before_action :user_filter
   include InstanceVariableSetter
-  before_action :set_instance_variables, only: [:new, :edit]
-  before_action :set_fields, only: [:index]
+  before_action :set_fields, only: [:new, :edit, :create, :update, :index]
 
   # GET /stock_products
   # GET /stock_products.json
@@ -36,7 +35,6 @@ class StockProductsController < ApplicationController
       flash[:success] = I18n.t :new_stock_product_success
       redirect_to stock_products_path
     else
-      set_instance_variables
       render :new
     end
   end
@@ -48,7 +46,6 @@ class StockProductsController < ApplicationController
       flash[:success] = I18n.t :edit_stock_product_success
       redirect_to stock_products_path
     else
-      set_instance_variables
       render :edit
     end
   end
@@ -67,12 +64,7 @@ class StockProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_product_params
-      params.require(:stock_product).permit(:name, :total_aviable, :first_warn_at, :danger_warn_at, :mv_code, :unit_of_measurement_id, :field_id, :is_shared)
-    end
-
-    def set_instance_variables
-      set_fields
-      set_units_of_measurement
+      params.require(:stock_product).permit(:name, :total_aviable, :first_warn_at, :danger_warn_at, :mv_code, :unit_of_measurement, :field_id, :is_shared)
     end
 
     def search_by_stock_product
