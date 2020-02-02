@@ -23,21 +23,22 @@
         pcr: PCR e qPCR
         sequencing: Sequenciamento
     stock_product:
-      boxes: Caixas
-      microliters: Microlitros
-      unities: Uniades
-      kits: Kits
-      reactions: Reações
-      extractions: Extrações
-      tests: Testes
-      separations: Separações
-      mililiters: Mililitros
-      liters: Litros
-      gram: Gramas
-      miligram: Miligramas
-      pipe: Tubos
-      bottle: Frascos
-      package: Pacotes
+      units_of_measurement:
+        boxes: Caixas
+        microliters: Microlitros
+        unities: Uniades
+        kits: Kits
+        reactions: Reações
+        extractions: Extrações
+        tests: Testes
+        separations: Separações
+        mililiters: Mililitros
+        liters: Litros
+        gram: Gramas
+        miligram: Miligramas
+        pipe: Tubos
+        bottle: Frascos
+        package: Pacotes
   time:
     formats:
       default: '%d/%m/%y %H:%M'

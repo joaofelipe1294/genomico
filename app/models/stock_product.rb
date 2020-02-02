@@ -25,6 +25,17 @@ class StockProduct < ApplicationRecord
     package: 15
   }
 
+  def self.unit_of_measurements_for_select
+    list = unit_of_measurements.map do |unit_of_measurement, _|
+      [ I18n.t("enums.stock_product.units_of_measurement.#{unit_of_measurement}"), unit_of_measurement ]
+    end
+    list.sort
+  end
+
+  def desease_stage_name
+    I18n.t("enums.stock_product.units_of_measurement.#{self.unit_of_measurement}")
+  end
+
   def self.products_base_report
     StockProduct.includes(:unit_of_measurement).all.order(:name).select do |stock_product|
       stock_product
