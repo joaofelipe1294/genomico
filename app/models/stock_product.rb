@@ -1,7 +1,7 @@
 class StockProduct < ApplicationRecord
   belongs_to :field
-  validates :name, presence: true
-  validates :name, uniqueness: true
+  validates_presence_of :name, :unit_of_measurement
+  validates_uniqueness_of :name
   before_validation :set_shared_field
   validates_with StockProductMvCodeUniquenessValidator
   paginates_per 15
