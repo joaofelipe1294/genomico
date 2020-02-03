@@ -1,15 +1,17 @@
 module ExamsHelper
 
-  def show_exam_status exam
-    color = {
-      waiting_start: :dark,
-      progress: :primary,
-      in_repeat: :warning,
-      complete_without_report: :info,
-      partial_released: :secondary,
-      complete: :success,
-    }
-    %Q(<span class="text-#{color[exam.status.to_sym]}">#{exam.status_name}</span>).html_safe
+  COLOR = {
+    waiting_start: :dark,
+    progress: :primary,
+    in_repeat: :warning,
+    complete_without_report: :info,
+    partial_released: :secondary,
+    complete: :success,
+    canceled: :danger,
+  }
+
+  def show_exam_status status
+    %Q(<span class="text-#{COLOR[status.to_sym]}">#{Exam.status_name(status)}</span>).html_safe
   end
 
   def exam_options_helper exam

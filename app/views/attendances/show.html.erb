@@ -44,7 +44,7 @@
           <%= status_change.exam.offered_exam.name %>
         </td>
         <td>
-          <%= status_change.exam_status_kind.display_name %>
+          <%= show_exam_status status_change.new_status %>
         </td>
         <td>
           <%= status_change.change_date.strftime("%-d/%-m/%y: %H:%M") %>
