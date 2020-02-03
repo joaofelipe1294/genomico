@@ -99,7 +99,6 @@ class StockEntriesController < ApplicationController
 
     def set_instance_variables
       set_fields
-      @units_of_measurement = UnitOfMeasurement.all.order(:name)
       @current_states = CurrentState.all.order(:name)
       @users = User.where(kind: :user).order(:login)
       @brands = Brand.all.order(:name)

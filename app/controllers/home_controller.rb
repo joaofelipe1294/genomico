@@ -6,7 +6,6 @@ class HomeController < ApplicationController
   def login
     @user = authenticate_user
   	if @user
-      set_navbar_data
 		  set_user_credentials
   		redirect_to home_admin_index_path if @user.admin?
   		redirect_to home_user_index_path if @user.user?
@@ -46,16 +45,6 @@ class HomeController < ApplicationController
 
     def user_params
     	params.permit(:login, :password)
-    end
-
-    def set_navbar_data
-      session[:indicators] = {
-        PCR: OfferedExamGroup.PCR.id,
-        NGS: OfferedExamGroup.NGS.id,
-        SEQUENCING: OfferedExamGroup.SEQUENCING.id,
-        IMUNOFENO: OfferedExamGroup.IMUNOFENO.id,
-        FISH: OfferedExamGroup.FISH.id
-      }
     end
 
 end

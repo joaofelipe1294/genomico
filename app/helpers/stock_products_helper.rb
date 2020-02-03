@@ -11,11 +11,11 @@ module StockProductsHelper
   end
 
   def display_total_aviable stock_product
-      "<span class='text-#{text_color(stock_product.total_aviable)}'>#{stock_product.total_aviable}  (#{stock_product.unit_of_measurement.name})</span>".html_safe
+      "<span class='text-#{text_color(stock_product.total_aviable)}'>#{stock_product.total_aviable}  (#{stock_product.unit_of_measurement_name})</span>".html_safe
   end
 
   def display_total_in_use stock_product
-    "<span class='text-#{text_color(stock_product.total_in_use)}'>#{stock_product.total_in_use}  (#{stock_product.unit_of_measurement.name})</span>".html_safe
+    "<span class='text-#{text_color(stock_product.total_in_use)}'>#{stock_product.total_in_use}  (#{stock_product.unit_of_measurement_name})</span>".html_safe
   end
 
   private

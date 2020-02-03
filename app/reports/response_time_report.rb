@@ -4,7 +4,7 @@ class ResponseTimeReport
   include ExamReport
 
   def initialize params
-    @offered_exam_group = params[:offered_exam_group]
+    @offered_exam_group = params[:group]
     @start_date = params[:start_date]
     @end_date = params[:finish_date]
     @exams = filter_by_date exams
@@ -42,7 +42,7 @@ class ResponseTimeReport
 
   def statistics
     exam_info = []
-    offered_exams = OfferedExam.where(offered_exam_group: @offered_exam_group)
+    offered_exams = OfferedExam.where(group: @offered_exam_group)
     offered_exams.each do |offered_exam|
       exam_group = @exams.where(offered_exam: offered_exam)
       unless exam_group.empty?
@@ -56,9 +56,9 @@ class ResponseTimeReport
 
     def exams
       Exam
-          .joins(:attendance, offered_exam: [:offered_exam_group])
-          .where(exam_status_kind: ExamStatusKind.COMPLETE)
-          .where("offered_exams.offered_exam_group_id = ? ", @offered_exam_group)
+          .joins(:attendance, :offered_exam)
+          .complete
+          .where("offered_exams.group = ? ", OfferedExam.groups[@offered_exam_group].to_i)
     end
 
 end

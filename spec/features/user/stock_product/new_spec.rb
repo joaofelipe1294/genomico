@@ -17,7 +17,7 @@ RSpec.feature "User::StockProduct::News", type: :feature do
     @stock_product = build(:stock_product)
     fill_in "stock_product[name]", with: @stock_product.name
     fill_in "stock_product[mv_code]", with: @stock_product.mv_code
-    select(@stock_product.unit_of_measurement.name, from: "stock_product[unit_of_measurement_id]").select_option
+    select("Caixas", from: "stock_product[unit_of_measurement]").select_option
     fill_in "stock_product[first_warn_at]", with: @stock_product.first_warn_at
     fill_in "stock_product[danger_warn_at]", with: @stock_product.danger_warn_at
   end
