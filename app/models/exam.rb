@@ -25,6 +25,10 @@ class Exam < ActiveRecord::Base
     canceled: 8
   }
 
+  def self.status_name status
+    I18n.t "enums.exam.status.#{status}"
+  end
+
   def change_status user_id
     ExamStatusChange.create({
       exam_status_kind_id: self.exam_status_kind_id,
