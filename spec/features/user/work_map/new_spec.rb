@@ -2,7 +2,8 @@ require 'rails_helper'
 
 def work_map_setup
   Rails.application.load_seed
-  create_attendance
+  create(:patient)
+  create(:imunofeno_attendance)
   imunofeno_user_do_login
   @internal_code = InternalCode.create({
     sample: Sample.all.first,

@@ -22,26 +22,26 @@ RSpec.feature "User::Indicators::ConcludedExams", type: :feature do
     end
 
     it "with one exam" do
-      exam = Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
+      exam = Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
       navigate_to
       expect(find(id: "complete-exams-count").text).to eq 1.to_s
     end
 
     it "with three complete exams" do
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
       navigate_to
       expect(find(id: "complete-exams-count").text).to eq 3.to_s
     end
 
     it "with 2 complete exams, 1 in progress, 1 waiting_start, 1 complete_without_report, 1 in repeat" do
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.WAITING_START})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.IN_REPEAT})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.WAITING_START})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.IN_REPEAT})
       navigate_to
       expect(find(id: "complete-exams-count").text).to eq 3.to_s
     end
@@ -52,12 +52,12 @@ RSpec.feature "User::Indicators::ConcludedExams", type: :feature do
 
     before :each do
       imunofeno_user_do_login
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 15.days.ago})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 12.days.ago})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 10.days.ago})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 8.days.ago})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 5.days.ago})
-      Exam.create({offered_exam: OfferedExam.all.sample, exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 2.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 15.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 12.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 10.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 8.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 5.days.ago})
+      Exam.create({offered_exam: create(:offered_exam), exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 2.days.ago})
       navigate_to
     end
 
