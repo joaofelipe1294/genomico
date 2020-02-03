@@ -12,7 +12,7 @@ RSpec.feature "User::Workflow::Exams::Completes", type: :feature do
     page.driver.browser.accept_confirm
     click_link class: "change-to-complete", match: :first
     @exam = @attendance.exams.first.reload
-    expect(@exam.exam_status_kind).to eq ExamStatusKind.COMPLETE_WITHOUT_REPORT
+    expect(@exam.status).to eq :complete_without_report.to_s
     expect(find(id: "success-warning").text).to eq "Status de exame alterado para Concluído (sem laudo)."
     expect(page).to have_current_path add_report_to_exam_path(@exam)
   end
@@ -26,7 +26,7 @@ RSpec.feature "User::Workflow::Exams::Completes", type: :feature do
     click_button id: "btn-save"
     expect(find(id: "success-warning").text).to eq "Atendimento encerrado com sucesso."
     expect(@attendance.reload.status).to eq :complete.to_s
-    expect(@exam.reload.exam_status_kind).to eq ExamStatusKind.COMPLETE
+    expect(@exam.reload.status).to eq :complete.to_s
   end
 
 end

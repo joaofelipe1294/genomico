@@ -1,7 +1,6 @@
 class Exam < ActiveRecord::Base
-  validates :exam_status_kind, :offered_exam, presence: true
+  validates_presence_of :offered_exam, :status
   belongs_to :offered_exam
-  belongs_to :exam_status_kind
   belongs_to :attendance
   has_many :exam_status_changes
   before_validation :default_values
@@ -10,13 +9,29 @@ class Exam < ActiveRecord::Base
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_attached_file :partial_released_report
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
-  after_create :reload_issues_cache
-  after_update :reload_issues_cache
-  before_update :treat_two_internal_codes_case
+  # TODO: comentar daqui
+  # after_create :reload_issues_cache
+  # after_update :reload_issues_cache
+  # before_update :treat_two_internal_codes_case
+  # TODO: ate aqui antes da migration
+  enum status: {
+    progress: 1,
+    tecnical_released: 2,
+    in_repeat: 3,
+    complete: 4,
+    waiting_start: 5,
+    partial_released: 6,
+    complete_without_report: 7,
+    canceled: 8
+  }
+
+  def self.status_name status
+    I18n.t "enums.exam.status.#{status}"
+  end
 
   def change_status user_id
     ExamStatusChange.create({
-      exam_status_kind_id: self.exam_status_kind_id,
+      new_status: self.status,
       exam: self,
       change_date: DateTime.now,
       user_id: user_id
@@ -26,7 +41,7 @@ class Exam < ActiveRecord::Base
 
   def reopen user_id
     self.report = nil
-    self.exam_status_kind = ExamStatusKind.IN_PROGRESS
+    self.status = :progress
     attendance = self.attendance
     attendance.reopen if attendance.complete?
     self.change_status user_id
@@ -51,21 +66,25 @@ class Exam < ActiveRecord::Base
   end
 
   def self.complete
-    self.where(exam_status_kind: ExamStatusKind.COMPLETE)
+    self.where(status: :complete)
   end
 
   def self.waiting_start
-    self.where(exam_status_kind: ExamStatusKind.WAITING_START)
+    self.where(status: :waiting_start)
   end
 
   def self.progress
-    self.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED])
+    self.where.not(status: [:complete, :canceled])
+  end
+
+  def status_name
+    I18n.t("enums.exam.status.#{self.status}")
   end
 
   private
 
     def default_values
-    	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
+    	self.status = :waiting_start unless self.status
       self.was_late = false unless self.was_late
       self.lag_time = 0 unless  self.lag_time
     end

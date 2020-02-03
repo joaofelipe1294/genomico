@@ -14,7 +14,7 @@ RSpec.feature "User::Workflow::Exams::Cancel::CancelLogics", type: :feature, js:
     click_link class: "cancel-exam", match: :first
     expect(page).to have_current_path workflow_path(attendance, tab: 'exams')
     exam = attendance.exams.first.reload
-    expect(exam.exam_status_kind).to eq ExamStatusKind.CANCELED
+    expect(exam.status.to_sym).to eq :canceled
     expect(attendance.reload.status).to eq :complete.to_s
   end
 
@@ -25,7 +25,7 @@ RSpec.feature "User::Workflow::Exams::Cancel::CancelLogics", type: :feature, js:
     visit workflow_path(attendance, tab: 'exams')
     page.driver.browser.accept_confirm
     click_link class: "cancel-exam", match: :first
-    canceled_exams = attendance.exams.where(exam_status_kind: ExamStatusKind.CANCELED).size
+    canceled_exams = attendance.exams.where(status: :canceled).size
     expect(canceled_exams).to eq 1
     expect(attendance.reload.status).to eq :progress.to_s
   end

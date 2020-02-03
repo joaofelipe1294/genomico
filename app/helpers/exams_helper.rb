@@ -1,23 +1,36 @@
 module ExamsHelper
 
+  COLOR = {
+    waiting_start: :dark,
+    progress: :primary,
+    in_repeat: :warning,
+    complete_without_report: :info,
+    partial_released: :secondary,
+    complete: :success,
+    canceled: :danger,
+  }
+
+  def show_exam_status status
+    %Q(<span class="text-#{COLOR[status.to_sym]}">#{Exam.status_name(status)}</span>).html_safe
+  end
+
   def exam_options_helper exam
     @exam = exam
-    @exam_status_kind = @exam.exam_status_kind
     options = ""
-    return "".html_safe if @exam_status_kind == ExamStatusKind.CANCELED
-    is_in_progress = @exam_status_kind != ExamStatusKind.COMPLETE_WITHOUT_REPORT && @exam_status_kind != ExamStatusKind.COMPLETE
-    if @exam_status_kind == ExamStatusKind.WAITING_START
+    return "".html_safe if @exam.canceled?
+    is_in_progress = @exam.complete_without_report? == false && @exam.complete? == false
+    if @exam.waiting_start?
       options << start_exam_link
       options << edit_link
     elsif is_in_progress
       options << in_progress_options
       options << edit_link
-    elsif  @exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
+    elsif  @exam.complete_without_report?
       options << add_report_link
     else
       options << complete_options
     end
-    options << cancel_exam_link if @exam_status_kind != ExamStatusKind.COMPLETE
+    options << cancel_exam_link unless @exam.complete?
     options.html_safe
   end
 
@@ -25,10 +38,10 @@ module ExamsHelper
 
     def tecnical_released_link
       link = ""
-      unless @exam_status_kind == ExamStatusKind.TECNICAL_RELEASED
+      unless @exam.tecnical_released?
         link = link(
           @exam,
-          new_status: ExamStatusKind.TECNICAL_RELEASED,
+          new_status: :tecnical_released,
           css_class: 'secondary change-to-tecnical-released'
         )
       end
@@ -37,10 +50,10 @@ module ExamsHelper
 
     def in_repeat_link
       link = ""
-      unless @exam_status_kind == ExamStatusKind.IN_REPEAT
+      unless @exam.in_repeat?
         link = link(
           @exam,
-          new_status: ExamStatusKind.IN_REPEAT,
+          new_status: :in_repeat,
           css_class: 'warning change-to-in-repeat'
         )
       end
@@ -66,7 +79,7 @@ module ExamsHelper
 
     def complete_link
       link = ""
-      unless @exam_status_kind == ExamStatusKind.COMPLETE || @exam_status_kind == ExamStatusKind.COMPLETE_WITHOUT_REPORT
+      unless @exam.complete? || @exam.complete_without_report?
         link = link_to(
           'Concluído',
           change_to_completed_path(@exam),
@@ -80,7 +93,7 @@ module ExamsHelper
 
     def link(exam, new_status: nil, css_class: "", method: "patch")
       link_to(
-        new_status.name,
+        Exam.status_name(new_status),
         change_exam_status_path(exam, {new_status: new_status}),
         method: method,
         class: "btn btn-sm ml-3 btn-outline-#{css_class}"
@@ -115,7 +128,7 @@ module ExamsHelper
     def cancel_exam_link
       link_to(
         "Cancelar",
-        change_exam_status_path(@exam, {new_status: ExamStatusKind.CANCELED}),
+        change_exam_status_path(@exam, {new_status: :canceled}),
         data: { confirm: "Tem certeza ?" },
         method: :patch,
         class: "btn btn-sm btn-outline-danger cancel-exam ml-3"

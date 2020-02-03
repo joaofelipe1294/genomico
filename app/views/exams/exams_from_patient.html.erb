@@ -42,10 +42,10 @@
           <% end %>
         </td>
         <td>
-          <%= exam.exam_status_kind.name %>
+          <%= show_exam_status exam.status %>
         </td>
         <td>
-          <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance) %>
+          <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance, tab: :exams) %>
         </td>
       </tr>
     <% end %>

@@ -34,13 +34,13 @@ RSpec.feature "User::Workflow::Exams::Cancel::Displays", type: :feature do
 
     it "coplete exam" do
       @attendance = create_in_progress_imunofeno_attendance
-      @attendance.exams.first.update exam_status_kind: ExamStatusKind.COMPLETE
+      @attendance.exams.first.update status: :complete
 
     end
 
     it "coplete exam" do
       @attendance = create_in_progress_imunofeno_attendance
-      @attendance.exams.first.update exam_status_kind: ExamStatusKind.CANCELED
+      @attendance.exams.first.update status: :canceled
     end
 
   end

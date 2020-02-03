@@ -67,7 +67,7 @@ class ExamsController < ApplicationController
 
   # PATCH exams/1/save_exam_report
   def save_exam_report
-    @exam.exam_status_kind = ExamStatusKind.COMPLETE
+    @exam.status = :complete
     if @exam.update exam_params
       flash[:success] = I18n.t :add_report_to_exam_success
       redirect_to_exams_tab
@@ -78,7 +78,7 @@ class ExamsController < ApplicationController
 
   def remove_report
     if params[:kind] == "partial_released"
-      if @exam.update({exam_status_kind: ExamStatusKind.IN_PROGRESS, partial_released_report: nil})
+      if @exam.update({status: :progress, partial_released_report: nil})
         flash[:success] = I18n.t :remove_report_success
       else
         flash[:error] = @exam.erros.complete_message.first

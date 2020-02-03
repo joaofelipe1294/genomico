@@ -52,7 +52,7 @@ class Attendance < ActiveRecord::Base
 
   def has_pendent_reports?
     exams = self.exams
-    pendent_report_exams_count = exams.where(exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT).size
+    pendent_report_exams_count = exams.where(status: :complete_without_report).size
     in_progress_exams = exams.progress.size
     return pendent_report_exams_count == in_progress_exams if in_progress_exams > 0
     false

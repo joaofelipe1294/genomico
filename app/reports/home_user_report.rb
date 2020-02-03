@@ -22,11 +22,11 @@ class HomeUserReport
   end
 
   def in_progress_count
-    @open_exams.where.not(exam_status_kind: ExamStatusKind.WAITING_START).size
+    @open_exams.where.not(status: :waiting_start).size
   end
 
   def in_progress_relation
-    @open_exams.where.not(exam_status_kind: ExamStatusKind.WAITING_START).group("offered_exams.name").count
+    @open_exams.where.not(status: :waiting_start).group("offered_exams.name").count
   end
 
   def delayed_exams_count
@@ -43,7 +43,7 @@ class HomeUserReport
       if exam_status_kind == "waiting_start"
         issues.waiting_start
       elsif exam_status_kind == "in_progress"
-        issues.where.not(exam_status_kind: ExamStatusKind.WAITING_START)
+        issues.where.not(status: :waiting_start)
       else
         late_exams issues
       end
@@ -61,9 +61,9 @@ class HomeUserReport
 
     def find_open_exams
       Exam
-          .includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
+          .includes(:offered_exam, :internal_codes, attendance: [:patient])
           .from_field(@field)
-          .where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED])
+          .where.not(status: [:complete, :canceled])
           .order created_at: :asc
     end
 

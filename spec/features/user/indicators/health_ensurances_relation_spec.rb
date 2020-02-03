@@ -21,7 +21,7 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
   it "display with one complete exam" do
     attendance = create(:attendance)
     exam = attendance.exams.sample
-    exam.update(exam_status_kind: ExamStatusKind.COMPLETE)
+    exam.update(status: :complete)
     navigate_to
     expect(find(id: "total").text).to eq 1.to_s
   end
@@ -30,9 +30,9 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
     first_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).first)
     second_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).last)
     first_attendance_exam = first_attendance.exams.sample
-    first_attendance_exam.update(exam_status_kind: ExamStatusKind.COMPLETE)
+    first_attendance_exam.update(status: :complete)
     second_attendance_exam = second_attendance.exams.sample
-    second_attendance_exam.update(exam_status_kind: ExamStatusKind.COMPLETE)
+    second_attendance_exam.update(status: :complete)
     navigate_to
     expect(find(id: "total").text).to eq 2.to_s
   end
@@ -40,7 +40,7 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
   it "filter with no results" do
     first_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).first)
     first_attendance_exam = first_attendance.exams.sample
-    first_attendance_exam.update(exam_status_kind: ExamStatusKind.COMPLETE, finish_date: 8.days.ago)
+    first_attendance_exam.update(status: :complete, finish_date: 8.days.ago)
     navigate_to
     fill_in id: "start_date", with: 2.days.ago
     fill_in id: "end_date", with: 1.days.ago

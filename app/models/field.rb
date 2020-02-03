@@ -28,11 +28,10 @@ class Field < ActiveRecord::Base
 	def set_issues_in_cache
 
 		field_issues = Exam
-				.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-				.where.not(exam_status_kind: ExamStatusKind.CANCELED)
+				.where.not(status: [:complete, :canceled])
 				.joins(:offered_exam)
 				.where("offered_exams.field_id = ?", self.id)
-				.includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
+				.includes(:offered_exam, :internal_codes, attendance: [:patient])
 				.order(created_at: :asc)
 		Rails.cache.write "exams:field:#{self.name}", field_issues, expires_in: 30.minutes if Rails.env != "test"
 		field_issues

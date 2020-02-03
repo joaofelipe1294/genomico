@@ -10,26 +10,6 @@ Field.create([
 
 # puts 'Criando Fields [OK]'
 
-
-# puts 'Criando HealthEnsurances [OK]'
-
-#############################################################
-
-# puts 'Criando ExamStatusKind ...'
-
-ExamStatusKind.create([
-	{name: 'Em andamento'},
-	{name: 'Liberado técnico'},
-	{name: 'Em repetição'},
-	{name: 'Concluído'},
-	{name: 'Aguardando início'},
-	{name: 'Liberado parcial'},
-	{name: 'Concluído (sem laudo)'},
-	{name: 'Cancelado'},
-])
-
-# puts 'Criando ExamStatusKind [OK]'
-
 #############################################################
 
 # puts "Criando Sample_Kinds ..."

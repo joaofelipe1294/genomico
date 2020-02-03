@@ -33,7 +33,7 @@ RSpec.feature "User::Home::Charts", type: :feature do
     it "with one exam" do
       exam = Exam.new({
         offered_exam: create(:offered_exam, field: Field.IMUNOFENO),
-        exam_status_kind: ExamStatusKind.IN_PROGRESS
+        status: :progress
       })
       attendance = create(:attendance, exams: [exam])
       visit current_path
@@ -49,8 +49,8 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
       it "with two equal exams" do
         exams = [
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), exam_status_kind: ExamStatusKind.IN_PROGRESS),
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), exam_status_kind: ExamStatusKind.IN_PROGRESS)
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), status: :progress),
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), status: :progress)
         ]
         @attendance.exams = exams
         @attendance.save
@@ -61,8 +61,8 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
       it "with distinct areas exams" do
         exams = [
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), exam_status_kind: ExamStatusKind.IN_PROGRESS),
-          Exam.new(offered_exam: create(:offered_exam, field: Field.BIOMOL), exam_status_kind: ExamStatusKind.IN_PROGRESS)
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO), status: :progress),
+          Exam.new(offered_exam: create(:offered_exam, field: Field.BIOMOL), status: :progress)
         ]
         @attendance.exams = exams
         @attendance.save
