@@ -2,7 +2,11 @@
 
 <%= render 'layouts/indicators_navbar' %>
 
-<h1 class="text-center mt-5 mb-5 border-bottom">
+<div class="mt-5">
+  <%= render 'date_search_form', locals: {search_route: health_ensurances_relation_path} %>
+</div>
+
+<h1 class="text-center mt-2 mb-5 border-bottom">
   Exames realizados por plano de saúde (<span id="total"><%= @exams.size %></span>)
 </h1>
 
@@ -10,4 +14,17 @@
 
 <hr>
 
-<%= render 'date_search_form', locals: {search_route: health_ensurances_relation_path} %>
+<table class="table table-sm table-striped text-center col-8 offset-2 mt-3">
+  <thead class="text-white bg-dark">
+    <th class="h4">Plano</th>
+    <th class="h4">Exames</th>
+  </thead>
+  <tbody>
+    <% @relation.sort.each do |ensurance| %>
+      <tr>
+        <td><%= ensurance.first %></td>
+        <td><%= ensurance.last %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
