@@ -77,7 +77,7 @@ class Exam < ActiveRecord::Base
   private
 
     def default_values
-    	self.exam_status_kind = ExamStatusKind.WAITING_START unless self.exam_status_kind
+    	self.status = :waiting_start unless self.status
       self.was_late = false unless self.was_late
       self.lag_time = 0 unless  self.lag_time
     end
