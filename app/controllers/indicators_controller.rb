@@ -3,7 +3,7 @@ class IndicatorsController < ApplicationController
   before_action :set_exams, only: [:concluded_exams, :health_ensurances_relation]
 
   def exams_in_progress
-    @exams = Exam.joins(offered_exam: [:field]).where.not(exam_status_kind: [ExamStatusKind.CANCELED, ExamStatusKind.COMPLETE])
+    @exams = Exam.joins(offered_exam: [:field]).where.not(status: [:canceled, :complete])
     @relation = @exams.group("fields.name").count
   end
 
