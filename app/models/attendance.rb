@@ -7,7 +7,7 @@ class Attendance < ActiveRecord::Base
   accepts_nested_attributes_for :samples
   accepts_nested_attributes_for :exams
   before_validation :default_values
-  validates_presence_of :lis_code, :patient, :exams, :samples, :status
+  validates_presence_of :lis_code, :patient, :exams, :samples, :status, :desease_stage
   validates_uniqueness_of :lis_code
   has_attached_file :report
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
