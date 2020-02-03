@@ -1,7 +1,6 @@
 class Exam < ActiveRecord::Base
-  validates :exam_status_kind, :offered_exam, presence: true
+  validates_presence_of :offered_exam, :status
   belongs_to :offered_exam
-  belongs_to :exam_status_kind
   belongs_to :attendance
   has_many :exam_status_changes
   before_validation :default_values

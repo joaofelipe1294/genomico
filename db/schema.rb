@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_140148) do
+ActiveRecord::Schema.define(version: 2020_02_03_143457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,13 +73,12 @@ ActiveRecord::Schema.define(version: 2020_02_03_140148) do
 
   create_table "exam_status_changes", id: :serial, force: :cascade do |t|
     t.integer "exam_id"
-    t.integer "exam_status_kind_id"
     t.datetime "change_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "new_status"
     t.index ["exam_id"], name: "index_exam_status_changes_on_exam_id"
-    t.index ["exam_status_kind_id"], name: "index_exam_status_changes_on_exam_status_kind_id"
     t.index ["user_id"], name: "index_exam_status_changes_on_user_id"
   end
 
@@ -414,7 +413,6 @@ ActiveRecord::Schema.define(version: 2020_02_03_140148) do
 
   add_foreign_key "attendances", "health_ensurances"
   add_foreign_key "attendances", "patients"
-  add_foreign_key "exam_status_changes", "exam_status_kinds"
   add_foreign_key "exam_status_changes", "exams"
   add_foreign_key "exams", "attendances"
   add_foreign_key "exams", "offered_exams"

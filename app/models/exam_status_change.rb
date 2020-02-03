@@ -1,7 +1,6 @@
 class ExamStatusChange < ActiveRecord::Base
-  validates :exam, :exam_status_kind, :change_date, presence: true
+  validates_presence_of :exam, :new_status
   belongs_to :exam
-  belongs_to :exam_status_kind
   before_validation :default_values
   belongs_to :user
 

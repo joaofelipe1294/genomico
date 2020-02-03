@@ -28,8 +28,7 @@ class Field < ActiveRecord::Base
 	def set_issues_in_cache
 
 		field_issues = Exam
-				.where.not(exam_status_kind: ExamStatusKind.COMPLETE)
-				.where.not(exam_status_kind: ExamStatusKind.CANCELED)
+				.where.not(status: [:complete, :canceled])
 				.joins(:offered_exam)
 				.where("offered_exams.field_id = ?", self.id)
 				.includes(:offered_exam, :internal_codes, :exam_status_kind, attendance: [:patient])
