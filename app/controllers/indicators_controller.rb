@@ -8,7 +8,7 @@ class IndicatorsController < ApplicationController
   end
 
   def concluded_exams
-    @relation = @exams.joins(offered_exam: [:field]).group("fields.name").count
+    @relation = @exams.complete.group("fields.name").count
   end
 
   def health_ensurances_relation
@@ -29,7 +29,7 @@ class IndicatorsController < ApplicationController
   private
 
     def set_exams
-      @exams = Exam.where.not(status: :canceled).joins(offered_exam: [:field])
+      @exams = Exam.joins(offered_exam: [:field]).where.not(status: :canceled)
       if params[:start_date].present? && params[:end_date].present?
         @exams = @exams.where("exams.created_at BETWEEN ? AND ?", params[:start_date], params[:end_date])
       end

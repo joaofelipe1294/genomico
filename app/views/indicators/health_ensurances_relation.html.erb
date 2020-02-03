@@ -6,9 +6,14 @@
   <%= render 'date_search_form', locals: {search_route: health_ensurances_relation_path} %>
 </div>
 
-<h1 class="text-center mt-2 mb-5 border-bottom">
-  Exames realizados por plano de saúde (<span id="total"><%= @exams.size %></span>)
+<h1 class="text-center mt-3">
+  <h1 class="text-center mt-2 mb-5 border-bottom">
+    Exames realizados por plano de saúde <span id="total"><%= @exams.size %></span>
+    <%= header %>
+  </h1>
 </h1>
+
+
 
 <%= pie_chart( @relation ) %>
 
