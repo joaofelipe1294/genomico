@@ -9,11 +9,9 @@ class Exam < ActiveRecord::Base
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_attached_file :partial_released_report
   validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
-  # TODO: comentar daqui
-  # after_create :reload_issues_cache
-  # after_update :reload_issues_cache
-  # before_update :treat_two_internal_codes_case
-  # TODO: ate aqui antes da migration
+  after_create :reload_issues_cache
+  after_update :reload_issues_cache
+  before_update :treat_two_internal_codes_case
   enum status: {
     progress: 1,
     tecnical_released: 2,
