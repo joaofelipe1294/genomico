@@ -2,12 +2,13 @@
 
 <%= render 'layouts/indicators_navbar' %>
 
-<h1 class="text-center mt-5 mb-5 border-bottom">
-  Exames concluídos (<span id="complete-exams-count"><%= @exams.size %></span>)
+<div class="mt-3">
+  <%= render 'date_search_form', locals: {search_route: concluded_exams_path} %>
+</div>
+
+<h1 class="text-center mt-2 mb-5 border-bottom">
+  Exames concluídos (<span id="complete-exams-count"><%= @exams.complete.size %></span>)
+  <%= header %>
 </h1>
 
 <%= pie_chart(@relation) %>
-
-<hr>
-
-<%= render 'date_search_form', locals: {search_route: concluded_exams_path} %>

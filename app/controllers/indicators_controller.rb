@@ -8,11 +8,13 @@ class IndicatorsController < ApplicationController
   end
 
   def concluded_exams
-    @relation = @exams.joins(offered_exam: [:field]).group("fields.name").count
+    @exams = @exams.where("exams.finish_date BETWEEN ? AND ?", params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+    @relation = @exams.complete.group("fields.name").count
   end
 
   def health_ensurances_relation
-    @relation = @exams.joins(attendance: [:health_ensurance]).complete.group("health_ensurances.name").count
+    @exams = @exams.where("exams.created_at BETWEEN ? AND ?", params[:start_date], params[:end_date]) if params[:start_date].present? && params[:end_date].present?
+    @relation = @exams.joins(attendance: [:health_ensurance]).where.not(status: :canceled).group("health_ensurances.name").count
   end
 
   def response_time
@@ -29,10 +31,21 @@ class IndicatorsController < ApplicationController
   private
 
     def set_exams
-      start_date = params[:start_date]
-      end_date = params[:end_date]
-      @exams = Exam.complete.joins(offered_exam: [:field])
-      @exams = @exams.where("exams.finish_date BETWEEN ? AND ?", start_date, end_date) if start_date && end_date
+      @exams = Exam.joins(offered_exam: [:field]).where.not(status: :canceled)
     end
+
+    # def filter_by_created_at
+    #   # @exams = Exam.joins(offered_exam: [:field]).where.not(status: :canceled)
+    #   if params[:start_date].present? && params[:end_date].present?
+    #     @exams = @exams.where("exams.created_at BETWEEN ? AND ?", params[:start_date], params[:end_date])
+    #   end
+    # end
+    #
+    # def filter_by_finsh_date
+    #   # @exams = Exam.joins(offered_exam: [:field]).where.not(status: :canceled)
+    #   if params[:start_date].present? && params[:end_date].present?
+    #     @exams = @exams.where("exams.created_at BETWEEN ? AND ?", params[:start_date], params[:end_date])
+    #   end
+    # end
 
 end
