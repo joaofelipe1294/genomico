@@ -143,25 +143,25 @@ RSpec.describe Attendance, type: :model do
 
     	context "when exam is in progress" do
     	  it "is expected to return false" do
-					@exam.update exam_status_kind: ExamStatusKind.IN_PROGRESS
+					@exam.update status: :progress
 					expect(@attendance.reload.has_pendent_reports?).to be_falsy
     	  end
     	end
 			context "when exam is in_repeat" do
 			  it "is expected to return false" do
-			  	@exam.update exam_status_kind: ExamStatusKind.IN_REPEAT
+			  	@exam.update status: :in_repeat
 					expect(@attendance.reload.has_pendent_reports?).to be_falsy
 			  end
 			end
 			context "when exam is complete" do
 		  	it "is expected to return false" do
-		  		@exam.update exam_status_kind: ExamStatusKind.COMPLETE
+		  		@exam.update status: :complete
 					expect(@attendance.reload.has_pendent_reports?).to be_falsy
 		  	end
 			end
 			context "when exam is complete without report" do
 		  	it "is expected to return true" do
-		  		@exam.update exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT
+		  		@exam.update status: :complete_without_report
 					expect(@attendance.reload.has_pendent_reports?).to be_truthy
 		  	end
 			end
@@ -176,22 +176,22 @@ RSpec.describe Attendance, type: :model do
 			end
 			context "when one is complete and other in progress" do
 		  	it "is expected to return false" do
-	  			@first_exam.update exam_status_kind: ExamStatusKind.COMPLETE
-					@second_exam.update exam_status_kind: ExamStatusKind.IN_PROGRESS
+	  			@first_exam.update status: :complete
+					@second_exam.update status: :progress
 					expect(@attendance.reload.has_pendent_reports?).to be_falsy
 		  	end
 			end
 			context "when one is complete without report and other complete" do
 			  it "is expected to return true" do
-			  	@first_exam.update exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT
-					@second_exam.update exam_status_kind: ExamStatusKind.COMPLETE
+			  	@first_exam.update status: :complete_without_report
+					@second_exam.update status: :complete
 					expect(@attendance.reload.has_pendent_reports?).to be_truthy
 			  end
 			end
 			context "when one is complete without report and other in progress" do
 				it "is expected to return false" do
-					@first_exam.update exam_status_kind: ExamStatusKind.COMPLETE_WITHOUT_REPORT
-					@second_exam.update exam_status_kind: ExamStatusKind.IN_PROGRESS
+					@first_exam.update status: :complete_without_report
+					@second_exam.update status: :progress
 					expect(@attendance.reload.has_pendent_reports?).to be_falsy
 				end
 			end

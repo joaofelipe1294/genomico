@@ -17,7 +17,7 @@ RSpec.feature "User::Workflow::Exams::Reopens", type: :feature do
     click_link class: "reopen-exam", match: :first
     expect(attendance.reload.status).to eq :progress.to_s
     exam = attendance.exams.first.reload
-    expect(exam.exam_status_kind).to eq ExamStatusKind.IN_PROGRESS
+    expect(exam.status).to eq :progress.to_s
   end
 
 end

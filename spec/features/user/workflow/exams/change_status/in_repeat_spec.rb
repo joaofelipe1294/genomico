@@ -12,8 +12,8 @@ RSpec.feature "User::Workflow::Exams::ChangeStatus::InRepeats", type: :feature d
     click_link class: "change-to-in-repeat", match: :first
     expect(page).to have_current_path workflow_path(attendance, tab: 'exams')
     expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Em repetição."
-    new_exam_status = attendance.exams.first.reload.exam_status_kind
-    expect(new_exam_status).to eq ExamStatusKind.IN_REPEAT
+    new_exam_status = attendance.exams.first.reload.status
+    expect(new_exam_status).to eq :in_repeat.to_s
   end
 
 end

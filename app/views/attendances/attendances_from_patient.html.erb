@@ -31,10 +31,10 @@
 				<td><%= l attendance.start_date.to_date %></td>
 				<td><%= show_attendance_finish_date attendance %></td>
 				<td>
-					<%= attendance.exams.where.not(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+					<%= attendance.exams.where.not(status: :complete).size %>
 				</td>
 				<td>
-					<%= attendance.exams.where(exam_status_kind: ExamStatusKind.find_by(name: 'Concluído')).size %>
+					<%= attendance.exams.where(status: :complete).size %>
 				</td>
 				<td>
 					<%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-primary'} %>

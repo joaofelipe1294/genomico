@@ -41,7 +41,7 @@
           <%= internal_code.subsample.qubit_report.concentration %>
         </td>
         <td>
-          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance) %>
+          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance, tab: :samples) %>
         </td>
       </tr>
     <% end %>
