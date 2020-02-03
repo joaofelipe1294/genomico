@@ -8,9 +8,9 @@ RSpec.feature "User::InternalCodes::Biomols", type: :feature do
     patient = create(:patient)
     samples = [build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD), build(:sample, sample_kind: SampleKind.SWAB)]
     exams = [
-      build(:exam, offered_exam: OfferedExam.where(field: Field.BIOMOL).sample),
-      build(:exam, offered_exam: OfferedExam.where(field: Field.BIOMOL).sample),
-      build(:exam, offered_exam: OfferedExam.where(field: Field.BIOMOL).sample),
+      build(:exam, offered_exam: create(:offered_exam, field: Field.BIOMOL)),
+      build(:exam, offered_exam: create(:offered_exam, field: Field.BIOMOL)),
+      build(:exam, offered_exam: create(:offered_exam, field: Field.BIOMOL)),
     ]
     attendance = create(:attendance, patient: patient, samples: samples, exams: exams)
     subsample = Subsample.create({

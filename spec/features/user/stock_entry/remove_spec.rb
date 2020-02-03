@@ -6,6 +6,7 @@ RSpec.feature "User::Workflow::StockEntry::Removes", type: :feature do
   before :each do
     Rails.application.load_seed
     create(:brand)
+    create(:user)
     stock_product = create(:stock_product, name: "Some name")
     @product = build(:product, stock_product: stock_product)
   end

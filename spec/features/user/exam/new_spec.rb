@@ -43,7 +43,8 @@ RSpec.feature "User::Exam::News", type: :feature do
     end
 
     it "create new exam same user field" do
-      exam_that_will_be_selected = OfferedExam.where(field: Field.IMUNOFENO).where(is_active: true).order(name: :asc).last
+      exam_that_will_be_selected = create(:offered_exam, field: Field.IMUNOFENO)
+      visit current_path
       select(exam_that_will_be_selected.name, from: "exam[offered_exam_id]").select_option
       click_button id: 'btn-save'
       expect(page).to have_current_path(workflow_path(@attendance), ignore_query: true)

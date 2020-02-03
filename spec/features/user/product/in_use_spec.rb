@@ -6,6 +6,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
 
   def open_product_and_navigate
     Rails.application.load_seed
+    create(:user)
     create(:brand)
     create(:stock_product, field: Field.IMUNOFENO, name: "Azuka Langley")
     product = build(:product)
@@ -18,7 +19,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     click_link class: "open-product", match: :first
     click_button id: "btn-save"
   end
-  
+
   it "navigate" do
     Rails.application.load_seed
     create(:brand)

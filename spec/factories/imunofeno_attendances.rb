@@ -11,7 +11,7 @@ FactoryBot.define do
   	observations { Faker::Lorem.sentence }
   	health_ensurance { HealthEnsurance.all.sample }
     samples { [build(:imunofeno_sample)] }
-    exams { [build(:exam, offered_exam: OfferedExam.where(field: Field.IMUNOFENO).sample)]}
+    exams { [build(:exam, offered_exam: create(:offered_exam, field: Field.IMUNOFENO))]} 
   end
 
 end

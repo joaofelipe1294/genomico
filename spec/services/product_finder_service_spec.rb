@@ -5,6 +5,7 @@ describe 'ProductFinderService' do
   before :each do
     Rails.application.load_seed
     brand = create(:brand)
+    create(:user)
     stock_product = create(:stock_product)
     @product = build(:product, stock_product: stock_product)
   end
