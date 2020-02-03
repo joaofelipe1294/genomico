@@ -7,6 +7,8 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Edits", type: :feature do
   before :each do
     Rails.application.load_seed
     @attendance = create_raw_biomol_attendance
+    @attendance.update health_ensurance: create(:health_ensurance)
+    create(:health_ensurance)
     biomol_user_do_login
     visit workflow_path(@attendance, tab: 'attendance')
   end
