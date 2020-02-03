@@ -1,20 +1,3 @@
-############################################################
-
-# puts 'Criando Admin para teste ...'
-
-User.create({
-	login: 'admin',
-	password: '1234',
-	name: 'root',
-	kind: :admin
-})
-
-# puts 'Criando Admin para teste [OK]'
-
-############################################################
-
-############################################################
-
 # puts 'Criando Fields ...'
 
 Field.create([
