@@ -31,7 +31,7 @@ class Exam < ActiveRecord::Base
 
   def change_status user_id
     ExamStatusChange.create({
-      exam_status_kind_id: self.exam_status_kind_id,
+      new_status: self.status,
       exam: self,
       change_date: DateTime.now,
       user_id: user_id

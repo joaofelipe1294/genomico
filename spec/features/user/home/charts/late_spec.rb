@@ -33,7 +33,7 @@ RSpec.feature "User::Home::Charts", type: :feature do
     it "with one delayed exam" do
       exam = Exam.new({
         offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1),
-        exam_status_kind: ExamStatusKind.IN_PROGRESS,
+        status: :progress,
         created_at: 3.months.ago
       })
       attendance = create(:attendance, exams: [exam])
@@ -49,8 +49,8 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
       it "with two equal exams" do
         exams = [
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), exam_status_kind: ExamStatusKind.IN_PROGRESS, created_at: 3.months.ago),
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), exam_status_kind: ExamStatusKind.IN_PROGRESS, created_at: 3.months.ago)
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), status: :progress, created_at: 3.months.ago),
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), status: :progress, created_at: 3.months.ago)
         ]
         @attendance.exams = exams
         @attendance.save
@@ -60,8 +60,8 @@ RSpec.feature "User::Home::Charts", type: :feature do
 
       it "with distinct areas exams" do
         exams = [
-          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), exam_status_kind: ExamStatusKind.IN_PROGRESS, created_at: 3.months.ago),
-          Exam.new(offered_exam: create(:offered_exam, field: Field.BIOMOL, refference_date: 1), exam_status_kind: ExamStatusKind.IN_PROGRESS, created_at: 3.months.ago)
+          Exam.new(offered_exam: create(:offered_exam, field: Field.IMUNOFENO, refference_date: 1), status: :progress, created_at: 3.months.ago),
+          Exam.new(offered_exam: create(:offered_exam, field: Field.BIOMOL, refference_date: 1), status: :progress, created_at: 3.months.ago)
         ]
         @attendance.exams = exams
         @attendance.save
