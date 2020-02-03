@@ -13,6 +13,16 @@ class Exam < ActiveRecord::Base
   after_create :reload_issues_cache
   after_update :reload_issues_cache
   before_update :treat_two_internal_codes_case
+  enum status: {
+    progress: 1,
+    tecnical_released: 2,
+    in_repeat: 3,
+    complete: 4,
+    waiting_start: 5,
+    partial_released: 6,
+    complete_without_report: 7,
+    canceled: 8
+  }
 
   def change_status user_id
     ExamStatusChange.create({
