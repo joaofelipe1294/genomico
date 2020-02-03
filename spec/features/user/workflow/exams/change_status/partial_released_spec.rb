@@ -19,7 +19,7 @@ RSpec.feature "User::Workflow::Exams::ChangeStatus::PartialReleaseds", type: :fe
     expect(page).to have_current_path workflow_path(@attendance, tab: 'exams')
     expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Liberado parcial."
     exam = @attendance.exams.first.reload
-    expect(exam.exam_status_kind).to eq ExamStatusKind.PARTIAL_RELEASED
+    expect(exam.status).to eq :partial_released.to_s
   end
 
   it "replace partial released report" do

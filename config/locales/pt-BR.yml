@@ -43,11 +43,11 @@
       status:
         progress: Em andamento
         tecnical_released: Liberado técnico
-        in_repeat: Em petição
+        in_repeat: Em repetição
         complete: Concluído
         waiting_start: Aguardando início
         partial_released: Liberado parcial
-        complete_without_report: Concluído sem laudo
+        complete_without_report: Concluído (sem laudo)
         canceled: Cancelado
   time:
     formats:

@@ -36,14 +36,14 @@ RSpec.feature "User::Workflow::Exams::Edit::DisplayOptions", type: :feature do
       @attendance = create_in_progress_imunofeno_attendance
       imunofeno_user_do_login
       exam = @attendance.exams.first
-      exam.update exam_status_kind: ExamStatusKind.COMPLETE
+      exam.update status: :complete
     end
 
     it "dont display when exam was canceled" do
       @attendance = create_in_progress_biomol_attendance
       biomol_user_do_login
       exam = @attendance.exams.last
-      exam.update exam_status_kind: ExamStatusKind.CANCELED
+      exam.update status: :canceled
     end
 
   end

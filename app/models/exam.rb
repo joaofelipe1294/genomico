@@ -41,7 +41,7 @@ class Exam < ActiveRecord::Base
 
   def reopen user_id
     self.report = nil
-    self.exam_status_kind = ExamStatusKind.IN_PROGRESS
+    self.status = :progress
     attendance = self.attendance
     attendance.reopen if attendance.complete?
     self.change_status user_id
