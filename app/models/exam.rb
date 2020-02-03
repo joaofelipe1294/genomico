@@ -73,6 +73,10 @@ class Exam < ActiveRecord::Base
     self.where.not(status: [:complete, :canceled])
   end
 
+  def status_name
+    I18n.t("enums.exam.status.#{self.status}")
+  end
+
   private
 
     def default_values

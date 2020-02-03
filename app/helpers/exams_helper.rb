@@ -1,5 +1,33 @@
 module ExamsHelper
 
+  def show_exam_status exam
+    color = {
+      waiting_start: :dark,
+      progress: :primary,
+      in_repeat: :warning,
+      complete_without_report: :info,
+      partial_released: :secondary,
+      complete: :success,
+    }
+    %Q(<span class="text-#{color[exam.status.to_sym]}">#{exam.status_name}</span>).html_safe
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   def exam_options_helper exam
     @exam = exam
     @exam_status_kind = @exam.exam_status_kind

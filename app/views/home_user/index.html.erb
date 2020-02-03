@@ -112,7 +112,7 @@
             <% end %>
           </td>
           <td>
-            <%= exam.exam_status_kind.display_name %>
+            <%= show_exam_status exam %>
           </td>
           <td>
             <% if exam.is_late? %>
