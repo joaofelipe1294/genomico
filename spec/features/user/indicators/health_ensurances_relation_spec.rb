@@ -10,6 +10,7 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
 
   before :each do
     Rails.application.load_seed
+    create(:offered_exam)
     imunofeno_user_do_login
   end
 
@@ -19,7 +20,7 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
   end
 
   it "display with one complete exam" do
-    attendance = create(:attendance)
+    attendance = create(:attendance, exams: [build(:exam)])
     exam = attendance.exams.sample
     exam.update(status: :complete)
     navigate_to
@@ -27,8 +28,8 @@ RSpec.feature "User::Indicators::HealthEnsurancesRelations", type: :feature do
   end
 
   it "display with distinct health ensurances" do
-    first_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).first)
-    second_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).last)
+    first_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).first, exams: [build(:exam)])
+    second_attendance = create(:attendance, health_ensurance: HealthEnsurance.all.order(:name).last, exams: [build(:exam)])
     first_attendance_exam = first_attendance.exams.sample
     first_attendance_exam.update(status: :complete)
     second_attendance_exam = second_attendance.exams.sample
