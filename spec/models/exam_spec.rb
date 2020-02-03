@@ -16,10 +16,10 @@ RSpec.describe Exam, type: :model do
 		end
 
 		it 'without exam_status_kind' do
-			exam = build(:exam, exam_status_kind: nil)
+			exam = build(:exam, status: nil)
 			exam.save
 			expect(exam).to be_valid
-			expect(exam.exam_status_kind).to eq(ExamStatusKind.WAITING_START)
+			expect(exam.status.to_sym).to eq :waiting_start
 		end
 
 		it 'without finish_date' do
@@ -46,8 +46,6 @@ RSpec.describe Exam, type: :model do
 
 		it { should belong_to(:attendance) }
 
-		it { should belong_to(:exam_status_kind) }
-
 		it { should belong_to(:offered_exam) }
 
 		it { should have_many(:exam_status_changes) }
@@ -63,7 +61,7 @@ RSpec.describe Exam, type: :model do
 			@exam = build(:exam, offered_exam: create(:offered_exam, field: Field.BIOMOL))
 			@attendance = create(:attendance, exams: [@exam], samples: [@sample])
 			@dna_subsample = create(:subsample, sample: @sample, subsample_kind: SubsampleKind.DNA)
-			@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
+			@exam.status = :progress
 		end
 
 		it "with only one subsample dna" do
