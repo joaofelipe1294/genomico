@@ -17,8 +17,8 @@ RSpec.describe ExamStatusChange, type: :model do
 			expect(exam_status_change).to be_invalid
 		end
 
-		it 'without exam_status_kind' do
-			exam_status_change = build(:exam_status_change, exam_status_kind: nil)
+		it 'without new_status' do
+			exam_status_change = build(:exam_status_change, new_status: nil)
 			exam_status_change.save
 			expect(exam_status_change).to be_invalid
 		end
