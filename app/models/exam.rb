@@ -62,15 +62,15 @@ class Exam < ActiveRecord::Base
   end
 
   def self.complete
-    self.where(exam_status_kind: ExamStatusKind.COMPLETE)
+    self.where(status: :complete)
   end
 
   def self.waiting_start
-    self.where(exam_status_kind: ExamStatusKind.WAITING_START)
+    self.where(status: :waiting_start)
   end
 
   def self.progress
-    self.where.not(exam_status_kind: [ExamStatusKind.COMPLETE, ExamStatusKind.CANCELED])
+    self.where.not(status: [:complete, :canceled])
   end
 
   private
