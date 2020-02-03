@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 def create_imunofeno_internal_codes
-  attendance = create_attendance
+  attendance = create(:imunofeno_attendance)
   InternalCode.create({
     field: Field.IMUNOFENO,
     sample: Sample.all.first,
@@ -28,6 +28,7 @@ RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
 
     before :each do
       Rails.application.load_seed
+      create(:patient)
       imunofeno_user_do_login
       click_link id: 'samples-dropdown'
       click_link id: 'samples-imunofeno'
@@ -38,7 +39,7 @@ RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
     end
 
     it "with one internal code" do
-      attendance = create_attendance
+      attendance = create(:imunofeno_attendance)
       InternalCode.create({
         field: Field.IMUNOFENO,
         sample: Sample.all.sample,
@@ -53,7 +54,7 @@ RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
     end
 
     it "with one IMUNFENO and one BIOMOL" do
-      attendance = create_attendance
+      attendance = create(:imunofeno_attendance)
       InternalCode.create({
         field: Field.IMUNOFENO,
         sample: Sample.all.sample,
@@ -74,6 +75,7 @@ RSpec.feature "User::InternalCodes::Imunofenos", type: :feature do
 
     before :each do
       Rails.application.load_seed
+      create(:patient)
       create_imunofeno_internal_codes
       imunofeno_user_do_login
       click_link id: 'samples-dropdown'

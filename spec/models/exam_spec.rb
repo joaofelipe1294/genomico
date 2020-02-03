@@ -4,6 +4,7 @@ RSpec.describe Exam, type: :model do
 
 	before :each do
 		Rails.application.load_seed
+		create(:offered_exam)
 	end
 
 	context 'Validations' do
@@ -58,9 +59,8 @@ RSpec.describe Exam, type: :model do
 	context "before update method " do
 
 		before :each do
-			# Rails.application.load_seed
 			@sample = build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD)
-			@exam = build(:exam, offered_exam: OfferedExam.where(is_active: true).where(field: Field.BIOMOL).first)
+			@exam = build(:exam, offered_exam: create(:offered_exam, field: Field.BIOMOL))
 			@attendance = create(:attendance, exams: [@exam], samples: [@sample])
 			@dna_subsample = create(:subsample, sample: @sample, subsample_kind: SubsampleKind.DNA)
 			@exam.exam_status_kind = ExamStatusKind.IN_PROGRESS
@@ -113,14 +113,14 @@ RSpec.describe Exam, type: :model do
 	context "check if method thad verofy dalay is okay" do
 
 		it "without delay" do
-			exam = create(:exam, offered_exam: OfferedExam.where(refference_date: 5).sample)
+			exam = create(:exam, offered_exam: create(:offered_exam, refference_date: 5))
 			exam.finish_date = 3.days.from_now
 			exam.verify_if_was_late
 			expect(exam.was_late).to eq false
 		end
 
 		it "without delay" do
-			exam = create(:exam, offered_exam: OfferedExam.where(refference_date: 5).sample)
+			exam = create(:exam, offered_exam: create(:offered_exam, refference_date: 5))
 			exam.finish_date = 15.days.from_now
 			exam.verify_if_was_late
 			expect(exam.was_late).to eq true
