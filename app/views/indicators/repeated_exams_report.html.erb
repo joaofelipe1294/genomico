@@ -1,0 +1,31 @@
+<%= render 'layouts/user_navbar' %>
+
+<%= render 'layouts/indicators_navbar' %>
+
+<div class="mt-3">
+  <%= render 'date_search_form', locals: {search_route: repeated_exams_report_path} %>
+</div>
+
+<h1 class="text-center mt-2 mb-5 border-bottom">
+  Exames que houveram repetição (<span id="complete-exams-count"><%= @repeated_exams_report.count %></span>)
+  <%= header %>
+</h1>
+
+<%= pie_chart @repeated_exams_report.relation %>
+
+<hr>
+
+<table class="table table-striped col-8 offset-2 mt-2 text-center mb-5">
+  <thead class="bg-dark text-white">
+    <th class="h4">Área</th>
+    <th class="h4">Repetições</th>
+  </thead>
+  <tbody>
+    <% @repeated_exams_report.relation.sort.each do |relation| %>
+      <tr>
+        <td><%= relation.first%></td>
+        <td><%= relation.last%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

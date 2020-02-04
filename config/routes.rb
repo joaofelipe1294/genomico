@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'indicators/repeated-exams', to: 'indicators#repeated_exams_report', as: :repeated_exams_report
   get 'indicators/global_production', to: 'indicators#global_production', as: :global_production
   get 'indicators/production_per_stand/:stand', to: 'indicators#production_per_stand', as: :production_per_stand
   patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
