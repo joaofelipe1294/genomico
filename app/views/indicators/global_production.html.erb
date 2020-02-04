@@ -7,7 +7,7 @@
 </div>
 
 <h1 class="text-center mt-2 mb-5 border-bottom">
-  Exames que entraram (<span id="complete-exams-count"><%= Exam.where.not(status: :canceled).count %></span>)
+  Exames que entraram (<span id="complete-exams-count"><%= @report.exam_count %></span>)
   <%= header %>
 </h1>
 
