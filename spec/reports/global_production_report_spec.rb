@@ -65,7 +65,7 @@ describe 'GlobalProductionReport#exams' do
         travel_to Time.zone.local(2000, 1, 6, 12, 0) do
           create(:attendance, exams: [build(:exam, offered_exam: @biomol_exam), build(:exam, offered_exam: @imunofeno_exam)])
         end
-        @report = GlobalProductionReport.new(params: {start_date: 1.day.ago, end_date: Date.current})
+        @report = GlobalProductionReport.new(params: {start_date: 1.day.ago, finish_date: Date.current})
         expect(@report.field_relation.keys.size).to match 0
       end
     end

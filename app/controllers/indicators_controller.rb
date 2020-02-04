@@ -26,6 +26,7 @@ class IndicatorsController < ApplicationController
   end
 
   def global_production
+    @report = GlobalProductionReport.new(params: {start_date: params[:start_date], finish_date: params[:end_date]})
   end
 
   private

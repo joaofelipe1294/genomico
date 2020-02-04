@@ -2,4 +2,30 @@
 
 <%= render 'layouts/indicators_navbar' %>
 
-dicadorixxxx
+<div class="mt-3">
+  <%= render 'date_search_form', locals: {search_route: global_production_path} %>
+</div>
+
+<h1 class="text-center mt-2 mb-5 border-bottom">
+  Exames que entraram (<span id="complete-exams-count"><%= @report.exam_count %></span>)
+  <%= header %>
+</h1>
+
+<%= pie_chart @report.field_relation %>
+
+<hr>
+
+<table class="table table-striped col-8 offset-2 mt-2 text-center mb-5">
+  <thead class="bg-dark text-white">
+    <th class="h4">Área</th>
+    <th class="h4">Entradas</th>
+  </thead>
+  <tbody>
+    <% @report.field_relation.sort.each do |relation| %>
+      <tr>
+        <td><%= relation.first%></td>
+        <td><%= relation.last%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
