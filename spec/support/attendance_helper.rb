@@ -40,6 +40,14 @@ module AttendanceHelper
     attendance
   end
 
+  def create_in_progress_fish_attendance
+    attendance = basic_fish_attendance
+    attendance.exams.first.status = :progress
+    attendance.exams.first.internal_codes << attendance.internal_codes.sample
+    attendance.save
+    attendance
+  end
+
   private
 
     def basic_imunofeno_attendance
@@ -56,6 +64,14 @@ module AttendanceHelper
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.DNA)
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.RNA)
       create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.VIRAL_DNA)
+      attendance
+    end
+
+    def basic_fish_attendance
+      exam = build(:exam, offered_exam: create(:offered_exam, field: Field.FISH), start_date: nil, finish_date: nil, status: :waiting_start)
+      sample = build(:sample, sample_kind: SampleKind.PERIPHERAL_BLOOD)
+      attendance = create(:attendance, exams: [exam], samples: [sample], status: :progress)
+      create(:subsample, sample: attendance.samples.first, subsample_kind: SubsampleKind.PELLET)
       attendance
     end
 

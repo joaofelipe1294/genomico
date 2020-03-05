@@ -9,7 +9,7 @@ class FishApiController < ApplicationController
     exams = Exam
                 .where.not(status: :canceled)
                 .where.not(status: :complete)
-                .joins(:offered_exam, :internal_codes, attendance: [:patient])
+                .joins(:offered_exam, internal_codes: [:subsample], attendance: [:patient])
                 .where("offered_exams.field_id = ?", Field.FISH.id)
                 .order(created_at: :desc)
     response = exams.map do |exam|
