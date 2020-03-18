@@ -14,7 +14,7 @@ module SamplesHelper
 
     def extract_subsample_link
       link = ""
-      if @sample.sample_kind != SampleKind.LIQUOR && session[:field_id] != Field.IMUNOFENO.id
+      if session[:field_id] != Field.IMUNOFENO.id
         link = link_to(
           'Extrair subamostra',
           new_sub_sample_path(@sample),
