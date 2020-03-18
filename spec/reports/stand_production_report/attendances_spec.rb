@@ -1,17 +1,17 @@
 require 'rails_helper'
 require 'exam_report'
 
-describe 'StandProductionReport#exams' do
+describe 'StandProductionReport#attendances' do
 
   before :each do
     Rails.application.load_seed
     create(:patient)
-    imunofeno_exam = create(:offered_exam, field: Field.IMUNOFENO)
     first_attendance = create(:biomol_attendance)
     first_attendance.exams << create(:exam)
     first_attendance.exams << create(:exam)
     first_attendance.exams.first.update created_at: 20.days.ago
     second_attendance = create(:biomol_attendance)
+    imunofeno_exam = create(:offered_exam, field: Field.IMUNOFENO)
     third_attendance = create(:imunofeno_attendance, exams: [build(:exam, offered_exam: imunofeno_exam)])
   end
 
