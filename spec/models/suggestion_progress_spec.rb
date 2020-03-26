@@ -41,7 +41,7 @@ RSpec.describe SuggestionProgress, type: :model do
     before :each do
       @second_user = create(:user, kind: :admin)
       @suggestion = create(:suggestion)
-      @suggestion.change_status :development, @second_user
+      @suggestion.update current_status: :development
       @suggestion_progress = @suggestion.reload.suggestion_progresses.order(:created_at).last
     end
 
@@ -51,13 +51,8 @@ RSpec.describe SuggestionProgress, type: :model do
 
     it "is expected to suggestion_progress has old_status AND new_status" do
       expect(@suggestion_progress.old_status.to_sym).to match :in_line
-      expect(@suggestion_progress.new_status.to_sym).to match :deve
+      expect(@suggestion_progress.new_status.to_sym).to match :development
     end
-
-    it "is expected to have a responsible" do
-      expect(@suggestion_progress.responsible).to  match @second_user
-    end
-
 
   end
 

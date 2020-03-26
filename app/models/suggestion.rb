@@ -6,6 +6,8 @@ class Suggestion < ApplicationRecord
   has_many :suggestion_progresses
   paginates_per 12
   after_create :generate_initial_progress
+  after_update :generate_new_progress
+  before_update :set_start_date
   enum kind: {
     bug_report: 0,
     new_feature: 1,
@@ -20,25 +22,25 @@ class Suggestion < ApplicationRecord
     canceled: 5
   }
 
-  def change_status new_status, user
-    generate_new_suggestion_progress(user) if self.update(current_status: new_status)
-  end
-
-  def change_to_development user, time_forseen
-    params = {
-      start_at: DateTime.current,
-      current_status: :development,
-    }
-    generate_new_suggestion_progress user if self.update params
-  end
-
-  def change_to_complete
-    params = {
-      finish_date: DateTime.current,
-      current_status: :complete,
-    }
-    generate_new_suggestion_progress self.requester if self.update params
-  end
+  # def change_status new_status, user
+  #   generate_new_suggestion_progress(user) if self.update(current_status: new_status)
+  # end
+  #
+  # def change_to_development user, time_forseen
+  #   params = {
+  #     start_at: DateTime.current,
+  #     current_status: :development,
+  #   }
+  #   generate_new_suggestion_progress user if self.update params
+  # end
+  #
+  # def change_to_complete
+  #   params = {
+  #     finish_date: DateTime.current,
+  #     current_status: :complete,
+  #   }
+  #   generate_new_suggestion_progress self.requester if self.update params
+  # end
 
   def self.in_progress
     self
@@ -78,18 +80,32 @@ class Suggestion < ApplicationRecord
       SuggestionProgress.create({
         old_status: nil,
         new_status: :in_line,
-        responsible: self.requester,
         suggestion: self
         })
     end
 
-    def generate_new_suggestion_progress user
+    def generate_new_suggestion_progress
       SuggestionProgress.create({
         old_status: self.current_status_before_last_save,
         new_status: self.current_status,
         suggestion: self,
-        responsible: user
         })
+    end
+
+    def generate_new_progress
+      SuggestionProgress.create({
+        old_status: self.current_status_before_last_save,
+        new_status: self.current_status,
+        suggestion: self,
+      })
+    end
+
+    def set_start_date
+      if self.complete?
+        self.finish_date = DateTime.current
+      elsif self.development?
+        self.start_at = DateTime.current
+      end
     end
 
 end

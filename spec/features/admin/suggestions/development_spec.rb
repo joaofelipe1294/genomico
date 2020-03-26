@@ -12,12 +12,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       admin_do_login
       visit suggestions_index_admin_path(kind: :in_line)
-      click_link class: "change-to-evaluating", match: :first
-      expect(@suggestion.reload.suggestion_progresses.size).to match 2
-      visit suggestions_index_admin_path(kind: :in_progress)
       click_link class: "change-to-development", match: :first
-      fill_in "suggestion[time_forseen]", with: "2"
-      click_button id: "btn-save"
     end
 
     it "is expected to generate a new suggestion_progress" do

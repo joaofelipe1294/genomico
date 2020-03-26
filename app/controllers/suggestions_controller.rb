@@ -30,20 +30,12 @@ class SuggestionsController < ApplicationController
   end
 
   def update
-    if params[:current_status].present?
-      if @suggestion.update current_status: params[:current_status]
-        flash[:success] = I18n.t :edit_suggestion_success
-      else
-        flash[:error] = @suggestion.errors.full_messages.first
-      end
+    return update_using_path_params if params[:current_status].present?
+    if @suggestion.update suggestion_params
+      flash[:success] = I18n.t :edit_suggestion_success
       redirect_to suggestions_index_admin_path
     else
-      if @suggestion.update suggestion_params
-        flash[:success] = I18n.t :edit_suggestion_success
-        redirect_to suggestions_index_admin_path
-      else
-        render :edit
-      end
+      render :edit
     end
   end
 
@@ -108,6 +100,15 @@ class SuggestionsController < ApplicationController
         suggestions = Suggestion.all
       end
       @suggestions = suggestions.includes(:requester).order(created_at: :asc).page params[:page]
+    end
+
+    def update_using_path_params
+      if @suggestion.update current_status: params[:current_status]
+        flash[:success] = I18n.t :edit_suggestion_success
+      else
+        flash[:error] = @suggestion.errors.full_messages.first
+      end
+      redirect_to suggestions_index_admin_path
     end
 
 end

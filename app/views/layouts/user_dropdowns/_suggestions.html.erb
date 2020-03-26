@@ -1,8 +1,7 @@
 <li class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" href="#" id="suggestions-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Funcionalidades 
+    Funcionalidades
     <%= bedge Suggestion.from_user(current_user).in_line.size, :light %>
-    <%= bedge Suggestion.from_user(current_user).evaluating.size, :secondary %>
     <%= bedge Suggestion.from_user(current_user).development.size, :info %>
     <%= bedge Suggestion.from_user(current_user).waiting_validation.size, :primary%>
   </a>
