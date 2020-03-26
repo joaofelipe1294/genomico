@@ -51,7 +51,7 @@ RSpec.describe SuggestionProgress, type: :model do
 
     it "is expected to suggestion_progress has old_status AND new_status" do
       expect(@suggestion_progress.old_status.to_sym).to match :in_line
-      expect(@suggestion_progress.new_status.to_sym).to match :development
+      expect(@suggestion_progress.new_status.to_sym).to match :deve
     end
 
     it "is expected to have a responsible" do

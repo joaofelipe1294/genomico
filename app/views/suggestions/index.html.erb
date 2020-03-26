@@ -7,7 +7,6 @@
     <th>Solicitante</th>
     <th>Estado atual</th>
     <th>Solicitado em</th>
-    <th>Tempo estimado</th>
     <th>Concluído em</th>
     <th></th>
   </thead>
@@ -28,9 +27,6 @@
         </td>
         <td>
           <%= l suggestion.created_at %>
-        </td>
-        <td>
-          <%= show_time_forseen suggestion %>
         </td>
         <td>
           <% if suggestion.complete? %>

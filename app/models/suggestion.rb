@@ -1,4 +1,3 @@
-
 class Suggestion < ApplicationRecord
   belongs_to :requester, class_name: :User
   validates_presence_of :title, :description, :requester, :current_status, :kind

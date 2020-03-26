@@ -1,10 +1,11 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, only: [:index, :new, :create, :edit, :update, :change_to_complete]
+  before_action :user_filter, only: [:index, :new, :create, :edit, :change_to_complete]
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update, :development, :change_to_development, :complete, :show]
   before_action :admin_filter, only: [:index_admin, :development, :change_to_development]
   before_action :filter_suggestions, only: [:index, :index_admin]
+  before_action :shared_filter, only: [:update]
 
   def index
   end
@@ -29,11 +30,20 @@ class SuggestionsController < ApplicationController
   end
 
   def update
-    if @suggestion.update suggestion_params
-      flash[:success] = I18n.t :edit_suggestion_success
-      redirect_to suggestions_path
+    if params[:current_status].present?
+      if @suggestion.update current_status: params[:current_status]
+        flash[:success] = I18n.t :edit_suggestion_success
+      else
+        flash[:error] = @suggestion.errors.full_messages.first
+      end
+      redirect_to suggestions_index_admin_path
     else
-      render :edit
+      if @suggestion.update suggestion_params
+        flash[:success] = I18n.t :edit_suggestion_success
+        redirect_to suggestions_index_admin_path
+      else
+        render :edit
+      end
     end
   end
 
@@ -50,13 +60,14 @@ class SuggestionsController < ApplicationController
   end
 
   def index_admin
+
   end
 
   def development
   end
 
   def change_to_development
-    if @suggestion.change_to_development(current_user, suggestion_params[:time_forseen])
+    if @suggestion.change_to_development(current_user)
       flash[:success] = I18n.t :suggestion_change_to_development_success
       redirect_to suggestions_index_admin_path(kind: :in_progress)
     else
@@ -84,7 +95,7 @@ class SuggestionsController < ApplicationController
     end
 
     def suggestion_params
-      params.require(:suggestion).permit(:title, :description, :kind, :requester_id, :time_forseen)
+      params.require(:suggestion).permit(:title, :description, :kind, :requester_id)
     end
 
     def filter_suggestions
@@ -96,7 +107,7 @@ class SuggestionsController < ApplicationController
       else
         suggestions = Suggestion.all
       end
-      @suggestions = suggestions.includes(:requester).order(created_at: :desc).page params[:page]
+      @suggestions = suggestions.includes(:requester).order(created_at: :asc).page params[:page]
     end
 
 end
