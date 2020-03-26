@@ -15,7 +15,6 @@ class Suggestion < ApplicationRecord
 
   enum current_status: {
     in_line: 0,
-    evaluating: 1,
     development: 2,
     waiting_validation: 3,
     complete: 4,
@@ -30,7 +29,6 @@ class Suggestion < ApplicationRecord
     params = {
       start_at: DateTime.current,
       current_status: :development,
-      time_forseen: time_forseen
     }
     generate_new_suggestion_progress user if self.update params
   end
