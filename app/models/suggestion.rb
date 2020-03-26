@@ -1,7 +1,5 @@
-# require './app/models/enums/suggestion_current_status'
 
 class Suggestion < ApplicationRecord
-  # include SuggestionCurrentStatus
   belongs_to :requester, class_name: :User
   validates_presence_of :title, :description, :requester, :current_status, :kind
   validates_uniqueness_of :title

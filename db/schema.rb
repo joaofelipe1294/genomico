@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_143457) do
+ActiveRecord::Schema.define(version: 2020_03_26_184235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,7 +381,6 @@ ActiveRecord::Schema.define(version: 2020_02_03_143457) do
     t.datetime "start_at"
     t.datetime "finish_date"
     t.integer "kind"
-    t.float "time_forseen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["requester_id"], name: "index_suggestions_on_requester_id"
