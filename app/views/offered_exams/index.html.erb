@@ -36,18 +36,15 @@
     <th>Mnemônico</th>
     <th>Status</th>
     <th>Área</th>
+    <th>Grupo</th>
     <th>Tempo de execução</th>
     <th></th>
   </thead>
   <tbody>
     <% @offered_exams.each do |exam| %>
       <tr class="offered-exam">
-        <td class="name">
-          <%= exam.name %>
-        </td>
-        <td>
-          <%= exam.mnemonyc %>
-        </td>
+        <td class="name"><%= exam.name %></td>
+        <td><%= exam.mnemonyc %></td>
         <td>
           <% if exam.is_active %>
             <span class="text-info">
@@ -59,12 +56,9 @@
             </span>
           <% end %>
         </td>
-        <td>
-          <%= exam.field.name %>
-        </td>
-        <td>
-          <%= exam.refference_date %> dias
-        </td>
+        <td><%= exam.field.name %></td>
+        <th><%= exam.group%></th>
+        <td><%= exam.refference_date %> dias</td>
         <td>
           <%= link_to 'Editar', edit_offered_exam_path(exam), {class: 'btn btn-sm btn-outline-warning edit-offered-exam'} %>
           <% if exam.is_active %>
