@@ -105,10 +105,11 @@ class SuggestionsController < ApplicationController
     def update_using_path_params
       if @suggestion.update current_status: params[:current_status]
         flash[:success] = I18n.t :edit_suggestion_success
+        redirect_to suggestions_index_admin_path(kind: :in_progress)
       else
         flash[:error] = @suggestion.errors.full_messages.first
+        redirect_to suggestions_index_admin_path
       end
-      redirect_to suggestions_index_admin_path
     end
 
 end

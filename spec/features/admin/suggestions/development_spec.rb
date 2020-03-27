@@ -16,13 +16,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
     end
 
     it "is expected to generate a new suggestion_progress" do
-      expect(@suggestion.reload.suggestion_progresses.size).to match 3
-    end
-
-    it "is expected to generate progress with right user" do
-      progress = @suggestion.reload.suggestion_progresses.last
-      admin = User.where(kind: :admin).first
-      expect(progress.responsible).to match admin
+      expect(@suggestion.reload.suggestion_progresses.size).to match 2
     end
 
     it "is expected to suggestion_progress new_status to be development" do
