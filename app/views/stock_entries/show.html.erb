@@ -31,7 +31,7 @@
             <td><%= display_tag product %></td>
             <td>
               <% if product.current_state == CurrentState.STOCK %>
-                <%= link_to "Remover", delete_product_path(product), method: :delete, class: "btn btn-sm btn-outline-danger remove-product", data: {confirm: "Tem certeza ?"} %>
+                <%= link_to "Remover", product, method: :delete, class: "btn btn-sm btn-outline-danger remove-product", data: {confirm: "Tem certeza ?"} %>
               <% end %>
             </td>
           </tr>

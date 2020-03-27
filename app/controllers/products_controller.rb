@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
-  before_action :set_product, only: [:new_open_product, :open_product, :delete]
+  before_action :set_product, only: [:new_open_product, :open_product, :destroy]
 
   def index
     if params[:kind] == :in_use.to_s
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
     @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
   end
 
-  def delete
+  def destroy
     if @product.destroy
       flash[:success] = I18n.t :product_destroyed_success
     else
