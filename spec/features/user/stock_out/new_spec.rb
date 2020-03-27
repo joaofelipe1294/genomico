@@ -32,7 +32,7 @@ RSpec.feature "User::StockOut::News", type: :feature do
     click_button id: "btn-save"
     expect(page).to have_current_path stock_outs_path
     expect(find(id: "success-warning").text).to eq I18n.t :new_stock_out_success
-    visit products_in_use_path
+    visit products_path(kind: :in_use)
     expect(find_all(class: "product").size).to eq 0
     click_link id: "stock-outs"
     expect(page).to have_current_path stock_outs_path

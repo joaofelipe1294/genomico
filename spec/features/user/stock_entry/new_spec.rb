@@ -112,7 +112,7 @@ RSpec.feature "User::StockEntry::News", type: :feature, js: true do
         fill_in "stock_entry[product_amount]", with: "52"
         choose 'stock_entry[product][has_tag]', option: "false"
         click_button id: "btn-save"
-        visit products_in_stock_path
+        visit products_path(kind: :stock)
         expect(Product.count).to match 52
       end
 

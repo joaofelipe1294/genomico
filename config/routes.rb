@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
   # get 'products/open-product/:id', to: 'products#new_open_product', as: :new_open_product
   # patch 'products/open-product/:id', to: 'products#open_product', as: :open_product
-  # get 'products/in_use'
-  # get 'products/in_stock'
   resources :stock_products
   get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
   resources :stock_entries
@@ -44,8 +42,6 @@ Rails.application.routes.draw do
   delete 'products/:id', to: 'products#delete', as: :delete_product
   get 'products/open-product/:id', to: 'products#new_open_product', as: :new_open_product
   patch 'products/open-product/:id', to: 'products#open_product', as: :open_product
-  get 'products/in_use'
-  get 'products/in_stock'
   get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
   resources :products
 

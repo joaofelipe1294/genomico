@@ -2,7 +2,6 @@ class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
   before_action :set_product, only: [:new_open_product, :open_product, :delete]
-  before_action :set_fields, only: [:in_stock, :in_use]
 
   def index
     if params[:kind] == :in_use.to_s

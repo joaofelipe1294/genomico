@@ -15,7 +15,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     click_link id: "stock"
     click_link id: "products-dropdown"
     click_link id: "in-stock-products"
-    expect(page).to have_current_path products_in_stock_path
+    expect(page).to have_current_path products_path(kind: :stock)
     click_link class: "open-product", match: :first
     click_button id: "btn-save"
   end
@@ -37,7 +37,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
   it "put a product in use" do
     open_product_and_navigate
     check_count css: "product", count: 1
-    expect(page).to have_current_path products_in_use_path
+    expect(page).to have_current_path products_path(kind: :in_use)
   end
 
   it "check name search", js: false do
@@ -46,7 +46,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     product = build(:product, stock_product: stock_product)
     create(:stock_entry, product: product)
     product.change_to_in_use({open_at: Date.current})
-    visit products_in_use_path
+    visit products_path(kind: :in_use)
     check_count css: "product", count: 2
     fill_in "name", with: "Azuka Lan"
     click_button id: "btn-search-by-name"
@@ -59,7 +59,7 @@ RSpec.feature "User::Product::InUses", type: :feature do
     product = build(:product, stock_product: stock_product)
     create(:stock_entry, product: product)
     product.change_to_in_use({open_at: Date.current})
-    visit products_in_use_path
+    visit products_path(kind: :in_use)
     select("Compartilhado", from: "field_id").select_option
     click_button id: "btn-search-by-field"
     check_count css: "product", count: 1
