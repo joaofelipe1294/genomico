@@ -7,7 +7,6 @@ describe 'suggestion_finder_service' do
     create(:user)
     create(:suggestion, current_status: :in_line)
     create(:suggestion, current_status: :in_line)
-    create(:suggestion, current_status: :evaluating)
     create(:suggestion, current_status: :development)
     create(:suggestion, current_status: :waiting_validation)
     create(:suggestion, current_status: :complete)
@@ -19,7 +18,7 @@ describe 'suggestion_finder_service' do
     it "is expected to return only not complete, canceled or in_line suggestions" do
       service = SuggestionFinderService.new 'in_progress'
       suggestions = service.call
-      expect(suggestions.size).to match 3
+      expect(suggestions.size).to match 2
     end
   end
 
