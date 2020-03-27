@@ -1,9 +1,9 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, only: [:index, :new, :create, :edit, :change_to_complete]
+  before_action :user_filter, only: [:index, :new, :create, :edit]
   before_action :set_users, only: [:new, :edit, :create, :update]
-  before_action :set_suggestion, only: [:edit, :update, :development, :change_to_development, :complete, :show]
-  before_action :admin_filter, only: [:index_admin, :development, :change_to_development]
+  before_action :set_suggestion, only: [:edit, :update, :complete, :show]
+  before_action :admin_filter, only: [:index_admin]
   before_action :filter_suggestions, only: [:index, :index_admin]
   before_action :shared_filter, only: [:update]
 
@@ -39,43 +39,8 @@ class SuggestionsController < ApplicationController
     end
   end
 
-  # def change_status
-  #   @suggestion = Suggestion.find params[:suggestion_id]
-  #   if @suggestion.change_status params[:new_status], current_user
-  #     flash[:success] = I18n.t :suggest_status_change_success
-  #   end
-  #   if current_user.user?
-  #     redirect_to suggestions_path
-  #   else
-  #     redirect_to suggestions_index_admin_path
-  #   end
-  # end
-
   def index_admin
-
   end
-
-  # def development
-  # end
-
-  # def change_to_development
-  #   if @suggestion.change_to_development(current_user)
-  #     flash[:success] = I18n.t :suggestion_change_to_development_success
-  #     redirect_to suggestions_index_admin_path(kind: :in_progress)
-  #   else
-  #     flash[:warning] = @suggestion.errors.full_messages.first
-  #     redirect_to suggestions_index_admin_path(kind: :in_line)
-  #   end
-  # end
-
-  # def complete
-  #   if @suggestion.change_to_complete
-  #     flash[:success] = I18n.t :success
-  #   else
-  #     flash[:warning] = model.errors.full_messages.first
-  #   end
-  #   redirect_to suggestions_path
-  # end
 
   def show
   end
