@@ -1,0 +1,56 @@
+<table class="table table-bordered mt-3 text-center table-sm">
+  <thead class="bg-dark text-white">
+    <th class="h4">Nome</th>
+    <th class="h4">Marca</th>
+    <th class="h4">Lote</th>
+    <th class="h4">Validade</th>
+    <th class="h4">Quantidade</th>
+    <th class="h4">Localização</th>
+    <th class="h4">Área</th>
+    <th class="h4">Identificação</th>
+    <th class="h4">Aberto em</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr class="product">
+        <td>
+          <%= product.stock_product.name %>
+        </td>
+        <td>
+          <%= product.brand.name %>
+        </td>
+        <td>
+          <%= product.lot %>
+        </td>
+        <td>
+          <% if product.has_shelf_life %>
+            <%= display_shelf_life product %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+        <td>
+          <%= "#{product.amount} (#{product.stock_product.unit_of_measurement_name})" %>
+        </td>
+        <td>
+          <%= product.location %>
+        </td>
+        <td>
+          <%= display_field product.stock_product %>
+        </td>
+        <td>
+          <%= display_tag product %>
+        </td>
+        <td>
+          <%= l product.open_at %>
+        </td>
+        <td>
+          <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render "layouts/table_footer", elements: @products %>
