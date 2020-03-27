@@ -15,6 +15,10 @@ class Patient < ActiveRecord::Base
 		"#{complete_name.first} #{complete_name.last}"
 	end
 
+	def exams
+		Exam.where(attendance_id: Attendance.where(patient_id: self.id)).includes(:offered_exam)
+	end
+
 	private
 
 		def medical_record_presence_validation

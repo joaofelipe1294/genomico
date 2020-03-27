@@ -24,7 +24,7 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
-    redirect_to patient_path(@patient, patient: true) unless params[:samples].present? or params[:patient].present?
+    redirect_to patient_path(@patient, patient: true) unless params[:samples].present? or params[:patient].present? or params[:attendance].present? or params[:exams].present?
     samples_from_patient if params[:samples].present?
   end
 
@@ -65,7 +65,7 @@ class PatientsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
-      @patient = Patient.find(params[:id])
+      @patient = Patient.includes(:samples, :subsamples, :attendances).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

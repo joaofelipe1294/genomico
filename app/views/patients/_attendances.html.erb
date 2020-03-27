@@ -1,0 +1,26 @@
+<table>
+	<thead>
+		<th>Código LisNet</th>
+		<th>Status do atendimento</th>
+    <th>Data de início</th>
+    <th>Data de conclusão</th>
+    <th>Exames em restantes</th>
+    <th>Exames concluídos</th>
+    <th></th>
+	</thead>
+	<tbody>
+		<% @patient.attendances.each do |attendance| %>
+			<tr>
+				<td><%= attendance.lis_code %></td>
+				<td><%= span condition: attendance.complete?, text: attendance.status_name %></td>
+				<td><%= l attendance.start_date.to_date %></td>
+				<td><%= show_attendance_finish_date attendance %></td>
+				<td><%= attendance.exams.where.not(status: :complete).size %></td>
+				<td><%= attendance.exams.where(status: :complete).size %></td>
+				<td>
+					<%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-primary'} %>
+					<%= link_to 'Verificar andamento', attendance_path(attendance), class: 'ml-2 btn btn-sm btn-outline-info' %>
+				</td>
+		<% end %>
+	</tbody>
+</table>

@@ -6,8 +6,8 @@
     </h4>
     <%= link_to "Editar", edit_patient_path(@patient), class: 'btn btn-sm btn-warning float-right ml-4 edit-patient' %>
     <%= link_to "Amostras", patient_path(@patient, samples: true), class: 'btn btn-sm btn-primary float-right ml-4 samples-from-patient'%>
-    <%= link_to "Exames", exams_from_patient_path(@patient), class: 'btn btn-sm btn-success float-right ml-4 exams-from-patient' %>
-    <%= link_to 'Atendimentos', attendances_from_patient_path(@patient), {class: 'btn btn-sm btn-info float-right ml-4 attendances-from-patient'} %>
+    <%= link_to "Exames", patient_path(@patient, exams: true), class: 'btn btn-sm btn-success float-right ml-4 exams-from-patient' %>
+    <%= link_to 'Atendimentos', patient_path(@patient, attendance: true), {class: 'btn btn-sm btn-info float-right ml-4 attendances-from-patient'} %>
   </div>
   <div class="card-body">
 
