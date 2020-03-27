@@ -16,9 +16,20 @@
 
 @import "bootstrap";
 
-
-.date-select { 
+.date-select {
     display: inline-block;
     width: 30%;
     margin-left: 2.5%;
+}
+
+table {
+  @extend .table, .text-center, .mt-5;
+}
+
+thead {
+  @extend .bg-dark, .text-white;
+}
+
+th {
+  @extend .h5;
 }

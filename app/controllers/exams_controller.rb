@@ -53,14 +53,6 @@ class ExamsController < ApplicationController
   def partial_released
   end
 
-  def exams_from_patient
-    field_id = params[:field_id]
-    @patient = Patient.find params[:id]
-    exams = Exam.where(attendance_id: Attendance.where(patient_id: @patient.id)).includes(:offered_exam)
-    exams = exams.joins(:offered_exam).where("offered_exams.field_id = ?", field_id) if field_id && field_id != "0"
-    @exams = exams
-  end
-
   # GET exams/1/add_report
   def add_report
   end

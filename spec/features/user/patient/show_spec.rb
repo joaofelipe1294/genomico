@@ -14,27 +14,27 @@ RSpec.feature "User::Patient::Shows", type: :feature do
   end
 
   it "show patient" do
-    expect(page).to have_current_path patient_path(Patient.all.first)
+    expect(page).to have_current_path patient_path(Patient.last, patient: true)
   end
 
   it "edit patient" do
     click_link class: 'edit-patient', match: :first
-    expect(page).to have_current_path edit_patient_path(Patient.all.first)
+    expect(page).to have_current_path edit_patient_path(Patient.last)
   end
 
   it "samples from patient" do
     click_link class: 'samples-from-patient', match: :first
-    expect(page).to have_current_path samples_from_patient_path(Patient.all.first)
+    expect(page).to have_current_path patient_path(Patient.last, samples: true)
   end
 
   it "exams from patient" do
     click_link class: 'exams-from-patient', match: :first
-    expect(page).to have_current_path exams_from_patient_path(Patient.all.first)
+    expect(page).to have_current_path patient_path(Patient.last, exams: true)
   end
 
   it "attendances from patient" do
     click_link class: 'attendances-from-patient', match: :first
-    expect(page).to have_current_path attendances_from_patient_path(Patient.all.first)
+    expect(page).to have_current_path patient_path(Patient.last, attendance: true)
   end
 
 end

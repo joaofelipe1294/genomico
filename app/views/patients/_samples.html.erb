@@ -1,15 +1,14 @@
-<%= render 'layouts/user_navbar' %>
-
 <div class="text-center mt-3 border-bottom">
   <%= link_to @patient.name, patient_path(@patient), class: 'h5' %>
 </div>
 
 <div class="mt-3">
   <div class="col-md-5 d-inline-block border-right offset-1">
-    <%= form_with url: samples_from_patient_path(@patient), method: :get do |form| %>
+    <%= form_with url: patient_path(@patient), method: :get do |form| %>
+      <%= form.hidden_field :samples, value: true %>
       <div class="form-group">
         <label>Amostra</label>
-        <%= form.select :sample_kind, options_from_collection_for_select(@sample_kinds, "id", "name"), {}, class: 'form-control' %>
+        <%= form.select :sample_kind, options_from_collection_for_select(SampleKind.all.order(:name), "id", "name"), {}, class: 'form-control' %>
       </div>
       <button class="btn btn-outline-info float-right">
         Buscar
@@ -18,10 +17,11 @@
   </div>
 
   <div class="col-md-5 d-inline-block">
-    <%= form_with url: samples_from_patient_path(@patient), method: :get do |form| %>
+    <%= form_with url: patient_path(@patient), method: :get do |form| %>
+      <%= form.hidden_field :samples, value: true %>
       <div class="form-group">
         <label>Subamostra</label>
-        <%= form.select :subsample_kind, options_from_collection_for_select(@subsample_kinds, "id", "name"), {}, class: 'form-control' %>
+        <%= form.select :subsample_kind, options_from_collection_for_select(SubsampleKind.all.order(:name), "id", "name"), {}, class: 'form-control' %>
       </div>
       <button class="btn btn-outline-info float-right">
         Buscar

@@ -54,7 +54,7 @@ RSpec.feature "User::Worflow::TabNavigations", type: :feature do
   it "visit patient profile" do
     visit workflow_path(@attendance, {tab: 'exams'})
     click_link id: 'patient-link'
-    expect(page).to have_current_path patient_path(@attendance.patient)
+    expect(page).to have_current_path patient_path(@attendance.patient, patient: true)
   end
 
 end
