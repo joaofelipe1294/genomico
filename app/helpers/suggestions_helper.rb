@@ -50,13 +50,4 @@ module SuggestionsHelper
     ).html_safe
   end
 
-  def show_time_forseen suggestion
-    time_forseen = suggestion.time_forseen
-    if time_forseen
-      "#{time_forseen} (Horas)"
-    else
-      "-"
-    end
-  end
-
 end

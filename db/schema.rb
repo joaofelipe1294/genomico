@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_03_143457) do
+ActiveRecord::Schema.define(version: 2020_03_26_194719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -364,12 +364,10 @@ ActiveRecord::Schema.define(version: 2020_02_03_143457) do
 
   create_table "suggestion_progresses", force: :cascade do |t|
     t.bigint "suggestion_id"
-    t.bigint "responsible_id"
     t.string "old_status"
     t.string "new_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["responsible_id"], name: "index_suggestion_progresses_on_responsible_id"
     t.index ["suggestion_id"], name: "index_suggestion_progresses_on_suggestion_id"
   end
 
@@ -381,7 +379,6 @@ ActiveRecord::Schema.define(version: 2020_02_03_143457) do
     t.datetime "start_at"
     t.datetime "finish_date"
     t.integer "kind"
-    t.float "time_forseen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["requester_id"], name: "index_suggestions_on_requester_id"
@@ -440,6 +437,5 @@ ActiveRecord::Schema.define(version: 2020_02_03_143457) do
   add_foreign_key "subsamples", "samples"
   add_foreign_key "subsamples", "subsample_kinds"
   add_foreign_key "suggestion_progresses", "suggestions"
-  add_foreign_key "suggestion_progresses", "users", column: "responsible_id"
   add_foreign_key "suggestions", "users", column: "requester_id"
 end

@@ -12,10 +12,8 @@ RSpec.feature "User::Suggestions::Completes", type: :feature do
       @admin = User.where(kind: :admin).last
       @suggestion = create(:suggestion, requester: user)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
-      @suggestion.change_status :evaluating, @admin
+      @suggestion.update current_status: :development
       expect(@suggestion.reload.suggestion_progresses.size).to match 2
-      @suggestion.change_to_development @admin, 7
-      expect(@suggestion.reload.suggestion_progresses.size).to match 3
       visit suggestions_path(kind: :in_progress)
     end
 
@@ -28,8 +26,8 @@ RSpec.feature "User::Suggestions::Completes", type: :feature do
     context "when there are suggestions waiting validation" do
 
       before :each do
-        @suggestion.change_status :waiting_validation, @admin
-        expect(@suggestion.reload.suggestion_progresses.size).to match 4
+        @suggestion.update current_status: :waiting_validation
+        expect(@suggestion.reload.suggestion_progresses.size).to match 3
         visit suggestions_path(kind: :in_progress)
       end
 
@@ -45,7 +43,7 @@ RSpec.feature "User::Suggestions::Completes", type: :feature do
         end
 
         it "is expected to generate new progress" do
-          expect(@suggestion.reload.suggestion_progresses.size).to match 5
+          expect(@suggestion.reload.suggestion_progresses.size).to match 4
         end
 
         it "is expected to progress new _status to be complete" do

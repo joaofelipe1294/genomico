@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     User.includes(:fields).find session[:user_id]
   end
 
+  def shared_filter
+    wrong_credentials_redirect unless session[:user_id]
+  end
+
   private
 
     def wrong_credentials_redirect

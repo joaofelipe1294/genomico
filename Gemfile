@@ -57,7 +57,7 @@ gem 'bootsnap', require: false
 # Create beautiful JavaScript charts with one line of Ruby. No more fighting with charting libraries!
 gem "chartkick"
 
-gem "nokogiri", ">= 1.10.4"
+gem "nokogiri", ">= 1.10.8"
 
 # A Ruby client library for Redis
 gem "hiredis", "~> 0.6.0"
@@ -65,7 +65,7 @@ gem "redis", ">= 3.2.0"
 # In Rubyzip before 1.3.0, a crafted ZIP file can bypass application checks on ZIP entry sizes because data about the uncompressed size can be spoofed. This allows attackers to cause a denial of service (disk consumption).
 gem "rubyzip", ">= 1.3.0"
 gem "cuprite", group: :test
-gem "puma", "4.3.1"
+gem "puma", "~> 4.3.3"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -82,16 +82,11 @@ group :development, :test do
   gem 'faker', '~> 2.0.0'
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
-  # A Ruby code quality reporter
-  gem "rubycritic", require: false
-  # A static analysis security vulnerability scanner for Ruby on Rails applications https://brakemanscanner.org/
-  gem 'brakeman'
 end
 
 group :test do
   gem 'database_rewinder'
   gem 'listen'
-  gem 'simplecov', require: false
 end
 
 group :development do

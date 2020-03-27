@@ -1,4 +1,8 @@
-<%= render 'layouts/user_navbar' %>
+<% if current_user.admin? %>
+  <%= render 'layouts/admin_navbar' %>
+<% else %>
+  <%= render 'layouts/user_navbar' %>
+<% end %>
 
 <table class="table table-sm text-center mt-5">
   <thead class="bg-dark text-white">
@@ -7,7 +11,6 @@
     <th>Solicitante</th>
     <th>Estado atual</th>
     <th>Solicitado em</th>
-    <th>Tempo estimado</th>
     <th>Concluído em</th>
     <th></th>
   </thead>
@@ -30,9 +33,6 @@
           <%= l suggestion.created_at %>
         </td>
         <td>
-          <%= show_time_forseen suggestion %>
-        </td>
-        <td>
           <% if suggestion.complete? %>
             <%= l suggestion.finish_date %>
           <% else %>
@@ -41,20 +41,25 @@
         </td>
         <td>
           <%= link_to "Exibir", suggestion, class: "btn btn-sm btn-outline-info show-suggestion" %>
-          <% if suggestion.requester_id == session[:user_id] %>
-
-            <% if suggestion.waiting_validation? %>
-              <%= link_to "Concluir", complete_suggestion_path(suggestion), method: :patch, class: "btn btn-sm btn-outline-success complete-suggestion", data: {confirm: "Tem certeza ?"}%>
+          <% if current_user.user? %>
+            <% if suggestion.requester_id == session[:user_id] %>
+              <% if suggestion.waiting_validation? %>
+                <%= link_to "Concluir", suggestion_path(suggestion, current_status: :complete), method: :patch, class: "btn btn-sm btn-outline-success complete-suggestion", data: {confirm: "Tem certeza ?"}%>
+              <% end %>
+              <% unless suggestion.complete? || suggestion.canceled? %>
+                <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
+              <% end %>
+              <% unless suggestion.complete? || suggestion.canceled? %>
+                <%= link_to "Cancelar", suggestion_path(suggestion, current_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Tem certeza ?"} %>
+              <% end %>
             <% end %>
-
-            <% unless suggestion.complete? || suggestion.canceled? %>
-              <%= link_to "Editar", edit_suggestion_path(suggestion), class: "btn btn-outline-warning btn-sm edit-suggestion" %>
-            <% end %>
-
-            <% unless suggestion.complete? || suggestion.canceled? %>
-              <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Temc erteza ?"} %>
-            <% end %>
-
+          <% else %>
+              <% if suggestion.in_line? %>
+                <%= link_to "Colocar em desenvolvimento", suggestion_path(suggestion, current_status: :development), class: "btn btn-sm btn-outline-primary change-to-development", method: :patch %>
+              <% end %>
+              <% if suggestion.development? %>
+                <%= link_to "Colocar em aguardando validação", suggestion_path(suggestion, current_status: :waiting_validation), method: :patch, class: "btn btn-sm btn-outline-info change-to-waiting-validation" %>
+              <% end %>
           <% end %>
         </td>
       </tr>

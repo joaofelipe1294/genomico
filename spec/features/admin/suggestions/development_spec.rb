@@ -11,23 +11,12 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
       @suggestion = create(:suggestion)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       admin_do_login
-      visit suggestions_index_admin_path(kind: :in_line)
-      click_link class: "change-to-evaluating", match: :first
-      expect(@suggestion.reload.suggestion_progresses.size).to match 2
-      visit suggestions_index_admin_path(kind: :in_progress)
+      visit suggestions_path(kind: :in_line)
       click_link class: "change-to-development", match: :first
-      fill_in "suggestion[time_forseen]", with: "2"
-      click_button id: "btn-save"
     end
 
     it "is expected to generate a new suggestion_progress" do
-      expect(@suggestion.reload.suggestion_progresses.size).to match 3
-    end
-
-    it "is expected to generate progress with right user" do
-      progress = @suggestion.reload.suggestion_progresses.last
-      admin = User.where(kind: :admin).first
-      expect(progress.responsible).to match admin
+      expect(@suggestion.reload.suggestion_progresses.size).to match 2
     end
 
     it "is expected to suggestion_progress new_status to be development" do
@@ -41,7 +30,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
     end
 
     it "is expected to redirect to suggestion in development" do
-      expect(page).to have_current_path suggestions_index_admin_path(kind: :in_progress)
+      expect(page).to have_current_path suggestions_path
     end
 
   end

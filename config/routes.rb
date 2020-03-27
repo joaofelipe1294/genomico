@@ -4,13 +4,6 @@ Rails.application.routes.draw do
   get 'indicators/repeated-exams', to: 'indicators#repeated_exams_report', as: :repeated_exams_report
   get 'indicators/global_production', to: 'indicators#global_production', as: :global_production
   get 'indicators/production_per_stand/:stand', to: 'indicators#production_per_stand', as: :production_per_stand
-  patch 'suggestions/:id/complete', to: 'suggestions#complete', as: :complete_suggestion
-  patch 'suggestions/:id/development', to: 'suggestions#change_to_development', as: :change_suggestion_to_development
-  get 'suggestions/admin', to: 'suggestions#index_admin', as: :suggestions_index_admin
-  get 'suggestions/:id/development', to: 'suggestions#development', as: :suggestion_to_development
-  resources :suggestions do
-    patch 'change-status', to: 'suggestions#change_status', as: :change_status
-  end
   delete 'products/:id', to: 'products#delete', as: :delete_product
   get 'maintenance/maintenance', to: 'maintenance#maintenance', as: :maintenance
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
@@ -83,6 +76,7 @@ Rails.application.routes.draw do
 
   get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
 
+  resources :suggestions
   resources :brands
   resources :work_maps
   resources :hospitals
