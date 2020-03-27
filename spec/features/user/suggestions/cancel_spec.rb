@@ -46,11 +46,6 @@ RSpec.feature "User::Suggestions::Cancels", type: :feature do
           expect(progress.new_status.to_sym).to match :canceled
         end
 
-        it "is expected to current user to be responsible for the action" do
-          progress = @suggestion.reload.suggestion_progresses.order(:id).last
-          expect(progress.responsible).to match User.all.last
-        end
-
       end
 
     end

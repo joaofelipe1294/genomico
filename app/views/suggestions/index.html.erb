@@ -48,7 +48,7 @@
             <% end %>
 
             <% unless suggestion.complete? || suggestion.canceled? %>
-              <%= link_to "Cancelar", suggestion_change_status_path(suggestion, new_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Temc erteza ?"} %>
+              <%= link_to "Cancelar", suggestion_path(suggestion, current_status: :canceled), method: :patch, class: "btn btn-sm btn-outline-danger cancel-suggestion", data: {confirm: "Tem certeza ?"} %>
             <% end %>
 
           <% end %>
