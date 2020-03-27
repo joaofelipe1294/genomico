@@ -40,7 +40,7 @@
           <% if suggestion.requester_id == session[:user_id] %>
 
             <% if suggestion.waiting_validation? %>
-              <%= link_to "Concluir", complete_suggestion_path(suggestion), method: :patch, class: "btn btn-sm btn-outline-success complete-suggestion", data: {confirm: "Tem certeza ?"}%>
+              <%= link_to "Concluir", suggestion_path(suggestion, current_status: :complete), method: :patch, class: "btn btn-sm btn-outline-success complete-suggestion", data: {confirm: "Tem certeza ?"}%>
             <% end %>
 
             <% unless suggestion.complete? || suggestion.canceled? %>

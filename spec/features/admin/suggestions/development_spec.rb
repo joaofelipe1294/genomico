@@ -30,7 +30,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
     end
 
     it "is expected to redirect to suggestion in development" do
-      expect(page).to have_current_path suggestions_index_admin_path(kind: :in_progress)
+      expect(page).to have_current_path suggestions_index_admin_path
     end
 
   end
