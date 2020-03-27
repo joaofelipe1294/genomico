@@ -1,11 +1,10 @@
 class SuggestionsController < ApplicationController
   include InstanceVariableSetter
-  before_action :user_filter, only: [:index, :new, :create, :edit]
+  before_action :user_filter, only: [:new, :create, :edit]
   before_action :set_users, only: [:new, :edit, :create, :update]
   before_action :set_suggestion, only: [:edit, :update, :complete, :show]
-  before_action :admin_filter, only: [:index_admin]
-  before_action :filter_suggestions, only: [:index, :index_admin]
-  before_action :shared_filter, only: [:update]
+  before_action :filter_suggestions, only: [:index]
+  before_action :shared_filter, only: [:index, :update]
 
   def index
   end
@@ -33,7 +32,7 @@ class SuggestionsController < ApplicationController
     return update_using_path_params if params[:current_status].present?
     if @suggestion.update suggestion_params
       flash[:success] = I18n.t :edit_suggestion_success
-      return destination_path
+      redirect_to suggestions_path
     else
       render :edit
     end
@@ -70,16 +69,10 @@ class SuggestionsController < ApplicationController
     def update_using_path_params
       if @suggestion.update current_status: params[:current_status]
         flash[:success] = I18n.t :edit_suggestion_success
-        destination_path
       else
         flash[:error] = @suggestion.errors.full_messages.first
-        redirect_to suggestions_index_admin_path
       end
-    end
-
-    def destination_path
-      return redirect_to suggestions_index_admin_path if current_user.admin?
-      return redirect_to suggestions_path if current_user.user?
+      redirect_to suggestions_path
     end
 
 end

@@ -11,7 +11,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
       @suggestion = create(:suggestion)
       expect(@suggestion.reload.suggestion_progresses.size).to match 1
       admin_do_login
-      visit suggestions_index_admin_path(kind: :in_line)
+      visit suggestions_path(kind: :in_line)
       click_link class: "change-to-development", match: :first
     end
 
@@ -30,7 +30,7 @@ RSpec.feature "Admin::Suggestions::Developments", type: :feature do
     end
 
     it "is expected to redirect to suggestion in development" do
-      expect(page).to have_current_path suggestions_index_admin_path
+      expect(page).to have_current_path suggestions_path
     end
 
   end

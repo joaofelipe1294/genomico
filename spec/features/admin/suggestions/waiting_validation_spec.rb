@@ -15,7 +15,7 @@ RSpec.feature "Admin::Suggestions::WaitingValidations", type: :feature do
 
     context "when there is none development suggestions" do
       it "is expected to not render waiting validation option" do
-        visit suggestions_index_admin_path(kind: :in_progress)
+        visit suggestions_path(kind: :in_progress)
         expect(find_all(class: "change-to-waiting-validation").size).to match 0
       end
     end
@@ -26,7 +26,7 @@ RSpec.feature "Admin::Suggestions::WaitingValidations", type: :feature do
         admin = User.where(kind: :admin).first
         @suggestion.update current_status: :development
         expect(@suggestion.reload.suggestion_progresses.size).to match 2
-        visit suggestions_index_admin_path(kind: :in_progress)
+        visit suggestions_path(kind: :in_progress)
       end
 
       it "is expected to render option " do
@@ -46,12 +46,12 @@ RSpec.feature "Admin::Suggestions::WaitingValidations", type: :feature do
         end
 
         it "is expected to render in development option" do
-          visit suggestions_index_admin_path(kind: :in_progress)
+          visit suggestions_path(kind: :in_progress)
           expect(find_all(class: "change-to-development").size).to match 0
         end
 
         it "is expected to be redirect to in progress suggestions" do
-          expect(page).to have_current_path suggestions_index_admin_path
+          expect(page).to have_current_path suggestions_path
         end
 
       end

@@ -16,7 +16,7 @@ RSpec.feature "Admin::Suggestions::Shows", type: :feature do
   describe "when admin wants to see a suggestion" do
     before :each do
       admin_do_login
-      visit suggestions_index_admin_path
+      visit suggestions_path
     end
 
     context "when admin navigate to suggestions_index" do

@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def shared_filter
-    wrong_credentials_message unless session[:user_id]
+    wrong_credentials_redirect unless session[:user_id]
   end
 
   private
