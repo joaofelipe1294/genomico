@@ -20,7 +20,7 @@ describe 'StandProductionReport#attendances' do
       it "is expected to return all attendances of olny one field" do
         report = StandProductionReport.new stand: :imunofeno
         count = report.attendance_count
-        expect(count).to match 1
+        expect(count).to match 2
       end
     end
     context "when searchin by date" do

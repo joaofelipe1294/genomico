@@ -16,7 +16,7 @@ class OfferedExamsController < ApplicationController
     else
       offered_exams = OfferedExam.all.order(name: :asc)
     end
-    @offered_exams = offered_exams.order(name: :asc).page params[:page]
+    @offered_exams = offered_exams.includes(:field).order(name: :asc).page params[:page]
   end
 
   # GET /offered_exams/new
@@ -44,40 +44,13 @@ class OfferedExamsController < ApplicationController
   # PATCH/PUT /offered_exams/1
   # PATCH/PUT /offered_exams/1.json
   def update
+    return update_using_path_params if params[:is_active].present?
     if @offered_exam.update(offered_exam_params)
-      flash[:success] = I18n.t :edit_offered_exam_success
-      redirect_to offered_exams_path
+      update_success
     else
       set_fields
       render :edit
     end
-  end
-
-  # DELETE /offered_exams/1
-  # DELETE /offered_exams/1.json
-  def destroy
-    if @offered_exam.update({is_active: false})
-      flash[:success] = I18n.t :disable_offered_exam_success
-    else
-      flash[:warning] = @offered_exam.errors.full_messages.first
-    end
-    redirect_to offered_exams_path
-  end
-
-  #POST /offered_exams/:id/activate
-  def active_exam
-    if @offered_exam.update({is_active: true})
-      flash[:success] = I18n.t :enable_offered_exam_success
-    else
-      flash[:warning] = @offered_exam.errors.full_messages.first
-    end
-    redirect_to offered_exams_path
-  end
-
-  #GET /offered_exams/field/id
-  def exams_per_field
-    @exams = OfferedExam.where(field: Field.find(params[:id])).where(is_active: true).order name: :asc
-    render json: @exams, status: :ok, only: [:id, :name]
   end
 
   private
@@ -89,5 +62,19 @@ class OfferedExamsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def offered_exam_params
       params.require(:offered_exam).permit(:name, :field_id, :is_active, :refference_date, :mnemonyc, :group)
+    end
+
+    def update_using_path_params
+      if @offered_exam.update is_active: params[:is_active]
+        return update_success
+      else
+        flash[:error] = @offered_exam.errors.full_messages
+        redirect_to offered_exams_path
+      end
+    end
+
+    def update_success
+      flash[:success] = I18n.t :edit_offered_exam_success
+      redirect_to offered_exams_path
     end
 end

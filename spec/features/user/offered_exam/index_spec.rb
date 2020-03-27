@@ -51,7 +51,7 @@ RSpec.feature "User::OfferedExam::Indices", type: :feature do
       navigate_to
       click_link class: "disable-offered-exam", match: :first
       expect(page).to have_current_path offered_exams_path
-      expect(find(id: "success-warning").text).to eq I18n.t :disable_offered_exam_success
+      expect(find(id: "success-warning").text).to eq I18n.t :edit_offered_exam_success
     end
 
     it "enable" do
@@ -59,7 +59,7 @@ RSpec.feature "User::OfferedExam::Indices", type: :feature do
       navigate_to
       click_link class: "enable-offered-exam", match: :first
       expect(page).to have_current_path offered_exams_path
-      expect(find(id: "success-warning").text).to eq I18n.t :enable_offered_exam_success
+      expect(find(id: "success-warning").text).to eq I18n.t :edit_offered_exam_success
     end
 
   end
