@@ -24,18 +24,17 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
-    @patient = Patient.find params[:id]
+    redirect_to patient_path(@patient, patient: true) unless params[:samples].present? or params[:patient].present?
+    samples_from_patient if params[:samples].present?
   end
 
   # GET /patients/new
   def new
     @patient = Patient.new
-    # @hospitals = Hospital.all.order :name
   end
 
   # GET /patients/1/edit
   def edit
-    # @hospitals = Hospital.all.order :name
   end
 
   # POST /patients
@@ -63,23 +62,6 @@ class PatientsController < ApplicationController
     end
   end
 
-  # GET /patients/:id/samples
-  def samples_from_patient
-    @patient = Patient.find params[:id]
-    search_by_sample_kind = params[:sample_kind]
-    search_by_subsample_kind = params[:subsample_kind]
-    if search_by_sample_kind.present?
-      @samples = @patient.samples.where(sample_kind_id: search_by_sample_kind).order(:created_at)
-      @display = 'SAMPLE'
-    elsif search_by_subsample_kind.present?
-      @subsamples = @patient.subsamples.where(subsample_kind_id: search_by_subsample_kind).order(:created_at)
-      @display = 'SUBSAMPLE'
-    else
-      @samples = @patient.samples.order(:created_at)
-      @display = 'ALL'
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient
@@ -98,6 +80,21 @@ class PatientsController < ApplicationController
         redirect_to workflow_path(attendance)
       else
         redirect_to home_user_index_path
+      end
+    end
+
+    def samples_from_patient
+      search_by_sample_kind = params[:sample_kind]
+      search_by_subsample_kind = params[:subsample_kind]
+      if search_by_sample_kind.present?
+        @samples = @patient.samples.where(sample_kind_id: search_by_sample_kind).order(:created_at)
+        @display = 'SAMPLE'
+      elsif search_by_subsample_kind.present?
+        @subsamples = @patient.subsamples.where(subsample_kind_id: search_by_subsample_kind).order(:created_at)
+        @display = 'SUBSAMPLE'
+      else
+        @samples = @patient.samples.order(:created_at)
+        @display = 'ALL'
       end
     end
 end

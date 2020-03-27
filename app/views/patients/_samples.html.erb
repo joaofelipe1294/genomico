@@ -1,0 +1,235 @@
+<div class="text-center mt-3 border-bottom">
+  <%= link_to @patient.name, patient_path(@patient), class: 'h5' %>
+</div>
+
+<div class="mt-3">
+  <div class="col-md-5 d-inline-block border-right offset-1">
+    <%= form_with url: patient_path(@patient), method: :get do |form| %>
+      <%= form.hidden_field :samples, value: true %>
+      <div class="form-group">
+        <label>Amostra</label>
+        <%= form.select :sample_kind, options_from_collection_for_select(SampleKind.all.order(:name), "id", "name"), {}, class: 'form-control' %>
+      </div>
+      <button class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+
+  <div class="col-md-5 d-inline-block">
+    <%= form_with url: patient_path(@patient), method: :get do |form| %>
+      <%= form.hidden_field :samples, value: true %>
+      <div class="form-group">
+        <label>Subamostra</label>
+        <%= form.select :subsample_kind, options_from_collection_for_select(SubsampleKind.all.order(:name), "id", "name"), {}, class: 'form-control' %>
+      </div>
+      <button class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<table class="table table-bordered text-center mt-3">
+  <thead class="bg-dark text-white">
+    <th>
+      <h4>Tipo</h4>
+    </th>
+    <th>
+      <h4>
+        Códigos internos
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Coleta
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Inicio atendimento
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Concentração (Nanodrop)
+      </h4>
+    </th>
+    <th>
+      <h4>
+        260/280
+      </h4>
+    </th>
+    <th>
+      <h4>
+        260/230
+      </h4>
+    </th>
+    <th>
+      <h4>
+        Concentração (Qubit)
+      </h4>
+    </th>
+  </thead>
+  <tbody>
+    <% if @display == 'ALL' %>
+      <% @samples.each do |sample| %>
+        <tr>
+          <td>
+            <%= sample.sample_kind.name %>
+          </td>
+          <td>
+            <% unless sample.internal_codes.empty? %>
+              <% if sample.internal_codes.size == 1 %>
+                <%= sample.internal_codes.first.code %>
+              <% else %>
+                <% sample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  "%>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <%= l sample.collection_date %>
+          </td>
+          <td>
+            <%= l sample.attendance.created_at.to_date %>
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+        <% sample.subsamples.each do |subsample| %>
+          <tr>
+            <td>
+              <%= subsample.subsample_kind.name %>
+            </td>
+            <td>
+
+              <% unless subsample.internal_codes.empty? %>
+                <% if subsample.internal_codes.size == 1 %>
+                  <%= subsample.internal_codes.first.code %>
+                <% else %>
+                  <% subsample.internal_codes.each do |internal_code| %>
+                    <%= "  #{internal_code.code}  " %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                -
+              <% end %>
+
+            </td>
+            <td>
+              <%= l subsample.collection_date.to_date %>
+            </td>
+            <td>
+              <%= l subsample.attendance.created_at.to_date %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.concentration %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.rate_260_280 %>
+            </td>
+            <td>
+              <%= subsample.nanodrop_report.rate_260_230 %>
+            </td>
+            <td>
+              <%= subsample.qubit_report.concentration %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% elsif @display == 'SAMPLE' %>
+      <% @samples.each do |sample| %>
+        <tr>
+          <td>
+            <%= sample.sample_kind.name %>
+          </td>
+          <td>
+            <% unless sample.internal_codes.empty? %>
+              <% if sample.internal_codes.size == 1 %>
+                <%= sample.internal_codes.first.code %>
+              <% else %>
+                <% sample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  "%>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <%= l sample.collection_date %>
+          </td>
+          <td>
+            <%= l sample.attendance.created_at.to_date %>
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+          <td>
+            -
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <% @subsamples.each do |subsample| %>
+        <tr>
+          <td>
+            <%= subsample.subsample_kind.name %>
+          </td>
+          <td>
+            <% unless subsample.internal_codes.empty? %>
+              <% if subsample.internal_codes.size == 1 %>
+                <%= subsample.internal_codes.first.code %>
+              <% else %>
+                <% subsample.internal_codes.each do |internal_code| %>
+                  <%= "  #{internal_code.code}  " %>
+                <% end %>
+              <% end %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <%= l subsample.collection_date.to_date %>
+          </td>
+          <td>
+            <%= l subsample.attendance.created_at.to_date %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.concentration %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.rate_260_280 %>
+          </td>
+          <td>
+            <%= subsample.nanodrop_report.rate_260_230 %>
+          </td>
+          <td>
+            <%= subsample.qubit_report.concentration %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+
+  </tbody>
+</table>

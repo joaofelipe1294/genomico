@@ -32,8 +32,8 @@ Rails.application.routes.draw do
   patch 'exams/:id/save_report', to: 'exams#save_exam_report', as: :save_exam_report
   get 'exams/:id/add_report', to: 'exams#add_report', as: :add_report_to_exam
   get 'internal_codes/imunofeno_internal_codes', to: 'internal_codes#imunofeno_internal_codes', as: :imunofeno_internal_codes
-  get 'patients/:id/samples', to: 'patients#samples_from_patient', as: :samples_from_patient
-  get 'patient/:id/exams', to: 'exams#exams_from_patient', as: :exams_from_patient
+  # get 'patients/:id/samples', to: 'patients#samples_from_patient', as: :samples_from_patient
+  # get 'patient/:id/exams', to: 'exams#exams_from_patient', as: :exams_from_patient
   post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
   get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
+
+  #PATIENTS
+  get 'patients/:id/samples', to: 'patients#samples_from_patient', as: :samples_from_patient
+  get 'patient/:id/exams', to: 'exams#exams_from_patient', as: :exams_from_patient
+  get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
+
 
   root 'home#index'
   get 'home_user/index'
@@ -72,7 +78,7 @@ Rails.application.routes.draw do
   get 'offered_exams/field/:id', to: 'offered_exams#exams_per_field', as: :exam_per_field
   post 'offered_exams/:id/activate', to: 'offered_exams#active_exam', as: :acitvate_offered_exam
 
-  get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
+  # get 'patient/:id/attendances', to: 'attendances#attendances_from_patient', as: :attendances_from_patient
 
   resources :suggestions
   resources :brands

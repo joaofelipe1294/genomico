@@ -25,23 +25,13 @@
   </div>
 </div>
 
-<table id="patients-list" class='table table-bordered mt-5 text-center'>
-  <thead class="bg-dark text-white">
-    <th>
-      <h4>Nome</h4>
-    </th>
-    <th>
-      <h4>Data de nascimento</h4>
-    </th>
-    <th>
-      <h4>Nome da mãe</h4>
-    </th>
-    <th>
-      <h4>Prontuário</h4>
-    </th>
-    <th>
-      <h4>Hospital</h4>
-    </th>
+<table id="patients-list">
+  <thead>
+    <th>Nome</th>
+    <th>Data de nascimento</th>
+    <th>Nome da mãe</th>
+    <th>Prontuário</th>
+    <th>Hospital</th>
     <th></th>
   </thead>
   <tbody>
@@ -64,7 +54,7 @@
         </td>
         <td>
           <%= link_to 'Novo atendimento', new_attendance_path(patient) , class: 'btn btn-sm btn-outline-success new-attendance' %>
-          <%= link_to 'Mais informações', patient_path(patient), class: 'btn btn-sm btn-outline-info patient-info' %>
+          <%= link_to 'Mais informações', patient_path(patient, patient: true), class: 'btn btn-sm btn-outline-info patient-info' %>
         </td>
       </tr>
     <% end %>
