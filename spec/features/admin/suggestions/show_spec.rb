@@ -26,7 +26,7 @@ RSpec.feature "Admin::Suggestions::Shows", type: :feature do
       context "when admin click show button" do
         it "is expected to be redirected to show_suggestion" do
           click_link class: "show-suggestion", match: :first
-          expect(page).to have_current_path suggestion_path(Suggestion.all.last)
+          expect(page).to have_current_path suggestion_path(Suggestion.all.order(created_at: :asc).first)
         end
       end
     end
@@ -46,7 +46,7 @@ RSpec.feature "Admin::Suggestions::Shows", type: :feature do
       context "when user click show button" do
         it "is expected to be redirected to show_suggestion" do
           click_link class: "show-suggestion", match: :first
-          expect(page).to have_current_path suggestion_path(Suggestion.all.last)
+          expect(page).to have_current_path suggestion_path(Suggestion.all.order(created_at: :asc).first)
         end
       end
     end
