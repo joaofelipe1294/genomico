@@ -34,10 +34,6 @@ Rails.application.routes.draw do
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
 
-  # PRODUCT
-  # get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
-  resources :products
-
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
@@ -64,6 +60,7 @@ Rails.application.routes.draw do
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
 
+  resources :products
   resources :suggestions
   resources :brands
   resources :work_maps
