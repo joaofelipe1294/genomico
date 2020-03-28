@@ -4,5 +4,8 @@ if [ ! -d "/home/vagrant/.rbenv" ]; then
   echo 'eval "$(rbenv init -)"' >> ~/.bashrc
   git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 fi
-ALL_PROXY=http://proxy.cdapp.net.br:3128 /home/vagrant/.rbenv/bin/rbenv install -s 2.5.5
+/home/vagrant/.rbenv/bin/rbenv install -s 2.5.5
 /home/vagrant/.rbenv/bin/rbenv global 2.5.5
+/home/vagrant/.rbenv/shims/gem install bundler -v 2.0.2
+/home/vagrant/.rbenv/shims/gem install rails -v 5.2.3
+/home/vagrant/.rbenv/bin/rbenv rehash

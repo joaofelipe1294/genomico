@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
-  before_action :set_product, only: [:new_open_product, :open_product, :destroy]
+  before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
     if params[:kind] == :in_use.to_s
@@ -12,11 +12,11 @@ class ProductsController < ApplicationController
   end
 
   # GET products/open-product/1
-  def new_open_product
+  def edit
   end
 
   # PATCH products/open-product/1
-  def open_product
+  def update
     if @product.change_to_in_use product_params
       flash[:success] = I18n.t :open_product_success
       redirect_to products_path(kind: :in_use)
