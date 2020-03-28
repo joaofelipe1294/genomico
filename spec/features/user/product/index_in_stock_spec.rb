@@ -24,11 +24,11 @@ RSpec.feature "User::Product::InStocks", type: :feature do
     click_link id: "stock"
     click_link id: "products-dropdown"
     click_link id: "in-stock-products"
-    expect(page).to have_current_path products_in_stock_path
+    expect(page).to have_current_path products_path(kind: :stock)
   end
 
   it "visit without login" do
-    visit products_in_stock_path
+    visit products_path(kind: :stock)
     wrong_credentials_check
   end
 
@@ -38,14 +38,14 @@ RSpec.feature "User::Product::InStocks", type: :feature do
 
     it "with one product" do
       imunofeno_user_do_login
-      visit products_in_stock_path
+      visit products_path(kind: :stock)
       check_count css: "product", count: 1
     end
 
     it "with in stock and in use product", js: false do
       generate_stock_entry CurrentState.IN_USE
       imunofeno_user_do_login
-      visit products_in_stock_path
+      visit products_path(kind: :stock)
       check_count css: "product", count: 1
     end
 
@@ -55,7 +55,7 @@ RSpec.feature "User::Product::InStocks", type: :feature do
       generate_stock_entry CurrentState.IN_USE
       generate_stock_entry CurrentState.IN_USE
       imunofeno_user_do_login
-      visit products_in_stock_path
+      visit products_path(kind: :stock)
       check_count css: "product", count: 3
     end
 
@@ -69,7 +69,7 @@ RSpec.feature "User::Product::InStocks", type: :feature do
       generate_stock_entry CurrentState.STOCK
       generate_stock_entry CurrentState.STOCK
       imunofeno_user_do_login
-      visit products_in_stock_path
+      visit products_path(kind: :stock)
       check_count css: "product", count: 4
     end
 

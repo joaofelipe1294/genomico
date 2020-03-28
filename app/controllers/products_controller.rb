@@ -1,42 +1,37 @@
 class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
-  before_action :set_product, only: [:new_open_product, :open_product, :delete]
-  before_action :set_fields, only: [:in_stock, :in_use]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET products/in_use
-  def in_use
-    products = find_products CurrentState.IN_USE
-    @products = products.page params[:page]
-  end
-
-  # GET products/in_stock
-  def in_stock
-    products = find_products CurrentState.STOCK
-    @products = products.page params[:page]
+  def index
+    if params[:kind] == :in_use.to_s
+      @products = find_products(CurrentState.IN_USE).page params[:page]
+    elsif params[:kind] == :stock.to_s
+      @products = find_products(CurrentState.STOCK).page params[:page]
+    end
   end
 
   # GET products/open-product/1
-  def new_open_product
+  def edit
   end
 
   # PATCH products/open-product/1
-  def open_product
+  def update
     if @product.change_to_in_use product_params
       flash[:success] = I18n.t :open_product_success
-      redirect_to products_in_use_path
+      redirect_to products_path(kind: :in_use)
     else
       render :new_open_product
     end
   end
 
   # GET products/next-product-to-open/:id
-  def next_product_to_open
-    @product = Product.includes(:stock_product).find params[:id]
+  def show
+    # @product = Product.includes(:stock_product).find params[:id]
     @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
   end
 
-  def delete
+  def destroy
     if @product.destroy
       flash[:success] = I18n.t :product_destroyed_success
     else
@@ -48,7 +43,7 @@ class ProductsController < ApplicationController
   private
 
     def set_product
-      @product = Product.find params[:id]
+      @product = Product.includes(:stock_product).find params[:id]
     end
 
     def product_params

@@ -36,11 +36,11 @@
         state: present
       become: yes
 
-    - name: Instalando Ruby 2.5.5
-      command: bash /vagrant/vagrant_files/shell_scripts/ruby_install.sh >> ruby_install_log.txt
-
-    - name: Instalando Bundler 2.0.2
-      command: bash /vagrant/vagrant_files/shell_scripts/bundler_install.sh >> bundler_install_log.txt
+    # - name: Instalando Ruby 2.5.5
+    #   command: bash /vagrant/vagrant_files/shell_scripts/ruby_install.sh >> ruby_install_log.txt
+    # 
+    # - name: Instalando Bundler 2.0.2
+    #   command: bash /vagrant/vagrant_files/shell_scripts/bundler_install.sh >> bundler_install_log.txt
 
     - name: Instalando pacotes utilizados pelo projeto
       become: yes

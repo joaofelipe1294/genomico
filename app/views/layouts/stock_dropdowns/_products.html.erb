@@ -3,8 +3,8 @@
     Itens
   </a>
   <div class="dropdown-menu" aria-labelledby="dropdown">
-    <%= link_to "Itens em uso", products_in_use_path, class: "dropdown-item", id: "in-use-product" %>
+    <%= link_to "Itens em uso", products_path(kind: :in_use), class: "dropdown-item", id: "in-use-product" %>
     <div class="dropdown-divider"></div>
-    <%= link_to "Itens em estoque", products_in_stock_path, class: "dropdown-item", id: "in-stock-products" %>
+    <%= link_to "Itens em estoque", products_path(kind: :stock), class: "dropdown-item", id: "in-stock-products" %>
   </div>
 </li>

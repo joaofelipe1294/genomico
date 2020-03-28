@@ -7,11 +7,11 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 3000, host: 3000
   config.vm.synced_folder "../genomico", "/home/vagrant/genomico"
 
-  config.vm.provision "shell",
-    inline: "cp /vagrant/vagrant_files/config_files/apt.conf /etc/apt/"
+  # config.vm.provision "shell",
+  #   inline: "cp /vagrant/vagrant_files/config_files/apt.conf /etc/apt/"
 
-  config.vm.provision "shell",
-    inline: "cp /vagrant/vagrant_files/config_files/.gitconfig /home/vagrant/.gitconfig"
+  # config.vm.provision "shell",
+  #   inline: "cp /vagrant/vagrant_files/config_files/.gitconfig /home/vagrant/.gitconfig"
 
   config.vm.provision "shell",
     inline: "apt-get update -y"

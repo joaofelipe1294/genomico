@@ -4,18 +4,12 @@ Rails.application.routes.draw do
   get 'indicators/repeated-exams', to: 'indicators#repeated_exams_report', as: :repeated_exams_report
   get 'indicators/global_production', to: 'indicators#global_production', as: :global_production
   get 'indicators/production_per_stand/:stand', to: 'indicators#production_per_stand', as: :production_per_stand
-  delete 'products/:id', to: 'products#delete', as: :delete_product
   get 'maintenance/maintenance', to: 'maintenance#maintenance', as: :maintenance
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
   get '/status', to: 'home#status', as: :status
-  get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
   get 'stock_outs', to: 'stock_outs#index', as: :stock_outs
   post 'stock_outs/create', to: 'stock_outs#create', as: :create_stock_out
   get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
-  get 'products/open-product/:id', to: 'products#new_open_product', as: :new_open_product
-  patch 'products/open-product/:id', to: 'products#open_product', as: :open_product
-  get 'products/in_use'
-  get 'products/in_stock'
   resources :stock_products
   get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
   resources :stock_entries
@@ -64,9 +58,9 @@ Rails.application.routes.draw do
 
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
-  get 'attendances/lis_code', to: 'attendances#find_by_lis_code', as: :lis_search
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
 
+  resources :products
   resources :suggestions
   resources :brands
   resources :work_maps

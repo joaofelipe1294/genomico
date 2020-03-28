@@ -64,11 +64,6 @@ class AttendancesController < ApplicationController
     check_attendance_status
   end
 
-  #GET /patient/:id/attendances
-  def attendances_from_patient
-    @attendances = Patient.find(params[:id]).attendances.order start_date: :desc
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance

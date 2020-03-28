@@ -7,7 +7,7 @@
     </h3>
   </div>
   <div class="card-body">
-    <%= form_with model: @product, url: open_product_path(@product), method: :patch do |form| %>
+    <%= form_with model: @product, method: :patch do |form| %>
 
       <% if @product.errors.any? %>
         <ul>
