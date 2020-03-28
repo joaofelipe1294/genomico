@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include InstanceVariableSetter
   before_action :user_filter
-  before_action :set_product, only: [:edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:kind] == :in_use.to_s
@@ -26,8 +26,8 @@ class ProductsController < ApplicationController
   end
 
   # GET products/next-product-to-open/:id
-  def next_product_to_open
-    @product = Product.includes(:stock_product).find params[:id]
+  def show
+    # @product = Product.includes(:stock_product).find params[:id]
     @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
   end
 
@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
   private
 
     def set_product
-      @product = Product.find params[:id]
+      @product = Product.includes(:stock_product).find params[:id]
     end
 
     def product_params

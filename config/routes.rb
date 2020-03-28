@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get 'backups/index', to: 'backups#index', as: :backups
 
   # PRODUCT
-  get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
+  # get 'products/next-product-to-open/:id', to: 'products#next_product_to_open', as: :next_product_to_open
   resources :products
 
   root 'home#index'
