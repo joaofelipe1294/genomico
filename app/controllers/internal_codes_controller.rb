@@ -4,22 +4,42 @@ class InternalCodesController < ApplicationController
   before_action :set_subsample_kinds, only: :biomol_internal_codes
 
   def index
-    @internal_codes = InternalCode.
-                                  includes(:sample, :exams).
-                                  where(field_id: params[:field_id]).
-                                  order(created_at: :desc).
-                                  page params[:page]
+    respond_to do |format|
+      format.html do
+        field = params[:field]
+        if field == :imunofeno.to_s
+          imunofeno_internal_codes
+        elsif field == :biomol.to_s
+          set_internal_codes Field.BIOMOL
+        elsif field == :fish.to_s
+          set_internal_codes Field.FISH
+        end
+      end
+      format.json do
+        @internal_code = InternalCode.includes(:sample, :subsample, :field).find_by(code: params[:code])
+          if @internal_code
+            render json: @internal_code, status: :ok, include: [:field, :sample, :subsample]
+          elsif @internal_code.nil?
+            render json: {}, status: :not_found
+          else
+            render json: {}, status: :internal_server_error
+          end
+      end
+    end
+
   end
 
   def create
     @internal_code = InternalCode.new({
       field_id: session[:field_id],
-      sample_id: params[:id]
+      attendance_id: params[:attendance]
       })
+    @internal_code.subsample_id = params[:sample] if params[:target] == "subsample"
+    @internal_code.sample_id = params[:sample] if params[:target] == "sample"
     if @internal_code.save
       flash[:success] = I18n.t :new_internal_code_success
     else
-      flash[:error] = @internal_code.errors.full_messages.first
+      flash[:error] = internal_code.errors.full_messages.first
     end
     redirect_to_samples_tab
   end
@@ -32,40 +52,6 @@ class InternalCodesController < ApplicationController
       flash[:warning] = @internal_code.errors.full_messages.first
     end
     redirect_to_samples_tab
-  end
-
-  def imunofeno_internal_codes
-    search_code = params[:code]
-    internal_codes = InternalCode.
-                                  includes(:sample, :attendance).
-                                  where(field: Field.IMUNOFENO).
-                                  order(created_at: :desc)
-    if search_code && search_code.empty? == false
-      internal_codes = internal_codes.where(code: search_code)
-    end
-    @internal_codes = internal_codes.page params[:page]
-  end
-
-  # GET internal_codes/1
-  def show
-    @internal_code = InternalCode.includes(:sample, :subsample, :field).find_by(code: params[:code])
-    if @internal_code
-      render json: @internal_code, status: :ok, include: [:field, :sample, :subsample]
-    elsif @internal_code.nil?
-      render json: {}, status: :not_found
-    else
-      render json: {}, status: :internal_server_error
-    end
-  end
-
-  # GET internal_codes/biomol_internal_codes
-  def biomol_internal_codes
-    set_internal_codes Field.BIOMOL
-  end
-
-  # GET internal_codes/fish_internal_codes
-  def fish_internal_codes
-    set_internal_codes Field.FISH
   end
 
   private
@@ -87,6 +73,15 @@ class InternalCodesController < ApplicationController
                                         joins(:subsample).
                                         where("subsamples.subsample_kind_id = ?", subsample_kind_id)
       end
+      @internal_codes = internal_codes.page params[:page]
+    end
+
+    def imunofeno_internal_codes
+      internal_codes = InternalCode.
+                                    includes(:sample, :attendance).
+                                    where(field: Field.IMUNOFENO).
+                                    order(created_at: :desc)
+      internal_codes = internal_codes.where(code: params[:code]) if params[:code].present?
       @internal_codes = internal_codes.page params[:page]
     end
 

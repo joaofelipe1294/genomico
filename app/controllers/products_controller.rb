@@ -4,11 +4,13 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:kind] == :in_use.to_s
-      @products = find_products(CurrentState.IN_USE).page params[:page]
-    elsif params[:kind] == :stock.to_s
-      @products = find_products(CurrentState.STOCK).page params[:page]
+    kind = params[:kind]
+    if kind == :in_use.to_s
+      products = find_products(CurrentState.IN_USE)
+    elsif kind == :stock.to_s
+      products = find_products(CurrentState.STOCK)
     end
+    @products = products.page params[:page]
   end
 
   # GET products/open-product/1
@@ -27,7 +29,6 @@ class ProductsController < ApplicationController
 
   # GET products/next-product-to-open/:id
   def show
-    # @product = Product.includes(:stock_product).find params[:id]
     @remaining_products = Product.where(current_state: CurrentState.STOCK).where(stock_product_id: @product.stock_product).size - 1
   end
 
@@ -51,16 +52,12 @@ class ProductsController < ApplicationController
     end
 
     def find_by_field status
-      if params[:field_id] == "Compartilhado"
-        products = Product
-                          .where(current_state: status)
-                          .joins(:stock_product, :brand)
-                          .where("stock_products.is_shared = true")
+      field_id =  params[:field_id]
+      products = Product.where(current_state: status).joins(:stock_product, :brand)
+      if field_id == "Compartilhado"
+        products = products.where("stock_products.is_shared = true")
       else
-        products = Product
-                          .where(current_state: status)
-                          .joins(:stock_product, :brand)
-                          .where("stock_products.field_id = ?", params[:field_id])
+        products = products.where("stock_products.field_id = ?", field_id)
       end
       products
     end

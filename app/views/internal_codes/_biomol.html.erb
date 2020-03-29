@@ -1,0 +1,56 @@
+<div class="col-md-6 mt-3 offset-md-3">
+  <%= form_with url: internal_codes_path, method: :get do |form| %>
+    <div class="form-group">
+      <%= form.hidden_field :field, value: :biomol %>
+      <%= form.label "Tipo de subamostra" %>
+      <%= form.select :subsample_kind_id, options_for_select(['Todos']) + options_from_collection_for_select(SubsampleKind.all.order(:name), "id", "name"), {}, class: 'form-control'%>
+    </div>
+    <button id="btn-search" class="btn btn-outline-info">
+      Buscar
+    </button>
+  <% end %>
+</div>
+
+<hr>
+
+<table class="table table-bordered text-center mt-3">
+  <thead class="bg-dark text-white">
+    <th style="width: 10%;">Código Interno</th>
+    <th style="width: 15%;">Paciente</th>
+    <th>Coleta</th>
+    <th>Observações</th>
+    <th>Concentração (Nanodrop)</th>
+    <th>260/280</th>
+    <th>260/230</th>
+    <th>Concentração (Qubit)</th>
+    <th>Leucócitos totais (10³/µl)</th>
+    <th>Volume (µl)</th>
+    <th>Celularidade (10³)    </th>
+    <th>Leucócitos pellet (10⁷)</th>
+    <th></th>
+  </thead>
+  <tbody>
+
+    <% @internal_codes.each do |internal_code| %>
+      <tr class="biomol-sample">
+        <td><%= internal_code.code %></td>
+        <td><%= internal_code.subsample.patient.first_and_last_name %></td>
+        <td><%= l internal_code.subsample.collection_date.to_date %></td>
+        <td><%= internal_code.subsample.observations %></td>
+        <td><%= internal_code.subsample.nanodrop_report.concentration %></td>
+        <td><%= internal_code.subsample.nanodrop_report.rate_260_280 %></td>
+        <td><%= internal_code.subsample.nanodrop_report.rate_260_230 %></td>
+        <td><%= internal_code.subsample.qubit_report.concentration %></td>
+        <td><%= internal_code.subsample.hemacounter_report.leukocyte_total_count %></td>
+        <td><%= internal_code.subsample.hemacounter_report.volume %></td>
+        <td><%= internal_code.subsample.hemacounter_report.cellularity %></td>
+        <td><%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%></td>
+        <td>
+          <%= link_to "Atendimento", workflow_path(internal_code.attendance, tab: :samples) %>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+<%= render 'layouts/table_footer', elements: @internal_codes %>
