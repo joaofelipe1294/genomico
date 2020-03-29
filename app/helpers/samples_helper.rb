@@ -28,7 +28,7 @@ module SamplesHelper
       if session[:field_id] == Field.IMUNOFENO.id
         link = link_to(
           'Código interno',
-          new_internal_code_path(@sample, target: "sample"),
+          internal_codes_path({sample: @sample, target: "sample", attendance: params[:id]}),
           method: :post,
           class: 'btn btn-sm btn-outline-secondary new-internal-code ml-3')
       end

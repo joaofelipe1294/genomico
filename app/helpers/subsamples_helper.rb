@@ -25,7 +25,7 @@ module SubsamplesHelper
       if User.find(session[:user_id]).fields.first != Field.IMUNOFENO && subsample.internal_codes.empty?
         link_to(
           "Código interno",
-          new_internal_code_path(subsample, target: "subsample"),
+          internal_codes_path({sample: subsample.id, target: :subsample, attendance: params[:id]}),
           method: :post,
           class: 'btn btn-sm btn-outline-secondary new-internal-code ml-3')
       else

@@ -32,12 +32,14 @@ class InternalCodesController < ApplicationController
   def create
     @internal_code = InternalCode.new({
       field_id: session[:field_id],
-      sample_id: params[:id]
+      attendance_id: params[:attendance]
       })
+    @internal_code.subsample_id = params[:sample] if params[:target] == "subsample"
+    @internal_code.sample_id = params[:sample] if params[:target] == "sample"
     if @internal_code.save
       flash[:success] = I18n.t :new_internal_code_success
     else
-      flash[:error] = @internal_code.errors.full_messages.first
+      flash[:error] = internal_code.errors.full_messages.first
     end
     redirect_to_samples_tab
   end

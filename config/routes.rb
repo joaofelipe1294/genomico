@@ -29,10 +29,6 @@ Rails.application.routes.draw do
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
 
-  # CODES
-  post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
-
-
   root 'home#index'
   get 'home_user/index'
   post 'home/longin', to: 'home#login'
