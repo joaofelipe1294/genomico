@@ -1,0 +1,31 @@
+<table>
+  <thead>
+    <th>Código interno</th>
+    <th>Tipo</th>
+    <th>Paciente</th>
+    <th>Coletada em</th>
+    <th>Concentração (Nanodrop)</th>
+    <th>260/280</th>
+    <th>260/230</th>
+    <th>Concentração (Qubit)</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @internal_codes.each do |internal_code| %>
+      <tr>
+        <td><%= internal_code.code %></td>
+        <td><%= internal_code.subsample.subsample_kind.name %></td>
+        <td><%= internal_code.subsample.patient.name %></td>
+        <td><%= l internal_code.subsample.collection_date.to_date %></td>
+        <td><%= internal_code.subsample.nanodrop_report.concentration %></td>
+        <td><%= internal_code.subsample.nanodrop_report.rate_260_280 %></td>
+        <td><%= internal_code.subsample.nanodrop_report.rate_260_230 %></td>
+        <td><%= internal_code.subsample.qubit_report.concentration %></td>
+        <td>
+          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance, tab: :samples) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render 'layouts/table_footer', elements: @internal_codes %>
