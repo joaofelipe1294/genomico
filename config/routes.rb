@@ -43,10 +43,6 @@ Rails.application.routes.draw do
   get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
-  # RELEASE
-  patch "releases/confirm/:id", to: "releases#confirm", as: :check_release_message
-  resources :releases
-
   # BACKUPS
   post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
@@ -70,6 +66,7 @@ Rails.application.routes.draw do
   # SUBSAMPLE
   get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
 
+  resources :releases
   resources :products
   resources :suggestions
   resources :brands

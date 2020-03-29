@@ -1,6 +1,6 @@
 class ReleasesController < ApplicationController
   before_action :set_release, only: [:destroy]
-  before_action :admin_filter, except: [:confirm]
+  before_action :admin_filter, except: [:update]
 
   # GET /releases
   # GET /releases.json
@@ -32,11 +32,16 @@ class ReleasesController < ApplicationController
     redirect_to releases_path
   end
 
-  def confirm
-    release_check = ReleaseCheck.find params[:id]
-    release_check.update(has_confirmed: true)
+  def update
+    release_check = ReleaseCheck.find params[:release_check]
+    if release_check.update has_confirmed: :true
+      flash[:success] = I18n.t :success_check_release
+    else
+      flash[:error] = release_check.errors.full_messages.first
+    end
     redirect_to home_user_index_path
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

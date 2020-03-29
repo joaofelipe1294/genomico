@@ -317,3 +317,4 @@
   complete_suggestion_success: "Requisição concluída com sucesso."
   new_user_success: "Usuário cadastrado com sucesso."
   edit_user_success: "Usuário editado com sucesso."
+  success_check_release: "Aviso confirmado com sucesso."
