@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
   # CODES
   get 'internal_codes/fish_internal_codes', to: 'internal_codes#fish_internal_codes', as: :fish_internal_codes
-  get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes
   get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
   post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
 

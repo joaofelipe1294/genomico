@@ -6,6 +6,8 @@ class InternalCodesController < ApplicationController
   def index
     if params[:field] == :imunofeno.to_s
       imunofeno_internal_codes
+    elsif params[:field] == :biomol.to_s
+      set_internal_codes Field.BIOMOL
     end
   end
 
@@ -42,11 +44,6 @@ class InternalCodesController < ApplicationController
     else
       render json: {}, status: :internal_server_error
     end
-  end
-
-  # GET internal_codes/biomol_internal_codes
-  def biomol_internal_codes
-    set_internal_codes Field.BIOMOL
   end
 
   # GET internal_codes/fish_internal_codes
