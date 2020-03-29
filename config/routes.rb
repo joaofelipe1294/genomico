@@ -18,21 +18,23 @@ Rails.application.routes.draw do
   get "indicators/response_time/:group", to: "indicators#response_time", as: :response_time
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
-  get 'internal_codes/fish_internal_codes', to: 'internal_codes#fish_internal_codes', as: :fish_internal_codes
-  get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes
   patch 'exams/:id/partial_released', to: 'exams#change_to_partial_released', as: :partial_released
   get 'exams/:id/partial_released', to: 'exams#partial_released', as: :change_to_partial_released
-  get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
   patch 'exams/:id/save_report', to: 'exams#save_exam_report', as: :save_exam_report
   get 'exams/:id/add_report', to: 'exams#add_report', as: :add_report_to_exam
-  get 'internal_codes/imunofeno_internal_codes', to: 'internal_codes#imunofeno_internal_codes', as: :imunofeno_internal_codes
-  post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
   get 'indicators/health_ensurances_relation', to: 'indicators#health_ensurances_relation', as: :health_ensurances_relation
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
   get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress
   post 'backups/new', to: 'backups#create', as: :new_backup
   get 'backups/download/:id', to: 'backups#download', as: :backup_download
   get 'backups/index', to: 'backups#index', as: :backups
+
+  # CODES
+  get 'internal_codes/fish_internal_codes', to: 'internal_codes#fish_internal_codes', as: :fish_internal_codes
+  get 'internal_codes/biomol_internal_codes', to: 'internal_codes#biomol_internal_codes', as: :biomol_internal_codes
+  get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
+  post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
+
 
   root 'home#index'
   get 'home_user/index'

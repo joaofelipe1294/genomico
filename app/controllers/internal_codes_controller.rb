@@ -4,11 +4,9 @@ class InternalCodesController < ApplicationController
   before_action :set_subsample_kinds, only: :biomol_internal_codes
 
   def index
-    @internal_codes = InternalCode.
-                                  includes(:sample, :exams).
-                                  where(field_id: params[:field_id]).
-                                  order(created_at: :desc).
-                                  page params[:page]
+    if params[:field] == :imunofeno.to_s
+      imunofeno_internal_codes
+    end
   end
 
   def create
@@ -32,18 +30,6 @@ class InternalCodesController < ApplicationController
       flash[:warning] = @internal_code.errors.full_messages.first
     end
     redirect_to_samples_tab
-  end
-
-  def imunofeno_internal_codes
-    search_code = params[:code]
-    internal_codes = InternalCode.
-                                  includes(:sample, :attendance).
-                                  where(field: Field.IMUNOFENO).
-                                  order(created_at: :desc)
-    if search_code && search_code.empty? == false
-      internal_codes = internal_codes.where(code: search_code)
-    end
-    @internal_codes = internal_codes.page params[:page]
   end
 
   # GET internal_codes/1
@@ -87,6 +73,15 @@ class InternalCodesController < ApplicationController
                                         joins(:subsample).
                                         where("subsamples.subsample_kind_id = ?", subsample_kind_id)
       end
+      @internal_codes = internal_codes.page params[:page]
+    end
+
+    def imunofeno_internal_codes
+      internal_codes = InternalCode.
+                                    includes(:sample, :attendance).
+                                    where(field: Field.IMUNOFENO).
+                                    order(created_at: :desc)
+      internal_codes = internal_codes.where(code: params[:code]) if params[:code].present?
       @internal_codes = internal_codes.page params[:page]
     end
 
