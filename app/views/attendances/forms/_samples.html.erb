@@ -2,72 +2,37 @@
 	<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'new-sample'} %>
 <% end %>
 
-<table class = 'table table-bordered text-center mt-3 table-sm'>
-	<thead class = 'text-white bg-dark'>
-		<th class="h5">
-				<%= Sample.human_attribute_name(:sample_kind) %>
-		</th>
-		<th class="h5">
-				<%= Sample.human_attribute_name(:collection_date) %>
-		</th>
-		<th class="h5">
-			Observações
-		</th>
-		<th class="h5">
-				Armazenamento
-		</th>
-		<th class="h5">
-				<%= Sample.human_attribute_name(:has_subsample) %>
-		</th>
+<table>
+	<thead>
+		<th>Tipo da amostra</th>
+		<th>Data da coleta</th>
+		<th>Observações</th>
+		<th>Armazenamento</th>
+		<th>Possui subamostra</th>
 		<th></th>
 	</thead>
 	<tbody>
 		<% @attendance.samples.each do |sample| %>
 			<tr class="sample">
-				<td>
-					<%= sample.sample_kind.name %>
-				</td>
-				<td>
-					<%= l sample.collection_date %>
-				</td>
-				<td>
-					<%= sample.receipt_notice %>
-				</td>
-				<td>
-					<%= sample.storage_location %>
-				</td>
-				<td>
-					<%= sample.has_subsample? %>
-				</td>
-				<td>
-					<%= sample_options_helper sample %>
-				</td>
+				<td><%= sample.sample_kind.name %></td>
+				<td><%= l sample.collection_date %></td>
+				<td><%= sample.receipt_notice %></td>
+				<td><%= sample.storage_location %></td>
+				<td><%= sample.has_subsample? %></td>
+				<td><%= sample_options_helper sample %></td>
+			</tr>
 		<% end %>
 
 		<% @attendance.subsamples.each do |subsample| %>
 			<tr class="subsample">
-				<td>
-					<%= subsample.subsample_kind.name %>
-				</td>
-				<td>
-					<%= l subsample.collection_date.to_date %>
-				</td>
-				<td>
-					<%= subsample.observations %>
-				</td>
-				<td>
-					<%= subsample.storage_location %>
-				</td>
-				<td>
-					-
-				</td>
-				<td>
-					<%= subsamples_options_helper subsample %>
-				</td>
+				<td><%= subsample.subsample_kind.name %></td>
+				<td><%= l subsample.collection_date.to_date %></td>
+				<td><%= subsample.observations %></td>
+				<td><%= subsample.storage_location %></td>
+				<td>-</td>
+				<td><%= subsamples_options_helper subsample %></td>
 			</tr>
 		<% end %>
-
-
 	</tbody>
 </table>
 
@@ -81,15 +46,10 @@
 
 <table class="table table-bordered col-md-8 offset-md-2 text-center">
 	<thead class="text-white bg-secondary">
-		<th>
-			Setor
-		</th>
-		<th>
-			Código
-		</th>
-		<th>
-			Amostra
-		</th>
+<th>Setor</th>
+<th>Código</th>
+<th>Amostra
+</th>
 		<th></th>
 	</thead>
 	<tbody>

@@ -4,13 +4,29 @@ class InternalCodesController < ApplicationController
   before_action :set_subsample_kinds, only: :biomol_internal_codes
 
   def index
-    if params[:field] == :imunofeno.to_s
-      imunofeno_internal_codes
-    elsif params[:field] == :biomol.to_s
-      set_internal_codes Field.BIOMOL
-    elsif params[:field] == :fish.to_s
-      set_internal_codes Field.FISH
+    respond_to do |format|
+      format.html do
+        field = params[:field]
+        if field == :imunofeno.to_s
+          imunofeno_internal_codes
+        elsif field == :biomol.to_s
+          set_internal_codes Field.BIOMOL
+        elsif field == :fish.to_s
+          set_internal_codes Field.FISH
+        end
+      end
+      format.json do
+        @internal_code = InternalCode.includes(:sample, :subsample, :field).find_by(code: params[:code])
+          if @internal_code
+            render json: @internal_code, status: :ok, include: [:field, :sample, :subsample]
+          elsif @internal_code.nil?
+            render json: {}, status: :not_found
+          else
+            render json: {}, status: :internal_server_error
+          end
+      end
     end
+
   end
 
   def create
@@ -34,18 +50,6 @@ class InternalCodesController < ApplicationController
       flash[:warning] = @internal_code.errors.full_messages.first
     end
     redirect_to_samples_tab
-  end
-
-  # GET internal_codes/1
-  def show
-    @internal_code = InternalCode.includes(:sample, :subsample, :field).find_by(code: params[:code])
-    if @internal_code
-      render json: @internal_code, status: :ok, include: [:field, :sample, :subsample]
-    elsif @internal_code.nil?
-      render json: {}, status: :not_found
-    else
-      render json: {}, status: :internal_server_error
-    end
   end
 
   private

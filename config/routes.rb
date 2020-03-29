@@ -30,7 +30,6 @@ Rails.application.routes.draw do
   get 'backups/index', to: 'backups#index', as: :backups
 
   # CODES
-  get 'internal_codes/code/:code', to: 'internal_codes#show', as: :get_internal_code
   post 'internal_codes/new/:id', to: 'internal_codes#create', as: :new_internal_code
 
 
