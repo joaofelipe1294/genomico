@@ -44,8 +44,8 @@ Rails.application.routes.draw do
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
   # USER
-  post 'users/:id/active', to: 'users#activate', as: :activate_user
-  
+  # post 'users/:id/active', to: 'users#activate', as: :activate_user
+
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
