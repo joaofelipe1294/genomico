@@ -23,7 +23,7 @@ class SubsamplesController < ApplicationController
   # GET /subsamples/new
   def new
     @subsample = Subsample.new({
-      sample: Sample.find(params[:id]),
+      sample: Sample.find(params[:sample]),
       nanodrop_report: NanodropReport.new,
       qubit_report: QubitReport.new,
       hemacounter_report: HemacounterReport.new

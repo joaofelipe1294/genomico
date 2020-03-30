@@ -1,7 +1,7 @@
 <%= form_for @sample do |f| %>
 
 	<% if @sample.attendance.nil? %>
-		<%= f.number_field :attendance_id, {value: params[:id], hidden: true} %>
+		<%= f.number_field :attendance_id, {value: params[:attendance], hidden: true} %>
 	<% else %>
 		<%= f.number_field :attendance_id, {value: @sample.attendance_id, hidden: true} %>
 	<% end %>

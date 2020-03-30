@@ -17,7 +17,7 @@ module SamplesHelper
       if session[:field_id] != Field.IMUNOFENO.id
         link = link_to(
           'Extrair subamostra',
-          new_sub_sample_path(@sample),
+          new_subsample_path(sample: @sample.id),
           class: 'btn btn-sm btn-outline-primary new-subsample ml-3')
       end
       link

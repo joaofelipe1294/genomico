@@ -48,26 +48,17 @@ Rails.application.routes.draw do
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
   get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
 
-  # HOME
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
   get 'home', to: 'home#logged_in', as: :home
-
-  # SAMPLE
-  get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
-
-  # SUBSAMPLE
-  get 'subsamples/sample/:id/new', to: 'subsamples#new', as: :new_sub_sample
-
   resources :releases
   resources :products
   resources :suggestions
   resources :brands
   resources :work_maps
   resources :hospitals
-  resources :subsamples
-  resources :samples, except: [:new]
+  resources :samples
   resources :users, except: [:show]
   resources :attendances, except: [:new, :delete, :index, :edit]
   resources :offered_exams

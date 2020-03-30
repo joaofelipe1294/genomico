@@ -1,5 +1,5 @@
 <% unless @attendance.complete? %>
-	<%= link_to 'Nova amostra', new_sample_path(@attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'new-sample'} %>
+	<%= link_to 'Nova amostra', new_sample_path(attendance: @attendance), {class: 'btn btn-lg btn-outline-success float-right mb-4', id: 'new-sample'} %>
 <% end %>
 
 <table>

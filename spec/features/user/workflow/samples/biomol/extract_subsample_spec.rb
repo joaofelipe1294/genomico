@@ -19,7 +19,7 @@ RSpec.feature "User::Workflow::Samples::Biomol::ExtractSubsamples", type: :featu
 
   it "check new subsample navigation" do
     click_link class: "new-subsample", match: :first
-    expect(page).to have_current_path new_sub_sample_path(@attendance.samples.last)
+    expect(page).to have_current_path new_subsample_path(sample: @attendance.samples.last.id)
   end
 
   it "extract new subsample" do
