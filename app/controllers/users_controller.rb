@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = I18n.t :new_user_success
-      redirect_to home_admin_index_path
+      redirect_to home_path
     else
       render :new
     end
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   def update
     if @user.update user_params
       flash[:success] = :edit_user_success
-      redirect_to home_admin_index_path
+      redirect_to home_path
     else
       render :edit
     end
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def destroy
     if @user.update({is_active: false})
       flash[:success] = 'Usuário inativado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to home_path
     else
       flash[:warning] = 'Não foi possível inativar este usuário.'
       set_users
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     user = User.find params[:id]
     if user.update({is_active: true})
       flash[:success] = 'Usuário reativado com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to home_path
     else
       flash[:warning] = 'Não foi possível ativar o usuário, tente novamente mais tarde.'
       set_users
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   def change_password
     if @user.update(user_params)
       flash[:success] = 'Senha alterada com sucesso.'
-      redirect_to home_admin_index_path
+      redirect_to home_path
     else
       flash[:warning] = @user.errors.full_messages.first
       render :change_password_view

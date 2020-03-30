@@ -29,12 +29,12 @@ RSpec.feature "Home_page", type: :feature, js: false do
 
 		it 'login with correct user credentials ADMIN' do
 			admin_do_login
-			expect(page).to have_current_path home_admin_index_path
+			expect(page).to have_current_path home_path
 		end
 
 		it 'login with correct USER credential' do
 			biomol_user_do_login
-			expect(page).to have_current_path home_user_index_path
+			expect(page).to have_current_path home_path
 		end
 
 		it 'login with inactive user' do

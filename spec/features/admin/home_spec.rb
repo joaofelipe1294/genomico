@@ -40,7 +40,7 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 			click_link(id: 'user-dropdown')
 			click_link(id: 'new-user')
 			click_link(id: 'home-admin')
-			expect(page).to have_current_path(home_admin_index_path)
+			expect(page).to have_current_path(home_path)
 		end
 
 	end
@@ -48,7 +48,7 @@ RSpec.feature "Admin::HomeNavigations", type: :feature, js: false do
 	context 'Invalid Navigations' do
 
 		it 'access admin home without login' do
-			visit(home_admin_index_path)
+			visit(home_path)
 			expect(page).to have_current_path(root_path)
 			error_message = find(id: 'danger-warning').text
 			expect(error_message).to eq("Credenciais inválidas.")

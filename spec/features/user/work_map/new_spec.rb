@@ -68,7 +68,7 @@ RSpec.feature "User::WorkMap::News", type: :feature do
     fill_in "work_map[name]", with: 'Some random name'
     attach_file "work_map[map]", "#{Rails.root}/spec/support_files/PDF_2.pdf"
     click_button id: 'btn-save'
-    expect(page).to have_current_path home_user_index_path
+    expect(page).to have_current_path home_path
     expect(find(id: 'success-warning').text).to eq I18n.t :create_work_map_success
   end
 
@@ -115,7 +115,7 @@ RSpec.feature "User::WorkMap::News", type: :feature do
     fill_in "work_map[name]", with: 'Some random name'
     attach_file "work_map[map]", "#{Rails.root}/spec/support_files/PDF_2.pdf"
     click_button id: 'btn-save'
-    expect(page).to have_current_path home_user_index_path
+    expect(page).to have_current_path home_path
     expect(find(id: 'success-warning').text).to eq I18n.t :create_work_map_success
   end
 

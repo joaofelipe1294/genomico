@@ -22,7 +22,7 @@ RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
 		fill_in('user_password', with: new_password)
 		fill_in('user_password_confirmation', with: new_password)
 		click_button(class: 'btn-outline-secondary')
-		expect(page).to have_current_path(home_admin_index_path)
+		expect(page).to have_current_path(home_path)
 		message = find(id: 'success-warning').text
 		expect(message).to eq("Senha alterada com sucesso.")
 	end

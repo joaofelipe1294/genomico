@@ -20,7 +20,7 @@ RSpec.feature "Admin", type: :feature do
 	it 'Correct New::User' do
 		@new_user = build(:user, kind: :user)
 		navigate_and_fill_user_fields
-		expect(page).to have_current_path(home_admin_index_path)
+		expect(page).to have_current_path(home_path)
 		success_message = find(id: 'success-warning').text
 		expect(success_message).to eq("Usuário cadastrado com sucesso.")
 	end
@@ -28,7 +28,7 @@ RSpec.feature "Admin", type: :feature do
 	it 'Correct New::Admin' do
 		@new_user = build(:user, kind: :admin)
 		navigate_and_fill_user_fields
-		expect(page).to have_current_path(home_admin_index_path)
+		expect(page).to have_current_path(home_path)
 		success_message = find(id: 'success-warning').text
 		expect(success_message).to eq("Usuário cadastrado com sucesso.")
 	end

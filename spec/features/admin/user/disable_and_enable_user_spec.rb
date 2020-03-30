@@ -15,7 +15,7 @@ RSpec.feature "Admin::DisableAndEnableUsers", type: :feature do
 	end
 
 	it 'disable_user', js: true do
-		expect(page).to have_current_path home_admin_index_path
+		expect(page).to have_current_path home_path
 		expect(User.where(is_active: false).size).to eq(1)
 	end
 
@@ -23,7 +23,7 @@ RSpec.feature "Admin::DisableAndEnableUsers", type: :feature do
 		click_link(id: 'user-dropdown')
 		click_link(id: 'users')
 		click_link(class: 'btn-outline-info', match: :first)
-		expect(page).to have_current_path(home_admin_index_path)
+		expect(page).to have_current_path(home_path)
 		success_message = find(id: 'success-warning').text
 		expect(success_message).to eq("Usuário reativado com sucesso.")
 	end

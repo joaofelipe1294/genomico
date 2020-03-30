@@ -24,13 +24,13 @@ RSpec.feature "Admin::EditUsers", type: :feature do
 
 		it 'edit user_name', js: false do
 			fill_in_fields
-			expect(page).to have_current_path(home_admin_index_path)
+			expect(page).to have_current_path(home_path)
 		end
 
 		it 'change user to admin', js: false do
 			@user.kind = :admin
 			fill_in_fields
-			expect(page).to have_current_path(home_admin_index_path)
+			expect(page).to have_current_path(home_path)
 			user = User.find_by({login: @user.login})
 			expect(user.kind).to match "admin"
 		end

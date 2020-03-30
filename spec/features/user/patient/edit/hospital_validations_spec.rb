@@ -15,7 +15,7 @@ RSpec.feature "User::Patient::Edit::HospitalValidations", type: :feature do
     it 'hospital' do
       new_value = Hospital.find_by name: 'Orzhov'
       select(new_value.name, from: :patient_hospital_id).select_option
-      success_check home_user_index_path, :edit_patient_success
+      success_check home_path, :edit_patient_success
       edited_patient = Patient.find_by hospital: new_value
       expect(edited_patient.hospital).to eq new_value
     end
@@ -33,7 +33,7 @@ RSpec.feature "User::Patient::Edit::HospitalValidations", type: :feature do
       fill_in :patient_birth_date, with: new_value.birth_date
       fill_in :patient_medical_record, with: new_value.medical_record
       select(new_value.hospital.name, from: :patient_hospital_id).select_option
-      success_check home_user_index_path, :edit_patient_success
+      success_check home_path, :edit_patient_success
       edited_patient = Patient.find_by name: new_value.name
       expect(edited_patient.name).to eq new_value.name
       expect(edited_patient.mother_name).to eq new_value.mother_name

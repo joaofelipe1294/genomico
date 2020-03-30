@@ -22,7 +22,7 @@ class BrandsController < ApplicationController
     @brand = Brand.new(brand_params)
     if @brand.save
       flash[:success] = I18n.t :new_brand_success
-      redirect_to home_user_index_path
+      redirect_to home_path
     else
       render :new
     end
@@ -33,7 +33,7 @@ class BrandsController < ApplicationController
   def update
     if @brand.update(brand_params)
       flash[:success] = I18n.t :edit_brand_success
-      redirect_to home_user_index_path
+      redirect_to home_path
     else
       render :edit
     end

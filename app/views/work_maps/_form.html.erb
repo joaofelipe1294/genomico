@@ -30,7 +30,7 @@
 
 <hr class="mt-3">
 
-<%= form_with model: @work_map, multipart: true, id: 'form', html: {style: 'overflow: auto;'}  do |form| %>
+<%= form_with model: @work_map, multipart: true, id: 'work-map-form', html: {style: 'overflow: auto;'}  do |form| %>
 
   <div class="form-group">
     <%= form.label :name %>
@@ -52,66 +52,3 @@
   </button>
 
 <% end %>
-
-<!-- <script>
-  $('#btn-search').click(event => {
-    event.preventDefault()
-    let code = $('#internal-code').val()
-    axios
-        .get(`/internal_codes/code/${code}`)
-        .then(response => {
-          let current_value = $('#internal-code-ids').val()
-          let ids = current_value.split(',')
-          if(ids.includes(response.data.id.toString()) === false){
-            ids.push(response.data.id)
-            let new_value = ids.join(',')
-            $('#internal-code-ids').val(new_value)
-            $('#samples').append(`
-              <tr id="internal-code-${response.data.id}" class="internal-code">
-                <td>
-                  ${response.data.code}
-                </td>
-                <td>
-                  ${response.data.field.name}
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-danger remove" data-reference-value="${response.data.id}" onclick="remove_internal_code(event)">
-                    Remover
-                  </button>
-                </td>
-              </tr>
-            `)
-            $('#internal-code').val("")
-          }
-        })
-      .catch(error => {
-        if(error.response.status === 404)
-          alert('Amostra não encontrada.')
-        else
-          alert('Houve um erro no servidor, tente novamente mais tarde.')
-      })
-  })
-</script>
-
-<script>
-  function remove_internal_code(event){
-    event.preventDefault()
-    let reference_value = $(event.target).attr('data-reference-value')
-    $(`#internal-code-${reference_value}`).remove()
-    let current_ids = $('#internal-code-ids').val().split(',')
-    let index = current_ids.indexOf(reference_value)
-    current_ids.splice(index, 1);
-    let new_value = current_ids.join(',')
-    $('#internal-code-ids').val(new_value)
-  }
-</script>
-
-<script>
-  $('#form').submit(() => {
-    let internal_code_ids = $('#internal-code-ids').val()
-    internal_code_ids = internal_code_ids.split(',')
-    internal_code_ids = internal_code_ids.filter(Boolean)
-    console.log(internal_code_ids);
-    $('#internal-code-ids').val(internal_code_ids.join(','))
-  })
-</script> -->

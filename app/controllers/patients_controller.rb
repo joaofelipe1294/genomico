@@ -79,7 +79,7 @@ class PatientsController < ApplicationController
         attendance = Attendance.find attendance_id
         redirect_to workflow_path(attendance)
       else
-        redirect_to home_user_index_path
+        redirect_to home_path
       end
     end
 
