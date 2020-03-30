@@ -7,16 +7,28 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams
   # GET /offered_exams.json
   def index
-    field_id = params[:field]
-    name = params[:name]
-    if field_id.present?
-      offered_exams = OfferedExam.where({field_id: field_id})
-    elsif name.present?
-      offered_exams = OfferedExam.where("name ILIKE ?", "%#{name}%")
-    else
-      offered_exams = OfferedExam.all.order(name: :asc)
+    respond_to do |format|
+
+      format.html do
+        field_id = params[:field]
+        name = params[:name]
+        if field_id.present?
+          offered_exams = OfferedExam.where({field_id: field_id})
+        elsif name.present?
+          offered_exams = OfferedExam.where("name ILIKE ?", "%#{name}%")
+        else
+          offered_exams = OfferedExam.all.order(name: :asc)
+        end
+        @offered_exams = offered_exams.includes(:field).order(name: :asc).page params[:page]
+      end
+      format.json do
+        offered_exams = OfferedExam.where(field_id: params[:field]).where(is_active: true).order(:name)
+        render json: offered_exams, status: :ok
+      end
+
     end
-    @offered_exams = offered_exams.includes(:field).order(name: :asc).page params[:page]
+
+
   end
 
   # GET /offered_exams/new
