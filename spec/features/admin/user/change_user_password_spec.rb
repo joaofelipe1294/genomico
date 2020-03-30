@@ -19,18 +19,18 @@ RSpec.feature "Admin::ChangeUserPasswords", type: :feature do
 
 	it 'change user_password' do
 		new_password = '123456789'
-		fill_in('user_password', with: new_password)
-		fill_in('user_password_confirmation', with: new_password)
+		fill_in('user[password]', with: new_password)
+		fill_in('user[password_confirmation]', with: new_password)
 		click_button(class: 'btn-outline-secondary')
 		expect(page).to have_current_path(home_path)
 		message = find(id: 'success-warning').text
-		expect(message).to eq("Senha alterada com sucesso.")
+		expect(message).to eq("Usuário editado com sucesso.")
 	end
 
 	it 'distinct passwords' do
 		new_password = '123456789'
-		fill_in('user_password', with: new_password)
-		fill_in('user_password_confirmation', with: '1233')
+		fill_in('user[password]', with: new_password)
+		fill_in('user[password_confirmation]', with: '1233')
 		click_button(class: 'btn-outline-secondary')
 		message = find(id: 'danger-warning').text
 		expect(message).to eq("Confirmação de senha não é igual a Senha")

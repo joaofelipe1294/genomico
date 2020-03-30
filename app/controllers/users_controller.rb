@@ -35,10 +35,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update user_params
-      flash[:success] = :edit_user_success
+      flash[:success] = I18n.t :edit_user_success
       redirect_to home_path
     else
-      render :edit
+      if params[:user][:change_passowrd].present?
+        flash[:warning] = @user.errors.full_messages.first
+        redirect_to edit_user_path(@user, change_passowrd: true)
+      else
+        render :edit
+      end
     end
   end
 
@@ -65,19 +70,6 @@ class UsersController < ApplicationController
       flash[:warning] = 'Não foi possível ativar o usuário, tente novamente mais tarde.'
       set_users
       render :index
-    end
-  end
-
-  def change_password_view
-  end
-
-  def change_password
-    if @user.update(user_params)
-      flash[:success] = 'Senha alterada com sucesso.'
-      redirect_to home_path
-    else
-      flash[:warning] = @user.errors.full_messages.first
-      render :change_password_view
     end
   end
 

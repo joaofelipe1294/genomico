@@ -1,12 +1,16 @@
 <%= render 'layouts/admin_navbar' %>
 
-<div class="card offset-2 col-8 mt-5 p-0">
-  <div class="card-header">
-    <h4 class="text-center">
-      Editar usuário
-    </h4>
+<% if params[:change_passowrd].present? %>
+  <%= render 'password_form' %>
+<% else %>
+  <div class="card offset-2 col-8 mt-5 p-0">
+    <div class="card-header">
+      <h4 class="text-center">
+        Editar usuário
+      </h4>
+    </div>
+    <div class="card-body">
+      <%= render 'form' %>
+    </div>
   </div>
-  <div class="card-body">
-    <%= render 'form' %>
-  </div>
-</div>
+<% end %>
