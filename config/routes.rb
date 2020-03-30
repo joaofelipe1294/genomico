@@ -44,9 +44,7 @@ Rails.application.routes.draw do
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
   # USER
-  post 'users/:id/active', to: 'users#activate', as: :activate_user
-  post 'users/:id/change_password', to: 'users#change_password', as: :change_password
-  get 'users/:id/change_password', to: 'users#change_password_view', as: :change_password_view
+  # post 'users/:id/active', to: 'users#activate', as: :activate_user
 
   root 'home#index'
   post 'home/longin', to: 'home#login'

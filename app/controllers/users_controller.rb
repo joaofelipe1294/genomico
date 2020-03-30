@@ -34,12 +34,12 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if @user.update user_params
-      flash[:success] = :edit_user_success
-      redirect_to home_path
+    if params[:reactivate].present?
+      return reactivate_user
     else
-      render :edit
+      return edit_user_attributes
     end
+
   end
 
   # DELETE /users/1
@@ -52,32 +52,6 @@ class UsersController < ApplicationController
       flash[:warning] = 'Não foi possível inativar este usuário.'
       set_users
       render :index
-    end
-  end
-
-  #POST /activate
-  def activate
-    user = User.find params[:id]
-    if user.update({is_active: true})
-      flash[:success] = 'Usuário reativado com sucesso.'
-      redirect_to home_path
-    else
-      flash[:warning] = 'Não foi possível ativar o usuário, tente novamente mais tarde.'
-      set_users
-      render :index
-    end
-  end
-
-  def change_password_view
-  end
-
-  def change_password
-    if @user.update(user_params)
-      flash[:success] = 'Senha alterada com sucesso.'
-      redirect_to home_path
-    else
-      flash[:warning] = @user.errors.full_messages.first
-      render :change_password_view
     end
   end
 
@@ -111,6 +85,31 @@ class UsersController < ApplicationController
         users = User.where(kind: :user) if user_kind_id == 'user'
       end
       @users = users.order(:name)
+    end
+
+    def edit_user_attributes
+      if @user.update user_params
+        flash[:success] = I18n.t :edit_user_success
+        redirect_to home_path
+      else
+        if params[:user][:change_passowrd].present?
+          flash[:warning] = @user.errors.full_messages.first
+          redirect_to edit_user_path(@user, change_passowrd: true)
+        else
+          render :edit
+        end
+      end
+    end
+
+    def reactivate_user
+      if @user.update is_active: true
+        flash[:success] = "Usuário reativado com sucesso."
+        return redirect_to home_path
+      else
+        flash[:warning] = 'Não foi possível ativar o usuário, tente novamente mais tarde.'
+        set_users
+        render :index
+      end
     end
 
 end

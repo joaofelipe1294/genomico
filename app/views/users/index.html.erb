@@ -6,20 +6,13 @@
   <h3 class = 'text-center'>Usuários</h3>
 <% end %>
 
-<table class = 'table text-center mt-3 col-md-8 offset-md-2'>
-  <thead class="bg-dark text-white">
-    <th class="h3">
-      Login
-    </th>
-    <th class="h3">
-      Nome
-    </th>
-    <th class="h3">Tipo
-    </th>
-    <th class="h3">
-      Status
-    </th>
-    <th class="h3"></th>
+<table>
+  <thead>
+    <th>Login</th>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Status</th>
+    <th></th>
   </thead>
   <tbody>
     <% @users.each do |user| %>
@@ -32,9 +25,9 @@
           <% if user.is_active %>
             <%= link_to 'Editar', edit_user_path(user), {class: 'btn btn-sm btn-outline-warning edit-user'} %>
             <%= link_to 'Desabilitar', user_path(user), {method: :delete, data: {confirm: 'Tem certeza ?'}, class: 'btn btn-sm btn-outline-danger'} %>
-            <%= link_to 'Alterar senha', change_password_view_path(user), {method: :get, class: 'btn btn-sm btn-outline-secondary'} %>
+            <%= link_to 'Alterar senha', edit_user_path(user, change_passowrd: true), {method: :get, class: 'btn btn-sm btn-outline-secondary'} %>
           <% else %>
-            <%= link_to 'Habilitar', activate_user_path(user), {method: :post, class: 'btn btn-sm btn-outline-info'} %>
+            <%= link_to 'Habilitar', user_path(user, reactivate: true), {method: :patch, class: 'btn btn-sm btn-outline-info'} %>
           <% end %>
         </td>
       </tr>
