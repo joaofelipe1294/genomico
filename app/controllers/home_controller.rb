@@ -7,12 +7,23 @@ class HomeController < ApplicationController
     @user = authenticate_user
   	if @user
 		  set_user_credentials
-  		redirect_to home_admin_index_path if @user.admin?
-  		redirect_to home_user_index_path if @user.user?
+  		# redirect_to home_admin_index_path if @user.admin?
+      # redirect_to home_index_path if @user.admin?
+  		# redirect_to home_user_index_path if @user.user?
+      redirect_to home_path
 		else
 			flash[:warning] = I18n.t :wrong_login_message
 			redirect_to root_path
 		end
+  end
+
+  def logged_in
+    if current_user.user?
+      @user = User.includes(:fields).find session[:user_id]
+      @report = HomeUserReport.new({field: @user.field})
+      @offered_exams = OfferedExam.from_field(@user.field).order name: :asc
+      @issues = @report.find_issues filter_by: params
+    end
   end
 
   def logout

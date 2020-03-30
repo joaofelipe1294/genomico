@@ -42,7 +42,7 @@ Rails.application.routes.draw do
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
   get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
-  
+
   # USER
   post 'users/:id/active', to: 'users#activate', as: :activate_user
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
@@ -50,10 +50,9 @@ Rails.application.routes.draw do
 
   # HOME
   root 'home#index'
-  get 'home_user/index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
-  get 'home_admin/index', to: 'home_admin#index'
+  get 'home', to: 'home#logged_in', as: :home
 
   # SAMPLE
   get 'samples/new/attendance/:id', to: 'samples#new', as: :new_sample
