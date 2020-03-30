@@ -39,7 +39,7 @@ class ReleasesController < ApplicationController
     else
       flash[:error] = release_check.errors.full_messages.first
     end
-    redirect_to home_user_index_path
+    redirect_to home_path
   end
 
 
