@@ -16,7 +16,7 @@ RSpec.feature "Maintenance::Maintenances", type: :feature do
     context "when maintenance mode is of" do
 
       it "is expected to navigate without redirect to maintenance page" do
-        expect(page).to have_current_path home_user_index_path
+        expect(page).to have_current_path home_path
       end
 
     end
@@ -38,7 +38,7 @@ RSpec.feature "Maintenance::Maintenances", type: :feature do
         visit current_path
         Rake::Task['maintenance:stop'].invoke
         visit current_path
-        expect(page).to have_current_path home_user_index_path
+        expect(page).to have_current_path home_path
       end
 
     end
