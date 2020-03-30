@@ -10,7 +10,7 @@ RSpec.feature "User::Home::NavbarNavigations::ReturnToHomes", type: :feature do
     click_link 'new-patient'
     expect(page).to have_current_path new_patient_path
     click_link 'home-link'
-    expect(page).to have_current_path home_user_index_path
+    expect(page).to have_current_path home_path
   end
-  
+
 end

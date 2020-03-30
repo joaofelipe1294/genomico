@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :shared_filter, only: [:logged_in]
+  before_action :check_release_message, only: [:logged_in]
 
   def index
   end
@@ -48,6 +49,7 @@ class HomeController < ApplicationController
       login = user_params[:login]
       user = User.find_by({login: login})
     	return nil unless user
+      return nil unless user.is_active
       return user if user.authenticate user_params[:password]
       nil
     end

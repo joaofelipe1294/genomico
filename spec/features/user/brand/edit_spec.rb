@@ -24,7 +24,7 @@ RSpec.feature "User::Brand::Edits", type: :feature do
     it "correct edit" do
       fill_in "brand[name]", with: 'Magento'
       click_button id: 'btn-save'
-      expect(page).to have_current_path home_user_index_path
+      expect(page).to have_current_path home_path
       expect(find(id: 'success-warning').text).to eq I18n.t :edit_brand_success
     end
 
