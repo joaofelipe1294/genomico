@@ -12,7 +12,7 @@ RSpec.feature "User::Workflow::Samples::News", type: :feature do
     visit workflow_path(attendance, tab: 'samples')
     expect(page).to have_selector("#new-sample")
     click_link id: "new-sample"
-    expect(page).to have_current_path new_sample_path(attendance)
+    expect(page).to have_current_path new_sample_path(attendance: attendance)
   end
 
   it "dont diplay button in progress attendance", js: true do
