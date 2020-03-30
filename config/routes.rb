@@ -42,12 +42,7 @@ Rails.application.routes.draw do
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
   get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
-
-  # BACKUPS
-  post 'backups/new', to: 'backups#create', as: :new_backup
-  get 'backups/download/:id', to: 'backups#download', as: :backup_download
-  get 'backups/index', to: 'backups#index', as: :backups
-
+  
   # USER
   post 'users/:id/active', to: 'users#activate', as: :activate_user
   post 'users/:id/change_password', to: 'users#change_password', as: :change_password
@@ -80,4 +75,5 @@ Rails.application.routes.draw do
   resources :patients, except: [:destroy]
   resources :subsamples
   resources :internal_codes, only: [:create, :destroy, :index]
+  resources :backups, only: [:index, :show, :create]
 end
