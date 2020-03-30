@@ -40,7 +40,7 @@ class WorkMapsController < ApplicationController
     @work_map = WorkMap.new(work_map_params)
     if @work_map.save
       flash[:success] = I18n.t :create_work_map_success
-      redirect_to home_user_index_path
+      redirect_to home_path
     else
       flash[:warning] = @work_map.errors.full_messages.first
       redirect_to new_work_map_path
