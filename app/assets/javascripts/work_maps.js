@@ -36,34 +36,36 @@ function append_line(internal_code){
 }
 
 $(document).on('turbolinks:load', () => {
+  if ($('#work-map-form').length > 0){
+    $('#btn-search').click(event => {
+      event.preventDefault()
+      let code = $('#internal-code').val()
+      $.ajax({
+        url: `/internal_codes?code=${code}`,
+        dataType: 'json',
+        success: (response) => {
+          let internal_code = response;
+          let shoud_add_line = update_internal_codes_input(internal_code);
+          if (shoud_add_line === true)
+            append_line(internal_code);
+          $('#internal-code').val("")
+        },
+        error: error => {
+          if (error.status === 404)
+            alert('Amostra não encontrada.');
+          else
+            alert('Houve um erro no servidor, tente novamente mais tarde.');
+        }
+      });
 
-  $('#btn-search').click(event => {
-    event.preventDefault()
-    let code = $('#internal-code').val()
-    $.ajax({
-      url: `/internal_codes?code=${code}`,
-      dataType: 'json',
-      success: (response) => {
-        let internal_code = response;
-        let shoud_add_line = update_internal_codes_input(internal_code);
-        if (shoud_add_line === true)
-          append_line(internal_code);
-        $('#internal-code').val("")
-      },
-      error: error => {
-        if (error.status === 404)
-          alert('Amostra não encontrada.');
-        else
-          alert('Houve um erro no servidor, tente novamente mais tarde.');
-      }
+      $('#work-map-form').submit(() => {
+        let internal_code_ids = $('#internal-code-ids').val()
+        internal_code_ids = internal_code_ids.split(',')
+        internal_code_ids = internal_code_ids.filter(Boolean)
+        $('#internal-code-ids').val(internal_code_ids.join(','))
+      })
+
     });
+  }
 
-    $('#form').submit(() => {
-      let internal_code_ids = $('#internal-code-ids').val()
-      internal_code_ids = internal_code_ids.split(',')
-      internal_code_ids = internal_code_ids.filter(Boolean)
-      $('#internal-code-ids').val(internal_code_ids.join(','))
-    })
-
-  });
 });

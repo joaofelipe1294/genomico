@@ -1,6 +1,6 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= form_with url: home_user_index_path, method: :get, class: 'form-inline offset-md-3 mt-2' do |form| %>
+<%= form_with url: home_path, method: :get, class: 'form-inline offset-md-3 mt-2' do |form| %>
   <div class="form-group mb-2">
     <%= form.label "Filtrar por exame", class: "mr-3" %>
     <%= form.select :offered_exam, options_for_select(['Todos']) + options_from_collection_for_select(@offered_exams, "id", "name"), {}, class: 'form-control' %>
@@ -17,7 +17,7 @@
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-secondary">
-        <%= link_to "Exames aguardando início", home_user_index_path({exam_status_kind: "waiting_start"}), class: "h4 text-secondary" %>
+        <%= link_to "Exames aguardando início", home_path({exam_status_kind: "waiting_start"}), class: "h4 text-secondary" %>
         <span id="waiting-exams-number"><%= @report.waiting_exams_count %></span>
       </h4>
       <div id="exams-waiting-chart">
@@ -29,7 +29,7 @@
 
     <div style="width: 33%;" class="d-inline-block border-right border-left">
       <h4 class="text-center text-primary">
-        <%= link_to "Exames em andamento", home_user_index_path({exam_status_kind: "in_progress"}), class: "h4 text-primary" %>
+        <%= link_to "Exames em andamento", home_path({exam_status_kind: "in_progress"}), class: "h4 text-primary" %>
         <span id="in-progress-exams-number"><%= @report.in_progress_count %></span>
       </h4>
       <div>
@@ -41,7 +41,7 @@
 
     <div style="width: 33%;" class="d-inline-block">
       <h4 class="text-center text-danger">
-        <%= link_to "Exames atrasados", home_user_index_path({exam_status_kind: "late"}), class: "h4 text-danger" %>
+        <%= link_to "Exames atrasados", home_path({exam_status_kind: "late"}), class: "h4 text-danger" %>
         <span id="delayed-exams-number"><%= @report.delayed_exams_count %></span>
       </h4>
       <div>

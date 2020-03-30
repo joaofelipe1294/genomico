@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :shared_filter, only: [:logged_in]
 
   def index
   end
@@ -7,10 +8,7 @@ class HomeController < ApplicationController
     @user = authenticate_user
   	if @user
 		  set_user_credentials
-  		# redirect_to home_admin_index_path if @user.admin?
-      # redirect_to home_index_path if @user.admin?
-  		# redirect_to home_user_index_path if @user.user?
-      redirect_to home_path
+  	  redirect_to home_path
 		else
 			flash[:warning] = I18n.t :wrong_login_message
 			redirect_to root_path
