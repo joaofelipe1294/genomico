@@ -17,32 +17,19 @@
         </ul>
       </div>
       <div class="card-body">
+        <%= show_errors @attendance %>
 
-          <% if @attendance.errors.any? %>
-            <div id="error_explanation">
-              <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
-              <ul>
-              <% @attendance.errors.full_messages.each do |message| %>
-                <li>
-                  <span class = 'text-danger error'>
-                    <%= message %>
-                  </span>
-                </li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <div id="attendance_tab" style="display: auto;">
-            <%= render 'attendances/tabs/attendance', f: f %>
-          </div>
+        <div id="attendance_tab" style="display: auto;">
+          <%= render 'attendances/tabs/attendance', f: f %>
+        </div>
 
-          <div id="exams_tab" style="display: none;">
-            <%= render 'attendances/tabs/exams', f: f %>
-          </div>
+        <div id="exams_tab" style="display: none;">
+          <%= render 'attendances/tabs/exams', f: f %>
+        </div>
 
-          <div id="samples_tab" style="display: none;">
-            <%= render 'attendances/tabs/samples', f: f %>
-          </div>
+        <div id="samples_tab" style="display: none;">
+          <%= render 'attendances/tabs/samples', f: f %>
+        </div>
 
       </div>
     </div>
