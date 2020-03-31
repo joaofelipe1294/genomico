@@ -21,8 +21,8 @@ function update_internal_codes_input(internal_code){
     return false;
 }
 
-function append_line(internal_code){
-  $('#samples').append(`
+function append_work_map_line(internal_code){
+  $('#work-map-samples').append(`
      <tr id="internal-code-${internal_code.id}" class="internal-code">
        <td>${internal_code.code}</td>
        <td>${internal_code.field.name}</td>
@@ -47,7 +47,7 @@ $(document).on('turbolinks:load', () => {
           let internal_code = response;
           let shoud_add_line = update_internal_codes_input(internal_code);
           if (shoud_add_line === true)
-            append_line(internal_code);
+            append_work_map_line(internal_code);
           $('#internal-code').val("")
         },
         error: error => {
