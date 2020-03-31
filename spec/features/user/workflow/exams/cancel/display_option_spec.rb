@@ -10,7 +10,7 @@ RSpec.feature "User::Workflow::Exams::Cancel::Displays", type: :feature do
 
     after :each do
       imunofeno_user_do_login
-      visit workflow_path(@attendance, tab: 'exams')
+      visit attendance_path(@attendance, tab: 'exams')
       expect(find_all(class: "cancel-exam").size).to eq 1
     end
 
@@ -28,7 +28,7 @@ RSpec.feature "User::Workflow::Exams::Cancel::Displays", type: :feature do
 
     after :each do
       imunofeno_user_do_login
-      visit workflow_path(@attendance, tab: 'exams')
+      visit attendance_path(@attendance, tab: 'exams')
       expect(find_all(class: "cancel-exam").size).to eq 0
     end
 

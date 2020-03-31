@@ -4,7 +4,7 @@ class SamplesController < ApplicationController
   	@sample = Sample.new sample_params
   	if @sample.save
   		flash[:success] = 'Amostra cadastrada com sucesso.'
-  		redirect_to workflow_path(@sample.attendance, {tab: "samples"})
+  		redirect_to attendance_path(@sample.attendance, {tab: "samples"})
 		else
 			render @sample
 		end
@@ -24,7 +24,7 @@ class SamplesController < ApplicationController
     @sample = Sample.find params[:id]
     if @sample.update sample_params
       flash[:success] = I18n.t :edit_sample_success
-      redirect_to workflow_path(@sample.attendance, {tab: "samples"})
+      redirect_to attendance_path(@sample.attendance, {tab: "samples"})
     else
       flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'
       render edit_sample_path(@sample)
@@ -35,13 +35,13 @@ class SamplesController < ApplicationController
     @sample = Sample.find params[:id]
     if @sample.internal_codes.size > 0
       flash[:warning] = 'Esta amostra está vinculada a pelo menos um exame, por isso não pode ser remomvido.'
-      redirect_to workflow_path(@sample.attendance, {tab: "samples"})
+      redirect_to attendance_path(@sample.attendance, {tab: "samples"})
     elsif @sample.internal_codes.size == 0 && @sample.delete
       flash[:success] = I18n.t :remove_sample_success
-      redirect_to workflow_path(@sample.attendance, {tab: "samples"})
+      redirect_to attendance_path(@sample.attendance, {tab: "samples"})
     else
       flash[:warning] = 'Houve um proble no servidor, tente novamente mais tarde.'
-      redirect_to workflow_path(@sample.attendance, {tab: "samples"})
+      redirect_to attendance_path(@sample.attendance, {tab: "samples"})
     end
   end
 
@@ -57,7 +57,7 @@ class SamplesController < ApplicationController
 			params.require(:sample).permit(
         :sample_kind_id,
         :collection_date,
-        :receipt_notice, 
+        :receipt_notice,
         :storage_location,
         :attendance_id
       )

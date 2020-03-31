@@ -59,7 +59,7 @@ RSpec.feature "User::Home::Charts", type: :feature do
       visit current_path
       expect(find_all(class: 'issue').size).to eq 1
       click_link class: 'attendance-code', match: :first
-      expect(page).to have_current_path workflow_path(attendance, {tab: 'exams'})
+      expect(page).to have_current_path attendance_path(attendance, {tab: 'exams'})
     end
 
     it "filter issues" do

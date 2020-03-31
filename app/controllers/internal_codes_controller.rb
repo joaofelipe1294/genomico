@@ -38,7 +38,7 @@ class InternalCodesController < ApplicationController
   private
 
     def redirect_to_samples_tab
-      redirect_to workflow_path(@internal_code.attendance, {tab: "samples"})
+      redirect_to attendance_path(@internal_code.attendance, {tab: "samples"})
     end
 
     def set_internal_codes field

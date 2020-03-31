@@ -2,4 +2,6 @@
 
 <% if params[:status_changes].present? %>
   <%= render 'status_changes' %>
+<% else %>
+  <%= render 'attendance' %>
 <% end %>

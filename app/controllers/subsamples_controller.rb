@@ -91,7 +91,7 @@ class SubsamplesController < ApplicationController
     end
 
     def redirect_to_workflow
-      redirect_to workflow_path(@subsample.sample.attendance, {tab: "samples"})
+      redirect_to attendance_path(@subsample.sample.attendance, {tab: "samples"})
     end
 
 end

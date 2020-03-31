@@ -45,9 +45,9 @@
 	<div class = 'form-group'>
 		<%= f.label :health_ensurance %>
 		<% if @attendance.health_ensurance.nil? %>
-			<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name'), {prompt: ""}, {class: 'form-control'} %>
+			<%= f.select :health_ensurance_id, options_from_collection_for_select(HealthEnsurance.all.order(:name), 'id', 'name'), {prompt: ""}, {class: 'form-control'} %>
 		<% else %>
-			<%= f.select :health_ensurance_id, options_from_collection_for_select(@health_ensurances, 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control', include_blank: ''} %>
+			<%= f.select :health_ensurance_id, options_from_collection_for_select(HealthEnsurance.all.order(:name), 'id', 'name', selected: @attendance.health_ensurance.id), {}, {class: 'form-control', include_blank: ''} %>
 		<% end %>
 	</div>
 

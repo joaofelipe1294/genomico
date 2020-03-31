@@ -10,11 +10,11 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Edits", type: :feature do
     @attendance.update health_ensurance: create(:health_ensurance)
     create(:health_ensurance)
     biomol_user_do_login
-    visit workflow_path(@attendance, tab: 'attendance')
+    visit attendance_path(@attendance, tab: 'attendance')
   end
 
   after :each do
-    expect(page).to have_current_path workflow_path(@attendance, {tab: "attendance"})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: "attendance"})
     expect(find(id: "success-warning").text).to eq I18n.t :attendance_update_success
   end
 

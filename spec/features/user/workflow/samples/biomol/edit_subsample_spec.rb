@@ -9,7 +9,7 @@ RSpec.feature "User::Workflow::Samples::Biomol::EditSubsamples", type: :feature 
   it "edit-subsample count" do
     attendance = create_raw_biomol_attendance
     biomol_user_do_login
-    visit workflow_path(attendance, tab: 'samples')
+    visit attendance_path(attendance, tab: 'samples')
     expect(find_all(class: "edit-sample").size).to eq attendance.reload.samples.size
     expect(find_all(class: "edit-subsample").size).to eq attendance.reload.subsamples.size
   end
@@ -17,7 +17,7 @@ RSpec.feature "User::Workflow::Samples::Biomol::EditSubsamples", type: :feature 
   it "should not sidplay in complete attendance" do
     attendance = create_complete_biomol_attendance
     biomol_user_do_login
-    visit workflow_path(attendance, tab: 'samples')
+    visit attendance_path(attendance, tab: 'samples')
     expect(find_all(class: "edit-subsample").size).to eq 0
   end
 

@@ -1,22 +1,22 @@
 class AttendancesController < ApplicationController
   include JsonParser
-  include InstanceVariableSetter
   before_action :set_attendance, only: [:show, :edit, :update, :destroy]
   before_action :user_filter
-  before_action :set_health_ensurances, only: [:workflow, :new]
 
   # GET /attendances/1
   # GET /attendances/1.json
   def show
     if params[:status_changes].present?
       status_changes
+    else
+      @tab = params[:tab]
+      check_attendance_status
     end
   end
 
   # GET /attendances/new
   def new
     @attendance = Attendance.new(patient: Patient.find(params[:patient]))
-    set_dependencies
   end
 
   # POST /attendances
@@ -25,10 +25,8 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new(attendance_params)
     if @attendance.save
       flash[:success] = 'Atendimento cadastrado com sucesso.'
-      redirect_to workflow_path(@attendance, {tab: 'samples'})
+      redirect_to attendance_path(@attendance, {tab: 'samples'})
     else
-      set_health_ensurances
-      set_dependencies
       render :new
     end
   end
@@ -38,25 +36,17 @@ class AttendancesController < ApplicationController
   def update
     if @attendance.update(attendance_params)
       flash[:success] = I18n.t :attendance_update_success
-      redirect_to workflow_path(@attendance, {tab: params[:tab]})
+      redirect_to attendance_path(@attendance, {tab: params[:tab]})
     else
-      set_health_ensurances
       flash[:warning] = @attendance.errors.full_messages.first
-      redirect_to workflow_path(@attendance, {tab: params[:tab]})
+      redirect_to attendance_path(@attendance, {tab: params[:tab]})
     end
-  end
-
-  #GET attendances/1
-  def workflow
-    @attendance = Attendance.includes(:exams, :samples).find params[:id]
-    @tab = params[:tab]
-    check_attendance_status
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_attendance
-      @attendance = Attendance.find(params[:id])
+      @attendance = Attendance.includes(:exams, :samples).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -80,12 +70,6 @@ class AttendancesController < ApplicationController
         exams_attributes: [:offered_exam_id],
       )
       treat_params filtered_params
-    end
-
-    def set_dependencies
-      @fields = Field.all.order :name
-      @sample_kinds = SampleKind.all.order :name
-      @exams = OfferedExam.where(field: @fields.first).order :name
     end
 
     def treat_params parameters

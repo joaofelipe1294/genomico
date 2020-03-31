@@ -8,7 +8,7 @@ RSpec.feature "User::Workflow::Samples::Removes", type: :feature do
     Rails.application.load_seed
     @attendance = create_raw_imunofeno_attendance
     imunofeno_user_do_login
-    visit workflow_path(@attendance, tab: 'samples')
+    visit attendance_path(@attendance, tab: 'samples')
   end
 
   it "check render of remove sample with only one sample in attendance" do
@@ -23,7 +23,7 @@ RSpec.feature "User::Workflow::Samples::Removes", type: :feature do
   it "remove sample", js: true do
     page.driver.browser.accept_confirm
     click_link class: "remove-sample"
-    expect(page).to have_current_path workflow_path(@attendance, tab: 'samples')
+    expect(page).to have_current_path attendance_path(@attendance, tab: 'samples')
     new_samples_size = @attendance.reload.samples.size
     expect(new_samples_size).to eq 0
   end

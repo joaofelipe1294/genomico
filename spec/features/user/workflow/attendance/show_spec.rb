@@ -8,7 +8,7 @@ RSpec.feature "User::Workflow::Tabs::Attendance::Shows", type: :feature do
     Rails.application.load_seed
     attendance = create_raw_imunofeno_attendance
     imunofeno_user_do_login
-    visit workflow_path(attendance, {tab: 'attendance'})
+    visit attendance_path(attendance, {tab: 'attendance'})
     expect(attendance.patient.name). to eq find(id: "attendance_patient").value
     expect(I18n.l(attendance.start_date.to_date)).to eq find(id: "attendance_start_date").value
     expect(attendance.status_name).to eq find(id: "attendance_status").value

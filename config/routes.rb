@@ -29,10 +29,6 @@ Rails.application.routes.draw do
   get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
   post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
-  #ATTENDANCE
-  get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
-  resources :attendances, except: [:delete, :index, :edit]
-
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
@@ -52,5 +48,6 @@ Rails.application.routes.draw do
   resources :patients, except: [:destroy]
   resources :backups, only: [:index, :show, :create]
   resources :stock_outs, only: [:index, :new, :create]
+  resources :attendances, except: [:delete, :index, :edit]
   resources :internal_codes, only: [:create, :destroy, :index]
 end

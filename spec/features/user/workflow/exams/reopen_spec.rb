@@ -8,7 +8,7 @@ RSpec.feature "User::Workflow::Exams::Reopens", type: :feature do
     Rails.application.load_seed
     attendance = create_in_progress_biomol_attendance
     biomol_user_do_login
-    visit workflow_path(attendance, tab: 'exams')
+    visit attendance_path(attendance, tab: 'exams')
     page.driver.browser.accept_confirm
     click_link class: "change-to-complete"
     attach_file "exam[report]", "#{Rails.root}/spec/support_files/PDF.pdf"

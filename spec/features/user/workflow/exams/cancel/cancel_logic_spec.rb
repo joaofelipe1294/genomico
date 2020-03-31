@@ -9,10 +9,10 @@ RSpec.feature "User::Workflow::Exams::Cancel::CancelLogics", type: :feature, js:
   it "cancel exam waiting start" do
     attendance = create_raw_imunofeno_attendance
     imunofeno_user_do_login
-    visit workflow_path(attendance, tab: 'exams')
+    visit attendance_path(attendance, tab: 'exams')
     page.driver.browser.accept_confirm
     click_link class: "cancel-exam", match: :first
-    expect(page).to have_current_path workflow_path(attendance, tab: 'exams')
+    expect(page).to have_current_path attendance_path(attendance, tab: 'exams')
     exam = attendance.exams.first.reload
     expect(exam.status.to_sym).to eq :canceled
     expect(attendance.reload.status).to eq :complete.to_s
@@ -22,7 +22,7 @@ RSpec.feature "User::Workflow::Exams::Cancel::CancelLogics", type: :feature, js:
     attendance = create_in_progress_imunofeno_attendance
     attendance.exams << create(:exam)
     imunofeno_user_do_login
-    visit workflow_path(attendance, tab: 'exams')
+    visit attendance_path(attendance, tab: 'exams')
     page.driver.browser.accept_confirm
     click_link class: "cancel-exam", match: :first
     canceled_exams = attendance.exams.where(status: :canceled).size

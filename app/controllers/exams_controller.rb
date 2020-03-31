@@ -130,7 +130,7 @@ class ExamsController < ApplicationController
     end
 
     def redirect_to_exams_tab
-      redirect_to workflow_path(@exam.attendance, {tab: "exams"})
+      redirect_to attendance_path(@exam.attendance, {tab: "exams"})
     end
 
 end

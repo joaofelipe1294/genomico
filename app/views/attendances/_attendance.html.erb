@@ -1,0 +1,88 @@
+
+<% if flash[:info] %>
+  <div class="alert alert-primary" role="alert">
+    <%= flash[:info] %>
+  </div>
+<% end %>
+
+<div class="col-md-12 pl-4 pr-4 mt-3">
+
+  <div class="col-md-5 d-inline-block offset-md-1 border-right">
+    <h5 class="text-center">
+      Paciente: <%= link_to @attendance.patient.name, patient_path(@attendance.patient), id: 'patient-link' %>
+    </h5>
+  </div>
+
+  <div class="col-md-5 d-inline-block">
+    <h5 class="text-center">
+      Atendimento:
+      <span id='lis-code'>
+        <%= @attendance.lis_code %>
+      </span>
+    </h5>
+  </div>
+</div>
+
+<div class="mt-2 border p-2">
+  <div class="border-bottom pb-3">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <% if @tab == 'attendance' %>
+          <%= link_to "Atendimento", attendance_path(@attendance, {tab: 'attendance'}), id: "attendance-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Atendimento", attendance_path(@attendance, {tab: 'attendance'}), id: "attendance-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @tab == 'exams' %>
+          <%= link_to "Exames", attendance_path(@attendance, {tab: 'exams'}), id: "exams-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Exames", attendance_path(@attendance, {tab: 'exams'}), id: "exams-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @tab == 'samples' %>
+          <%= link_to "Amostras", attendance_path(@attendance, {tab: 'samples'}), id: "samples-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Amostras", attendance_path(@attendance, {tab: 'samples'}), id: "samples-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @tab == 'work_maps' %>
+          <%= link_to "Mapas de trabalho", attendance_path(@attendance, {tab: 'work_maps'}), id: "work-maps-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Mapas de trabalho", attendance_path(@attendance, {tab: 'work_maps'}), id: "work-maps-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @tab == 'reports' %>
+          <%= link_to "Laudos", attendance_path(@attendance, {tab: 'reports'}), id: "reports-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Laudos", attendance_path(@attendance, {tab: 'reports'}), id: "reports-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @tab == 'patient'%>
+          <%= link_to "Paciente", attendance_path(@attendance, {tab: 'patient'}), id: "patient-nav", class: "btn nav-link border w-75 active" %>
+        <% else %>
+          <%= link_to "Paciente", attendance_path(@attendance, {tab: 'patient'}), id: "patient-nav", class: "btn nav-link border w-75" %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="mt-3">
+    <% if @tab == 'attendance' %>
+  		<%= render 'attendances/forms/attendance'%>
+    <% elsif @tab == 'exams'%>
+      <%= render 'attendances/forms/exams' %>
+    <% elsif @tab == 'samples' %>
+    	<%= render 'attendances/forms/samples'%>
+    <% elsif @tab == 'work_maps' %>
+      <%= render 'attendances/forms/work_maps'%>
+    <% elsif @tab == 'reports'%>
+      <%= render 'attendances/forms/report' %>
+    <% elsif @tab == 'patient' %>
+      <%= render 'attendances/forms/patient' %>
+    <% end %>
+  </div>
+</div>
