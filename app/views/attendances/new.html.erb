@@ -1,87 +1,51 @@
 <%= render 'layouts/user_navbar' %>
 
-<%= form_for @attendance, html: {class: 'col-md-10 mt-4 offset-md-1'} do |f| %>
-  <div class="card" style="overflow: auto;">
-    <div class="card-header bg-white">
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <button id="attendance_nav" class="btn nav-link active border w-75 mx-auto">Atendimento</button>
-        </li>
-        <li class="nav-item">
-          <button id="exams_nav" class="btn nav-link border w-75 mx-auto">Exames</button>
-        </li>
-        <li class="nav-item">
-          <button id="samples_nav" class="btn nav-link border w-75 mx-auto">Amostras</button>
-        </li>
-      </ul>
-    </div>
-    <div class="card-body">
+<div id="new-attendance-form">
+  <%= form_for @attendance, html: {class: 'col-md-10 mt-4 offset-md-1'} do |f| %>
+    <div class="card" style="overflow: auto;">
+      <div class="card-header bg-white">
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <button id="attendance_nav" class="btn nav-link active border w-75 mx-auto">Atendimento</button>
+          </li>
+          <li class="nav-item">
+            <button id="exams_nav" class="btn nav-link border w-75 mx-auto">Exames</button>
+          </li>
+          <li class="nav-item">
+            <button id="samples_nav" class="btn nav-link border w-75 mx-auto">Amostras</button>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
 
-        <% if @attendance.errors.any? %>
-          <div id="error_explanation">
-            <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
-            <ul>
-            <% @attendance.errors.full_messages.each do |message| %>
-              <li>
-                <span class = 'text-danger error'>
-                  <%= message %>
-                </span>
-              </li>
-            <% end %>
-            </ul>
+          <% if @attendance.errors.any? %>
+            <div id="error_explanation">
+              <h2 class="text-danger">Os seguintes erros foram encontrados no formulário:</h2>
+              <ul>
+              <% @attendance.errors.full_messages.each do |message| %>
+                <li>
+                  <span class = 'text-danger error'>
+                    <%= message %>
+                  </span>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div id="attendance_tab" style="display: auto;">
+            <%= render 'attendances/tabs/attendance', f: f %>
           </div>
-        <% end %>
-        <div id="attendance_tab" style="display: auto;">
-          <%= render 'attendances/tabs/attendance', f: f %>
-        </div>
 
-        <div id="exams_tab" style="display: none;">
-          <%= render 'attendances/tabs/exams', f: f %>
-        </div>
+          <div id="exams_tab" style="display: none;">
+            <%= render 'attendances/tabs/exams', f: f %>
+          </div>
 
-        <div id="samples_tab" style="display: none;">
-          <%= render 'attendances/tabs/samples', f: f %>
-        </div>
+          <div id="samples_tab" style="display: none;">
+            <%= render 'attendances/tabs/samples', f: f %>
+          </div>
 
+      </div>
     </div>
-  </div>
 
-<% end %>
-
-<script>
-  $('#attendance_nav').click((event) => {
-    event.preventDefault()
-    $('#attendance_nav').removeClass('active')
-    $('#exams_nav').removeClass('active')
-    $('#samples_nav').removeClass('active')
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#attendance_nav').addClass('active')
-    $('#attendance_tab').fadeToggle()
-  })
-
-  $('#exams_nav').click((event) => {
-    event.preventDefault()
-    $('#attendance_nav').removeClass('active')
-    $('#exams_nav').removeClass('active')
-    $('#samples_nav').removeClass('active')
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#exams_nav').addClass('active')
-    $('#exams_tab').fadeToggle()
-  })
-
-  $('#samples_nav').click((event) => {
-    event.preventDefault()
-    $('#attendance_nav').removeClass('active')
-    $('#exams_nav').removeClass('active')
-    $('#samples_nav').removeClass('active')
-    $('#attendance_tab').css('display', 'none')
-    $('#exams_tab').css('display', 'none')
-    $('#samples_tab').css('display', 'none')
-    $('#samples_nav').addClass('active')
-    $('#samples_tab').fadeToggle()
-  })
-</script>
+  <% end %>
+</div>
