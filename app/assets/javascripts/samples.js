@@ -27,7 +27,7 @@ function sample_builder(){
   return sample;
 }
 
-function append_line(sample){
+function append_sample_line(sample){
   $('#samples_table').append(`
     <tr>
       <td>${sample.sample_kind_name}</td>
@@ -56,7 +56,7 @@ $(document).on('turbolinks:load', () => {
         const sample = sample_builder();
         let samples = $('#samples').val()
         const sample_index = $('.btn-outline-danger').length
-        append_line(sample);
+        append_sample_line(sample);
         delete sample.sample_kind_name
         if (samples.length === 0){
           $('#samples').val(JSON.stringify([sample]))
