@@ -26,7 +26,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/new
   def new
-    @attendance = Attendance.new(patient: Patient.find(params[:id]))
+    @attendance = Attendance.new(patient: Patient.find(params[:patient]))
     set_dependencies
   end
 

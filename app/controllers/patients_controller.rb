@@ -43,7 +43,7 @@ class PatientsController < ApplicationController
     @patient = Patient.new(patient_params)
       if @patient.save
         flash[:success] = I18n.t :new_patient_success
-        redirect_to new_attendance_path(@patient.id)
+        redirect_to new_attendance_path(patient: @patient)
       else
         set_hospitals
         render :new

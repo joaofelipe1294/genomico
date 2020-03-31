@@ -109,7 +109,6 @@
 <script>
   $('#fields_select').change(() => {
     let field_id = $('#fields_select').val()
-    console.log('PENDEJO !!!');
     $.ajax({
       url: `/offered_exams?field=${field_id}`,
       dataType: 'json',

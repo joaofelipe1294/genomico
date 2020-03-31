@@ -31,8 +31,8 @@ Rails.application.routes.draw do
 
   #ATTENDANCE
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
-  get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
+  resources :attendances, except: [:delete, :index, :edit]
 
   root 'home#index'
   post 'home/longin', to: 'home#login'
@@ -54,5 +54,4 @@ Rails.application.routes.draw do
   resources :backups, only: [:index, :show, :create]
   resources :stock_outs, only: [:index, :new, :create]
   resources :internal_codes, only: [:create, :destroy, :index]
-  resources :attendances, except: [:new, :delete, :index, :edit]
 end
