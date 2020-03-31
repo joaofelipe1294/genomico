@@ -8,27 +8,14 @@ class OfferedExamsController < ApplicationController
   # GET /offered_exams.json
   def index
     respond_to do |format|
-
       format.html do
-        field_id = params[:field]
-        name = params[:name]
-        if field_id.present?
-          offered_exams = OfferedExam.where({field_id: field_id})
-        elsif name.present?
-          offered_exams = OfferedExam.where("name ILIKE ?", "%#{name}%")
-        else
-          offered_exams = OfferedExam.all.order(name: :asc)
-        end
-        @offered_exams = offered_exams.includes(:field).order(name: :asc).page params[:page]
+        html_response
       end
       format.json do
         offered_exams = OfferedExam.where(field_id: params[:field]).where(is_active: true).order(:name)
         render json: offered_exams, status: :ok
       end
-
     end
-
-
   end
 
   # GET /offered_exams/new
@@ -88,5 +75,18 @@ class OfferedExamsController < ApplicationController
     def update_success
       flash[:success] = I18n.t :edit_offered_exam_success
       redirect_to offered_exams_path
+    end
+
+    def html_response
+      field_id = params[:field]
+      name = params[:name]
+      if field_id.present?
+        offered_exams = OfferedExam.where({field_id: field_id})
+      elsif name.present?
+        offered_exams = OfferedExam.where("name ILIKE ?", "%#{name}%")
+      else
+        offered_exams = OfferedExam.all.order(name: :asc)
+      end
+      @offered_exams = offered_exams.includes(:field).order(name: :asc).page params[:page]
     end
 end

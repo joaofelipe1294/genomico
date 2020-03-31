@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # STOCK
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
   resources :stock_products
-  
+
   # EXAMS
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
@@ -30,13 +30,13 @@ Rails.application.routes.draw do
   patch 'exams/:id/change_exam_status', to: 'exams#change_exam_status', as: :change_exam_status
   get 'exams/:id/edit', to: 'exams#edit', as: :edit_exam
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
+  get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
+  post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
   #ATTENDANCE
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
-  get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
-  post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
   root 'home#index'
   post 'home/longin', to: 'home#login'
