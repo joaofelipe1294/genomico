@@ -13,10 +13,6 @@ Rails.application.routes.draw do
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
   get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress
 
-  # STOCK
-  get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
-  resources :stock_products
-
   # EXAMS
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
@@ -52,6 +48,7 @@ Rails.application.routes.draw do
   resources :suggestions
   resources :offered_exams
   resources :stock_entries
+  resources :stock_products
   resources :users, except: [:show]
   resources :patients, except: [:destroy]
   resources :backups, only: [:index, :show, :create]
