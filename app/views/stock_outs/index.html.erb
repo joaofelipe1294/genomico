@@ -1,38 +1,27 @@
 <%= render "layouts/user_navbar" %>
-
 <%= render "layouts/stock_navbar" %>
 
 <h2 class="text-center mt-3">
   Baixas de estoque
 </h2>
-
 <hr>
 
-<table class="table text-center mt-3">
-  <thead class="bg-dark text-white">
-    <th class="h4">Produto</th>
-    <th class="h4">Identificador</th>
-    <th class="h4">Data</th>
-    <th class="h4">Responsável</th>
+<table class="mt-3">
+  <thead>
+    <th>Produto</th>
+    <th>Identificador</th>
+    <th>Data</th>
+    <th>Responsável</th>
   </thead>
   <tbody>
     <% @stock_outs.each do |stock_out| %>
       <tr class="stock-out">
-        <td>
-          <%= stock_out.stock_product.name %>
-        </td>
-        <td>
-          <%= display_tag stock_out.product %>
-        </td>
-        <td>
-          <%= l stock_out.date %>
-        </td>
-        <td>
-          <%= stock_out.responsible.login %>
-        </td>
+        <td><%= stock_out.stock_product.name %></td>
+        <td><%= display_tag stock_out.product %></td>
+        <td><%= l stock_out.date %></td>
+        <td><%= stock_out.responsible.login %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <%= render "layouts/table_footer", elements: @stock_outs %>

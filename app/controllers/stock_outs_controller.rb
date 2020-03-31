@@ -8,7 +8,7 @@ class StockOutsController < ApplicationController
 
   def new
     @stock_out = StockOut.new({
-        product: Product.find(params[:id])
+        product: Product.find(params[:product])
       })
     set_users
   end

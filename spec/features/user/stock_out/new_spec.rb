@@ -5,7 +5,7 @@ RSpec.feature "User::StockOut::News", type: :feature do
 
   def do_stock_out_on_first_product
     @product.change_to_in_use({date: Date.current})
-    visit new_stock_out_path(@product)
+    visit new_stock_out_path(product: @product)
     click_button id: "btn-save"
   end
 

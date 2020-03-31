@@ -9,7 +9,8 @@
     </h4>
   </div>
   <div class="card-body">
-    <%= form_with model: @stock_out, url: create_stock_out_path do |form| %>
+    <%= form_with model: @stock_out, local: true do |form| %>
+      <%= form.hidden_field :product_id, value: @stock_out.product_id %>
 
       <div class="form-group">
         <%= form.label :product %>

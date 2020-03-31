@@ -16,10 +16,7 @@ Rails.application.routes.draw do
   # STOCK
   get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
   resources :stock_products
-  get 'stock_outs', to: 'stock_outs#index', as: :stock_outs
-  post 'stock_outs/create', to: 'stock_outs#create', as: :create_stock_out
-  get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
-
+  
   # EXAMS
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
@@ -58,6 +55,7 @@ Rails.application.routes.draw do
   resources :users, except: [:show]
   resources :patients, except: [:destroy]
   resources :backups, only: [:index, :show, :create]
+  resources :stock_outs, only: [:index, :new, :create]
   resources :internal_codes, only: [:create, :destroy, :index]
   resources :attendances, except: [:new, :delete, :index, :edit]
 end
