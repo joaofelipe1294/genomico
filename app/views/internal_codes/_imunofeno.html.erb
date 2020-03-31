@@ -40,7 +40,7 @@
             <td><%= exam.status_name %></td>
             <td><%= internal_code.attendance.patient.name %></td>
             <td>
-              <%= link_to internal_code.attendance.lis_code, workflow_path(internal_code.attendance, tab: :samples) %>
+              <%= link_to internal_code.attendance.lis_code, attendance_path(internal_code.attendance, tab: :samples) %>
             </td>
           </tr>
         <% end %>
@@ -53,7 +53,7 @@
           <td>-</td>
           <td><%= internal_code.attendance.patient.name %></td>
           <td>
-            <%= link_to internal_code.attendance.lis_code, workflow_path(internal_code.attendance, tab: :samples) %>
+            <%= link_to internal_code.attendance.lis_code, attendance_path(internal_code.attendance, tab: :samples) %>
           </td>
         </tr>
       <% end %>

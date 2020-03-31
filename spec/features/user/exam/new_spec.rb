@@ -47,7 +47,7 @@ RSpec.feature "User::Exam::News", type: :feature do
       visit current_path
       select(exam_that_will_be_selected.name, from: "exam[offered_exam_id]").select_option
       click_button id: 'btn-save'
-      expect(page).to have_current_path(workflow_path(@attendance), ignore_query: true)
+      expect(page).to have_current_path(attendance_path(@attendance), ignore_query: true)
       expect(find(id: 'success-warning').text).to eq I18n.t :new_exam_success
     end
 

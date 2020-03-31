@@ -1,58 +1,7 @@
 <%= render 'layouts/user_navbar' %>
 
-<div class="col-md-6 offset-md-3 mt-2 border-bottom p-3" style="overflow: auto;">
-  <%= form_tag(@attendance, method: :get) do %>
-    <div class="form-group">
-      <%= label_tag Exam.model_name.human %>
-      <select class="form-control" name="exam">
-        <option value="all">Todos</option>
-        <%= @attendance.exams.each do |exam| %>
-          <option value="<%= exam.id %>">
-            <%= exam.offered_exam.name %>
-          </option>
-        <% end %>
-      </select>
-    </div>
-    <button class="btn btn-outline-info float-right">
-      Buscar
-    </button>
-  <% end %>
-</div>
-
-
-
-
-<table class="table table-bordered table-striped text-center mt-5 col-md-10 offset-md-1 mb-5">
-  <thead class="text-white bg-dark">
-    <th>
-      <h4>Exame</h4>
-    </th>
-    <th>
-      <h4>Novo status</h4>
-    </th>
-    <th>
-      <h4>Horário da mudança</h4>
-    </th>
-    <th>
-      <h4>Feito por</h4>
-    </th>
-  </thead>
-  <tbody>
-    <% @exams_status_changes.each do |status_change| %>
-      <tr>
-        <td>
-          <%= status_change.exam.offered_exam.name %>
-        </td>
-        <td>
-          <%= show_exam_status status_change.new_status %>
-        </td>
-        <td>
-          <%= status_change.change_date.strftime("%-d/%-m/%y: %H:%M") %>
-        </td>
-        <td>
-          <%= status_change.user.name %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if params[:status_changes].present? %>
+  <%= render 'status_changes' %>
+<% else %>
+  <%= render 'attendance' %>
+<% end %>

@@ -12,47 +12,47 @@ RSpec.feature "User::Worflow::TabNavigations", type: :feature do
 
   it "navigate to workflow" do
     click_link class: "attendance-code"
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'exams'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'exams'})
   end
 
   it "go to attendance tab" do
-    visit workflow_path(@attendance, {tab: 'exams'})
+    visit attendance_path(@attendance, {tab: 'exams'})
     click_link id: 'attendance-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'attendance'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'attendance'})
   end
 
   it "go to exams tab" do
-    visit workflow_path(@attendance, {tab: 'attendance'})
+    visit attendance_path(@attendance, {tab: 'attendance'})
     click_link id: 'exams-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'exams'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'exams'})
   end
 
   it "go to samples" do
-    visit workflow_path(@attendance, {tab: 'exams'})
+    visit attendance_path(@attendance, {tab: 'exams'})
     click_link id: 'samples-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'samples'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'samples'})
   end
 
   it "go to workmaps" do
-    visit workflow_path(@attendance, {tab: 'exams'})
+    visit attendance_path(@attendance, {tab: 'exams'})
     click_link id: 'work-maps-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'work_maps'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'work_maps'})
   end
 
   it "go to reports" do
-    visit workflow_path(@attendance, {tab: 'exams'})
+    visit attendance_path(@attendance, {tab: 'exams'})
     click_link id: 'reports-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'reports'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'reports'})
   end
 
   it "go to patient" do
-    visit workflow_path(@attendance, {tab: 'patient'})
+    visit attendance_path(@attendance, {tab: 'patient'})
     click_link id: 'patient-nav'
-    expect(page).to have_current_path workflow_path(@attendance, {tab: 'patient'})
+    expect(page).to have_current_path attendance_path(@attendance, {tab: 'patient'})
   end
 
   it "visit patient profile" do
-    visit workflow_path(@attendance, {tab: 'exams'})
+    visit attendance_path(@attendance, {tab: 'exams'})
     click_link id: 'patient-link'
     expect(page).to have_current_path patient_path(@attendance.patient, patient: true)
   end

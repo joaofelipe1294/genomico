@@ -9,7 +9,7 @@ RSpec.feature "User::Workflow::Exams::Edit::Samples", type: :feature do
   it "try chage sample of waiting to start exam", js: true do
     attendance = create_raw_biomol_attendance
     biomol_user_do_login
-    visit workflow_path(attendance, tab: 'exams')
+    visit attendance_path(attendance, tab: 'exams')
     click_link class: "edit-exam", match: :first
     expect(page).not_to have_selector("#exam_internal_code_ids")
   end
@@ -19,7 +19,7 @@ RSpec.feature "User::Workflow::Exams::Edit::Samples", type: :feature do
     before :each do
       @attendance = create_in_progress_biomol_attendance
       biomol_user_do_login
-      visit workflow_path(@attendance, tab: 'exams')
+      visit attendance_path(@attendance, tab: 'exams')
       click_link class: "edit-exam", match: :first
     end
 
@@ -28,7 +28,7 @@ RSpec.feature "User::Workflow::Exams::Edit::Samples", type: :feature do
       new_internal_code = @attendance.internal_codes.where.not(id: current_internal_code.id).first
       select(new_internal_code.code, from: "exam[internal_code_ids]").select_option
       click_button id: "btn-save"
-      expect(page).to have_current_path workflow_path(@attendance, tab: 'exams')
+      expect(page).to have_current_path attendance_path(@attendance, tab: 'exams')
       exam = @attendance.exams.first.reload
       expect(exam.internal_codes.first).to eq new_internal_code
     end
@@ -47,7 +47,7 @@ RSpec.feature "User::Workflow::Exams::Edit::Samples", type: :feature do
       compose_code = "#{dna_internal_code.code} - #{rna_internal_code.code}"
       select(compose_code.to_s, from: "exam[internal_code_ids]").select_option
       click_button id: "btn-save"
-      expect(page).to have_current_path workflow_path(@attendance, tab: 'exams')
+      expect(page).to have_current_path attendance_path(@attendance, tab: 'exams')
       exam = @attendance.exams.first.reload
       expect(exam.internal_codes.size).to eq 2
     end

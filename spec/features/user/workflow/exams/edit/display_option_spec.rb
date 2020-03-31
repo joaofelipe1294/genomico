@@ -9,7 +9,7 @@ RSpec.feature "User::Workflow::Exams::Edit::DisplayOptions", type: :feature do
   context "when edit option is ment to be displayed" do
 
     after :each do
-      visit workflow_path(@attendance, tab: 'exams')
+      visit attendance_path(@attendance, tab: 'exams')
       expect(find_all(class: "edit-exam").size).to eq 1
     end
 
@@ -28,7 +28,7 @@ RSpec.feature "User::Workflow::Exams::Edit::DisplayOptions", type: :feature do
   context "when display option should not be rendered" do
 
     after :each do
-      visit workflow_path(@attendance, tab: 'exams')
+      visit attendance_path(@attendance, tab: 'exams')
       expect(find_all(class: "edit-exam").size).to eq 0
     end
 

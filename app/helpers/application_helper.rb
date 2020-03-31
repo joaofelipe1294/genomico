@@ -13,4 +13,17 @@ module ApplicationHelper
     %Q(<span class="text-#{color}">#{params[:text]}</span>).html_safe
   end
 
+  def show_errors model
+    if model.errors.any?
+      messages = model.errors.full_messages.map { |message| "<li class='error'>#{message}</li>" }
+      %Q(
+        <div id="error_explanation">
+          <ul>
+            #{messages.join("")}
+          </ul>
+        </div>
+      ).html_safe
+    end
+  end
+
 end

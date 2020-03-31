@@ -22,7 +22,7 @@
         <td><%= internal_code.subsample.nanodrop_report.rate_260_230 %></td>
         <td><%= internal_code.subsample.qubit_report.concentration %></td>
         <td>
-          <%= link_to "Ir para atendimento", workflow_path(internal_code.attendance, tab: :samples) %>
+          <%= link_to "Ir para atendimento", attendance_path(internal_code.attendance, tab: :samples) %>
         </td>
       </tr>
     <% end %>

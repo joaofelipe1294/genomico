@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label_tag SampleKind.model_name.human %>
-    <%= select_tag :sample_kind, options_from_collection_for_select(@sample_kinds, "id", "name"), class: 'form-control' %>
+    <%= select_tag :sample_kind, options_from_collection_for_select(SampleKind.all.order(:name), "id", "name"), class: 'form-control' %>
   </div>
 
   <div class="form-group">
@@ -37,28 +37,12 @@
 
 </div>
 
-<table class="table table-bordered text-center mt-5">
-  <thead class="bg-dark text-white">
-    <th>
-      <h4>
-        <%= Sample.human_attribute_name :sample_kind %>
-      </h4>
-    </th>
-    <th>
-      <h4>
-        <%= Sample.human_attribute_name :collection_date %>
-      </h4>
-    </th>
-    <th>
-      <h4>
-        <%= Sample.human_attribute_name :receipt_notice %>
-      </h4>
-    </th>
-    <th>
-      <h4>
-        <%= Sample.human_attribute_name :storage_location %>
-      </h4>
-    </th>
+<table>
+  <thead>
+    <th>Tipo da amostra</th>
+    <th>Data da coleta</th>
+    <th>Observações de recebimento</th>
+    <th>Local de armazenamento</th>
     <th hidden>Index</th>
     <th></th>
   </thead>
@@ -69,7 +53,7 @@
 <button class="btn btn-outline-success float-right" id="btn-save-attendance">
   Salvar
 </button>
-
+<!--
 <script>
   $('#samples').val('')
 </script>
@@ -136,4 +120,4 @@
       $('#storage_location').val('')
     }
   })
-</script>
+</script> -->

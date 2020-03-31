@@ -8,7 +8,7 @@ RSpec.feature "User::Workflow::Samples::Biomol::ExtractSubsamples", type: :featu
     Rails.application.load_seed
     @attendance = create_raw_biomol_attendance
     biomol_user_do_login
-    visit workflow_path(@attendance, tab: 'samples')
+    visit attendance_path(@attendance, tab: 'samples')
   end
 
   it "check extract subsample option and count elements rendered" do
@@ -27,7 +27,7 @@ RSpec.feature "User::Workflow::Samples::Biomol::ExtractSubsamples", type: :featu
     old_internal_codes_count = @attendance.internal_codes.size
     click_link class: "new-subsample", match: :first
     click_button id: "btn-save"
-    expect(page).to have_current_path workflow_path(@attendance, tab: 'samples')
+    expect(page).to have_current_path attendance_path(@attendance, tab: 'samples')
     expect(find_all(class: "subsample").size).to eq old_subsamples_count + 1
     expect(find_all(class: "internal-code").size).to eq old_internal_codes_count + 1
   end

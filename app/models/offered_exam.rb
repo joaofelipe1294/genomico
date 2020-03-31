@@ -37,6 +37,10 @@ class OfferedExam < ActiveRecord::Base
     I18n.t("enums.offered_exam.groups.#{group}")
   end
 
+  def self.by_field field
+    self.where(field: field).where(is_active: true).order(:name)
+  end
+
   private
 
     def default_params

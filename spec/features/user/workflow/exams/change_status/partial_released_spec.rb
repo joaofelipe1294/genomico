@@ -8,7 +8,7 @@ RSpec.feature "User::Workflow::Exams::ChangeStatus::PartialReleaseds", type: :fe
     Rails.application.load_seed
     @attendance = create_in_progress_imunofeno_attendance
     imunofeno_user_do_login
-    visit workflow_path(@attendance, tab: 'exams')
+    visit attendance_path(@attendance, tab: 'exams')
     click_link class: "change-to-partial-released", match: :first
     expect(page).to have_current_path change_to_partial_released_path(@attendance.exams.first)
   end
@@ -16,7 +16,7 @@ RSpec.feature "User::Workflow::Exams::ChangeStatus::PartialReleaseds", type: :fe
   it "change exam status to partial released" do
     attach_file "exam[partial_released_report]", "#{Rails.root}/spec/support_files/PDF.pdf"
     click_button id: "btn-save"
-    expect(page).to have_current_path workflow_path(@attendance, tab: 'exams')
+    expect(page).to have_current_path attendance_path(@attendance, tab: 'exams')
     expect(find(id: 'success-warning').text).to eq "Status de exame alterado para Liberado parcial."
     exam = @attendance.exams.first.reload
     expect(exam.status).to eq :partial_released.to_s

@@ -46,7 +46,7 @@
         <td><%= internal_code.subsample.hemacounter_report.cellularity %></td>
         <td><%= internal_code.subsample.hemacounter_report.pellet_leukocyte_count%></td>
         <td>
-          <%= link_to "Atendimento", workflow_path(internal_code.attendance, tab: :samples) %>
+          <%= link_to "Atendimento", attendance_path(internal_code.attendance, tab: :samples) %>
         </td>
       </tr>
     <% end %>

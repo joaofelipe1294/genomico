@@ -12,7 +12,7 @@ RSpec.feature "User::Patient::New::Completes", type: :feature do
     click_link id: "new-patient"
     fill_patient_fields
     click_button id: "btn-save"
-    expect(page).to have_current_path new_attendance_path(Patient.last)
+    expect(page).to have_current_path new_attendance_path(patient: Patient.last)
     expect(find(id: 'success-warning').text).to eq "Paciente cadastrado com sucesso."
   end
 

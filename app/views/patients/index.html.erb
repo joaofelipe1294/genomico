@@ -53,7 +53,7 @@
           <%= patient.hospital.name %>
         </td>
         <td>
-          <%= link_to 'Novo atendimento', new_attendance_path(patient) , class: 'btn btn-sm btn-outline-success new-attendance' %>
+          <%= link_to 'Novo atendimento', new_attendance_path(patient: patient) , class: 'btn btn-sm btn-outline-success new-attendance' %>
           <%= link_to 'Mais informações', patient_path(patient, patient: true), class: 'btn btn-sm btn-outline-info patient-info' %>
         </td>
       </tr>
