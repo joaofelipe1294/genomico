@@ -1,7 +1,5 @@
 <%= render 'layouts/user_navbar' %>
-
 <%= render 'layouts/stock_navbar' %>
-
 
 <div class="mt-2 col-6 offset-3">
   <%= form_with url: stock_entries_path, method: :get, class: "" do |form| %>
@@ -53,13 +51,11 @@
             <%= link_to "Remover", stock_entry_path(stock_entry), { method: :delete, class: "btn btn-sm btn-outline-danger remove-stock-entry", data: {confirm: 'Tem certeza ?'} } %>
           <% end %>
           <% if stock_entry.products.size > 1 %>
-            <%= link_to 'Produtos', stock_entry_path(stock_entry), class: "btn btn-sm btn-outline-info show-products" %>
+            <%= link_to 'Produtos', stock_entry, class: "btn btn-sm btn-outline-info show-products" %>
           <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<div class="container pagination justify-content-center" >
-  <%= paginate @stock_entries , theme: 'twitter-bootstrap-4', pagination_class: "pagination-sm"%>
-</div>
+<%= render 'layouts/table_footer', elements: @stock_entries %>
