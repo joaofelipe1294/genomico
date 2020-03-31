@@ -77,7 +77,7 @@ class PatientsController < ApplicationController
       attendance_id = params[:attendance]
       if attendance_id.present?
         attendance = Attendance.find attendance_id
-        redirect_to workflow_path(attendance)
+        redirect_to attendance_path(attendance)
       else
         redirect_to home_path
       end

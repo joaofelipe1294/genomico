@@ -13,12 +13,8 @@
   <tbody>
     <% @patient.exams.each do |exam| %>
       <tr>
-        <td>
-          <%= exam.offered_exam.name %>
-        </td>
-        <td>
-          <%= exam.offered_exam.field.name %>
-        </td>
+        <td><%= exam.offered_exam.name %></td>
+        <td><%= exam.offered_exam.field.name %></td>
         <td>
           <% unless exam.start_date.nil? %>
             <%= l exam.start_date %>
@@ -26,11 +22,9 @@
             -
           <% end %>
         </td>
+        <td><%= show_exam_status exam.status %></td>
         <td>
-          <%= show_exam_status exam.status %>
-        </td>
-        <td>
-          <%= link_to exam.attendance.lis_code, workflow_path(exam.attendance, tab: :exams) %>
+          <%= link_to exam.attendance.lis_code, attendance_path(exam.attendance, tab: :exams) %>
         </td>
       </tr>
     <% end %>

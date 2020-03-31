@@ -18,7 +18,7 @@
 				<td><%= attendance.exams.where.not(status: :complete).size %></td>
 				<td><%= attendance.exams.where(status: :complete).size %></td>
 				<td>
-					<%= link_to 'Atendimento', workflow_path(attendance), {class: 'btn btn-sm btn-outline-primary'} %>
+					<%= link_to 'Atendimento', attendance_path(attendance), {class: 'btn btn-sm btn-outline-primary'} %>
 					<%= link_to 'Verificar andamento', attendance_path(attendance, status_changes: true), class: 'ml-2 btn btn-sm btn-outline-info' %>
 				</td>
 		<% end %>
