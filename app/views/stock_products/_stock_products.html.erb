@@ -1,0 +1,57 @@
+<div class="mt-3">
+  <div class="col-5 d-inline-block border-right offset-1">
+    <%= form_with url: stock_products_path, method: :get do |form| %>
+      <div class="form-group">
+        <%= form.text_field :name, class: 'form-control', placeholder: "Buscar produto por nome" %>
+      </div>
+      <button id="btn-search-by-name" class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+  <div class="col-5 d-inline-block">
+    <%= form_with url: stock_products_path, method: :get do |form| %>
+      <div class="form-group">
+        <%= form.select :field_id, options_for_select(["Compartilhado"]) + options_from_collection_for_select(@fields, "id", "name"), {}, class: 'form-control'%>
+      </div>
+      <button id="btn-search-by-field" class="btn btn-outline-info float-right">
+        Buscar
+      </button>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Código MV</th>
+      <th>Área</th>
+      <th>Total disponível</th>
+      <th>Medido em</th>
+      <th>Primeiro aviso</th>
+      <th>Segundo aviso</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_products.each do |stock_product| %>
+      <tr class="stock-product">
+        <td><%= stock_product.name %></td>
+        <td><%= stock_product.mv_code %></td>
+        <td><%= display_field stock_product %></td>
+        <td><%= stock_product.total_aviable %></td>
+        <td><%= stock_product.unit_of_measurement_name %></td>
+        <td><%= stock_product.first_warn_at %></td>
+        <td><%= stock_product.danger_warn_at %></td>
+        <td>
+          <%= link_to "Editar", edit_stock_product_path(stock_product), class: "btn btn-sm btn-outline-warning edit-stock-product" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= render 'layouts/table_footer', elements: @stock_products %>

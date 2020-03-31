@@ -30,15 +30,9 @@
   <tbody>
     <% @products.each do |product| %>
       <tr class="product">
-        <td>
-          <%= product.stock_product.name %>
-        </td>
-        <td>
-          <%= product.brand.name %>
-        </td>
-        <td>
-          <%= product.lot %>
-        </td>
+        <td><%= product.stock_product.name %></td>
+        <td><%= product.brand.name %></td>
+        <td><%= product.lot %></td>
         <td>
           <% if product.has_shelf_life %>
             <%= display_shelf_life product %>
@@ -46,26 +40,16 @@
             -
           <% end %>
         </td>
-        <td>
-          <%= "#{product.amount} (#{product.stock_product.unit_of_measurement_name})" %>
-        </td>
-        <td>
-          <%= product.location %>
-        </td>
-        <td>
-          <%= display_field product.stock_product %>
-        </td>
-        <td>
-          <%= display_tag product %>
-        </td>
+        <td><%= "#{product.amount} (#{product.stock_product.unit_of_measurement_name})" %></td>
+        <td><%= product.location %></td>
+        <td><%= display_field product.stock_product %></td>
+        <td><%= display_tag product %></td>
         <% if params[:kind] == :in_use.to_s %>
-          <td>
-            <%= l product.open_at %>
-          </td>
+          <td><%= l product.open_at %></td>
         <% end %>
         <td>
           <% if params[:kind] == :in_use.to_s %>
-            <%= link_to "Dar baixa", new_stock_out_path(product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>
+            <%= link_to "Dar baixa", new_stock_out_path(product: product), class: "btn btn-sm btn-outline-danger stock-out", data: { confirm: "Tem certeza ?" } %>
           <% else %>
             <%= link_to "Colocar em uso", edit_product_path(product), class: "btn btn-sm btn-outline-info open-product" %>
           <% end %>
@@ -74,5 +58,4 @@
     <% end %>
   </tbody>
 </table>
-
 <%= render "layouts/table_footer", elements: @products %>

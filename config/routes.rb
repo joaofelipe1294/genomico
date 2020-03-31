@@ -13,15 +13,6 @@ Rails.application.routes.draw do
   get 'indicators/concluded_exams', to: 'indicators#concluded_exams', as: :concluded_exams
   get 'indicators/exams_in_progress', to: 'indicators#exams_in_progress', as: :exams_in_progress
 
-  # STOCK
-  get 'stock_products/reports/base-report', to: 'stock_products#base_report', as: :stock_products_base_report
-  resources :stock_products
-  get 'stock_outs', to: 'stock_outs#index', as: :stock_outs
-  post 'stock_outs/create', to: 'stock_outs#create', as: :create_stock_out
-  get 'stock_outs/product/:id', to: 'stock_outs#new', as: :new_stock_out
-  get "stock-entry/:id/tag", to: "stock_entries#display_new_tag", as: :display_new_tag
-  resources :stock_entries
-
   # EXAMS
   patch "exams/:id/reopen", to: "exams#reopen_exam", as: :reopen_exam
   patch "exams/:id/remove-report", to: 'exams#remove_report', as: :remove_report
@@ -35,33 +26,33 @@ Rails.application.routes.draw do
   patch 'exams/:id/change_exam_status', to: 'exams#change_exam_status', as: :change_exam_status
   get 'exams/:id/edit', to: 'exams#edit', as: :edit_exam
   get 'exams/:id/start', to: 'exams#start', as: :start_exam
+  get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
+  post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
 
   #ATTENDANCE
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
   get 'attendances/new/patient/:id', to: 'attendances#new', as: :new_attendance
   patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
-  get 'attendance/:id/exams/new', to: 'exams#new', as: :new_exam
-  post 'attendance/:id/exams/new', to: 'exams#create', as: :create_exam
-
-  # USER
-  # post 'users/:id/active', to: 'users#activate', as: :activate_user
 
   root 'home#index'
   post 'home/longin', to: 'home#login'
   post 'home/logout', to: 'home#logout'
   get 'home', to: 'home#logged_in', as: :home
+  resources :brands
+  resources :samples
   resources :releases
   resources :products
-  resources :suggestions
-  resources :brands
-  resources :work_maps
   resources :hospitals
-  resources :samples
-  resources :users, except: [:show]
-  resources :attendances, except: [:new, :delete, :index, :edit]
-  resources :offered_exams
-  resources :patients, except: [:destroy]
+  resources :work_maps
   resources :subsamples
-  resources :internal_codes, only: [:create, :destroy, :index]
+  resources :suggestions
+  resources :offered_exams
+  resources :stock_entries
+  resources :stock_products
+  resources :users, except: [:show]
+  resources :patients, except: [:destroy]
   resources :backups, only: [:index, :show, :create]
+  resources :stock_outs, only: [:index, :new, :create]
+  resources :internal_codes, only: [:create, :destroy, :index]
+  resources :attendances, except: [:new, :delete, :index, :edit]
 end

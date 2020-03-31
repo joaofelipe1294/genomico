@@ -23,7 +23,7 @@ RSpec.feature "User::StockEntry::News", type: :feature, js: true do
 
   def success
     click_button id: "btn-save"
-    expect(page).to have_current_path display_new_tag_path(StockEntry.all.sample)
+    expect(page).to have_current_path stock_entry_path(StockEntry.all.sample, tag: true)
     expect(find(id: "success-warning").text).to eq I18n.t :new_stock_entry_success
   end
 
@@ -95,7 +95,7 @@ RSpec.feature "User::StockEntry::News", type: :feature, js: true do
       end
 
       it "is expected to display all labels after creation" do
-        expect(page).to have_current_path display_new_tag_path(StockEntry.all.sample)
+        expect(page).to have_current_path stock_entry_path(StockEntry.all.sample, tag: true)
         expect(find_all(class: "tag").size).to match 15
       end
 

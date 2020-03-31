@@ -1,6 +1,3 @@
-<%= render 'layouts/user_navbar' %>
-<%= render 'layouts/stock_navbar' %>
-
 <h3 class="text-center">
   <% if @stock_entry.products.size == 1 %>
     Código gerado: <span class="text-primary tag"><%= @stock_entry.products.last.tag %></span>

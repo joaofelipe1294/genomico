@@ -1,0 +1,20 @@
+<table class="table-sm mt-3">
+  <thead>
+    <th>Produto</th>
+    <th>Área</th>
+    <th>Quantidade em estoque</th>
+    <th>Quantidade em uso</th>
+  </thead>
+  <tbody>
+    <% @stock_products.each do |stock_product| %>
+      <tr>
+        <td><%= stock_product.name %></td>
+        <td><%= display_field stock_product %></td>
+        <td><%= display_total_aviable stock_product %></td>
+        <td><%= display_total_in_use stock_product %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render "layouts/table_footer", elements: @stock_products %>

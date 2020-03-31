@@ -7,15 +7,19 @@ class StockProductsController < ApplicationController
   # GET /stock_products
   # GET /stock_products.json
   def index
-    search_name = params[:name]
-    if search_name.present?
-      stock_products = StockProduct.where("name ILIKE ?", "%#{search_name}%")
-    elsif params[:field_id].present?
-      stock_products = search_by_stock_product
+    if params[:report].present?
+      base_report
     else
-      stock_products = StockProduct.all
+      search_name = params[:name]
+      if search_name.present?
+        stock_products = StockProduct.where("name ILIKE ?", "%#{search_name}%")
+      elsif params[:field_id].present?
+        stock_products = search_by_stock_product
+      else
+        stock_products = StockProduct.all
+      end
+      @stock_products = stock_products.order(:name).page params[:page]
     end
-    @stock_products = stock_products.order(:name).page params[:page]
   end
 
   # GET /stock_products/new
@@ -51,10 +55,10 @@ class StockProductsController < ApplicationController
   end
 
   # GET /stock_products/reports/base-report
-  def base_report
-    stock_products = StockProduct.products_base_report
-    @stock_products = Kaminari.paginate_array(stock_products).page(params[:page]).per(15)
-  end
+  # def base_report
+  #   stock_products = StockProduct.products_base_report
+  #   @stock_products = Kaminari.paginate_array(stock_products).page(params[:page]).per(15)
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -75,4 +79,10 @@ class StockProductsController < ApplicationController
         StockProduct.where(field_id: field_id)
       end
     end
+
+    def base_report
+      stock_products = StockProduct.products_base_report
+      @stock_products = Kaminari.paginate_array(stock_products).page(params[:page]).per(15)
+    end
+
 end
