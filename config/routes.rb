@@ -31,7 +31,6 @@ Rails.application.routes.draw do
 
   #ATTENDANCE
   get 'attendances/:id/workflow', to: 'attendances#workflow', as: :workflow
-  patch 'attendances/:id/report', to: 'attendances#add_report', as: :add_report
   resources :attendances, except: [:delete, :index, :edit]
 
   root 'home#index'

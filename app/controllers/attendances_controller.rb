@@ -8,19 +8,8 @@ class AttendancesController < ApplicationController
   # GET /attendances/1
   # GET /attendances/1.json
   def show
-    exam_id = params[:exam]
-    if exam_id && exam_id != 'all'
-      @exams_status_changes = ExamStatusChange.
-                                              where(
-                                                exam_id: exam_id
-                                              ).
-                                              order(change_date: :desc)
-    else
-      @exams_status_changes = ExamStatusChange.
-                                              where(
-                                                exam_id: @attendance.exams.ids
-                                              ).
-                                              order(change_date: :desc)
+    if params[:status_changes].present?
+      status_changes
     end
   end
 
@@ -47,14 +36,14 @@ class AttendancesController < ApplicationController
   # PATCH/PUT /attendances/1
   # PATCH/PUT /attendances/1.json
   def update
-      if @attendance.update(attendance_params)
-        flash[:success] = I18n.t :attendance_update_success
-        redirect_to workflow_path(@attendance, {tab: params[:tab]})
-      else
-        set_health_ensurances
-        flash[:warning] = @attendance.errors.full_messages.first
-        redirect_to workflow_path(@attendance, {tab: params[:tab]})
-      end
+    if @attendance.update(attendance_params)
+      flash[:success] = I18n.t :attendance_update_success
+      redirect_to workflow_path(@attendance, {tab: params[:tab]})
+    else
+      set_health_ensurances
+      flash[:warning] = @attendance.errors.full_messages.first
+      redirect_to workflow_path(@attendance, {tab: params[:tab]})
+    end
   end
 
   #GET attendances/1
@@ -117,6 +106,15 @@ class AttendancesController < ApplicationController
       elsif @attendance.has_pendent_reports?
         flash[:info] = I18n.t :pending_reports_message
       end
+    end
+
+    def status_changes
+      if params[:exam].present? && params[:exam] != 'all'
+        exams_status_changes = ExamStatusChange.where(exam_id: params[:exam])
+      else
+        exams_status_changes = ExamStatusChange.where(exam_id: @attendance.exams.ids)
+      end
+      @exams_status_changes = exams_status_changes.order(change_date: :desc)
     end
 
 end
