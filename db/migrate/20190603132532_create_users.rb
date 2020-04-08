@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.string :name
       t.boolean :is_active
-      t.references :user_kind, index: true, foreign_key: true
+      #t.references :user_kind, index: true, foreign_key: true
 
       t.timestamps null: false
     end

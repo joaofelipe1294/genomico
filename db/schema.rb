@@ -15,16 +15,16 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attendances", id: :serial, force: :cascade do |t|
+  create_table "attendances", force: :cascade do |t|
     t.string "cid_code"
     t.string "lis_code"
     t.datetime "start_date"
     t.datetime "finish_date"
-    t.integer "patient_id"
+    t.bigint "patient_id"
     t.string "doctor_name"
     t.string "doctor_crm"
     t.string "observations"
-    t.integer "health_ensurance_id"
+    t.bigint "health_ensurance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "report_file_name"
@@ -38,23 +38,17 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["patient_id"], name: "index_attendances_on_patient_id"
   end
 
-  create_table "attendances_work_maps", id: :serial, force: :cascade do |t|
-    t.integer "attendance_id"
-    t.integer "work_map_id"
+  create_table "attendances_work_maps", force: :cascade do |t|
+    t.bigint "attendance_id"
+    t.bigint "work_map_id"
     t.index ["attendance_id"], name: "index_attendances_work_maps_on_attendance_id"
     t.index ["work_map_id"], name: "index_attendances_work_maps_on_work_map_id"
   end
 
-  create_table "backups", id: :serial, force: :cascade do |t|
+  create_table "backups", force: :cascade do |t|
     t.datetime "generated_at"
     t.boolean "status"
     t.string "dump_path"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "bottle_status_kinds", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -71,8 +65,8 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "exam_status_changes", id: :serial, force: :cascade do |t|
-    t.integer "exam_id"
+  create_table "exam_status_changes", force: :cascade do |t|
+    t.bigint "exam_id"
     t.datetime "change_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -82,29 +76,17 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["user_id"], name: "index_exam_status_changes_on_user_id"
   end
 
-  create_table "exam_status_kinds", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["id"], name: "index_exam_status_kinds_on_id"
-    t.index ["name"], name: "index_exam_status_kinds_on_name"
-  end
-
-  create_table "exams", id: :serial, force: :cascade do |t|
-    t.integer "offered_exam_id"
+  create_table "exams", force: :cascade do |t|
+    t.bigint "offered_exam_id"
     t.date "start_date"
     t.date "finish_date"
-    t.integer "attendance_id"
+    t.bigint "attendance_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "report_file_name"
     t.string "report_content_type"
     t.integer "report_file_size"
     t.datetime "report_updated_at"
-    t.string "partial_released_report_file_name"
-    t.string "partial_released_report_content_type"
-    t.integer "partial_released_report_file_size"
-    t.datetime "partial_released_report_updated_at"
     t.boolean "was_late"
     t.integer "lag_time"
     t.integer "status"
@@ -120,12 +102,11 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["internal_code_id"], name: "index_exams_internal_codes_on_internal_code_id"
   end
 
-  create_table "fields", id: :serial, force: :cascade do |t|
+  create_table "fields", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_fields_on_id"
-    t.index ["name"], name: "index_fields_on_name"
   end
 
   create_table "fields_users", id: false, force: :cascade do |t|
@@ -134,7 +115,7 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["field_id", "user_id"], name: "index_fields_users_on_field_id_and_user_id"
   end
 
-  create_table "health_ensurances", id: :serial, force: :cascade do |t|
+  create_table "health_ensurances", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -152,7 +133,7 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["subsample_id"], name: "index_hemacounter_reports_on_subsample_id"
   end
 
-  create_table "hospitals", id: :serial, force: :cascade do |t|
+  create_table "hospitals", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -181,20 +162,20 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["work_map_id"], name: "index_internal_codes_work_maps_on_work_map_id"
   end
 
-  create_table "nanodrop_reports", id: :serial, force: :cascade do |t|
+  create_table "nanodrop_reports", force: :cascade do |t|
     t.float "concentration"
     t.float "rate_260_280"
     t.float "rate_260_230"
-    t.integer "subsample_id"
+    t.bigint "subsample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_nanodrop_reports_on_id"
     t.index ["subsample_id"], name: "index_nanodrop_reports_on_subsample_id"
   end
 
-  create_table "offered_exams", id: :serial, force: :cascade do |t|
+  create_table "offered_exams", force: :cascade do |t|
     t.string "name"
-    t.integer "field_id"
+    t.bigint "field_id"
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -205,15 +186,16 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["id"], name: "index_offered_exams_on_id"
   end
 
-  create_table "patients", id: :serial, force: :cascade do |t|
+  create_table "patients", force: :cascade do |t|
     t.string "name"
     t.date "birth_date"
     t.string "mother_name"
     t.string "medical_record"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "hospital_id"
+    t.bigint "hospital_id"
     t.text "observations"
+    t.index ["hospital_id"], name: "index_patients_on_hospital_id"
     t.index ["id"], name: "index_patients_on_id"
     t.index ["medical_record"], name: "index_patients_on_medical_record"
     t.index ["name"], name: "index_patients_on_name"
@@ -242,9 +224,9 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["stock_product_id"], name: "index_products_on_stock_product_id"
   end
 
-  create_table "qubit_reports", id: :serial, force: :cascade do |t|
+  create_table "qubit_reports", force: :cascade do |t|
     t.float "concentration"
-    t.integer "subsample_id"
+    t.bigint "subsample_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_qubit_reports_on_id"
@@ -270,23 +252,22 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sample_kinds", id: :serial, force: :cascade do |t|
+  create_table "sample_kinds", force: :cascade do |t|
     t.string "name"
     t.string "acronym"
     t.integer "refference_index"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["id"], name: "index_sample_kinds_on_id"
-    t.index ["name"], name: "index_sample_kinds_on_name"
   end
 
-  create_table "samples", id: :serial, force: :cascade do |t|
-    t.integer "sample_kind_id"
+  create_table "samples", force: :cascade do |t|
+    t.bigint "sample_kind_id"
     t.boolean "has_subsample"
     t.date "entry_date"
     t.date "collection_date"
     t.string "refference_label"
-    t.integer "attendance_id"
+    t.bigint "attendance_id"
     t.string "storage_location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -334,25 +315,24 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["field_id"], name: "index_stock_products_on_field_id"
   end
 
-  create_table "subsample_kinds", id: :serial, force: :cascade do |t|
+  create_table "subsample_kinds", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "acronym"
     t.integer "refference_index"
     t.index ["id"], name: "index_subsample_kinds_on_id"
-    t.index ["name"], name: "index_subsample_kinds_on_name"
   end
 
-  create_table "subsamples", id: :serial, force: :cascade do |t|
+  create_table "subsamples", force: :cascade do |t|
     t.string "storage_location"
     t.string "refference_label"
-    t.integer "subsample_kind_id"
-    t.integer "sample_id"
+    t.bigint "subsample_kind_id"
+    t.bigint "sample_id"
     t.datetime "collection_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "attendance_id"
+    t.bigint "attendance_id"
     t.bigint "patient_id"
     t.string "observations"
     t.index ["attendance_id"], name: "index_subsamples_on_attendance_id"
@@ -384,7 +364,7 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["requester_id"], name: "index_suggestions_on_requester_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "login"
     t.string "password_digest"
     t.string "name"
@@ -396,7 +376,7 @@ ActiveRecord::Schema.define(version: 2020_03_26_194719) do
     t.index ["id"], name: "index_users_on_id"
   end
 
-  create_table "work_maps", id: :serial, force: :cascade do |t|
+  create_table "work_maps", force: :cascade do |t|
     t.date "date"
     t.string "name"
     t.datetime "created_at", null: false

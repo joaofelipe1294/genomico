@@ -3,7 +3,6 @@ default: &default
   username: postgres
   encoding: unicode
   host: postgres
-  #port: 5432
   pool: 5
 
 development:
