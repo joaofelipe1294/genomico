@@ -66,6 +66,8 @@ gem "redis", ">= 3.2.0"
 gem "rubyzip", ">= 1.3.0"
 gem "cuprite", group: :test
 gem "puma", "~> 4.3.3"
+# A library for generating fake data such as names, addresses, and phone numbers.
+gem 'faker', '~> 2.0.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -78,8 +80,7 @@ group :development, :test do
   gem 'capybara'
   # Factory Bot ♥ Rails https://thoughtbot.com/services/ruby-…
   gem 'factory_bot_rails'
-  # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker', '~> 2.0.0'
+  
   # Simple one-liner tests for common Rails functionality https://matchers.shoulda.io
   gem 'shoulda-matchers'
 end
