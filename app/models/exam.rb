@@ -8,7 +8,7 @@ class Exam < ActiveRecord::Base
   has_attached_file :report
   validates_attachment_content_type :report, :content_type => ["application/pdf"]
   has_attached_file :partial_released_report
-  validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
+  #validates_attachment_content_type :partial_released_report, :content_type => ["application/pdf"]
   after_create :reload_issues_cache
   after_update :reload_issues_cache
   before_update :treat_two_internal_codes_case
