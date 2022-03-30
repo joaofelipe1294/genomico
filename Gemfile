@@ -65,7 +65,7 @@ gem "redis", ">= 3.2.0"
 # In Rubyzip before 1.3.0, a crafted ZIP file can bypass application checks on ZIP entry sizes because data about the uncompressed size can be spoofed. This allows attackers to cause a denial of service (disk consumption).
 gem "rubyzip", ">= 1.3.0"
 gem "cuprite", group: :test
-gem "puma", "~> 4.3.3"
+gem "puma", "~> 4.3.12"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
